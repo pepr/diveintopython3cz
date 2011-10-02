@@ -1,0 +1,452 @@
+﻿<!DOCTYPE html> <meta charset=utf-8>
+<title>Obsah – Ponořme se do Pythonu 3</title>
+<link rel=stylesheet href=dip3.css>
+<style>
+h1:before{content:''}
+ol,ul{font-weight:bold}
+li ol{font-weight:normal}
+#porting-code-to-python-3-with-2to3,#special-method-names,#where-to-go-from-here{list-style:none;margin:0 0 0 -2em}
+#porting-code-to-python-3-with-2to3 > ol,#special-method-names > ol,#where-to-go-from-here > ol{margin:0;padding:0 0 0 4.5em}
+#porting-code-to-python-3-with-2to3:before{content:'A. \00a0 \00a0'}
+#special-method-names:before{content:'B. \00a0 \00a0'}
+#where-to-go-from-here:before{content:'C. \00a0 \00a0'}
+</style>
+<link rel=stylesheet media='only screen and (max-device-width: 480px)' href=mobile.css>
+<link rel=stylesheet media=print href=print.css>
+<meta name=viewport content='initial-scale=1.0'>
+<!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8><input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
+class="u">‣</span> Ponořme se do Pythonu 3 <span class="u">‣</span>
+<h1>Obsah</h1>
+<!-- toc -->
+<ol start=-1>
+<li id=whats-new><a href="whats-new.html">Co najdete v „Ponořme se do Pythonu 3“ nového</a>
+<ol>
+<li><a href="whats-new.html#divingin"><i>aneb</i> „záporná úroveň”</a>
+</ol>
+<li id=installing-python><a href="installing-python.html">Instalujeme Python</a>
+<ol>
+<li><a href="installing-python.html#divingin">Ponořme se</a>
+<li><a href="installing-python.html#which">Který Python je pro vás ten správný?</a>
+<li><a href="installing-python.html#windows">Instalace pod Microsoft Windows</a>
+<li><a href="installing-python.html#macosx">Instalace pod Mac OS X</a>
+<li><a href="installing-python.html#ubuntu">Instalace pod Ubuntu Linux</a>
+<li><a href="installing-python.html#other">Instalace na jiných platformách</a>
+<li><a href="installing-python.html#idle">Použití Python Shell</a>
+<li><a href="installing-python.html#editors">Editory a vývojová prostředí pro Python</a>
+</ol>
+<li id=your-first-python-program><a href="your-first-python-program.html">Váš první pythonovský program</a>
+<ol>
+<li><a href="your-first-python-program.html#divingin">Ponořme se</a>
+<li><a href="your-first-python-program.html#declaringfunctions">Deklarace funkcí</a>
+<ol>
+<li><a href="your-first-python-program.html#optional-arguments">Nepovinné a pojmenované argumenty</a>
+</ol>
+<li><a href="your-first-python-program.html#readability">Psaní čitelného kódu</a>
+<ol>
+<li><a href="your-first-python-program.html#docstrings">Dokumentační řetězce</a>
+</ol>
+<li><a href="your-first-python-program.html#importsearchpath">Vyhledávací cesta pro <code>import</code></a>
+<li><a href="your-first-python-program.html#everythingisanobject">Všechno je objekt</a>
+<ol>
+<li><a href="your-first-python-program.html#whatsanobject">Co to vlastně je objekt?</a>
+</ol>
+<li><a href="your-first-python-program.html#indentingcode">Odsazování kódu</a>
+<li><a href="your-first-python-program.html#exceptions">Výjimky</a>
+<ol>
+<li><a href="your-first-python-program.html#importerror">Obsluha chyb importu</a>
+</ol>
+<li><a href="your-first-python-program.html#nameerror">Volné proměnné</a>
+<li><a href="your-first-python-program.html#case">Vše je citlivé na velikost písmen</a>
+<li><a href="your-first-python-program.html#runningscripts">Spouštění skriptů</a>
+<li><a href="your-first-python-program.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=native-datatypes><a href="native-datatypes.html">Přirozené datové typy</a>
+<ol>
+<li><a href="native-datatypes.html#divingin">Ponořme se</a>
+<li><a href="native-datatypes.html#booleans">Booleovský typ</a>
+<li><a href="native-datatypes.html#numbers">Čísla</a>
+<ol>
+<li><a href="native-datatypes.html#number-coercion">Vynucení převodu celých čísel na reálná a naopak</a>
+<li><a href="native-datatypes.html#common-numerical-operations">Běžné operace s čísly</a>
+<li><a href="native-datatypes.html#fractions">Zlomky</a>
+<li><a href="native-datatypes.html#trig">Trigonometrie</a>
+<li><a href="native-datatypes.html#numbers-in-a-boolean-context">Čísla v booleovském kontextu</a>
+</ol>
+<li><a href="native-datatypes.html#lists">Seznamy</a>
+<ol>
+<li><a href="native-datatypes.html#creatinglists">Vytvoření seznamu</a>
+<li><a href="native-datatypes.html#slicinglists">Vytváření podseznamů</a>
+<li><a href="native-datatypes.html#extendinglists">Přidávání položek do seznamu</a>
+<li><a href="native-datatypes.html#searchinglists">Vyhledávání hodnoty v seznamu</a>
+<li><a href="native-datatypes.html#removingfromlists">Odstraňování položek ze seznamu</a>
+<li><a href="native-datatypes.html#popgoestheweasel">Odstraňování položek ze seznamu: Bonusové kolo</a>
+<li><a href="native-datatypes.html#lists-in-a-boolean-context">Seznamy v booleovském kontextu</a>
+</ol>
+<li><a href="native-datatypes.html#tuples">N-tice</a>
+<ol>
+<li><a href="native-datatypes.html#tuples-in-a-boolean-context">N-tice v booleovském kontextu</a>
+<li><a href="native-datatypes.html#multivar">Přiřazení více hodnot najednou</a>
+</ol>
+<li><a href="native-datatypes.html#sets">Množiny</a>
+<ol>
+<li><a href="native-datatypes.html#creating-a-set">Vytvoření množiny</a>
+<li><a href="native-datatypes.html#modifying-sets">Úprava množiny</a>
+<li><a href="native-datatypes.html#removing-from-sets">Odstraňování položek z množiny</a>
+<li><a href="native-datatypes.html#common-set-operations">Běžné množinové operace</a>
+<li><a href="native-datatypes.html#sets-in-a-boolean-context">Množiny v booleovském kontextu</a>
+</ol>
+<li><a href="native-datatypes.html#dictionaries">Slovníky</a>
+<ol>
+<li><a href="native-datatypes.html#creating-dictionaries">Vytvoření slovníku</a>
+<li><a href="native-datatypes.html#modifying-dictionaries">Úprava slovníku</a>
+<li><a href="native-datatypes.html#mixed-value-dictionaries">Slovníky se smíšeným obsahem</a>
+<li><a href="native-datatypes.html#dictionaries-in-a-boolean-context">Slovníky v booleovském kontextu</a>
+</ol>
+<li><a href="native-datatypes.html#none"><code>None</code></a>
+<ol>
+<li><a href="native-datatypes.html#none-in-a-boolean-context"><code>None</code> v booleovském kontextu</a>
+</ol>
+<li><a href="native-datatypes.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=comprehensions><a href="comprehensions.html">Generátorová notace</a>
+<ol>
+<li><a href="comprehensions.html#divingin">Ponořme se</a>
+<li><a href="comprehensions.html#os">Práce se soubory a s adresáři</a>
+<ol>
+<li><a href="comprehensions.html#getcwd">Aktuální pracovní adresář</a>
+<li><a href="comprehensions.html#ospath">Práce se jmény souborů a adresářů</a>
+<li><a href="comprehensions.html#glob">Výpis adresářů</a>
+<li><a href="comprehensions.html#osstat">Získání dalších informací o souboru</a>
+<li><a href="comprehensions.html#abspath">Jak vytvořit absolutní cesty</a>
+</ol>
+<li><a href="comprehensions.html#listcomprehension">Generátorová notace seznamu</a>
+<li><a href="comprehensions.html#dictionarycomprehension">Generátorová notace slovníku</a>
+<ol>
+<li><a href="comprehensions.html#stupiddicttricks">Další legrácky s generátorovou notací slovníků</a>
+</ol>
+<li><a href="comprehensions.html#setcomprehension">Generátorová notace množin</a>
+<li><a href="comprehensions.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=strings><a href="strings.html">Řetězce</a>
+<ol>
+<li><a href="strings.html#boring-stuff">Pár nudných věcí, kterým musíme rozumět dříve, než se budeme moci ponořit</a>
+<li><a href="strings.html#one-ring-to-rule-them-all">Unicode</a>
+<li><a href="strings.html#divingin">Ponořme se</a>
+<li><a href="strings.html#formatting-strings">Formátovací řetězce</a>
+<ol>
+<li><a href="strings.html#compound-field-names">Složená jména oblastí</a>
+<li><a href="strings.html#format-specifiers">Specifikátory formátu</a>
+</ol>
+<li><a href="strings.html#common-string-methods">Další běžné metody řetězců</a>
+<ol>
+<li><a href="strings.html#slicingstrings">Vykrajování podřetězců</a>
+</ol>
+<li><a href="strings.html#byte-arrays">Řetězce vs. bajty</a>
+<li><a href="strings.html#py-encoding">Závěrečná poznámka: Kódování znaků v pythonovském zdrojovém textu</a>
+<li><a href="strings.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=regular-expressions><a href="regular-expressions.html">Regulární výrazy</a>
+<ol>
+<li><a href="regular-expressions.html#divingin">Ponořme se</a>
+<li><a href="regular-expressions.html#streetaddresses">Případová studie: Adresa ulice</a>
+<li><a href="regular-expressions.html#romannumerals">Případová studie: Římská čísla</a>
+<ol>
+<li><a href="regular-expressions.html#thousands">Kontrola tisícovek</a>
+<li><a href="regular-expressions.html#hundreds">Kontrola stovek</a>
+</ol>
+<li><a href="regular-expressions.html#nmsyntax">Využití syntaxe <code>{n,m}</code></a>
+<ol>
+<li><a href="regular-expressions.html#tensandones">Kontrola desítek a jednotek</a>
+</ol>
+<li><a href="regular-expressions.html#verbosere">Víceslovné regulární výrazy</a>
+<li><a href="regular-expressions.html#phonenumbers">Případová studie: Analýza telefonních čísel</a>
+<li><a href="regular-expressions.html#summary">Shrnutí</a>
+</ol>
+<li id=generators><a href="generators.html">Uzávěry a generátory</a>
+<ol>
+<li><a href="generators.html#divingin">Ponořme se</a>
+<li><a href="generators.html#i-know">Já vím jak na to! Použijeme regulární výrazy!</a>
+<li><a href="generators.html#a-list-of-functions">Seznam funkcí</a>
+<li><a href="generators.html#a-list-of-patterns">Seznam vzorků</a>
+<li><a href="generators.html#a-file-of-patterns">Soubor vzorků</a>
+<li><a href="generators.html#generators">Generátory</a>
+<ol>
+<li><a href="generators.html#a-fibonacci-generator">Generátor Fibonacciho posloupnosti</a>
+<li><a href="generators.html#a-plural-rule-generator">Generátor pravidel pro množné číslo</a>
+</ol>
+<li><a href="generators.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=iterators><a href="iterators.html">Třídy a iterátory</a>
+<ol>
+<li><a href="iterators.html#divingin">Ponořme se</a>
+<li><a href="iterators.html#defining-classes">Definice tříd</a>
+<ol>
+<li><a href="iterators.html#init-method">Metoda <code>__init__()</code></a>
+</ol>
+<li><a href="iterators.html#instantiating-classes">Vytváření instancí tříd</a>
+<li><a href="iterators.html#instance-variables">Členské proměnné</a>
+<li><a href="iterators.html#a-fibonacci-iterator">Fibonacciho iterátor</a>
+<li><a href="iterators.html#a-plural-rule-iterator">Iterátor pro pravidla množného čísla</a>
+<li><a href="iterators.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=advanced-iterators><a href="advanced-iterators.html">Iterátory pro pokročilé</a>
+<ol>
+<li><a href="advanced-iterators.html#divingin">Ponořme se</a>
+<li><a href="advanced-iterators.html#re-findall">Nalezení všech výskytů vzorku</a>
+<li><a href="advanced-iterators.html#unique-items">Nalezení jedinečných prvků posloupnosti</a>
+<li><a href="advanced-iterators.html#assert">Činíme předpoklady</a>
+<li><a href="advanced-iterators.html#generator-expressions">Generátorové výrazy</a>
+<li><a href="advanced-iterators.html#permutations">Výpočet permutací (pro lenochy)</a>
+<li><a href="advanced-iterators.html#more-itertools">Další legrácky v modulu <code>itertools</code></a>
+<li><a href="advanced-iterators.html#string-translate">Nový způsob úpravy řetězce</a>
+<li><a href="advanced-iterators.html#eval">Vyhodnocování libovolných řetězců zachycujících pythonovské výrazy</a>
+<li><a href="advanced-iterators.html#alphametics-finale">Spojme to všechno dohromady</a>
+<li><a href="advanced-iterators.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=unit-testing><a href="unit-testing.html">Unit Testing</a>
+<ol>
+<li><a href="unit-testing.html#divingin">(Ne)ponořme se</a>
+<li><a href="unit-testing.html#romantest1">Jediná otázka</a>
+<li><a href="unit-testing.html#romantest2">„Zastav a začni hořet“</a>
+<li><a href="unit-testing.html#romantest3">Více zastávek, více ohně</a>
+<li><a href="unit-testing.html#romantest4">A ještě jedna věc...</a>
+<li><a href="unit-testing.html#romantest5">Symetrie, která potěší</a>
+<li><a href="unit-testing.html#romantest6">Více špatných vstupů</a>
+</ol>
+<li id=refactoring><a href="refactoring.html">Refaktorizace</a>
+<ol>
+<li><a href="refactoring.html#divingin">Ponořme se</a>
+<li><a href="refactoring.html#changing-requirements">Zvládání měnících se požadavků</a>
+<li><a href="refactoring.html#refactoring">Refaktorizace</a>
+<li><a href="refactoring.html#summary">Shrnutí</a>
+</ol>
+<li id=files><a href="files.html">Soubory</a>
+<ol>
+<li><a href="files.html#divingin">Ponořme se</a>
+<li><a href="files.html#reading">Čtení z textových souborů</a>
+<ol>
+<li><a href="files.html#encoding">Kódování znaků vystrkuje svou ošklivou hlavu</a>
+<li><a href="files.html#file-objects">Objekty typu stream</a>
+<li><a href="files.html#read">Čtení dat z textového souboru</a>
+<li><a href="files.html#close">Zavírání souborů</a>
+<li><a href="files.html#with">Automatické zavírání souborů</a>
+<li><a href="files.html#for">Čtení dat po řádcích</a>
+</ol>
+<li><a href="files.html#writing">Zápis do textových souborů</a>
+<ol>
+<li><a href="files.html#encoding-again">A znovu kódování znaků</a>
+</ol>
+<li><a href="files.html#binary">Binární soubory</a>
+<li><a href="files.html#file-like-objects">Objekty typu stream z nesouborových zdrojů</a>
+<ol>
+<li><a href="files.html#gzip">Práce s komprimovanými soubory</a>
+</ol>
+<li><a href="files.html#stdio">Standardní vstup, výstup a chybový výstup</a>
+<ol>
+<li><a href="files.html#redirect">Přesměrování standardního výstupu</a>
+</ol>
+<li><a href="files.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=xml><a href="xml.html">XML</a>
+<ol>
+<li><a href="xml.html#divingin">Ponořme se</a>
+<li><a href="xml.html#xml-intro">Pětiminutový rychlokurz XML</a>
+<li><a href="xml.html#xml-structure">Struktura Atom Feed</a>
+<li><a href="xml.html#xml-parse">Analýza XML</a>
+<ol>
+<li><a href="xml.html#xml-elements">Elementy jsou reprezentovány seznamy</a>
+<li><a href="xml.html#xml-attributes">Atributy jsou reprezentovány slovníky</a>
+</ol>
+<li><a href="xml.html#xml-find">Vyhledávání uzlů v XML dokumentu</a>
+<li><a href="xml.html#xml-lxml">lxml jde ještě dál</a>
+<li><a href="xml.html#xml-generate">Generování XML</a>
+<li><a href="xml.html#xml-custom-parser">Analýza porušeného XML</a>
+<li><a href="xml.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=serializing><a href="serializing.html">Serializace pythonovských objektů</a>
+<ol>
+<li><a href="serializing.html#divingin">Ponořme se</a>
+<ol>
+<li><a href="serializing.html#administrivia">Stručná poznámka k příkladům v této kapitole</a>
+</ol>
+<li><a href="serializing.html#dump">Uložení dat do „pickle souboru“</a>
+<li><a href="serializing.html#load">Načítání dat z „pickle souboru“</a>
+<li><a href="serializing.html#dumps">„Piklení“ bez souboru</a>
+<li><a href="serializing.html#protocol-versions">Bajty a řetězce znovu zvedají své ošklivé hlavy</a>
+<li><a href="serializing.html#debugging">Ladění „pickle souborů“</a>
+<li><a href="serializing.html#json">Serializace pythonovských objektů pro čtení z jiných jazyků</a>
+<li><a href="serializing.html#json-dump">Uložení dat do <abbr>JSON</abbr> souboru</a>
+<li><a href="serializing.html#json-types">Zobrazení pythonovských datových typů do <abbr>JSON</abbr></a>
+<li><a href="serializing.html#json-unknown-types">Serializace datových typů, které <abbr>JSON</abbr> nepodporuje</a>
+<li><a href="serializing.html#json-load">Načítání dat z <abbr>JSON</abbr> souboru</a>
+<li><a href="serializing.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=http-web-services><a href="http-web-services.html">Webové služby nad HTTP</a>
+<ol>
+<li><a href="http-web-services.html#divingin">Ponořme se</a>
+<li><a href="http-web-services.html#http-features">Vlastnosti HTTP</a>
+<ol>
+<li><a href="http-web-services.html#caching">Používání mezipaměti</a>
+<li><a href="http-web-services.html#last-modified">Kontrola <code>Last-Modified</code></a>
+<li><a href="http-web-services.html#etags">Kontrola <code>ETag</code></a>
+<li><a href="http-web-services.html#compression">Komprese</a>
+<li><a href="http-web-services.html#redirects">Přesměrování</a>
+</ol>
+<li><a href="http-web-services.html#dont-try-this-at-home">Jak se nedostat k datům přes HTTP</a>
+<li><a href="http-web-services.html#whats-on-the-wire">Co že to máme na drátě?</a>
+<li><a href="http-web-services.html#introducing-httplib2">Představujeme <code>httplib2</code></a>
+<ol>
+<li><a href="http-web-services.html#why-bytes">Krátká odbočka vysvětlující, proč <code>httplib2</code> vrací bajty místo řetězců</a>
+<li><a href="http-web-services.html#httplib2-caching">Jak <code>httplib2</code> zachází s mezipamětí</a>
+<li><a href="http-web-services.html#httplib2-etags">Jak <code>httplib2</code> zachází s hlavičkami <code>Last-Modified</code> a <code>ETag</code></a>
+<li><a href="http-web-services.html#httplib2-compression">Jak <code>http2lib</code> pracuje s kompresí</a>
+<li><a href="http-web-services.html#httplib2-redirects">Jak <code>httplib2</code> řeší přesměrování</a>
+</ol>
+<li><a href="http-web-services.html#beyond-get">Za hranicemi HTTP GET</a>
+<li><a href="http-web-services.html#beyond-post">Za hranicemi HTTP POST</a>
+<li><a href="http-web-services.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=case-study-porting-chardet-to-python-3><a href="case-study-porting-chardet-to-python-3.html">Případová studie: Přepis <code>chardet</code> pro Python 3</a>
+<ol>
+<li><a href="case-study-porting-chardet-to-python-3.html#divingin">Ponořme se</a>
+<li><a href="case-study-porting-chardet-to-python-3.html#faq.what">Co se rozumí autodetekcí znakového kódování?</a>
+<ol>
+<li><a href="case-study-porting-chardet-to-python-3.html#faq.impossible">Není to náhodou neproveditelné?</a>
+<li><a href="case-study-porting-chardet-to-python-3.html#faq.who">Existuje takový algoritmus?</a>
+</ol>
+<li><a href="case-study-porting-chardet-to-python-3.html#divingin2">Úvod do modulu <code>chardet</code></a>
+<ol>
+<li><a href="case-study-porting-chardet-to-python-3.html#how.bom"><abbr>UTF-n</abbr> s <abbr>BOM</abbr></a>
+<li><a href="case-study-porting-chardet-to-python-3.html#how.esc">Kódování escape sekvencemi</a>
+<li><a href="case-study-porting-chardet-to-python-3.html#how.mb">Vícebajtová kódování</a>
+<li><a href="case-study-porting-chardet-to-python-3.html#how.sb">Jednobajtová kódování</a>
+<li><a href="case-study-porting-chardet-to-python-3.html#how.windows1252"><code>windows-1252</code></a>
+</ol>
+<li><a href="case-study-porting-chardet-to-python-3.html#running2to3">Spouštíme <code>2to3</code></a>
+<li><a href="case-study-porting-chardet-to-python-3.html#multifile-modules">Krátká odbočka k vícesouborovým modulům</a>
+<li><a href="case-study-porting-chardet-to-python-3.html#manual">Opravme, co <code>2to3</code> neumí</a>
+<ol>
+<li><a href="case-study-porting-chardet-to-python-3.html#falseisinvalidsyntax"><code>False</code> je syntaktická chyba</a>
+<li><a href="case-study-porting-chardet-to-python-3.html#nomodulenamedconstants">Nenalezen modul <code>constants</code></a>
+<li><a href="case-study-porting-chardet-to-python-3.html#namefileisnotdefined">Jméno <var>'file'</var> není definováno</a>
+<li><a href="case-study-porting-chardet-to-python-3.html#cantuseastringpattern">Řetězcový vzorek nelze použít pro bajtové objekty</a>
+<li><a href="case-study-porting-chardet-to-python-3.html#cantconvertbytesobject">Objekt typu <code>'bytes'</code> nelze implicitně převést na <code>str</code></a>
+<li><a href="case-study-porting-chardet-to-python-3.html#unsupportedoperandtypeforplus">Nepodporované typy operandů pro +: <code>'int'</code> a <code>'bytes'</code></a>
+<li><a href="case-study-porting-chardet-to-python-3.html#ordexpectedstring">funkce <code>ord()</code> očekávala řetězec o délce 1, ale byl nalezen <code>int</code></a>
+<li><a href="case-study-porting-chardet-to-python-3.html#unorderabletypes">Neuspořádatelné datové typy: <code>int()</code> &gt;= <code>str()</code></a>
+<li><a href="case-study-porting-chardet-to-python-3.html#reduceisnotdefined">Globální jméno <code>'reduce'</code> není definováno</a>
+</ol>
+<li><a href="case-study-porting-chardet-to-python-3.html#summary">Shrnutí</a>
+</ol>
+<li id=packaging><a href="packaging.html">Balení pythonovských knihoven</a>
+<ol>
+<li><a href="packaging.html#divingin">Ponořme se</a>
+<li><a href="packaging.html#cantdo">Věci, které za nás Distutils neudělají</a>
+<li><a href="packaging.html#structure">Struktura adresáře</a>
+<li><a href="packaging.html#setuppy">Píšeme svůj instalační skript</a>
+<li><a href="packaging.html#trove">Přidáváme klasifikaci našeho balíčku</a>
+<ol>
+<li><a href="packaging.html#trove-examples">Příklady dobrých klasifikátorů balíčků</a>
+</ol>
+<li><a href="packaging.html#manifest">Určení dalších souborů prostřednictvím manifestu</a>
+<li><a href="packaging.html#check">Kontrola chyb v našem instalačním skriptu</a>
+<li><a href="packaging.html#sdist">Vytvoření distribuce obsahující zdrojové texty</a>
+<li><a href="packaging.html#bdist">Vytvoření grafického instalačního programu</a>
+<ol>
+<li><a href="packaging.html#linux">Tvorba instalačních balíčků pro jiné operační systémy</a>
+</ol>
+<li><a href="packaging.html#pypi">Přidání našeho softwaru do Python Package Index</a>
+<li><a href="packaging.html#future">Více možných budoucností balení pythonovských produktů</a>
+<li><a href="packaging.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=porting-code-to-python-3-with-2to3><a href="porting-code-to-python-3-with-2to3.html">Přepis kódu do Pythonu 3 s využitím <code>2to3</code></a>
+<ol>
+<li><a href="porting-code-to-python-3-with-2to3.html#divingin">Ponořme se</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#print">Příkaz <code>print</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#unicodeliteral">Literály Unicode řetězců</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#unicode">Globální funkce <code>unicode()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#long">Datový typ <code>long</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#ne">Porovnání &lt;&gt;</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#has_key">Slovníková metoda <code>has_key()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#dict">Slovníkové metody, které vracejí seznamy</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#imports">Moduly, které byly přejmenovány nebo reorganizovány</a>
+<ol>
+<li><a href="porting-code-to-python-3-with-2to3.html#http"><code>http</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#urllib"><code>urllib</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#dbm"><code>dbm</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#xmlrpc"><code>xmlrpc</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#othermodules">Ostatní moduly</a>
+</ol>
+<li><a href="porting-code-to-python-3-with-2to3.html#import">Relativní importy uvnitř balíčku</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#next">Metoda iterátoru <code>next()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#filter">Globální funkce <code>filter()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#map">Globální funkce <code>map()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#reduce">Globální funkce <code>reduce()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#apply">Globální funkce <code>apply()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#intern">Globální funkce <code>intern()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#exec">Příkaz <code>exec</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#execfile">Příkaz <code>execfile</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#repr"><code>repr</code> literály (zpětné apostrofy)</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#except">Příkaz <code>try...except</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#raise">Příkaz <code>raise</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#throw">Metoda generátorů <code>throw</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#xrange">Globální funkce <code>xrange()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#raw_input">Globální funkce <code>raw_input()</code> a <code>input()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#funcattrs">Atributy funkcí <code>func_*</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#xreadlines">Metoda <code>xreadlines()</code> V/V objektů</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#tuple_params"><code>lambda</code> funkce, které akceptují n-tici místo více parametrů</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#methodattrs">Atributy speciálních metod</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#nonzero">Speciální metoda <code>__nonzero__</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#numliterals">Oktalové literály</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#renames"><code>sys.maxint</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#callable">Globální funkce <code>callable()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#zip">Globální funkce <code>zip()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#standarderror">Výjimka <code>StandardError</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#types">Konstanty modulu <code>types</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#isinstance">Globální funkce <code>isinstance()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#basestring">Datový typ <code>basestring</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#itertools">Modul <code>itertools</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#sys_exc"><code>sys.exc_type</code>, <code>sys.exc_value</code>, <code>sys.exc_traceback</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#paren">Generátory seznamů nad n-ticemi</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#getcwdu">Funkce <code>os.getcwdu()</code></a>
+<li><a href="porting-code-to-python-3-with-2to3.html#metaclass">Metatřídy</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#nitpick">Věci týkající se stylu</a>
+<ol>
+<li><a href="porting-code-to-python-3-with-2to3.html#set_literal">Množinové literály (<code>set()</code>; explicitně)</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#buffer">Globální funkce <code>buffer()</code> (explicitně)</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#wscomma">Bílé znaky kolem čárek (explicitně)</a>
+<li><a href="porting-code-to-python-3-with-2to3.html#idioms">Běžné obraty (explicitně)</a>
+</ol>
+</ol>
+<li id=special-method-names><a href="special-method-names.html">Jména speciálních metod</a>
+<ol>
+<li><a href="special-method-names.html#divingin">Ponořme se</a>
+<li><a href="special-method-names.html#basics">Základy</a>
+<li><a href="special-method-names.html#acts-like-iterator">Třídy, které se chovají jako iterátory</a>
+<li><a href="special-method-names.html#computed-attributes">Vypočítávané atributy</a>
+<li><a href="special-method-names.html#acts-like-function">Třídy, které se chovají jako funkce</a>
+<li><a href="special-method-names.html#acts-like-set">Třídy, které se chovají jako množiny</a>
+<li><a href="special-method-names.html#acts-like-dict">Třídy, které se chovají jako slovníky</a>
+<li><a href="special-method-names.html#acts-like-number">Třídy, které se chovají jako čísla</a>
+<li><a href="special-method-names.html#rich-comparisons">Třídy, které se dají porovnávat</a>
+<li><a href="special-method-names.html#pickle">Třídy, které podporují serializaci</a>
+<li><a href="special-method-names.html#context-managers">Třídy, které mohou být použity v bloku <code>with</code></a>
+<li><a href="special-method-names.html#esoterica">Opravdu esoterické věci</a>
+<li><a href="special-method-names.html#furtherreading">Přečtěte si</a>
+</ol>
+<li id=where-to-go-from-here><a href="where-to-go-from-here.html">Čím pokračovat</a>
+<ol>
+<li><a href="where-to-go-from-here.html#things-to-read">Doporučuji k přečtení</a>
+<li><a href="where-to-go-from-here.html#code">Kde hledat kód kompatibilní s Pythonem 3</a>
+</ol>
+<li id=troubleshooting><a href="troubleshooting.html">Odstraňování problémů</a>
+<ol>
+<li><a href="troubleshooting.html#divingin">Ponořme se</a>
+<li><a href="troubleshooting.html#getting-to-the-command-line">Jak se dostat k příkazovému řádku</a>
+<li><a href="troubleshooting.html#running-python-on-the-command-line">Spuštění Pythonu z příkazového řádku</a>
+</ol>
+</ol>
+<!-- /toc -->
+<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<!--[if IE]><script src=j/html5.js></script><![endif]--> 

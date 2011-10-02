@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html> <meta charset=utf-8>
+<title>Co je zde nového? – Ponořme se do Pythonu 3</title>
+<!--[if IE]><script src=j/html5.js></script><![endif]-->
+<link rel=stylesheet href=dip3.css>
+<style>
+body{counter-reset:h1 -1}
+h3:before{content:''}
+</style>
+<link rel=stylesheet media='only screen and (max-device-width: 480px)' href=mobile.css>
+<link rel=stylesheet media=print href=print.css>
+<meta name=viewport content='initial-scale=1.0'>
+<!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
+class="u">‣</span> <a href="table-of-contents.html#whats-new">Ponořme
+se do Pythonu 3</a> <span class="u">‣</span>
+<h1>Co najdete v „Ponořme se do Pythonu 3“ nového</h1>
+<blockquote class=q>
+<p><span class="u">❝</span> Isn’t this where we came in? <span
+class="u">❞</span><br />— Pink Floyd, The Wall
+</blockquote>
+<p id=toc>&nbsp; <h2 id=divingin><i>aneb</i> „záporná úroveň“</h2>
+
+<p class=f>Už jste v jazyce Python programovali? Četli jste originální
+publikaci „<a href="http://diveintopython.org" />Dive Into
+Python</a>“? Koupili jste si ji v knižní podobě? (Pokud ano, díky!)
+Jste připraveni ponořit se do jazyka Python 3?... Pokud tomu tak je,
+čtěte dál. (Pokud nic z toho neplatí, měli byste raději <a
+href="installing-python.html">začít od začátku</a>.) <p>Python 3 se
+dodává se skriptem nazvaným <code>2to3</code>. Naučte se jej. Milujte
+jej. Používejte jej. <a
+href="porting-code-to-python-3-with-2to3.html">Přepis kódu do Pythonu
+3 s využitím <code>2to3</code></a> je referenční příručkou ke všem
+věcem, které skript <code>2to3</code> umí opravit automaticky. A
+protože řada těchto věcí souvisí se změnami syntaxe, je tato příručka
+dobrým výchozím bodem ke studiu syntaktických změn, které Python 3
+přináší. (Z příkazu <code>print</code> se stala funkce, obrat
+<code>`x`</code> přestal fungovat atd.) <p><a
+href="case-study-porting-chardet-to-python-3.html">Případová studie:
+Přepis <code>chardet</code> pro Python 3</a> popisuje mé (nakonec
+úspěšné) úsilí o přepis netriviální knihovny z Pythonu 2 do Pythonu 3.
+Možná vám tato studie pomůže, možná ne. Učící křivka je zde poměrně
+strmá, protože nejdříve musíte porozumět knihovně samotné. Teprve
+potom můžete rozumět tomu, proč přestala fungovat a jakým způsobem
+jsem ji opravil. Řada problémů se váže na řetězce. Když už o nich
+mluvíme... <p>Řetězce. Uffff. Kde mám začít? Python 2 používal
+„řetězce“ a „řetězce v Unicode“. Python 3 rozlišuje „bajty“ a
+„řetězce“. Všechny řetězce se nyní stávají řetězci v Unicode. Pokud s
+obsahem chceme zacházet jako s bajty, musíme použít nový datový typ
+nazvaný <code>bytes</code>. Python 3 <em>nikdy</em> skrytě nepřevádí
+řetězce na bajty a naopak. Takže pokud si v každém momentě nejste
+jistí, zda používáte ten či onen typ, kód vašeho programu téměř jistě
+přestane fungovat. Další podrobnosti naleznete v kapitole <a
+href="strings.html">Řetězce</a>. <p>Problém bajty versus řetězce se v
+textu této knihy vynořuje znovu a znovu. <ul>
+<li>V kapitole <a href="files.html">Soubory</a> se seznámíte s rozdílem mezi čtením souborů v „binárním“ a „textovém“ režimu. Při čtení (ale také při zápisu) souborů v textovém režimu se vyžaduje zadání parametru určujícího kódování (<code>encoding</code>). Některé metody textových souborů počítají znaky, ale jiné metody zase počítají bajty. Pokud ve svém zdrojovém kódu předpokládáte, že se jeden znak rovná jednomu bajtu, pak to při přechodu na vícebajtové znaky <em>přestane fungovat</em>. <li>V kapitole <a href="http-web-services.html">Webové služby nad <abbr>HTTP</abbr></a> čte modul <code>httplib2</code> hlavičky a data prostřednictvím protokolu <abbr>HTTP</abbr>. Hlavičky se vracejí v podobě řetězců, ale těla se vracejí jako bajty. <li>V kapitole <a href="serializing.html">Serializace pythonovských objektů</a> se naučíte, proč modul <code>pickle</code> pro Python 3 definuje nový datový formát, který je zpětně nekompatibilní s verzí pro Python 2. (Nápověda: Důvodem jsou bajty a řetězce.) Python 3 podporuje také serializaci objektů do a z <abbr>JSON</abbr>, který dokonce nepracuje s typem <code>bytes</code>. Ukážeme si, jak se to dá obejít. <li>V části <a href="case-study-porting-chardet-to-python-3.html">Případová studie: Přepis <code>chardet</code> pro Python 3</a> se setkáte se zatraceným zmatkem mezi bajty a řetězci úplně všude.
+</ul>
+
+<p>Dokonce i kdyby vás Unicode nechával úplně chladné (ale ne,
+nenechá), budete si určitě chtít něco přečíst o <a
+href="strings.html#formatting-strings">formátování řetězců v jazyce
+Python 3</a>. Zcela se liší od předpisu formátování řetězců v jazyce
+Python 2. <p>S iterátory se v Pythonu 3 setkáte všude. A teď už jim
+rozumím mnohem víc, než tomu bylo před pěti lety, kdy jsem napsal
+„Dive Into Python“. Snažte se jim porozumět také, protože mnoho
+funkcí, které v jazyce Python 2 vracely seznamy, vrací v Pythonu 3
+právě iterátory. Přinejmenším byste si měli přečíst <a
+href="iterators.html#a-fibonacci-iterator">druhou polovinu kapitoly
+Iterátory</a> a <a
+href="advanced-iterators.html#generator-expressions">druhou polovinu
+kapitoly Iterátory pro pokročilé</a>. <p>Na přání čtenářů jsem přidal
+přílohu <a href="special-method-names.html">Jména speciálních
+metod</a>, která se podobá kapitole <a
+href="http://www.python.org/doc/3.1/reference/datamodel.html#special-method-names">Data
+Model</a> (Datový model) uvedené v dokumentaci jazyka Python. <p>V
+době, kdy jsem psal „Dive Into Python“, měly všechny dostupné knihovny
+pro práci s XML mizernou kvalitu. Pak ale Fredrik Lundh napsal modul
+<a href="http://effbot.org/zone/element-index.htm">ElementTree</a>,
+který není <em>ale vůbec</em> mizerný. Pythonovští bohové moudře <a
+href="http://docs.python.org/3.1/library/xml.etree.elementtree.html">začlenili
+ElementTree do standardní knihovny</a>, a tak se tento modul stal
+základem <a href="xml.html">mé nové kapitoly o XML</a>. Starší způsoby
+zpracování XML jsou stále podporované, ale měli byste se jim vyhnout,
+protože jsou zkrátka mizerné! <p>V Pythonu je nové také
+to&nbsp;—&nbsp;ne v jazyce, ale v komunitě uživatelů&nbsp;—, že se
+objevila úložiště kódu, jako je <a
+href="http://pypi.python.org/">Python Package Index</a> (PyPI). Python
+se dodává s utilitami k zabalení vašeho kódu do standardního formátu a
+tyto balíčky pak mohou být zveřejněny na PyPI. O podrobnostech se
+dočtete v kapitole <a href="packaging.html">Balení pythonovských
+knihoven</a>. <p class=c>© 2001–10 <a href="about.html">Mark
+Pilgrim</a>

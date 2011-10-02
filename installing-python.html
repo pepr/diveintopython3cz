@@ -1,0 +1,541 @@
+﻿<!DOCTYPE html> <meta charset=utf-8>
+<title>Instalujeme Python – Ponořme se do Pythonu 3</title>
+<!--[if IE]><script src=j/html5.js></script><![endif]-->
+<link rel=stylesheet href=dip3.css>
+<style>
+body{counter-reset:h1 0}
+.i{list-style:none;margin:0;padding:0}
+#which{padding-top:1.75em}
+h2,.i>li{clear:both}
+#divingin,#which{clear:none}
+</style>
+<link rel=stylesheet media='only screen and (max-device-width: 480px)' href=mobile.css>
+<link rel=stylesheet media=print href=print.css>
+<meta name=viewport content='initial-scale=1.0'>
+<!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
+class="u">‣</span> <a
+href="table-of-contents.html#installing-python">Ponořme se do Pythonu
+3</a> <span class="u">‣</span>
+<p id=level>Úroveň obtížnosti: <span class="u"
+title="nováček">♦♢♢♢♢</span>
+<h1>Instalujeme Python</h1>
+<blockquote class=q>
+<p><span class="u">❝</span> <i lang="la">Tempora mutantur nos et
+mutamur in illis.</i> <span class="u">❞</span><br />(Časy se mění a my
+se měníme s nimi.)<br />— přísloví ze starého Říma
+</blockquote>
+<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
+<p class=f>Než začneme programovat v jazyce Python 3, musíme si jej
+nainstalovat. Nebo ne? <h2 id=which>Který Python je pro vás ten
+správný?</h2>
+
+<p>Pokud používáte účet na hostovaném serveru, mohl být Python 3 již
+nainstalován jeho správcem. Pokud provozujete Linux doma, můžete mít
+Python 3 již také k dispozici. Nejpopulárnější distribuce systému
+GNU/Linux obsahují v základní instalaci Python 2. Malá, ale zvětšující
+se skupina distribucí obsahuje také Python 3. Mac OS X se dodává s
+Pythonem 2 (verze spouštěná přes příkazový řádek), ale v době psaní
+této knihy neobsahoval Python 3. Microsoft Windows se nedodává s
+žádnou verzí Pythonu. Ale nepropadejte zoufalství! Nezávisle na tom,
+jaký operační systém používáte, můžete Python nainstalovat na několik
+kliknutí. <p>Nejjednodušší způsob ověření si, zda máte k dispozici
+Python 3 na svém systému Linux nebo Mac OS X, začíná tím, že se
+dostanete <a
+href="troubleshooting.html#getting-to-the-command-line">na příkazový
+řádek</a>. Jakmile se nacházíte za vyzývacím řetězcem příkazového
+řádku, napište jednoduše <kbd>python3</kbd> (vše malými písmeny, bez
+mezer), stiskněte <kbd>ENTER</kbd> a uvidíte, co se stane. Na svém
+domácím systému Linux už mám Python 3.1 nainstalovaný. Uvedeným
+příkazem vstoupím do <i>pythonovského <dfn>interaktivního
+shellu</dfn></i>. <pre class='nd screen cmdline'>
+<samp class="p">mark@atlantis:~$ </samp><kbd>python3</kbd>
+<samp>Python 3.1 (r31:73572, Jul 28 2009, 06:52:23) 
+[GCC 4.2.4 (Ubuntu 4.2.4-1ubuntu4)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt;</samp></pre>
+
+<p>(Až budete chtít pythonovský interaktivní shell opustit, napište
+<kbd>exit()</kbd> a stiskněte <kbd>ENTER</kbd>.) <p>Můj <a
+href="http://cornerhost.com" />poskytovatel webového prostoru</a>
+používá také Linux a umožňuje přístup přes příkazový řádek, ale Python
+3 není na serveru nainstalován. (Béééé!) <pre class='nd screen
+cmdline'>
+<samp class="p">mark@manganese:~$ </samp><kbd>python3</kbd>
+<samp>bash: python3: command not found</samp></pre>
+
+<p>Takže zpět k otázce, kterou jsme tuto podkapitolu zahájili: „Který
+Python je pro vás ten správný?“ Ten, který poběží na počítači, který
+máte k dispozici. <p>[Následuje návod pro instalaci pod Windows, nebo
+přeskočte na <a href="#macosx">Instalace pod Mac OS X</a>, <a
+href="#ubuntu">Instalace pod Ubuntu Linux</a> nebo <a
+href="#other">Instalace na jiných platformách</a>.] <p class=a>⁂ <h2
+id=windows>Instalace pod Microsoft Windows</h2>
+
+<p>V dnešní době se Windows dodávají ve dvou architekturách: 32bitové
+a 64bitové. Máme tu samozřejmě řadu různých <i>verzí</i>
+Windows&nbsp;—&nbsp;XP, Vista, Windows 7&nbsp;—, ale Python běží na
+všech. Rozlišení mezi 32bitovou a 64bitovou architekturou je
+důležitější. Pokud nemáte vůbec tušení, jakou architekturu používáte,
+pak je to pravděpodobně 32bitová. <p>Přejděte na stránku <a
+href="http://python.org/download"
+/><code>python.org/download/</code></a> a stáhněte si windowsovský
+instalátor Python 3, který se hodí pro vaši architekturu. Možnosti
+vaší volby budou vypadat nějak takto: <ul>
+<li><b>Python 3.1 Windows installer</b> (Windows binary&nbsp;—&nbsp;does not include source) <li><b>Python 3.1 Windows AMD64 installer</b> (Windows AMD64 binary&nbsp;—&nbsp;does not include source)
+</ul>
+
+<p>Nechci zde uvádět konkrétní odkazy, protože Python neustále
+prochází drobnými úpravami a nechci být zodpovědný za to, že jste
+nějakou důležitou úpravu prošvihli. Vždy byste měli nainstalovat co
+nejnovější verzi Pythonu 3.x, tedy pokud nemáte nějaké esoterické
+důvody k tomu, abyste tak neučinili. <ol class=i>
+<li>
+<p class='ss nm'><img src="i/win-install-0-security-warning.png"
+width="409" height="309" alt="[Dialog Windows: Otevření souboru —
+bezpečnostní varování]" />
+<p>Jakmile se stahování dokončí, poklepejte na soubor s příponou
+<code>.msi</code>. Protože se snažíte o spuštění programu, zobrazí
+Windows bezpečnostní varování. Oficiální instalátor Pythonu je
+digitálně podepsán jménem organizace <a
+href="http://www.python.org/psf" />Python Software Foundation</a>,
+která dohlíží na vývoj jazyka Python. Nepřijímejte imitace!
+<p>Instalaci Pythonu 3 zahájíme stisknutím tlačítka <code>Run</code>.
+<li>
+<p class='ss nm'><img src="i/win-install-1-all-users-or-just-me.png"
+width="499" height="432" alt="[Instalátor Pythonu: Zvolte, zda se má
+Python 3.1 instalovat pro všechny uživatele tohoto počítače]" />
+<p>Nejdříve se vás instalátor zeptá, zda chcete Python 3 nainstalovat
+pro všechny uživatele, nebo jen pro sebe. Volba „instalovat pro
+všechny uživatele“ je přednastavena. Pokud nemáte nějaký dobrý důvod
+pro jinou volbu, pak toto je ta nejlepší. (Jeden možný důvod, proč
+byste mohli chtít „instalovat jen pro mne“, je ten, že si chcete
+nainstalovat Python na počítači v práci a váš účet ve Windows nemá
+oprávnění administrátora. Ale proč byste v takovém případě chtěli
+instalovat Python bez svolení svého správce Windows? Ne abyste mě
+dostali do potíží!) <p>Svoji volbu způsobu instalace potvrdíte stiskem
+tlačítka <code>Next</code>. <li>
+<p class='ss nm'><img src="i/win-install-2-destination-directory.png"
+width="499" height="432" alt="[Instalátor Pythonu: Výběr cílového
+adresáře]" />
+<p>Instalátor vás poté vyzve k výběru instalačního adresáře. Pro
+všechny verze Python 3.1.x je přednastavena hodnota
+<code>C:\Python31\</code>, která by měla vyhovovat většině uživatelů.
+Pokud ovšem nemáte zvláštní důvod cestu změnit. Pokud instalujete
+všechny aplikace na disk označený jiným písmenem, můžete příslušnou
+cestu vybrat příslušnými ovládacími prvky. Nebo prostě cestu k
+adresáři napíšete do spodního pole. Python nemusíte instalovat jen na
+disk <code>C:</code>. Můžete si jej nainstalovat na libovolný disk a
+do libovolného adresáře. <p>Volbu cílového adresáře potvrdíte stiskem
+tlačítka <code>Next</code>. <li>
+<p class='ss nm'><img src="i/win-install-3-customize.png" width="499"
+height="432" alt="[Instalátor Pythonu: Přizpůsobení instalace Python
+3.1 vlastním požadavkům]" />
+<p>Další dialogová stránka vypadá komplikovaně, ale ve skutečnosti
+není. V případě Pythonu 3 máte možnost neinstalovat úplně všechny jeho
+komponenty — podobně jako u jiných instalačních programů. Pokud máte
+obzvlášť málo místa na disku, můžete některé komponenty vynechat. <ul>
+<li>Volba <b>Register Extensions</b> (asociovat přípony) vám zajistí možnost spouštět pythonovské skripty (soubory s příponou <code>.py</code>) poklepáním na jejich ikonu. Je to sice doporučeno, ale není to nezbytné. (Tato volba nevyžaduje žádný diskový prostor, takže její potlačení není výhodné.) <li><b>Tcl/Tk</b> je grafická knihovna, kterou využívá pythonovský shell. Ten budeme používat v celé knize. Velmi doporučuji, abyste tuto volbu ponechali zapnutou. <li>Volba <b>Documentation</b> vede k instalaci souborů s nápovědou, která obsahuje mnohé z informací uvedených na <a href="http://docs.python.org" /><code>docs.python.org</code></a>. Pokud máte omezený přístup k internetu nebo pokud používáte vytáčené připojení, doporučuji volbu ponechat zapnutou. <li>Volba <b>Utility Scripts</b> v sobě zahrnuje i instalaci skriptu <code>2to3.py</code>, o kterém se budeme učit <a href="case-study-porting-chardet-to-python-3.html">v této knize později</a>. Pokud se chcete naučit přepisování existujícího kódu napsaného pro Python 2 do podoby pro Python 3, pak se zapnutí této volby vyžaduje. Pokud nemáte žádné programy napsané pro Python 2, můžete tuto volbu vypnout. <li>Volba <b>Test Suite</b> zajistí instalaci sady skriptů, které se používají pro testování funkčnosti interpretu jazyka Python. V této knize je nebudeme používat. A nepoužíval jsem je nikdy ani během výuky programování v Pythonu. Volba je zcela na vás.
+</ul>
+
+<li>
+<p class='ss nm'><img src="i/win-install-3a-disk-usage.png"
+width="499" height="432" alt="[Instalátor Pythonu: Požadavky na
+prostor na disku]" />
+<p>Pokud si nejste jisti, kolik máte místa na disku, klikněte na
+tlačítko <code>Disk Usage</code>. Instalátor zobrazí seznam písmen
+vašich disků, zjistí, kolik místa je na každém z nich, a vypočítá,
+kolik místa na nich zbude po instalaci. <p>Stiskem tlačítka
+<code>OK</code> se dostaneme na dialogovou stránku „Customizing
+Python“. <li>
+<p class='ss nm'><img src="i/win-install-3b-test-suite.png"
+width="499" height="432" alt="[Instalátor Pythonu: Vypnutím volby Test
+Suite ušetříte 7908 KB na disku]" />
+<p>Pokud se rozhodnete volbu vynechat, stiskněte tlačítko pro
+rozbalení seznamu a vyberte „Entire feature will be unavailable“ (celá
+část bude nedostupná). Vynecháním Test Suite ušetříte na disku pěkných
+7908 <abbr>KB</abbr>. <p>Výběr voleb potvrdíte stiskem tlačítka
+<code>Next</code>. <li>
+<p class='ss nm'><img src="i/win-install-4-copying.png" width="499"
+height="432" alt="[Instalátor Pythonu: Indikace postupu instalace]" />
+<p>Instalátor nakopíruje všechny nezbytné soubory do vámi vybraného
+adresáře. (Proběhne to tak rychle, že jsem to musel zkusit třikrát,
+než se mi podařilo zachytit obrázek tohoto procesu.) <li>
+<p class='ss nm'><img src="i/win-install-5-finish.png" width="499"
+height="432" alt="[Instalátor Pythonu: Instalace dokončena. Zvláštní
+poděkování Markovi Hammondovi, bez jehož po léta sdílených zkušeností
+s Windows by Python pro Windows byl stále jen Pythonem pro DOS]" />
+<p>Stiskem tlačítka <code>Finish</code> ukončíme činnost instalátoru.
+<li>
+<p class='ss nm'><img src="i/win-interactive-shell.png" width="677"
+height="715" alt="[Windowsovská podoba pythonovského shellu, což je
+grafický interaktivní shell pro Python]" />
+<p>Ve vašem menu <code>Start</code> by se měla objevit položka s
+názvem <code>Python 3.1</code>. V ní se nachází program
+<abbr>IDLE</abbr>. Výběrem této položky spustíte interaktivní
+pythonovský shell. (Poznámka překladatele: Někdy ho autor označuje
+jako „grafický“ interaktivní shell. Jde o obdobu interaktivního
+pythonovského shellu, který se spouští v konzolovém okně. Tentokrát
+ale využívá prostředky grafického uživatelského rozhraní (GUI) a v
+menu okna nalezneme i položky pro spuštění editoru nebo pro spuštění
+ladicího režimu. Dalo by se říct, že je to nástroj „téměř úplně, ale
+ne zcela naprosto nepodobný...“ klasickým IDE (integrované vývojové
+prostředí). Jenže to není soustředěné kolem editoru, ale spíš kolem
+shellu. Je to prostě IDLE. No zkrátka se na to podívejte a rozhodněte
+se sami, jak tomu budete říkat.)
+
+</ol>
+
+<p>[přeskočte na <a href="#idle">použití pythonovského shellu</a>] <p
+class=a>⁂ <h2 id=macosx>Instalace pod Mac OS X</h2>
+
+<p>Všechny moderní počítače Macintosh používají procesor firmy Intel
+(stejný jako většina osobních počítačů s Windows). Starší počítače Mac
+používají procesory PowerPC. Rozdílům rozumět nemusíte, protože
+existuje jen jeden jediný instalátor Pythonu pro všechny počítače
+Macintosh. <p>Přejděte na stránku <a
+href="http://python.org/download/"><code>python.org/download/</code></a>
+a stáhněte si příslušný instalátor pro Mac. Bude u něj napsáno něco ve
+stylu <b>Python 3.1 Mac Installer Disk Image</b>, ačkoliv číslo verze
+se může lišit. Ujistěte se, že stahujete verzi 3.x a ne 2.x. <ol
+class=i>
+
+<li>
+<p class='ss nm'><img src="i/mac-install-0-dmg-contents.png"
+width="752" height="438" alt="[Obsah diskového obrazu pythonovského
+instalátoru]" />
+<p>Váš prohlížeč by měl automaticky připojit obraz disku a otevřít
+okno Finder zobrazující jeho obsah. (Pokud se tak nestane, budete
+muset najít obraz disku ve svém adresáři pro stažené soubory a
+připojit jej poklepáním. Jmenuje se <code>python-3.1.dmg</code> nebo
+podobně.) Obraz disku obsahuje řadu textových souborů
+(<code>Build.txt</code>, <code>License.txt</code>,
+<code>ReadMe.txt</code>) a také skutečný instalační balík
+<code>Python.mpkg</code>. <p>Poklepejte na <code>Python.mpkg</code> a
+instalátor Mac Python se spustí. <li>
+<p class='ss nm'><img src="i/mac-install-1-welcome.png" width="622"
+height="442" alt="[Instalátor Pythonu: Úvodní obrazovka]" />
+<p>Na první stránce naleznete stručný popis jazyka Python a pro více
+detailů jste odkázáni na soubor <code>ReadMe.txt</code>. (...který
+jste nečetli. Nebo četli?) <p>Dál se posuneme stiskem tlačítka
+<code>Continue</code>. <li>
+<p class='ss nm'><img src="i/mac-install-2-information.png"
+width="622" height="442" alt="[Instalátor Pythonu: Informace o
+podporovaných architekturách, prostoru na disku a přijatelných
+cílových adresářích]" />
+<p>Následující stránka dialogu obsahuje některé důležité informace:
+Python vyžaduje Mac OS X 10.3 nebo novější. Pokud stále používáte Mac
+OS X 10.2, budete jej muset aktualizovat na vyšší verzi. Společnost
+Apple už pro váš operační systém neposkytuje bezpečnostní aktualizace
+a už při pouhém připojení na internet vystavujete svůj počítač riziku.
+A navíc nemůžete používat Python 3. <p>Pokračujeme stiskem tlačítka
+<code>Continue</code>. <li>
+<p class='ss nm'><img src="i/mac-install-3-license.png" width="622"
+height="442" alt="[Instalátor Pythonu: Souhlas s licenčním ujednáním]"
+/>
+<p>Tak jako všechny dobré instalátory, i ten pythonovský zobrazí
+licenční ujednání. Python je open source a jeho licence je <a
+href="http://opensource.org/licenses" />schválena společností Open
+Source Initiative</a>. Během historického vývoje měl Python řadu
+vlastníků a sponzorů. Každý z nich zanechal v jeho licenci svůj otisk.
+Ale konečný výsledek vypadá takto: Python je open source, můžete jej
+používat na libovolné platformě, pro libovolný účel, zdarma a bez
+závazku k protislužbě. <p>Stiskněte tlačítko <code>Continue</code>
+ještě jednou. <li>
+<p class='ss nm'><img src="i/mac-install-4-license-dialog.png"
+width="622" height="442" alt="[Instalátor Pythonu: Dialog pro přijetí
+licenčního ujednání]" />
+<p>Abyste mohli instalaci dokončit, musíte kvůli manýrům v jádru
+applovského instalátoru projevit „souhlas“ se softwarovou licencí. Ale
+protože Python je open source, ve skutečnosti „souhlasíte“ s tím, že
+vám licence zaručuje práva navíc, než aby vás omezovala.
+<p>Pokračujeme stiskem tlačítka <code>Agree</code>. <li>
+<p class='ss nm'><img src="i/mac-install-5-standard-install.png"
+width="622" height="442" alt="[Instalátor Pythonu: Standardní
+instalační obrazovka]" />
+<p>Na další obrazovce můžete změnit umístění instalace. Python
+<strong>musíte</strong> instalovat na zaváděcí disk, ale kvůli
+omezením instalátoru to není vynuceno. Popravdě řečeno, nikdy jsem
+nepociťoval potřebu umístění instalace měnit. <p>Na této obrazovce
+také můžete instalaci upravit vyloučením komponent, které
+nepotřebujete. Pokud tak chcete učinit, stiskněte tlačítko
+<code>Customize</code>. V opačném případě stiskněte tlačítko
+<code>Install</code>. <li>
+<p class='ss nm'><img src="i/mac-install-6-custom-install.png"
+width="622" height="442" alt="[Instalátor Pythonu: Obrazovka pro
+úpravu vlastností instalace]" />
+<p>Pokud zvolíte uživatelskou úpravu instalace (Custom Install),
+nabídne vám instalátor následující seznam: <ul>
+<li><b>Python Framework</b>. Jde o jádro Pythonu. Proto je tato možnost předvolena a současně je zakázáno ji měnit. Tato část se nainstalovat musí. <li><b>GUI Applications</b> v sobě zahrnuje IDLE, což je grafický pythonovský shell. Budeme jej používat během celé knihy. Velmi doporučuji, abyste tuto volbu ponechali zapnutou. <li><b>UNIX command-line tools</b> v sobě obsahuje konzolovou aplikaci <code>python3</code>. Velmi doporučuji, abyste také tuto volbu ponechali zapnutou. <li><b>Python Documentation</b> obsahuje mnohé z informací uvedených na <a href="http://docs.python.org" /><code>docs.python.org</code></a>. Pokud máte omezený přístup k internetu nebo pokud používáte vytáčené připojení, doporučuji volbu ponechat zapnutou. <li><b>Shell profile updater</b> kontroluje, zda je nutné aktualizovat váš shellovský profil (použitý v <code>Terminal.app</code>) tak, aby bylo zajištěno, že umístění instalované verze Pythonu bude součástí prohledávaných cest. Tuto volbu pravděpodobně nebudete potřebovat měnit. <li>Volbu <b>Fix system Python</b> byste měnit neměli. (Říká vašemu počítači, aby byl Python 3 použit jako preferovaný Python pro spouštění všech skriptů, včetně zabudovaných skriptů dodávaných firmou Apple. Dopadlo by to velmi špatně, protože většina těchto skriptů byla napsána pro Python 2 a pod verzí Python 3 by neběžely správně.)
+</ul>
+<p>Pokračujeme stiskem tlačítka <code>Install</code>. <li>
+<p class='ss nm'><img src="i/mac-install-7-admin-password.png"
+width="622" height="457" alt="[Instalátor Pythonu: Dialog pro zadání
+správcovského hesla]" />
+<p>Instalátor se vás zeptá na heslo správce, protože systémové binární
+soubory a nástroje se instalují do adresáře
+<code>/usr/local/bin/</code>. Bez administrátorských oprávnění Mac
+Python zkrátka nenainstalujete. <p>Stiskem tlačítka <code>OK</code>
+zahájíme instalaci. <li>
+<p class='ss nm'><img src="i/mac-install-8-progress.png" width="622"
+height="442" alt="[Instalátor Pythonu: Indikace postupu instalace.]"
+/>
+<p>Během instalace částí, které jste si vybrali, instalátor indikuje
+postup instalace. <li>
+<p class='ss nm'><img src="i/mac-install-9-succeeded.png" width="622"
+height="442" alt="[Instalátor Pythonu: Instalace byla úspěšně
+dokončena]" />
+<p>Pokud šlo všechno dobře, oznámí vám instalátor úspěšné dokončení
+instalace zobrazením zelené „fajfky“. <p>Stiskem tlačítka
+<code>Close</code> činnost instalátoru ukončíme. <li>
+<p class='ss nm'><img src="i/mac-install-10-application-folder.png"
+width="488" height="482" alt="[Obsah adresáře /Applications/Python
+3.1/]" />
+<p>Za předpokladu, že jste nezměnili umístění instalace, najdete nově
+nainstalované soubory v podadresáři <code>Python 3.1</code> uvnitř
+adresáře <code>/Applications</code>. Nejdůležitější součástí je zde
+grafický pythonovský shell zvaný <abbr>IDLE</abbr>. <p>Poklepejte na
+něj a pythonovský shell se spustí. <li>
+<p class='ss nm'><img src="i/mac-interactive-shell.png" width="522"
+height="538" alt="[Mac Python Shell — grafický interaktivní shell pro
+Python]" />
+<p>V pythonovském shellu strávíte při průzkumu jazyka Python nejvíce
+času. U příkladů budeme v této knize předpokládat, že se k
+pythonovskému shellu umíte dostat.
+
+</ol>
+
+<p>[Přeskočte na <a href="#idle">použití pythonovského shellu</a>] <p
+class=a>⁂ <h2 id=ubuntu>Instalace pod Ubuntu Linux</h2>
+
+<p>Moderní distribuce systému Linux jsou podepřeny ohromnými úložišti
+předkompilovaných aplikací, které jsou připraveny k okamžité
+instalaci. Detaily se pro konkrétní distribuce liší. Nejsnadnější
+způsob instalace Pythonu 3 pod Ubuntu Linux spočívá v použití nástroje
+<code>Add/Remove</code>, který najdete v menu
+<code>Applications</code>. <ol class=i>
+<li>
+<p class='ss nm'><img src="i/ubu-install-0-add-remove-programs.png"
+width="920" height="473" alt="[Add/Remove: Aplikace udržované firmou
+Canonical]" />
+<p>Když poprvé spustíte aplikaci <code>Add/Remove</code>, zobrazí vám
+seznam předvybraných aplikací v různých kategoriích. Některé z nich
+jsou již nainstalované, ale většina z nich ne. Protože úložiště
+obsahuje přes 10 tisíc aplikací, můžete pomocí různých filtrů omezit
+zobrazení jen na jeho malé části. Základem je filtr
+„Canonical-maintained applications“, což je malá podmnožina z
+celkového množství aplikací, které jsou oficiálně podporovány
+společností Canonical, která vytvořila a udržuje distribuci Ubuntu
+Linux. <li>
+<p class='ss nm'><img
+src="i/ubu-install-1-all-open-source-applications.png" width="920"
+height="473" alt="[Add/Remove: Všechny open source aplikace]" />
+<p>Python 3 není společností Canonical udržován, takže jako první krok
+potlačíme činnost tohoto filtru a vybereme „All Open Source
+applications“ (všechny open source aplikace). <li>
+<p class='ss nm'><img src="i/ubu-install-2-search-python-3.png"
+width="920" height="473" alt="[Add/Remove: Hledej Python 3]" />
+<p>Jakmile změníte nastavení filtru tak, aby zahrnoval všechny open
+source aplikace, použijte k vyhledání <kbd>Pythonu 3</kbd> vyhledávací
+box nacházející se hned za nabídkou filtru. <li>
+<p class='ss nm'><img src="i/ubu-install-3-select-python-3.png"
+width="920" height="473" alt="[Add/Remove: Vyberte balík Python 3.0]"
+/>
+<p>V tom okamžiku se seznam aplikací zúží jen na ty, které souvisejí s
+<kbd>Pythonem 3</kbd>. Poté vybereme dva balíčky. Tím prvním je
+<code>Python (v3.0)</code>. Obsahuje vlastní interpret jazyka Python.
+<li>
+<p class='ss nm'><img src="i/ubu-install-4-select-idle.png"
+width="920" height="473" alt="[Add/Remove: Vyberte balík IDLE pro
+Python 3.0]" />
+<p>Druhý požadovaný balíček se nachází bezprostředně nad ním:
+<code>IDLE (using Python-3.0)</code>. Jde o grafický pythonovský
+shell, který budeme používat během celé knihy. <p>Po označení
+uvedených dvou balíčků pokračujte stiskem tlačítka <code>Apply
+Changes</code>. <li>
+<p class='ss nm'><img src="i/ubu-install-5-apply-changes.png"
+width="635" height="364" alt="[Add/Remove: Aplikuj změny]" />
+<p>Správce balíčků vás požádá o potvrzení, že chcete přidat jak
+<code>IDLE (using Python-3.0)</code>, tak <code>Python (v3.0)</code>.
+<p>Pokračujeme stiskem tlačítka <code>Apply</code>. <li>
+<p class='ss nm'><img src="i/ubu-install-6-download-progress.png"
+width="287" height="211" alt="[Add/Remove: Indikátor postupu
+stahování]" />
+<p>Během stahování potřebných balíčků z internetového úložiště
+společnosti Canonical zobrazuje správce balíčků indikátor postupu
+stahování. <li>
+<p class='ss nm'><img src="i/ubu-install-7-install-progress.png"
+width="486" height="258" alt="[Add/Remove: Indikátor postupu
+instalace]" />
+<p>Jakmile jsou balíčky staženy, zahájí správce balíčků automaticky
+jejich instalaci. <li>
+<p class='ss nm'><img src="i/ubu-install-8-success.png" width="591"
+height="296" alt="[Add/Remove: Nové aplikace byly nainstalovány]" />
+<p>Pokud šlo všechno dobře, potvrdí správce balíčků, že byly oba
+úspěšně nainstalovány. V tomto okamžiku můžete poklepáním na
+<abbr>IDLE</abbr> spustit pythonovský shell, nebo můžete stiskem
+tlačítka <code>Close</code> ukončit činnost správce balíčků.
+<p>Pythonovský shell můžete spustit kdykoliv tím způsobem, že v menu
+<code>Applications</code> a v podmenu <code>Programming</code>
+vyberete <abbr>IDLE</abbr>. <li>
+<p class='ss nm'><img src="i/ubu-interactive-shell.png" width="679"
+height="687" alt="[Linuxovský pythonovský shell = grafický
+interaktivní shell pro Python]" />
+<p>V pythonovském shellu strávíte při průzkumu jazyka Python nejvíce
+času. U příkladů budeme v této knize předpokládat, že se k
+pythonovskému shellu umíte dostat.
+
+</ol>
+
+<p>[Přeskočte na <a href="#idle">použití pythonovského shellu</a>] <p
+class=a>⁂ <h2 id=other>Instalace na jiných platformách</h2>
+
+<p>Python 3 je dostupný pro řadu různých platforem. Abychom byli
+konkrétnější, je dostupný pro prakticky každou distribuci systému
+Linux, <abbr>BSD</abbr> a pro distribuce založené na systému Solaris.
+Takže například RedHat Linux používá správce balíčků <code>yum</code>.
+FreeBSD má svou sbírku <a href="http://www.freebsd.org/ports" />ports
+and packages collection</a>, <abbr>SUSE</abbr> má <code>zypper</code>
+a Solaris má <code>pkgadd</code>. Když zkusíte zběžně prohledat web
+při zadání <code>Python 3</code> + <i>váš operační systém</i>, dozvíte
+se, zda je balík s Pythonem 3 dostupný, a pokud ano, jak jej můžete
+nainstalovat. <p class=a>⁂ <h2 id=idle>Použití Python Shell</h2>
+
+<p>Python Shell (kvůli skloňování a zobecnění pohledu mu budeme říkat
+také <em>pythonovský shell</em>) bude nástrojem pro studium syntaxe
+jazyka Python, zdrojem interaktivní nápovědy k příkazům a prostředkem
+pro ladění krátkých programů. Grafický pythonovský shell (pojmenovaný
+<abbr>IDLE</abbr>) obsahuje navíc ucházející textový editor, který
+podporuje barevné zvýrazňování syntaxe a zajišťuje spolupráci s
+(konzolovým) pythonovským shellem. Pokud již nemáte nějaký svůj
+oblíbený textový editor, měli byste si <abbr>IDLE</abbr> vyzkoušet.
+<p>Ale proberme nejdříve hlavní věci. Samotný Python Shell je úžasné
+interaktivní prostředí, se kterým si vyhrajete. V celé knize se budete
+setkávat s příklady, jako je tento: <pre class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">1 + 1</kbd>
+<samp class="pp">2</samp></pre>
+
+<p>Tři úhlové závorky (<samp class="p">&gt;&gt;&gt;</samp>) jsou
+vyzývacím řetězcem pythonovského shellu. Tuto část neopisujte.
+Vyjadřuji tím to, že byste si příklad měli vyzkoušet v pythonovském
+shellu. <p>Vy budete psát pouze část <kbd class="pp">1 + 1</kbd>. V
+pythonovském shellu můžete napsat jakýkoliv platný pythonovský výraz
+nebo příkaz. Nestyďte se! Nekousne vás to! Přinejhorším se stane to,
+že se vám zobrazí chybové hlášení. Příkazy se provádějí okamžitě
+(jakmile stisknete <kbd>ENTER</kbd>). Také výrazy jsou vyhodnoceny
+okamžitě a pythonovský shell vytiskne jejich výsledek. <p>Takže
+zobrazená část <samp class="pp">2</samp> je výsledkem vyhodnocení
+předchozího výrazu. Protože se tak stalo, je <kbd class="pp">1 +
+1</kbd> zjevně platným pythonovským výrazem. Jeho výsledek je
+samozřejmě <samp class="pp">2</samp>. <p>Vyzkoušejme něco dalšího.
+<pre class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print('Hello world!')</kbd>
+<samp>Hello world!</samp>
+</pre>
+
+<p>Docela jednoduché, že? Ale v pythonovském shellu toho můžete dělat
+mnohem víc. Když se někdy zadrhnete&nbsp;—&nbsp;když si nemůžete
+vzpomenout na nějaký příkaz nebo si nemůžete vzpomenout na správné
+argumenty předávané nějaké funkci&nbsp;—, můžete se v pythonovském
+shellu dostat k interaktivní nápovědě. Napište prostě <kbd>help</kbd>
+a stiskněte <kbd>ENTER</kbd>. <pre class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd>help</kbd>
+<samp>Type help() for interactive help, or help(object) for help about object.</samp></pre>
+
+<p>Nápovědu můžeme používat ve dvou režimech. Můžeme získat nápovědu
+pro jeden objekt. Vytiskne se prostě jeho dokumentace a vrátíte se na
+vyzývací řádek pythonovského shellu. Nebo můžeme vstoupit do <i>režimu
+nápovědy</i>, ve kterém místo vyhodnocování pythonovských výrazů
+píšeme klíčová slova nebo jména příkazů a Python zobrazuje vše, co o
+těchto příkazech ví. <p>Pro vstup do interaktivního režimu nápovědy
+napište <kbd>help()</kbd> a stiskněte <kbd>ENTER</kbd>. <pre class='nd
+screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">help()</kbd>
+<samp>Welcome to Python 3.0!  This is the online help utility.
+
+If this is your first time using Python, you should definitely check out
+the tutorial on the Internet at http://docs.python.org/tutorial/.
+
+Enter the name of any module, keyword, or topic to get help on writing
+Python programs and using Python modules.  To quit this help utility and
+return to the interpreter, just type "quit".
+
+To get a list of available modules, keywords, or topics, type "modules",
+"keywords", or "topics".  Each module also comes with a one-line summary
+of what it does; to list the modules whose summaries contain a given word
+such as "spam", type "modules spam".
+</samp>
+<samp class="p">help&gt; </samp></pre>
+
+<p>Všimněte si, že se vyzývací řetězec změnil z <samp
+class="p">&gt;&gt;&gt;</samp> na <samp class="p">help&gt;</samp>. Má
+vám to připomenout, že se nacházíte v interaktivním režimu nápovědy. V
+tomto okamžiku můžete napsat libovolné klíčové slovo, příkaz, jméno
+modulu, jméno funkce&nbsp;—&nbsp;v podstatě cokoliv, čemu Python
+rozumí&nbsp;—&nbsp; a přečtete si k tomu zobrazenou dokumentaci. <pre
+class=screen>
+<a><samp class="p">help&gt; </samp><kbd class="pp">print</kbd>                                                                 <span class="u">①</span></a>
+<samp>Help on built-in function print in module builtins:
+
+print(...)
+    print(value, ..., sep=' ', end='\n', file=sys.stdout)
+    
+    Prints the values to a stream, or to sys.stdout by default.
+    Optional keyword arguments:
+    file: a file-like object (stream); defaults to the current sys.stdout.
+    sep:  string inserted between values, default a space.
+    end:  string appended after the last value, default a newline.
+</samp>
+<a><samp class="p">help&gt; </samp><kbd class="pp">PapayaWhip</kbd>                                                            <span class="u">②</span></a>
+<samp>no Python documentation found for 'PapayaWhip'
+</samp>
+<a><samp class="p">help&gt; </samp><kbd class="pp">quit</kbd>                                                                  <span class="u">③</span></a>
+<samp>
+You are now leaving help and returning to the Python interpreter.
+If you want to ask for help on a particular object directly from the
+interpreter, you can type "help(object)".  Executing "help('string')"
+has the same effect as typing a particular string at the help&gt; prompt.</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp>                                                                        <span class="u">④</span></a></pre>
+<ol>
+<li>Abyste dostali dokumentaci k funkci <code>print()</code>, napište <kbd>print</kbd> a stiskněte <kbd>ENTER</kbd>. V interaktivním režimu nápovědy se zobrazí něco podobného jako manovská stránka: jméno funkce, stručný popis, argumenty funkce a jejich přednastavené hodnoty a tak dále. Pokud se vám zdá obsah dokumentace nejasný, nepropadejte panice. V následujících několika kapitolách se o těchto věcech dozvíte více. <li>V interaktivním režimu nápovědy se samozřejmě nedozvíte všechno. Pokud zde napíšete něco, co není pythonovským příkazem, modulem, funkcí nebo nějakým zabudovaným klíčovým slovem, režim interaktivní nápovědy prostě pokrčí svými virtuálními rameny. <li>Interaktivní režim nápovědy ukončíte tím, že napíšete <kbd>quit</kbd> a stisknete <kbd>ENTER</kbd>. <li>Vyzývací řádek se změní zpět na <samp class="p">&gt;&gt;&gt;</samp>, čímž se dozvíte, že jste opustili režim interaktivní nápovědy a vrátili jste se do pythonovského shellu.
+</ol>
+
+<p>Grafický pythonovský shell <abbr>IDLE</abbr> navíc obsahuje textový
+editor šitý na míru jazyku Python. <p class=a>⁂ <h2 id=editors>Editory
+a vývojová prostředí pro Python</h2>
+
+<p>Pokud jde o psaní programů v jazyce Python, nepředstavuje
+<abbr>IDLE</abbr> jedinou možnost. Jakkoliv může být užitečný při
+seznamování se s jazykem jako takovým, mnozí vývojáři dávají přednost
+jiným textovým editorům nebo integrovaným vývojovým prostředím
+(Integrated Development Environment, čili <abbr>IDE</abbr>). Nebudu se
+zde jimi zabývat, ale komunita uživatelů jazyka Python udržuje <a
+href="http://wiki.python.org/moin/PythonEditors">seznam editorů
+podporujících jazyk Python</a>, který pokrývá široké rozpětí
+podporovaných platforem a softwarových licencí. <p>Možná chcete
+nahlédnout i do <a
+href="http://wiki.python.org/moin/IntegratedDevelopmentEnvironments">seznamu
+<abbr>IDE</abbr> podporujících jazyk Python</a>, i když zatím pouze
+nemnohé z nich podporují Python 3. Jedním z těch, které jej podporují,
+je <a href="http://pydev.sourceforge.net" />PyDev</a>, zásuvný modul
+pro <a href="http://eclipse.org" />Eclipse</a>, který změní Eclipse na
+plnohodnotné pythonovské integrované vývojové prostředí. Jak Eclipse,
+tak PyDev jsou multiplatformní a open source. <p>Z komerčních produktů
+jmenujme <a href="http://www.activestate.com/komodo" />Komodo
+<abbr>IDE</abbr></a> společnosti ActiveState. Licence je vázána na
+uživatele. Studenti mohou získat slevu a k dispozici je i zkušební,
+časově omezená verze. <p>V jazyce Python programuji už devět let. Své
+programy edituji v prostředí <a
+href="http://www.gnu.org/software/emacs" />GNU Emacs</a> a ladím je v
+konzolovém pythonovském shellu. Při vývoji v jazyce Python není žádná
+cesta správnější nebo vyloženě špatná. Najděte si způsob, který
+vyhovuje právě vám! <p class=v><a href="whats-new.html" rel="prev"
+title="zpět na „Co najdete v „Ponořme se do Pythonu 3“ nového“"><span
+class="u">☜</span></a> <a href="your-first-python-program.html"
+rel="next" title="dopředu na „Váš první pythonovský program“"><span
+class="u">☞</span></a>
+
+<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<script src=j/jquery.js></script>
+<script src=j/prettify.js></script>
+<script src=j/dip3.js></script> 

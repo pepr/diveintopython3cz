@@ -1,0 +1,642 @@
+﻿<!DOCTYPE html> <meta charset=utf-8>
+<title>Iterátory pro pokročilé – Ponořme se do Pythonu 3</title>
+<!--[if IE]><script src=j/html5.js></script><![endif]-->
+<link rel=stylesheet href=dip3.css>
+<style>
+body{counter-reset:h1 8}
+mark{display:inline}
+</style>
+<link rel=stylesheet media='only screen and (max-device-width: 480px)' href=mobile.css>
+<link rel=stylesheet media=print href=print.css>
+<meta name=viewport content='initial-scale=1.0'>
+<!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
+class="u">‣</span> <a
+href="table-of-contents.html#advanced-iterators">Ponořme se do Pythonu
+3</a> <span class="u">‣</span>
+<p id=level>Úroveň obtížnosti: <span class="u" title="pro
+pokročilé">♦♦♦♦♢</span>
+<h1>Iterátory pro pokročilé</h1>
+<blockquote class=q>
+<p><span class="u">❝</span> Great fleas have little fleas upon their
+backs to bite ’em,<br />And little fleas have lesser fleas, and so ad
+infinitum. <span class="u">❞</span><br />(Veliké blechy maj malé své
+blechy, aby je kousaly do jejich zad,<br />Hle, malé si nesou své o
+něco menší; konce to nemá — podivný řád.)<br />— Augustus De Morgan
+</blockquote>
+<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
+<p class=f>Jestliže přirovnáme <a
+href="regular-expressions.html">regulární výrazy</a> ke steroidům pro
+<a href="strings.html">řetězce</a>, pak modul <code>itertools</code>
+představuje steroidy pro <a href="iterators.html">iterátory</a>. Ale
+nejdříve si ukážeme jednu klasickou hádanku. <pre
+class=nd><code>HAWAII + IDAHO + IOWA + OHIO == STATES
+510199 + 98153 + 9301 + 3593 == 621246
+
+H = 5
+A = 1
+W = 0
+I = 9
+D = 8
+O = 3
+S = 6
+T = 2
+E = 4</code></pre>
+
+<p>Pro hádanky tohoto typu se používají anglické názvy
+<i>cryptarithms</i> nebo <i>alphametics</i>. Písmena jsou složena do
+skutečných slov, ale pokud každé z nich nahradíte číslicí
+<code>0–9</code>, pak tvoří aritmetickou rovnici. Úkol spočívá v
+nalezení dvojic písmeno/číslice. Všechny výskyty stejného písmene se
+musí dát nahradit stejnou číslicí. Žádná číslice se nesmí opakovat a
+žádné „slovo“ nesmí začínat číslicí 0. <aside>Nejznámější alfametickou
+hádankou je <code>SEND + MORE = MONEY</code>.</aside>
+
+<p>V této kapitole se ponoříme do neuvěřitelného pythonovského
+programu, který původně napsal Raymond Hettinger. Program řeší
+alfametické hádanky <em>na pouhých 14 řádcích kódu</em>. <p
+class=d>[<a href="examples/alphametics.py">stáhnout
+<code>alphametics.py</code></a>] <pre class=pp><code>import re
+import itertools
+
+def solve(puzzle):
+    words = re.findall('[A-Z]+', puzzle.upper())
+    unique_characters = set(''.join(words))
+    assert len(unique_characters) &lt;= 10, 'Too many letters'
+    first_letters = {word[0] for word in words}
+    n = len(first_letters)
+    sorted_characters = ''.join(first_letters) + \
+        ''.join(unique_characters - first_letters)
+    characters = tuple(ord(c) for c in sorted_characters)
+    digits = tuple(ord(c) for c in '0123456789')
+    zero = digits[0]
+    for guess in itertools.permutations(digits, len(characters)):
+        if zero not in guess[:n]:
+            equation = puzzle.translate(dict(zip(characters, guess)))
+            if eval(equation):
+                return equation
+
+if __name__ == '__main__':
+    import sys
+    for puzzle in sys.argv[1:]:
+        print(puzzle)
+        solution = solve(puzzle)
+        if solution:
+            print(solution)</code></pre>
+
+<p>Program můžeme spustit z příkazového řádku. Pod Linuxem to bude
+vypadat nějak takto. (V závislosti na rychlosti vašeho počítače to
+může zabrat nějaký čas a není zde žádný indikátor průběhu výpočtu.
+Buďte trpěliví.) <pre class='nd screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 alphametics.py "HAWAII + IDAHO + IOWA + OHIO == STATES"</kbd>
+<samp>HAWAII + IDAHO + IOWA + OHIO = STATES
+510199 + 98153 + 9301 + 3593 == 621246</samp>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 alphametics.py "I + LOVE + YOU == DORA"</kbd>
+<samp>I + LOVE + YOU == DORA
+1 + 2784 + 975 == 3760</samp>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 alphametics.py "SEND + MORE == MONEY"</kbd>
+<samp>SEND + MORE == MONEY
+9567 + 1085 == 10652</samp></pre>
+
+<p class=a>⁂ <h2 id=re-findall>Nalezení všech výskytů vzorku</h2>
+
+<p>Program pro řešení alfametiky ze všeho nejdřív hledá v hádance
+písmena (A–Z). <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import re</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.findall('[0-9]+', '16 2-by-4s in rows of 8')</kbd>  <span class="u">①</span></a>
+<samp class="pp">['16', '2', '4', '8']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.findall('[A-Z]+', 'SEND + MORE == MONEY')</kbd>     <span class="u">②</span></a>
+<samp class="pp">['SEND', 'MORE', 'MONEY']</samp></pre>
+<ol>
+<li>Modul <code>re</code> implementuje v Pythonu <a href="regular-expressions.html">regulární výrazy</a>. Najdeme v něm i šikovnou funkci nazvanou <code>findall()</code>, které zadáváme vzorek pro regulární výraz a řetězec. Funkce v zadaném řetězci nalezne všechny výskyty vzorku. V tomto případě vzorek pasuje na posloupnosti číslic. Funkce <code>findall()</code> vrací seznam všech podřetězců, které vzorku vyhovují. <li>Zde regulární výraz popisuje posloupnosti písmen. Návratovou hodnotou je opět seznam, jehož prvky jsou řetězce, které pasovaly k regulárnímu výrazu.
+</ol>
+
+<p>Následuje další příklad, který vám trochu procvičí mozek. <pre
+class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.findall(' s.*? s', "The sixth sick sheikh's sixth sheep's sick.")</kbd>
+<samp class="pp">[' sixth s', " sheikh's s", " sheep's s"]</samp></pre>
+
+<aside>Tohle je <a href="http://en.wikipedia.org/wiki/Tongue-twister">nejtěžší jazykolam</a>, který v anglickém jazyce najdete.</aside>
+
+<p>Překvapeni? Regulární výraz hledá mezeru, znak <code>s</code>, pak
+nejkratší možnou posloupnost libovolných znaků (<code>.*?</code>), pak
+mezeru a další <code>s</code>. Když se tak dívám na vstupní řetězec,
+vidím pět pasujících podřetězců: <ol>
+<li><code>The<mark> sixth s</mark>ick sheikh's sixth sheep's sick.</code>
+<li><code>The sixth<mark> sick s</mark>heikh's sixth sheep's sick.</code>
+<li><code>The sixth sick<mark> sheikh's s</mark>ixth sheep's sick.</code>
+<li><code>The sixth sick sheikh's<mark> sixth s</mark>heep's sick.</code>
+<li><code>The sixth sick sheikh's sixth<mark> sheep's s</mark>ick.</code>
+</ol>
+
+<p>Ale funkce <code>re.findall()</code> vrátila jen tři shody.
+Konkrétně vrátila jen první, třetí a pátou. Proč jen tři? Protože
+<em>nevrací překrývající se shody se vzorkem</em>. První shoda se
+překrývá s druhou, takže první se vrací a druhá se přeskakuje. Pak se
+třetí shoda překrývá se čtvrtou, takže třetí se vrací a čtvrtá se
+přeskakuje. A nakonec je tu pátá shoda, která se vrací. Najdou se tedy
+tři výskyty a ne pět. <p>Tahle poznámka neměla s řešením alfametiky
+nic společného. Prostě mi to připadlo zajímavé. <p class=a>⁂ <h2
+id=unique-items>Nalezení jedinečných prvků posloupnosti</h2>
+
+<p>Jedinečné hodnoty z posloupnosti můžeme snadno najít pomocí <a
+href="native-datatypes.html#sets">množin</a> (set). <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list = ['The', 'sixth', 'sick', "sheik's", 'sixth', "sheep's", 'sick']</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">set(a_list)</kbd>                      <span class="u">①</span></a>
+<samp class="pp">{'sixth', 'The', "sheep's", 'sick', "sheik's"}</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_string = 'EAST IS EAST'</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">set(a_string)</kbd>                    <span class="u">②</span></a>
+<samp class="pp">{'A', ' ', 'E', 'I', 'S', 'T'}</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">words = ['SEND', 'MORE', 'MONEY']</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">''.join(words)</kbd>                   <span class="u">③</span></a>
+<samp class="pp">'SENDMOREMONEY'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">set(''.join(words))</kbd>              <span class="u">④</span></a>
+<samp class="pp">{'E', 'D', 'M', 'O', 'N', 'S', 'R', 'Y'}</samp></pre>
+<ol>
+<li>Pokud máme seznam s několika řetězci, pak nám z něj funkce <code>set()</code> vytvoří množinu jedinečných řetězců. Dá se to snadno pochopit, když si to představíte jako cyklus <code>for</code>. Vezmeme první položku ze seznamu a vložíme ji do množiny. Pak druhou. A třetí. Čtvrtou. Pátou... Počkat! Ta už v množině je, takže se bude vypisovat jen jednou, protože množiny v Pythonu neumožňují existenci duplicit. A šestou. Sedmou&nbsp;—&nbsp;a znovu duplicita, takže se pak objeví jen jednou. A jaký je konečný výsledek? Z původního seznamu zbyly jen jedinečné položky bez duplicit. Původní seznam ani nemusíme předem seřadit. <li>Stejná technika funguje i pro řetězce, protože řetězce jsou posloupnostmi znaků. <li>Pokud máme seznam řetězců, pak <code>''.join(<var>a_list</var>)</code> spojí všechny řetězce do jednoho. <li>Takže pokud máme seznam řetězců, tento řádek kódu vrátí jedinečné znaky nacházející se ve všech řetězcích. Bez duplicit.
+</ol>
+
+<p>Program pro řešení alfametik tuto techniku používá pro vytvoření
+množiny všech jedinečných znaků v zadání. <pre class='nd
+pp'><code>unique_characters = set(''.join(words))</code></pre>
+
+<p>Program postupně prochází všemi možnými řešeními a tuto množinu
+používá pro přiřazení číslic jednotlivým znakům. <p class=a>⁂ <h2
+id=assert>Činíme předpoklady</h2>
+
+<p>V Pythonu, stejně jako v mnoha jiných programovacích jazycích,
+najdeme příkaz <code>assert</code>. Funguje následovně. <pre
+class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">assert 1 + 1 == 2</kbd>                                     <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">assert 1 + 1 == 3</kbd>                                     <span class="u">②</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+AssertionError</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">assert 2 + 2 == 5, "Only for very large values of 2"</kbd>  <span class="u">③</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+AssertionError: Only for very large values of 2</samp></pre>
+<ol>
+<li>Za příkaz <code>assert</code> uvedeme libovolný platný pythonovský výraz. V tomto případě se výraz <code>1 + 1 == 2</code> vyhodnotí jako <code>True</code>, takže příkaz <code>assert</code> nedělá nic. <li>Pokud se ale pythonovský výraz vyhodnotí jako <code>False</code>, vyvolá příkaz <code>assert</code> výjimku <code>AssertionError</code>. <li>Za výraz můžeme uvést také lidsky čitelnou zprávu, která se v případě vyvolání výjimky <code>AssertionError</code> zobrazí.
+</ol>
+
+<p>Takže následující řádek kódu: <pre class='nd pp'><code>assert
+len(unique_characters) &lt;= 10, 'Too many letters'</code></pre>
+
+<p>…je ekvivalentem zápisu: <pre class='nd pp'><code>if
+len(unique_characters) &gt; 10:
+    raise AssertionError('Too many letters')</code></pre>
+
+<p>Program řešící alfametiku používá přesně takový příkaz
+<code>assert</code> k předčasnému ukončení činnosti v případě, kdy
+hádanka obsahuje víc než deset jedinečných znaků. Protože každému
+písmenu přiřazujeme jedinečnou číslici a číslic máme jen deset,
+hádanka s více než deseti jedinečnými znaky nemůže mít řešení. <p
+class=a>⁂ <h2 id=generator-expressions>Generátorové výrazy</h2>
+
+<p>Generátorový výraz se podobá <a href="generators.html">generátorové
+funkci</a>, ale funkce to není. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">unique_characters = {'E', 'D', 'M', 'O', 'N', 'S', 'R', 'Y'}</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">gen = (ord(c) for c in unique_characters)</kbd>  <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">gen</kbd>                                        <span class="u">②</span></a>
+<samp class="pp">&lt;generator object &lt;genexpr&gt; at 0x00BADC10&gt;</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(gen)</kbd>                                  <span class="u">③</span></a>
+<samp class="pp">69</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(gen)</kbd>
+<samp class="pp">68</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tuple(ord(c) for c in unique_characters)</kbd>   <span class="u">④</span></a>
+<samp class="pp">(69, 68, 77, 79, 78, 83, 82, 89)</samp></pre>
+<ol>
+<li>Generátorový výraz se chová jako anonymní funkce, která produkuje hodnoty. Výraz samotný se podobá <a href="comprehensions.html#listcomprehension">generátorové notaci seznamu (list comprehension)</a>, ale místo do hranatých závorek je uzavřen v kulatých závorkách. <li>Generátorový výraz vrací… iterátor. <li>Při volání <code>next(<var>gen</var>)</code> se nám vrací další hodnota iterátoru. <li>Pokud chcete, můžete iterovat přes všechny hodnoty a vrátit n-tici, seznam nebo množinu tím, že generátorový výraz použijete v roli argumentu <code>tuple()</code>, <code>list()</code> nebo <code>set()</code>. V takovém případě nemusíte používat sadu kulatých závorek navíc. Funkci <code>tuple()</code> stačí předat „holý“ výraz <code>ord(c) for c in unique_characters</code> a Python už pozná, že jde o generátorový výraz.
+</ol>
+
+<blockquote class=note>
+<p><span class="u">☞</span>Když místo generátorové notace seznamu
+použijete generátorový výraz, ušetříte jak <abbr>CPU</abbr>, tak
+<abbr>RAM</abbr>. Pokud konstruujete seznam jen proto, abyste ho zase
+zahodili (tj. když ho například chcete předat do <code>tuple()</code>
+nebo <code>set()</code>), použijte raději generátorový výraz!
+</blockquote>
+
+<p>Následující ukázka dosahuje stejného efektu s použitím <a
+href="generators.html">generátorové funkce</a>: <pre class='nd
+pp'><code>def ord_map(a_string):
+    for c in a_string:
+        yield ord(c)
+
+gen = ord_map(unique_characters)</code></pre>
+
+<p>Generátorový výraz je kompaktnější, ale funguje stejně. <p
+class=a>⁂ <h2 id=permutations>Výpočet permutací (pro lenochy)</h2>
+
+<p>Ze všeho nejdříve se podívejme, co to vlastně jsou permutace?
+Permutace jsou matematický koncept. (Ve skutečnosti existuje několik
+definicí v závislosti na tom, jakým druhem matematiky se zabýváte. Zde
+se dotkneme kombinatoriky. Ale pokud vám to nic neříká, nedělejte si s
+tím starosti. Tak jako vždy, <a
+href="http://cs.wikipedia.org/wiki/Permutace">vaším kamarádem je
+Wikipedie</a>.) <p>Základní myšlenka spočívá v tom, že vezmeme seznam
+věcí (mohou to být čísla, písmenka nebo tancující medvídci) a najdeme
+všechny možné způsoby, jak z něj udělat menší seznamy. (Poznámka
+překladatele: V našich školách se pro označení tohoto úkonu používá
+pojem <a>variace k-té třídy z n prvků bez opakování</a>. Pojem <a
+href="http://cs.wikipedia.org/wiki/Permutace#Permutace_bez_opakov.C3.A1n.C3.AD">permutace
+bez opakování</a> se u nás používá jen pro speciální případ, kdy k je
+rovno n. V dalším textu zůstanu u chápání pojmu z originální publikace
+také z důvodu pojmenování příslušné funkce.) Všechny menší seznamy
+mají mít stejnou velikost, která může být od 1 až po celkový počet
+prvků. A nic se nesmí opakovat. Matematici by řekli „najděme permutace
+dvojic z tří různých prvků“ (u nás „najděte variace druhé třídy z tří
+prvků bez opakování“). To znamená, že máme posloupnost tří prvků a
+chceme nalézt všechny možné uspořádané dvojice. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import itertools</kbd>                              <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">perms = itertools.permutations([1, 2, 3], 2)</kbd>  <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>                                   <span class="u">③</span></a>
+<samp class="pp">(1, 2)</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<samp class="pp">(1, 3)</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<a><samp class="pp">(2, 1)</samp>                                            <span class="u">④</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<samp class="pp">(2, 3)</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<samp class="pp">(3, 1)</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<samp class="pp">(3, 2)</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>                                   <span class="u">⑤</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+StopIteration</samp></pre>
+<ol>
+<li>Modul <code>itertools</code> obsahuje celou řadu zábavných věcí, včetně funkce <code>permutations()</code>, která nás při hledání permutací zbaví veškeré námahy. <li>Funkce <code>permutations()</code> přebírá posloupnost (zde jde o seznam tří čísel) a požadovaný počet prvků v menších skupinách. Funkce vrací iterátor, který můžeme použít v cyklu <code>for</code> nebo na jakémkoliv starém známém místě, ve kterém se iteruje (tj. prochází všemi prvky). Zde budeme provádět kroky iterátoru ručně, abychom si všechny hodnoty ukázali. <li>První permutací ze seznamu <code>[1, 2, 3]</code> je dvojice <code>(1, 2)</code>. <li>Poznamenejme, že permutace jsou uspořádané: <code>(2, 1)</code> je něco jiného než <code>(1, 2)</code>. <li>Tak to jsou ony! Tohle jsou permutace všech dvojic z <code>[1, 2, 3]</code>. Dvojice jako <code>(1, 1)</code> nebo <code>(2, 2)</code> zde nikdy neuvidíte, protože obsahují opakující se prvky. Takže nejde o platné permutace. Pokud už více permutací neexistuje, iterátor vyvolá výjimku <code>StopIteration</code>.
+</ol>
+
+<aside>Modul <code>itertools</code> obsahuje všemožné zábavné věci.</aside>
+
+<p>Funkci <code>permutations()</code> nemusíme předávat jen seznam.
+Může přebírat jakoukoliv posloupnost, dokonce i řetězec. <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import itertools</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">perms = itertools.permutations('ABC', 3)</kbd>  <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<a><samp class="pp">('A', 'B', 'C')</samp>                               <span class="u">②</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<samp class="pp">('A', 'C', 'B')</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<samp class="pp">('B', 'A', 'C')</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<samp class="pp">('B', 'C', 'A')</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<samp class="pp">('C', 'A', 'B')</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<samp class="pp">('C', 'B', 'A')</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(perms)</kbd>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+StopIteration</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(itertools.permutations('ABC', 3))</kbd>    <span class="u">③</span></a>
+<samp class="pp">[('A', 'B', 'C'), ('A', 'C', 'B'),
+ ('B', 'A', 'C'), ('B', 'C', 'A'),
+ ('C', 'A', 'B'), ('C', 'B', 'A')]</samp></pre>
+<ol>
+<li>Řetězec je jen posloupností znaků. Takže pro účely hledání permutací je řetězec <code>'ABC'</code> ekvivalentem k seznamu <code>['A', 'B', 'C']</code>. <li>První permutací trojic z tří prvků <code>['A', 'B', 'C']</code> je <code>('A', 'B', 'C')</code>. Pro stejné znaky existuje pět dalších myslitelných uspořádání, tedy permutací. <li>Funkce <code>permutations()</code> vrací vždy iterátor. Snadný způsob zviditelnění všech permutací při ladění spočívá ve vytvoření jejich seznamu předáním iterátoru do zabudované funkce <code>list()</code>.
+</ol>
+
+<p class=a>⁂ <h2 id=more-itertools>Další legrácky v modulu
+<code>itertools</code></h2>
+<pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import itertools</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(itertools.product('ABC', '123'))</kbd>   <span class="u">①</span></a>
+<samp class="pp">[('A', '1'), ('A', '2'), ('A', '3'), 
+ ('B', '1'), ('B', '2'), ('B', '3'), 
+ ('C', '1'), ('C', '2'), ('C', '3')]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(itertools.combinations('ABC', 2))</kbd>  <span class="u">②</span></a>
+<samp class="pp">[('A', 'B'), ('A', 'C'), ('B', 'C')]</samp></pre>
+<ol>
+<li>Funkce <code>itertools.product()</code> vrací iterátor, který vytváří kartézský součin dvou posloupností. <li>Funkce <code>itertools.combinations()</code> vrací iterátor, který vytváří všechny možné kombinace dané délky z dané posloupnosti. Podobá se funkci <code>itertools.permutations()</code> s tou výjimkou, že kombinace nezahrnují výsledky, které vzniknou pouhou změnou uspořádání položek jiného výsledku. Takže <code>itertools.permutations('ABC', 2)</code> vrátí jak <code>('A', 'B')</code>, tak <code>('B', 'A')</code> (mimo jiné), ale <code>itertools.combinations('ABC', 2)</code> nevrátí <code>('B', 'A')</code>, protože jde o duplicitu vytvořenou změnou pořadí položek <code>('A', 'B')</code>.
+</ol>
+
+<p class=d>[<a href="examples/favorite-people.txt">stáhnout
+<code>favorite-people.txt</code></a>] <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">names = list(open('examples/favorite-people.txt', encoding='utf-8'))</kbd>  <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">names</kbd>
+<samp class="pp">['Dora\n', 'Ethan\n', 'Wesley\n', 'John\n', 'Anne\n',
+'Mike\n', 'Chris\n', 'Sarah\n', 'Alex\n', 'Lizzie\n']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">names = [name.rstrip() for name in names]</kbd>                             <span class="u">②</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">names</kbd>
+<samp class="pp">['Dora', 'Ethan', 'Wesley', 'John', 'Anne',
+'Mike', 'Chris', 'Sarah', 'Alex', 'Lizzie']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">names = sorted(names)</kbd>                                                 <span class="u">③</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">names</kbd>
+<samp class="pp">['Alex', 'Anne', 'Chris', 'Dora', 'Ethan',
+'John', 'Lizzie', 'Mike', 'Sarah', 'Wesley']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">names = sorted(names, key=len)</kbd>                                        <span class="u">④</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">names</kbd>
+<samp class="pp">['Alex', 'Anne', 'Dora', 'John', 'Mike',
+'Chris', 'Ethan', 'Sarah', 'Lizzie', 'Wesley']</samp></pre>
+<ol>
+<li>Tento obrat vrací seznam všech řádků v textovém souboru. <li>Naneštěstí (pro tento příklad) obrat <code>list(open(<var>filename</var>))</code> vrací na konci každého řádku i znak konce řádku. V této generátorové notaci seznamu použijeme metodu řetězce <code>rstrip()</code>, která z konce každého řádku odstraní koncové bílé znaky. (Řetězce definují též metodu <code>lstrip()</code>, která odstraňuje úvodní bílé znaky, a metodu <code>strip()</code>, která odstraňuje bílé znaky z obou konců.) <li>Funkce <code>sorted()</code> přebírá seznam a vrací nový, seřazený. Neřekneme-li jinak, řadí se podle abecedy. <li>Ale funkci <code>sorted()</code> můžeme parametrem <var>key</var> předat funkci a pak se provede řazení podle jejích výsledků. V tomto případě byla předána funkce <code>len()</code>, takže řazení probíhá podle výsledků funkce <code>len(<var>položka</var>)</code>. Nejkratší jména se dostanou na začátek, pak budou následovat delší a delší.
+</ol>
+
+<p>A co to má společného s modulem <code>itertools</code>? To jsem
+rád, že se ptáte. <pre class=screen>
+…pokračování v předchozí práci s interaktivním shellem…
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import itertools</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">groups = itertools.groupby(names, len)</kbd>  <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">groups</kbd>
+<samp class="pp">&lt;itertools.groupby object at 0x00BB20C0&gt;</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(groups)</kbd>
+<samp class="pp">[(4, &lt;itertools._grouper object at 0x00BA8BF0&gt;),
+ (5, &lt;itertools._grouper object at 0x00BB4050&gt;),
+ (6, &lt;itertools._grouper object at 0x00BB4030&gt;)]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">groups = itertools.groupby(names, len)</kbd>   <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">for name_length, name_iter in groups:</kbd>    <span class="u">③</span></a>
+<samp class="p">... </samp><kbd class="pp">    print('Names with {0:d} letters:'.format(name_length))</kbd>
+<samp class="p">... </samp><kbd class="pp">    for name in name_iter:</kbd>
+<samp class="p">... </samp><kbd class="pp">        print(name)</kbd>
+<samp class="p">... </samp>
+<samp>Names with 4 letters:
+Alex
+Anne
+Dora
+John
+Mike
+Names with 5 letters:
+Chris
+Ethan
+Sarah
+Names with 6 letters:
+Lizzie
+Wesley</samp></pre>
+<ol>
+<li>Fukce <code>itertools.groupby()</code> přebírá posloupnost a funkci klíče. Vrací iterátor, který vytváří dvojice. Každá dvojice obsahuje jednak výsledek <code>funkce_klic(<var>každá položka</var>)</code> a jednak další iterátor, který prochází všemi položkami se stejným výsledkem funkce klíče. <li>Voláním funkce <code>list()</code> jsme iterátor „vyčerpali“. To znamená, že jsme při vytváření seznamu vygenerovali každou položku iterátoru. Iterátor nemá žádné tlačítko „reset“. Jakmile jsme posloupnost jednou vyčerpali, nemůžeme začít znovu. Pokud chceme hodnoty projít znovu (dejme tomu v dalším cyklu <code>for</code>), musíme znovu zavolat <code>itertools.groupby()</code> a vytvořit nový iterátor. <li>Za předpokladu, že už máme seznam jmen <em>seřazený podle jejich délek</em>, přidělí <code>itertools.groupby(names, len)</code> všem jménům délky 4 jeden iterátor, všem jménům délky 5 druhý iterátor atd. Funkce <code>groupby()</code> je zcela obecná. Řetězce můžeme seskupit podle prvního písmene, čísla podle počtu jejich prvočinitelů nebo podle jakékoliv myslitelné funkce klíče.
+</ol>
+<!-- YO DAWG, WE HEARD YOU LIKE LOOPING, SO WE PUT AN ITERATOR IN YOUR ITERATOR SO YOU CAN LOOP WHILE YOU LOOP. -->
+
+<blockquote class=note>
+<p><span class="u">☞</span>Funkce <code>itertools.groupby()</code>
+funguje jen v případě, kdy je vstupní posloupnost již seřazená podle
+sdružovací funkce. Ve výše uvedeném příkladu jsme seznam jmen
+seskupili podle funkce <code>len()</code>. Fungovalo to jen díky tomu,
+že byl vstupní seznam již seřazen podle délky položek.
+</blockquote>
+
+<p>Díváte se pozorně? <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(range(0, 3))</kbd>
+<samp class="pp">[0, 1, 2]</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(range(10, 13))</kbd>
+<samp class="pp">[10, 11, 12]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(itertools.chain(range(0, 3), range(10, 13)))</kbd>        <span class="u">①</span></a>
+<samp class="pp">[0, 1, 2, 10, 11, 12]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(zip(range(0, 3), range(10, 13)))</kbd>                    <span class="u">②</span></a>
+<samp class="pp">[(0, 10), (1, 11), (2, 12)]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(zip(range(0, 3), range(10, 14)))</kbd>                    <span class="u">③</span></a>
+<samp class="pp">[(0, 10), (1, 11), (2, 12)]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(itertools.zip_longest(range(0, 3), range(10, 14)))</kbd>  <span class="u">④</span></a>
+<samp class="pp">[(0, 10), (1, 11), (2, 12), (None, 13)]</samp></pre>
+<ol>
+<li>Funkce <code>itertools.chain()</code> přebírá dva iterátory a vrací iterátor, který vytváří posloupnost všech položek nejdříve z prvního iterátoru a pak všech položek z druhého iterátoru. (Ve skutečnosti můžeme předat libovolný počet iterátorů a tato funkce zřetězí všechny jejich hodnoty v pořadí, v jakém jsme je funkci předali.) <li>Funkce <code>zip()</code> dělá něco docela obyčejného, ale ukazuje se, že je velmi užitečná. Přebírá libovolný počet posloupností a vrací iterátor, který vytváří n-tice z prvních položek každé posloupnosti, pak z druhých položek, pak z třetích atd. <li>Funkce <code>zip()</code> zastaví na konci nejkratší posloupnosti. Funkce <code>range(10, 14)</code> produkuje 4 položky (10, 11, 12 a 13), ale <code>range(0, 3)</code> jen 3. Takže funkce <code>zip()</code> vrátí iterátor produkující 3 položky. <li>Naopak funkce <code>itertools.zip_longest()</code> zastaví až na konci <em>nejdelší</em> posloupnosti. Místo chybějících položek kratších posloupností doplní hodnoty <code>None</code>.
+</ol>
+
+<p id=dict-zip>No dobrá, tohle všechno je sice velmi zajímavé, ale jak
+se to vztahuje k programu na řešení alfametik? Takto: <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">characters = ('S', 'M', 'E', 'D', 'O', 'N', 'R', 'Y')</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">guess = ('1', '2', '0', '3', '4', '5', '6', '7')</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tuple(zip(characters, guess))</kbd>  <span class="u">①</span></a>
+<samp class="pp">(('S', '1'), ('M', '2'), ('E', '0'), ('D', '3'),
+ ('O', '4'), ('N', '5'), ('R', '6'), ('Y', '7'))</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">dict(zip(characters, guess))</kbd>   <span class="u">②</span></a>
+<samp class="pp">{'E': '0', 'D': '3', 'M': '2', 'O': '4',
+ 'N': '5', 'S': '1', 'R': '6', 'Y': '7'}</samp></pre>
+<ol>
+<li>Máme-li dán seznam písmen a seznam číslic (každá z nich je v něm reprezentována jako jednoznakový řetězec), pak nám funkce <code>zip</code> spáruje písmena a číslice v uvedeném pořadí. <li>A proč by to mělo být nějak zvlášť výhodné? Protože shodou okolností je taková datová struktura přesně tou správnou datovou strukturou, kterou můžeme předat funkci <code>dict()</code>, aby vytvořila slovník, který používá písmena jako klíče a k nim přidružené číslice jako hodnoty. (Není to, samozřejmě, jediný způsob, jak toho můžeme dosáhnout. Slovník bychom mohli vytvořit přímo, pomocí <a href="comprehensions.html#dictionarycomprehension">generátorové notace</a>.) Ačkoliv textová reprezentace obsahu slovníku zobrazuje dvojice v jiném pořadí (slovníky samy o sobě nedefinují „pořadí“), vidíme, že každé písmeno má k sobě číslici přidruženou na základě původních posloupností <var>characters</var> a <var>guess</var>.
+</ol>
+
+<p id=guess>Program pro řešení alfametik tuto techniku používá pro
+vytvoření slovníku, který převádí písmena z hádanky na čísla v řešení
+— pro každé možné řešení. <pre class='nd pp'><code>characters =
+tuple(ord(c) for c in sorted_characters)
+digits = tuple(ord(c) for c in '0123456789')
+...
+for guess in itertools.permutations(digits, len(characters)):
+    ...
+<mark>    equation = puzzle.translate(dict(zip(characters, guess)))</mark></code></pre>
+
+<p>Ale co je za metodu ta <code>translate()</code>? Teď se dostáváme k
+<em>opravdu</em> zábavné části. <p class=a>⁂ <h2
+id=string-translate>Nový způsob úpravy řetězce</h2>
+
+<p>Pythonovské řetězce definují mnoho metod. O některých z nich jsme
+se učili <a href="strings.html">v kapitole Řetězce</a>:
+<code>lower()</code>, <code>count()</code> a <code>format()</code>.
+Teď si představíme mocnou, ale málo známou techniku pro manipulaci s
+řetězcem. Jde o metodu <code>translate()</code>. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">translation_table = {ord('A'): ord('O')}</kbd>  <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">translation_table</kbd>                         <span class="u">②</span></a>
+<samp class="pp">{65: 79}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">'MARK'.translate(translation_table)</kbd>       <span class="u">③</span></a>
+<samp class="pp">'MORK'</samp></pre>
+<ol>
+<li>Překlad řetězce začíná naplněním překladové tabulky, což je prostě slovník, který zobrazuje jeden znak na jiný. Pojem „znak“ je zde vlastně uveden chybně. Překladová tabulka ve skutečnosti zobrazuje <em>bajty</em> na jiné bajty. <li>Připomeňme si, že bajty jsou v Pythonu 3 celá čísla. Funkce <code>ord()</code> vrací <abbr>ASCII</abbr> hodnotu daného znaku. V případě znaků A–Z to budou vždy bajty od 65 do 90. <li>Metoda řetězcového objektu <code>translate()</code> přebírá překladovou tabulku a obsah řetězce přes ni propasíruje. To znamená, že nahradí všechny výskyty klíčů z překladové tabulky odpovídajícími hodnotami. V tomto případě se <code>MARK</code> „přeloží“ na <code>MORK</code>.
+</ol>
+
+<aside>Teď se dostáváme k <em>opravdu</em> zábavné části.</aside>
+
+<p>Ale co to má společného s řešením alfametických hádanek? Jak se
+ukáže za chvílli, všechno. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">characters = tuple(ord(c) for c in 'SMEDONRY')</kbd>       <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">characters</kbd>
+<samp class="pp">(83, 77, 69, 68, 79, 78, 82, 89)</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">guess = tuple(ord(c) for c in '91570682')</kbd>            <span class="u">②</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">guess</kbd>
+<samp class="pp">(57, 49, 53, 55, 48, 54, 56, 50)</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">translation_table = dict(zip(characters, guess))</kbd>     <span class="u">③</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">translation_table</kbd>
+<samp class="pp">{68: 55, 69: 53, 77: 49, 78: 54, 79: 48, 82: 56, 83: 57, 89: 50}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">'SEND + MORE == MONEY'.translate(translation_table)</kbd>  <span class="u">④</span></a>
+<samp class="pp">'9567 + 1085 == 10652'</samp></pre>
+<ol>
+<li>Prostřednictvím <a href="#generator-expressions">generátorového výrazu</a> pro každý znak řetězce rychle vypočteme hodnotu odpovídajícího bajtu. Obsah proměnné <var>characters</var> je příkladem obsahu proměnné <var>sorted_characters</var> z funkce <code>alphametics.solve()</code>. <li>Pomocí dalšího generátorového výrazu rychle vypočítáme hodnoty bajtů reprezentujících každou číslici řetězce. Výsledek v proměnné <var>guess</var> (tj. odhad) má podobu <a href="#guess">vrácenou funkcí <code>itertools.permutations()</code></a> — viz funkce <code>alphametics.solve()</code> <li>Překladová tabulka se generuje <a href="#dict-zip">zipováním posloupností <var>characters</var> a <var>guess</var> dohromady</a> a použitím výsledné posloupnosti dvojic pro vybudování slovníku. Přesně tohle dělá funkce <code>alphametics.solve()</code> uvnitř cyklu <code>for</code>. <li>Nakonec překladovou tabulku předáme metodě <code>translate()</code> původního řetězce hádanky. Tím se každý znak řetězce přeloží na odpovídající číslici (podle písmen v <var>characters</var> a číslic v <var>guess</var>). Výsledkem je platný pythonovský výraz v řetězcové podobě.
+</ol>
+
+<p>To je docela efektní. Ale co můžeme dělat s řetězcem, který shodou
+okolností zachycuje platný pythonovský výraz? <p class=a>⁂ <h2
+id=eval>Vyhodnocování libovolných řetězců zachycujících pythonovské
+výrazy</h2>
+
+<p>Tohle je poslední kousek skládanky (nebo spíše poslední kousek
+programu pro řešení hádanky). Po všech těch efektních manipulacích s
+řetězci jsme skončili u řetězce, jako je <code>'9567 + 1085 ==
+10652'</code>. Ale je to jen řetězec. A k čemu je nám řetězec dobrý?
+Seznamte se s <code>eval()</code>, s univerzálním pythonovským
+vyhodnocovacím nástrojem. <pre class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval('1 + 1 == 2')</kbd>
+<samp class="pp">True</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval('1 + 1 == 3')</kbd>
+<samp class="pp">False</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval('9567 + 1085 == 10652')</kbd>
+<samp class="pp">True</samp></pre>
+
+<p>Ale počkejte! Je toho ještě víc! Funkce <code>eval()</code> se
+neomezuje jen na booleovské výrazy. Zvládne <em>libovolný</em>
+pythonovský výraz a vrací <em>libovolný</em> datový typ. <pre
+class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval('"A" + "B"')</kbd>
+<samp class="pp">'AB'</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval('"MARK".translate({65: 79})')</kbd>
+<samp class="pp">'MORK'</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval('"AAAAA".count("A")')</kbd>
+<samp class="pp">5</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval('["*"] * 5')</kbd>
+<samp class="pp">['*', '*', '*', '*', '*']</samp></pre>
+
+<p>Ale počkejte, to ještě není vše! <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">x = 5</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("x * 5")</kbd>         <span class="u">①</span></a>
+<samp class="pp">25</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("pow(x, 2)")</kbd>     <span class="u">②</span></a>
+<samp class="pp">25</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import math</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("math.sqrt(x)")</kbd>  <span class="u">③</span></a>
+<samp class="pp">2.2360679774997898</samp></pre>
+<ol>
+<li>Výraz předávaný funkci <code>eval()</code> se může odkazovat na globální proměnné definované vně <code>eval()</code>. A pokud se volá uvnitř funkce, může se odkazovat i na lokální proměnné. <li>A funkce. <li>A moduly.
+</ol>
+
+<p>Hej, zastav na minutku… <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import subprocess</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("subprocess.getoutput('ls ~')")</kbd>                  <span class="u">①</span></a>
+<samp class="pp">'Desktop         Library         Pictures \
+ Documents       Movies          Public   \
+ Music           Sites'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("subprocess.getoutput('rm /some/random/file')")</kbd>  <span class="u">②</span></a></pre>
+<ol>
+<li>Modul <code>subprocess</code> vám dovolí spustit libovolný shellovský příkaz a získat výsledek v podobě pythonovského řetězce. <li>Jenže libovolný shellovský příkaz může vést k trvalým následkům.
+</ol>
+
+<p>A je to dokonce ještě horší, protože existuje globální funkce
+<code>__import__()</code>, která přebírá jméno modulu v řetězcové
+podobě, importuje ho a vrací na něj odkaz. Když to zkombinujeme se
+silou funkce <code>eval()</code>, můžeme vytvořit výraz, který smaže
+všechny vaše soubory: <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("__import__('subprocess').getoutput('rm /some/random/file')")</kbd>  <span class="u">①</span></a></pre>
+<ol>
+<li>A teď si představte výstup příkazu <code>'rm -rf ~'</code>. Ve skutečnosti žádný výstup neuvidíte. Ale neuvidíte už ani své soubory.
+</ol>
+
+<p class=xxxl>eval() is EVIL <p>(tj. <code>eval()</code> je zlý,
+špatný, zlověstný). Tou zlou stránkou je vyhodnocování libovolných
+výrazů pocházejících z nedůvěryhodných zdrojů. Funkci
+<code>eval()</code> byste měli používat výhradně pro vstup z
+důvěryhodných zdrojů. Problém je v tom, jak určit, co je „důvěryhodný“
+zdroj. Ale něco vím určitě. Určitě byste <b>NEMĚLI</b> vzít tento
+program pro řešení alfametik a zveřejnit jej na internetu v podobě
+malé webovské služby. A nemyslete si: „Vždyť ta funkce dělá tolik
+řetězcových operací, než se vůbec dostane k vyhodnocení. <em>Nedovedu
+si představit</em>, jak by toho někdo mohl zneužít.“ Někdo
+<b>přijde</b> na to, jak propašovat nějaký nebezpečný kód všemi těmi
+řetězcovými manipulacemi (<a
+href="http://www.securityfocus.com/blogs/746">už se staly divnější
+věci</a>). A pak už můžete svému serveru poslat jen polibek na
+rozloučenou. <p>Ale existuje vůbec <em>nějaký</em> způsob, jak výrazy
+vyhodnotit bezpečně? Lze nějak <code>eval()</code> umístit na
+pískoviště, odkud nemá přístup k okolnímu světu a nemůže mu škodit?
+Hmm, ano i ne. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">x = 5</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("x * 5", {}, {})</kbd>               <span class="u">①</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "&lt;string&gt;", line 1, in &lt;module&gt;
+NameError: name 'x' is not defined</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("x * 5", {"x": x}, {})</kbd>         <span class="u">②</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import math</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("math.sqrt(x)", {"x": x}, {})</kbd>  <span class="u">③</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "&lt;string&gt;", line 1, in &lt;module&gt;
+NameError: name 'math' is not defined</samp></pre>
+<ol>
+<li>Druhý a třetí parametr předávaný funkci <code>eval()</code> se chovají jako globální a lokální prostor jmen. Tyto prostory se používají při vyhodnocování výrazu. V tomto případě jsou oba prázdné. To znamená, že při vyhodnocování řetězce <code>"x * 5"</code> neexistuje žádný odkaz na <var>x</var> ani v globálním ani v lokálním prostoru jmen. Takže <code>eval()</code> vyvolá výjimku. <li>Do globálního prostoru jmen můžeme vložit výběr určitých hodnot tím, že je jednotlivě vyjmenujeme. Během vyhodnocování pak budou k dispozici tyto a jen tyto proměnné. <li>Ačkoliv jste zrovna importovali modul <code>math</code>, nevložili jsme jej do prostoru jmen, který předáváme funkci <code>eval()</code>. V důsledku toho vyhodnocení selhalo.
+</ol>
+
+<p>Tý jo. Tak to bylo jednoduché. Teď si udělám webovskou službu pro
+řešení alfametik! <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("pow(5, 2)", {}, {})</kbd>                   <span class="u">①</span></a>
+<samp class="pp">25</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("__import__('math').sqrt(5)", {}, {})</kbd>  <span class="u">②</span></a>
+<samp class="pp">2.2360679774997898</samp></pre>
+<ol>
+<li>Ačkoliv jste v roli globálního a lokálního prostoru jmen předali prázdné slovníky, během vyhodnocování jsou stále dostupné všechny zabudované pythonovské funkce. Takže <code>pow(5, 2)</code> funguje, protože <code>5</code> a <code>2</code> jsou literály a <code>pow()</code> je zabudovaná funkce. <li>Naneštěstí (a pokud netušíte, proč naneštěstí, čtěte dál) je funkce <code>__import__()</code> také zabudovanou funkcí, takže také funguje.
+</ol>
+
+<p>Ano, to znamená, že můžete pořád dělat odporné věci, i když jste
+při volání <code>eval()</code> pro globální a lokální prostor jmen
+explicitně nastavili prázdné slovníky: <pre class='nd screen'><samp
+class="p">&gt;&gt;&gt; </samp><kbd
+class="pp">eval("__import__('subprocess').getoutput('rm
+/some/random/file')", {}, {})</kbd></pre>
+
+<p>A do prčic! Jsem rád, že jsem z modulu alphametics neudělal webovou
+službu. Je zde vůbec <em>nějaký</em> způsob, kterým bychom mohli
+<code>eval()</code> používat bezpečně? Ano i ne. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("__import__('math').sqrt(5)",</kbd>
+<a><samp class="p">... </samp><kbd class="pp">    {"__builtins__":None}, {})</kbd>          <span class="u">①</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "&lt;string&gt;", line 1, in &lt;module&gt;
+NameError: name '__import__' is not defined</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("__import__('subprocess').getoutput('rm -rf /')",</kbd>
+<a><samp class="p">... </samp><kbd class="pp">    {"__builtins__":None}, {})</kbd>          <span class="u">②</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "&lt;string&gt;", line 1, in &lt;module&gt;
+NameError: name '__import__' is not defined</samp></pre>
+<ol>
+<li>Abyste mohli výrazy z nedůvěryhodných zdrojů vyhodnocovat bezpečně, musíte definovat slovník pro globální prostor jmen, který mapuje <code>"__builtins__"</code> na <code>None</code>, tedy na pythonovskou hodnotu null (nic, nil). „Zabudované“ funkce jsou totiž vnitřně uzavřeny do pseudomodulu nazvaného <code>"__builtins__"</code>. Tento pseudomodul (tj. množina zabudovaných funkcí) je vyhodnocovaným výrazům zpřístupněn — pokud jej explicitně nepotlačíte. <li>Ujistěte se, že předefinováváte <code>__builtins__</code>. Žádné <code>__builtin__</code>, <code>__built-ins__</code> nebo nějakou podobnou variantu. Ono by to fungovalo bez problémů, ale vystavilo by vás to riziku katastrofy.
+</ol>
+
+<p>Takhle už je <code>eval()</code> bezpečný? Nu, ano i ne. <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("2 ** 2147483647",</kbd>
+<a><samp class="p">... </samp><kbd class="pp">    {"__builtins__":None}, {})</kbd>          <span class="u">①</span></a>
+</pre>
+<ol>
+<li>I bez přístupu k <code>__builtins__</code> můžete stále spustit útok typu odmítnutí služby. Pokud se například pokusíte o umocnění <code>2</code> na <code>2147483647</code>, využití procesoru vašeho serveru stoupne na 100 % na pěkně dlouhou dobu. (Pokud to zkoušíte v interaktivním shellu, můžete ho přerušit, když několikrát stisknete <kbd>Ctrl-C</kbd>.) Technicky vzato, tento výraz <em>nakonec vrátí</em> nějakou hodnotu, ale do té doby bude server dělat spoustu zbytečné práce.
+</ol>
+
+<p>Takže nakonec <em>je možné</em> bezpečně vyhodnocovat pythonovské
+výrazy z nedůvěryhodných zdrojů. Vyžaduje to ale určitou definici
+pojmu „bezpečně“, která v reálném životě není zas tak užitečná. Dobré
+je, když si hrajete někde poblíž. Dobré taky je, když připustíte jen
+důvěryhodný vstup. Cokoliv jiného znamená, že si koledujete o malér.
+<p class=a>⁂ <h2 id=alphametics-finale>Spojme to všechno
+dohromady</h2>
+
+<p>Rekapitulace: Tento program řeší alfametické hádanky hrubou silou,
+tj. vyčerpávajícím hledáním všech možných řešení. Program za tím
+účelem... <ol>
+<li><a href="#re-findall">Nalezne v zadání všechna písmena</a> voláním funkce <code>re.findall()</code>. <li><a href="#unique-items">Nalezne všechna <em>jedinečná</em> písmena hádanky s využitím množiny a funkce <code>set()</code>. <li><a href="#assert">Zkontroluje příkazem <code>assert</code>, zda se v zadání nevyskytuje více než 10 jedinečných znaků</a> (což by znamenalo, že hádanka je neřešitelná). <li><a href="#generator-objects">Převede znaky na jejich ASCII hodnoty</a> použitím objektu generátoru. <li><a href="#permutations">Počítá všechna možná řešení</a> pomocí funkce <code>itertools.permutations()</code>. <li><a href="#string-translate">Převádí každé možné řešení na pythonovský výraz</a> pomocí metody řetězcového objektu <code>translate()</code>. <li><a href="#eval">Testuje každé možné řešení vyhodnocením pythonovského výrazu</a> voláním funkce <code>eval()</code>. <li>Vrací první řešení, které se vyhodnotí jako <code>True</code>.
+</ol>
+
+<p>…to vše na pouhých 14 řádcích kódu. <p class=a>⁂ <h2
+id=furtherreading>Přečtěte si</h2>
+
+<ul>
+<li><a href="http://docs.python.org/3.1/library/itertools.html"><code>itertools</code> module</a>
+<li><a href="http://www.doughellmann.com/PyMOTW/itertools" /><code>itertools</code>&nbsp;—&nbsp;Iterator functions for efficient looping</a>
+<li><a href="http://blip.tv/file/1947373" />Podívejte se na přednášku Raymonda Hettingera „Easy AI with Python“</a> na PyCon 2009 <li><a href="http://code.activestate.com/recipes/576615" />Recipe 576615: Alphametics solver</a>, původní program Raymonda Hettingera pro Python 2. <li><a href="http://code.activestate.com/recipes/users/178123" />Další recepty od Raymonda Hettingera</a> v ActiveState Code repository (archiv kódu). <li><a href="http://en.wikipedia.org/wiki/Verbal_arithmetic">Alphametics on Wikipedia</a>
+<li><a href="http://www.tkcs-collins.com/truman/alphamet/index.shtml">Alphametics Index</a>, včetně <a href="http://www.tkcs-collins.com/truman/alphamet/alphamet.shtml">mnoha zadání</a> a <a href="http://www.tkcs-collins.com/truman/alphamet/alpha_gen.shtml">generátoru vašich vlastních zadání</a>
+</ul>
+
+<p>Mnohokrát děkuji Raymondu Hettingerovi za souhlas s úpravou licence
+jeho kódu, abych ho mohl přepsat pro Python 3 a použít jako základ
+této kapitoly. <p class=v><a href="iterators.html" rel="prev"
+title="zpět na „Třídy a iterátory“"><span class="u">☜</span></a> <a
+href="unit-testing.html" rel="next" title="dopředu na „Unit
+Testing“"><span class="u">☞</span></a>
+
+<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<script src=j/jquery.js></script>
+<script src=j/prettify.js></script>
+<script src=j/dip3.js></script> 

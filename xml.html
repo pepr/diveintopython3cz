@@ -1,0 +1,786 @@
+﻿<!DOCTYPE html> <meta charset=utf-8>
+<title>XML – Ponořme se do Pythonu 3</title>
+<!--[if IE]><script src=j/html5.js></script><![endif]-->
+<link rel=stylesheet href=dip3.css>
+<style>
+body{counter-reset:h1 12}
+mark{display:inline}
+</style>
+<link rel=stylesheet media='only screen and (max-device-width: 480px)' href=mobile.css>
+<link rel=stylesheet media=print href=print.css>
+<meta name=viewport content='initial-scale=1.0'>
+<!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
+class="u">‣</span> <a href="table-of-contents.html#xml">Ponořme se do
+Pythonu 3</a> <span class="u">‣</span>
+<p id=level>Úroveň obtížnosti: <span class="u" title="pro
+pokročilé">♦♦♦♦♢</span>
+<h1>XML</h1>
+<blockquote class=q>
+<p><span class="u">❝</span> In the archonship of Aristaechmus, Draco
+enacted his ordinances. <span class="u">❞</span><br />(Za vlády
+Aristaechma uzákonil Drakon svá pravidla.)<br />— <a
+href="http://www.perseus.tufts.edu/cgi-bin/ptext?doc=Perseus:text:1999.01.0046;query=chapter%3D%235;layout=;loc=3.1">Aristoteles</a>
+</blockquote>
+<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
+<p class=f>Téměř všechny kapitoly této knihy se točí kolem příkladů
+kódu. <abbr>XML</abbr> nesouvisí s kódem, ale s daty. Jedním z míst,
+kde se <abbr>XML</abbr> běžně používá, je „publikovaný obsah“
+(syndication feeds), ve kterém se udržuje seznam posledních článků
+blogu, fóra nebo jiného, často aktualizovaného obsahu webového místa.
+Nejpopulárnější blogovací programy vytvářejí obsah (feed), a kdykoliv
+je publikován nový článek, diskusní vlákno nebo zpráva na blogu, tento
+obsah aktualizují. Blog můžeme sledovat tak, že se „přihlásíme k
+odběru“ jeho obsahu (feed). Více blogů můžeme sledovat tak, že
+použijeme k tomu určený „<a
+href="http://en.wikipedia.org/wiki/List_of_feed_aggregators">nástroj
+pro sdružování obsahu (feed aggregator)</a>“, jako je například <a
+href="http://www.google.com/reader/">Google Reader</a>. <p>V této
+kapitole budeme pracovat s následujícími <abbr>XML</abbr> daty. Jde o
+publikovaný obsah (feed)&nbsp;—&nbsp;konkrétně o <a
+href="http://atompub.org/rfc4287.html">Atom syndication feed</a>. <p
+class=d>[<a href="examples/feed.xml">stáhnout
+<code>feed.xml</code></a>] <pre class=pp><code>&lt;?xml version='1.0'
+encoding='utf-8'?&gt;
+&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;
+  &lt;title&gt;dive into mark&lt;/title&gt;
+  &lt;subtitle&gt;currently between addictions&lt;/subtitle&gt;
+  &lt;id&gt;tag:diveintomark.org,2001-07-29:/&lt;/id&gt;
+  &lt;updated&gt;2009-03-27T21:56:07Z&lt;/updated&gt;
+  &lt;link rel='alternate' type='text/html' href='http://diveintomark.org/'/&gt;
+  &lt;link rel='self' type='application/atom+xml' href='http://diveintomark.org/feed/'/&gt;
+  &lt;entry&gt;
+    &lt;author&gt;
+      &lt;name&gt;Mark&lt;/name&gt;
+      &lt;uri&gt;http://diveintomark.org/&lt;/uri&gt;
+    &lt;/author&gt;
+    &lt;title&gt;Dive into history, 2009 edition&lt;/title&gt;
+    &lt;link rel='alternate' type='text/html'
+      href='http://diveintomark.org/archives/2009/03/27/dive-into-history-2009-edition'/&gt;
+    &lt;id&gt;tag:diveintomark.org,2009-03-27:/archives/20090327172042&lt;/id&gt;
+    &lt;updated&gt;2009-03-27T21:56:07Z&lt;/updated&gt;
+    &lt;published&gt;2009-03-27T17:20:42Z&lt;/published&gt;
+    &lt;category scheme='http://diveintomark.org' term='diveintopython'/&gt;
+    &lt;category scheme='http://diveintomark.org' term='docbook'/&gt;
+    &lt;category scheme='http://diveintomark.org' term='html'/&gt;
+  &lt;summary type='html'&gt;Putting an entire chapter on one page sounds
+    bloated, but consider this &amp;amp;mdash; my longest chapter so far
+    would be 75 printed pages, and it loads in under 5 seconds&amp;amp;hellip;
+    On dialup.&lt;/summary&gt;
+  &lt;/entry&gt;
+  &lt;entry&gt;
+    &lt;author&gt;
+      &lt;name&gt;Mark&lt;/name&gt;
+      &lt;uri&gt;http://diveintomark.org/&lt;/uri&gt;
+    &lt;/author&gt;
+    &lt;title&gt;Accessibility is a harsh mistress&lt;/title&gt;
+    &lt;link rel='alternate' type='text/html'
+      href='http://diveintomark.org/archives/2009/03/21/accessibility-is-a-harsh-mistress'/&gt;
+    &lt;id&gt;tag:diveintomark.org,2009-03-21:/archives/20090321200928&lt;/id&gt;
+    &lt;updated&gt;2009-03-22T01:05:37Z&lt;/updated&gt;
+    &lt;published&gt;2009-03-21T20:09:28Z&lt;/published&gt;
+    &lt;category scheme='http://diveintomark.org' term='accessibility'/&gt;
+    &lt;summary type='html'&gt;The accessibility orthodoxy does not permit people to
+      question the value of features that are rarely useful and rarely used.&lt;/summary&gt;
+  &lt;/entry&gt;
+  &lt;entry&gt;
+    &lt;author&gt;
+      &lt;name&gt;Mark&lt;/name&gt;
+    &lt;/author&gt;
+    &lt;title&gt;A gentle introduction to video encoding, part 1: container formats&lt;/title&gt;
+    &lt;link rel='alternate' type='text/html'
+      href='http://diveintomark.org/archives/2008/12/18/give-part-1-container-formats'/&gt;
+    &lt;id&gt;tag:diveintomark.org,2008-12-18:/archives/20081218155422&lt;/id&gt;
+    &lt;updated&gt;2009-01-11T19:39:22Z&lt;/updated&gt;
+    &lt;published&gt;2008-12-18T15:54:22Z&lt;/published&gt;
+    &lt;category scheme='http://diveintomark.org' term='asf'/&gt;
+    &lt;category scheme='http://diveintomark.org' term='avi'/&gt;
+    &lt;category scheme='http://diveintomark.org' term='encoding'/&gt;
+    &lt;category scheme='http://diveintomark.org' term='flv'/&gt;
+    &lt;category scheme='http://diveintomark.org' term='GIVE'/&gt;
+    &lt;category scheme='http://diveintomark.org' term='mp4'/&gt;
+    &lt;category scheme='http://diveintomark.org' term='ogg'/&gt;
+    &lt;category scheme='http://diveintomark.org' term='video'/&gt;
+    &lt;summary type='html'&gt;These notes will eventually become part of a
+      tech talk on video encoding.&lt;/summary&gt;
+  &lt;/entry&gt;
+&lt;/feed&gt;</code></pre>
+ 
+<p class=a>⁂ <h2 id=xml-intro>Pětiminutový rychlokurz XML</h2>
+
+<p>Pokud už o <abbr>XML</abbr> něco víte, můžete tuto podkapitolu
+přeskočit. <p><abbr>XML</abbr> představuje zobecněný způsob popisu
+hierarchických strukturovaných dat. <abbr>XML</abbr>-<i>dokument</i>
+obsahuje jeden nebo více <i>elementů</i>, které jsou ohraničeny
+<i>počátečními a koncovými značkami</i> (tag). Tohle je kompletní (i
+když poněkud nudný) <abbr>XML</abbr> dokument: <pre class='nd
+pp'><code><a>&lt;foo&gt;   <span class="u">①</span></a>
+<a>&lt;/foo&gt;  <span class="u">②</span></a></code></pre>
+<ol>
+<li>Toto je <i>počáteční značka</i> elementu <code>foo</code>. <li>Toto je odpovídající <i>koncová značka</i> elementu <code>foo</code>. Každá počáteční značka musí být <i>uzavřena</i> (spárována s) odpovídající koncovou značkou stejně, jako musíme párovat závorky v matematice nebo v textu.
+</ol>
+
+<p>Elementy lze <i>zanořovat</i> do libovolné hloubky. O elementu
+<code>bar</code> uvnitř elementu <code>foo</code> se říká, že je
+<i>subelementem</i> nebo <i>potomkem</i> (child) elementu
+<code>foo</code>. <pre class='nd pp'><code>&lt;foo&gt;
+  <mark>&lt;bar&gt;&lt;/bar&gt;</mark>
+&lt;/foo&gt;
+</code></pre>
+
+<p>Prvnímu elementu v každém <abbr>XML</abbr> dokumentu se říká
+<i>kořenový element</i> (root element). <abbr>XML</abbr> dokument může
+mít jen jeden kořenový element. Následující text <strong>není
+<abbr>XML</abbr> dokumentem</strong>, protože obsahuje dva kořenové
+elementy: <pre class='nd pp'><code>&lt;foo&gt;&lt;/foo&gt;
+&lt;bar&gt;&lt;/bar&gt;</code></pre>
+
+<p>Elementy mohou nést <i>atributy</i>, což jsou dvojice
+jméno-hodnota. Atributy se uvádějí uvnitř počáteční značky elementu a
+oddělují se bílými znaky. Uvnitř jednoho elementu se <i>jména
+atributů</i> nesmějí opakovat. <i>Hodnoty atributů</i> musí být
+uzavřeny v uvozovkách nebo v apostrofech. <pre class='nd
+pp'><code><a>&lt;foo <mark>lang='en'</mark>&gt;
+<span class="u">①</span></a>
+<a>  &lt;bar id='papayawhip' <mark>lang="fr"</mark>&gt;&lt;/bar&gt;  <span class="u">②</span></a>
+&lt;/foo&gt;
+</code></pre>
+<ol>
+<li>Element <code>foo</code> má jeden atribut pojmenovaný <code>lang</code>. Hodnotou jeho atributu <code>lang</code> je <code>en</code>. <li>Element <code>bar</code> má dva atributy pojmenované <code>id</code> a <code>lang</code>. Jeho atribut <code>lang</code> má hodnotu <code>fr</code>. Nedochází vůbec k žádnému konfliktu s elementem <code>foo</code>. Každý element má svou vlastní sadu atributů.
+</ol>
+
+<p>Pokud je v jednom elementu uvedeno víc atributů, pak jejich pořadí
+není významné. Atributy elementu tvoří neuspořádanou množinu dvojic
+klíčů a hodnot — jako pythonovský slovník. Počet atributů, které
+můžeme u každého elementu definovat, není nijak omezen. <p>Elementy
+mohou <i>obsahovat text</i>. <pre class='nd pp'><code>&lt;foo
+lang='en'&gt;
+  &lt;bar lang='fr'&gt;<mark>PapayaWhip</mark>&lt;/bar&gt;
+&lt;/foo&gt;
+</code></pre>
+
+<p>Elementy, které neobsahují žádný text a nemají žádné potomky, jsou
+<i>prázdné</i>. <pre class='nd
+pp'><code>&lt;foo&gt;&lt;/foo&gt;</code></pre>
+
+<p>Prázdné elementy můžeme zapisovat zkráceně. Když do počáteční
+značky umístíme znak <code>/</code>, můžeme koncovou značku úplně
+vynechat. <abbr>XML</abbr> dokument z předchozího příkladu můžeme
+zkráceně zapsat takto: <pre class='nd
+pp'><code>&lt;foo<mark>/</mark>&gt;</code></pre>
+
+<p>Podobně jako můžeme pythonovské funkce deklarovat v <i>různých
+modulech</i>, <abbr>XML</abbr> elementy můžeme deklarovat v různých
+<i>prostorech jmen</i>. Prostory jmen se obvykle podobají zápisu URL.
+<i>Výchozí prostor jmen</i> definujeme pomocí deklarace
+<code>xmlns</code>. Deklarace prostoru jmen vypadá podobně jako zápis
+atributu, ale plní odlišný účel. <pre class='nd pp'><code><a>&lt;feed
+<mark>xmlns='http://www.w3.org/2005/Atom'</mark>&gt;  <span
+class="u">①</span></a>
+<a>  &lt;title&gt;dive into mark&lt;/title&gt;             <span class="u">②</span></a>
+&lt;/feed&gt;
+</code></pre>
+<ol>
+<li>Element <code>feed</code> se nachází v prostoru jmen <code>http://www.w3.org/2005/Atom</code>. <li>Element <code>title</code> se také nachází v prostoru jmen <code>http://www.w3.org/2005/Atom</code>. Deklarace prostoru jmen ovlivní element, ve kterém se deklarace nachází, a dále všechny jeho dětské elementy (potomky).
+</ol>
+
+<p>Při deklaraci prostoru jmen můžeme použít také zápis
+<code>xmlns:<var>prefix</var></code>, čímž prostor jmen spřáhneme se
+zadaným <i>prefix</i>em. V takovém případě musí být každý element
+tohoto prostoru jmen explicitně deklarován se stejným prefixem. <pre
+class='nd pp'><code><a>&lt;atom:feed
+<mark>xmlns:atom='http://www.w3.org/2005/Atom'</mark>&gt;  <span
+class="u">①</span></a>
+<a>  &lt;atom:title&gt;dive into mark&lt;/atom:title&gt;             <span class="u">②</span></a>
+&lt;/atom:feed&gt;</code></pre>
+<ol>
+<li>Element <code>feed</code> se nachází v prostoru jmen <code>http://www.w3.org/2005/Atom</code>. <li>Element <code>title</code> se také nachází v prostoru jmen <code>http://www.w3.org/2005/Atom</code>.
+</ol>
+
+<p>Z pohledu syntaktického analyzátoru pro <abbr>XML</abbr> jsou
+přecházející dva <abbr>XML</abbr> dokumenty <em>identické</em>.
+Prostor jmen + jméno elementu = <abbr>XML</abbr> identita. Prefixy se
+používají pouze k odkazu na prostor jmen. To znamená, že konkrétní
+jméno prefixu (<code>atom:</code>) je nepodstatné. Prostory jmen
+pasují, jména elementů se shodují, atributy (nebo neuvedení atributů)
+sedí, textový obsah každého elementu se také shoduje. To znamená, že
+se jedná o stejné <abbr>XML</abbr> dokumenty. <p>Na závěr uveďme, že
+<abbr>XML</abbr> dokumenty mohou na prvním řádku, před kořenovým
+elementem, uvádět <a
+href="strings.html#one-ring-to-rule-them-all">informaci o znakovém
+kódování</a>. (Pokud vás zajímá, jak může dokument obsahovat
+informaci, která musí být známa předtím, než se dokument zpracovává,
+pak detaily řešení této Hlavy XXII hledejte <a
+href="http://www.w3.org/TR/REC-xml/#sec-guessing-no-ext-info">v sekci
+F specifikace <abbr>XML</abbr></a> (anglicky).) <pre class='nd
+pp'><code>&lt;?xml version='1.0'
+<mark>encoding='utf-8'</mark>?&gt;</code></pre>
+
+<p>Tak a teď už o <abbr>XML</abbr> víte dost na to, abyste mohli být
+nebezpeční! <p class=a>⁂ <h2 id=xml-structure>Struktura Atom Feed</h2>
+
+<p>Vezměme si nějaký weblog nebo v podstatě libovolný webový server s
+často aktualizovaným obsahem, jako je například <a
+href="http://www.cnn.com" />CNN.com</a>. Server má svůj nadpis
+(„CNN.com“), podnadpis („Breaking News, U.S., World, Weather,
+Entertainment <i class="baa">&amp;</i> Video News“), datum poslední
+aktualizace („updated 12:43 p.m. EDT, Sat May 16, 2009“) a seznam
+článků zveřejněných v různých časech. Každý článek má také nadpis,
+datum prvního zveřejnění (a možná také datum poslední aktualizace,
+pokud zveřejnili upřesnění nebo opravili překlep) a jedinečné URL.
+<p><a href="http://atompub.org/rfc4287.html">The Atom syndication
+format</a> je navržen tak, aby všechny tyto informace zachytil ve
+standardním tvaru. Můj weblog a CNN.com se sice velmi liší v návrhu,
+rozsahu a v návštěvnosti, ale oba mají stejnou základní strukturu.
+CNN.com má nadpis, můj blog má nadpis. CNN.com zveřejňuje články, já
+zveřejňuji články. <p>Na nejvyšší úrovni se nachází <i>kořenový
+element</i>, který používají všechny „Atom feed“ — element
+<code>feed</code> v prostoru jmen
+<code>http://www.w3.org/2005/Atom</code>. <pre
+class=pp><code><a>&lt;feed xmlns='http://www.w3.org/2005/Atom'  <span
+class="u">①</span></a>
+<a>      xml:lang='en'&gt;                       <span class="u">②</span></a></code></pre>
+<ol>
+<li><code>http://www.w3.org/2005/Atom</code> je prostor jmen pro Atom. <li>Libovolný element může obsahovat atribut <code>xml:lang</code>, který deklaruje jazyk elementu a jeho potomků. V tomto případě je atribut <code>xml:lang</code> deklarován jen jednou, v kořenovém elementu. To znamená, že celý obsah (feed) je v angličtině.
+</ol>
+
+<p>Atom feed (chápejte tento název jako pojem) obsahuje pár informací
+i o dokumentu samotném (tedy o sobě). Jsou deklarovány jako potomci
+kořenového elementu <code>feed</code>. <pre class=pp><code>&lt;feed
+xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;
+<a>  &lt;title&gt;dive into mark&lt;/title&gt;                                             <span class="u">①</span></a>
+<a>  &lt;subtitle&gt;currently between addictions&lt;/subtitle&gt;                         <span class="u">②</span></a>
+<a>  &lt;id&gt;tag:diveintomark.org,2001-07-29:/&lt;/id&gt;                                <span class="u">③</span></a>
+<a>  &lt;updated&gt;2009-03-27T21:56:07Z&lt;/updated&gt;                                   <span class="u">④</span></a>
+<a>  &lt;link rel='alternate' type='text/html' href='http://diveintomark.org/'/&gt;  <span class="u">⑤</span></a></code></pre>
+<ol>
+<li>Nadpis obsahu je <code>dive into mark</code>. <li>Podnadpis obsahu je <code>currently between addictions</code>. <li>Každý obsah (feed) potřebuje globálně jednoznačný identifikátor. V dokumentu <a href="http://www.ietf.org/rfc/rfc4151.txt">RFC 4151</a> najdete, jak se dá vytvořit. <li>Tento obsah byl naposledy aktualizován 27. března 2009 v 21.56 GMT. Obvykle se shoduje s časem poslední modifikace nejnovějšího článku. <li>Teď to začne být zajímavé. Tento element <code>link</code> nemá žádný textový obsah, ale má tři atributy: <code>rel</code>, <code>type</code> a <code>href</code>. Hodnota atributu <code>rel</code> říká, jakého druhu odkaz je. Hodnota <code>rel='alternate'</code> vyjadřuje, že jde o odkaz na alternativní reprezentaci tohoto obsahu (feed). Atribut <code>type='text/html'</code> říká, že jde o odkaz na <abbr>HTML</abbr> stránku. Cíl odkazu je uveden v atributu <code>href</code>.
+</ol>
+
+<p>Teď už víme, že jde o obsah (feed) pro místo zvané „dive into
+mark“, které se nachází na <a href="http://diveintomark.org"
+/><code>http://diveintomark.org/</code></a> a bylo naposledy
+aktualizováno 27. března 2009. <blockquote class=note>
+<p><span class="u">☞</span>Ačkoliv v některých <abbr>XML</abbr>
+dokumentech může být pořadí elementů důležité, pro Atom feed to
+neplatí.
+</blockquote>
+
+<p>Po metadatech vázaných na celý dokument (feed) se nachází seznam
+nejnovějších článků. Článek vypadá takto: <pre
+class=pp><code>&lt;entry&gt;
+<a>  &lt;author&gt;                                                                 <span class="u">①</span></a>
+    &lt;name&gt;Mark&lt;/name&gt;
+    &lt;uri&gt;http://diveintomark.org/&lt;/uri&gt;
+  &lt;/author&gt;
+<a>  &lt;title&gt;Dive into history, 2009 edition&lt;/title&gt;                           <span class="u">②</span></a>
+<a>  &lt;link rel='alternate' type='text/html'                                   <span class="u">③</span></a>
+    href='http://diveintomark.org/archives/2009/03/27/dive-into-history-2009-edition'/&gt;
+<a>  &lt;id&gt;tag:diveintomark.org,2009-03-27:/archives/20090327172042&lt;/id&gt;        <span class="u">④</span></a>
+<a>  &lt;updated&gt;2009-03-27T21:56:07Z&lt;/updated&gt;                                  <span class="u">⑤</span></a>
+  &lt;published&gt;2009-03-27T17:20:42Z&lt;/published&gt;        
+<a>  &lt;category scheme='http://diveintomark.org' term='diveintopython'/&gt;       <span class="u">⑥</span></a>
+  &lt;category scheme='http://diveintomark.org' term='docbook'/&gt;
+  &lt;category scheme='http://diveintomark.org' term='html'/&gt;
+<a>  &lt;summary type='html'&gt;Putting an entire chapter on one page sounds        <span class="u">⑦</span></a>
+    bloated, but consider this &amp;amp;mdash; my longest chapter so far
+    would be 75 printed pages, and it loads in under 5 seconds&amp;amp;hellip;
+    On dialup.&lt;/summary&gt;
+<a>&lt;/entry&gt;                                                                   <span class="u">⑧</span></a></code></pre>
+<ol>
+<li>Element <code>author</code> říká, kdo článek napsal: nějaký maník jménem Mark, který se poflakuje někde na <code>http://diveintomark.org/</code>. (Je to stejná hodnota, jako alternativní odkaz v metadatech k feed, ale nemusí tomu tak být. Mnoho weblogů využívá více autorů najednou a každý z nich mívá jiný osobní webový server.) <li>Element <code>title</code> nese název článku — „Dive into history, 2009 edition“. <li>Element <code>link</code> obsahuje adresu <abbr>HTML</abbr> verze tohoto článku, podobně jako v případě alternativního odkazu na úrovni celého obsahu (feed). <li>Položky (<code>entry</code>), stejně jako celý obsah (feed), potřebují jednoznačný identifikátor. <li>Položky nesou dvě data: datum prvního zveřejnění (<code>published</code>) a datum poslední modifikace (<code>updated</code>). <li>Položky mohou nést libovolný počet kategorií (<code>category</code>). Tento článek je zařazen pod <code>diveintopython</code>, <code>docbook</code> a <code>html</code>. <li>Element <code>summary</code> nese stručné shrnutí obsahu článku. (Existuje i element <code>content</code> — tj. obsah —, který zde není použit. Je určen pro vložení celého textu článku.) Tento element <code>summary</code> nese atribut <code>type='html'</code>, který je specifický pro Atom. Říká, že uvedené shrnutí není prostý text, ale úryvek ve formátu <abbr>HTML</abbr>. Ta informace je důležitá, protože se v něm nacházejí věci specifické pro <abbr>HTML</abbr> (<code>&amp;mdash;</code> a <code>&amp;hellip;</code>), které se nemají zviditelňovat jako text, ale jako „—“ a „…“. <li>A na závěr je tu koncová značka elementu <code>entry</code>, která signalizuje konec metadat pro tento článek.
+</ol>
+
+<p class=a>⁂ <h2 id=xml-parse>Analýza XML</h2>
+
+<p>Python dovede analyzovat <abbr>XML</abbr> dokumenty několika
+způsoby. Najdeme zde tradiční syntaktické analyzátory (také parsery)
+<a href="http://en.wikipedia.org/wiki/XML#DOM"><abbr>DOM</abbr></a> a
+<a
+href="http://en.wikipedia.org/wiki/Simple_API_for_XML"><abbr>SAX</abbr></a>.
+My se ale zaměříme na jinou knihovnu zvanou ElementTree. <p
+class=d>[<a href="examples/feed.xml">download
+<code>feed.xml</code></a>] <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import xml.etree.ElementTree as etree</kbd>    <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree = etree.parse('examples/feed.xml')</kbd>  <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root = tree.getroot()</kbd>                    <span class="u">③</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root</kbd>                                     <span class="u">④</span></a>
+<samp>&lt;Element {http://www.w3.org/2005/Atom}feed at cd1eb0&gt;</samp></pre>
+<ol>
+<li>Knihovna ElementTree je součástí standardní pythonovské knihovny. Nachází se v <code>xml.etree.ElementTree</code>. <li>Primárním vstupním bodem knihovny ElementTree je funkce <code>parse()</code>, která přebírá buď jméno souboru nebo <a href="files.html#file-like-objects">souboru se podobající objekt</a>. Funkce zpracuje celý dokument najednou. Pokud chceme šetřit pamětí, existují způsoby, jak můžeme <a href="http://effbot.org/zone/element-iterparse.htm"><abbr>XML</abbr> dokument zpracovávat postupně</a>. <li>Funkce <code>parse()</code> vrací objekt, který reprezentuje celý dokument. Ale <em>není</em> to kořenový element. Pokud chceme získat odkaz na kořenový element, zavoláme metodu <code>getroot()</code>. <li>Jak se dalo čekat, kořenovým elementem je element <code>feed</code>, který se nachází v prostoru jmen <code>http://www.w3.org/2005/Atom</code>. Řetězcová reprezentace tohoto objektu v nás posiluje důležitý pohled: <abbr>XML</abbr> element je kombinací svého prostoru jmen a jména své značky (která se též nazývá <i>lokální jméno</i>). Každý element tohoto dokumentu se nachází v prostoru jmen Atom, takže kořenový element je reprezentován jako <code>{http://www.w3.org/2005/Atom}feed</code>.
+</ol>
+
+<blockquote class=note>
+<p><span class="u">☞</span>ElementTree reprezentuje <abbr>XML</abbr>
+elementy jako
+<code>{<var>prostor_jmen</var>}<var>lokální_jméno</var></code>. Tento
+formát uvidíme a budeme používat na mnoha místech aplikačního rozhraní
+ElementTree.
+</blockquote>
+
+<h3 id=xml-elements>Elementy jsou reprezentovány seznamy</h3>
+
+<p>V aplikačním rozhraní ElementTree se elementy chovají jako seznamy.
+Položkami seznamu jsou elementy potomků (child). <pre class=screen>
+# pokračování předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root.tag</kbd>                        <span class="u">①</span></a>
+<samp>'{http://www.w3.org/2005/Atom}feed'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(root)</kbd>                       <span class="u">②</span></a>
+<samp class="pp">8</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">for child in root:</kbd>              <span class="u">③</span></a>
+<a><samp class="p">... </samp><kbd class="pp">  print(child)</kbd>                  <span class="u">④</span></a>
+<samp class="p">... </samp>
+<samp>&lt;Element {http://www.w3.org/2005/Atom}title at e2b5d0&gt;
+&lt;Element {http://www.w3.org/2005/Atom}subtitle at e2b4e0&gt;
+&lt;Element {http://www.w3.org/2005/Atom}id at e2b6c0&gt;
+&lt;Element {http://www.w3.org/2005/Atom}updated at e2b6f0&gt;
+&lt;Element {http://www.w3.org/2005/Atom}link at e2b4b0&gt;
+&lt;Element {http://www.w3.org/2005/Atom}entry at e2b720&gt;
+&lt;Element {http://www.w3.org/2005/Atom}entry at e2b510&gt;
+&lt;Element {http://www.w3.org/2005/Atom}entry at e2b750&gt;</samp></pre>
+<ol>
+<li>Pokračujme v předchozím příkladu. Kořenový element je <code>{http://www.w3.org/2005/Atom}feed</code>. <li>„Délkou“ kořenového elementu rozumíme počet dětských elementů (potomků, child). <li>Objekt elementu můžeme použít jako iterátor, který zajistí průchod všemi svými dětskými elementy. <li>Na výstupu vidíme, že obsahuje očekávaných 8 potomků: metadata patřící k feed (<code>title</code>, <code>subtitle</code>, <code>id</code>, <code>updated</code> a <code>link</code>) následovaná třemi elementy <code>entry</code>.
+</ol>
+
+<p>Asi už jste to odhadli, ale zdůrazněme to ještě explicitně: seznam
+dětských elementů zahrnuje pouze <em>přímé</em> potomky. Každý z
+elementů <code>entry</code> obsahuje své vlastní potomky, ale ti v
+tomto seznamu uvedeni nejsou. Jako dětské elementy jsou součástí
+seznamů elementů <code>entry</code>, ale nejsou zahrnuty mezi potomky
+elementu <code>feed</code>. Existují způsoby, jak můžeme elementy
+vyhledat nezávisle na tom, jak hluboko jsou zanořené. Na dva takové
+způsoby se v této kapitole podíváme později. <h3
+id=xml-attributes>Atributy jsou reprezentovány slovníky</h3>
+
+<p><abbr>XML</abbr> není jen kolekcí elementů. Každý element má svou
+vlastní sadu atributů. Jakmile máme odkaz na konkrétní element, můžeme
+jeho atributy snadno získat jako pythonovský slovník. <pre
+class=screen>
+# pokračování předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root.attrib</kbd>                           <span class="u">①</span></a>
+<samp class="pp">{'{http://www.w3.org/XML/1998/namespace}lang': 'en'}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root[4]</kbd>                               <span class="u">②</span></a>
+<samp>&lt;Element {http://www.w3.org/2005/Atom}link at e181b0&gt;</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root[4].attrib</kbd>                        <span class="u">③</span></a>
+<samp class="pp">{'href': 'http://diveintomark.org/',
+ 'type': 'text/html',
+ 'rel': 'alternate'}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root[3]</kbd>                               <span class="u">④</span></a>
+<samp>&lt;Element {http://www.w3.org/2005/Atom}updated at e2b4e0&gt;</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root[3].attrib</kbd>                        <span class="u">⑤</span></a>
+<samp class="pp">{}</samp></pre>
+<ol>
+<li>Vlastnost <code>attrib</code> je slovníkem atributů elementu. Původní značka vypadala takto: <code>&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;</code>. Prefix <code>xml:</code> se vztahuje k zabudovanému prostoru jmen, který můžeme používat v každém <abbr>XML</abbr> dokumentu, aniž bychom jej museli deklarovat. <li>Pátým potomkem&nbsp;—&nbsp;<code>[4]</code> odpovídá indexování seznamu od nuly&nbsp;—&nbsp; je element <code>link</code>. <li>Element <code>link</code> má tři atributy: <code>href</code>, <code>type</code> a <code>rel</code>. <li>Čtvrtým potomkem&nbsp;—&nbsp;<code>[3]</code> odpovídá indexování seznamu od nuly&nbsp;—&nbsp; je element <code>updated</code>. <li>Element <code>updated</code> nemá žádné atributy, takže jeho vlastnost <code>.attrib</code> je prostě prázdný slovník.
+</ol>
+
+<p class=a>⁂ <h2 id=xml-find>Vyhledávání uzlů v XML dokumentu</h2>
+
+<p>Zatím jsme s uvedeným <abbr>XML</abbr> dokumentem pracovali „shora
+dolů“. Začali jsme u kořenového elementu, zpřístupnili jsme si
+elementy jeho potomků a tak dále napříč dokumentem. Ale při mnoha
+použitích <abbr>XML</abbr> se požaduje nalezení určitého elementu.
+Etree to umí také. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import xml.etree.ElementTree as etree</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree = etree.parse('examples/feed.xml')</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root = tree.getroot()</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root.findall('{http://www.w3.org/2005/Atom}entry')</kbd>    <span class="u">①</span></a>
+<samp>[&lt;Element {http://www.w3.org/2005/Atom}entry at e2b4e0&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}entry at e2b510&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}entry at e2b540&gt;]</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root.tag</kbd>
+<samp class="pp">'{http://www.w3.org/2005/Atom}feed'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root.findall('{http://www.w3.org/2005/Atom}feed')</kbd>     <span class="u">②</span></a>
+<samp class="pp">[]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root.findall('{http://www.w3.org/2005/Atom}author')</kbd>   <span class="u">③</span></a>
+<samp class="pp">[]</samp></pre>
+<ol>
+<li>Metoda <code>findall()</code> najde všechny dětské elementy, které odpovídají určitému dotazu. (O formátu dotazu si řekneme za minutku.) <li>Každý element&nbsp;—&nbsp;včetně kořenového elementu, ale také dětských elementů&nbsp;—&nbsp;má metodu <code>findall()</code>. Ta mezi potomky najde všechny odpovídající elementy. Ale proč tu nejsou žádné výsledky? Ačkoliv to nemusí být úplně zřejmé, tento dotaz prohledává jen elementy potomků. A protože kořenový element <code>feed</code> nemá žádného potomka jménem <code>feed</code>, vrací dotaz prázdný seznam. <li>Tento výsledek vás možná také překvapí. V tomto dokumentu <a href="#divingin">se nachází element <code>author</code></a>. Ve skutečnosti jsou v něm tři (jeden v každém elementu <code>entry</code>). Ale elementy <code>author</code> nejsou <em>přímými potomky</em> kořenového elementu. Jsou to jeho „vnuci“ (doslova potomci potomků). Pokud hledáte elementy <code>author</code> na libovolné úrovni zanoření, je to možné provést, ale formát dotazu se mírně liší.
+</ol>
+
+<pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree.findall('{http://www.w3.org/2005/Atom}entry')</kbd>    <span class="u">①</span></a>
+<samp>[&lt;Element {http://www.w3.org/2005/Atom}entry at e2b4e0&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}entry at e2b510&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}entry at e2b540&gt;]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree.findall('{http://www.w3.org/2005/Atom}author')</kbd>   <span class="u">②</span></a>
+<samp class="pp">[]</samp>
+</pre>
+<ol>
+<li>Z praktických důvodů má objekt <code>tree</code> (vracený funkcí <code>etree.parse()</code>) několik metod, které odpovídají metodám kořenového elementu. Výsledky jsou stejné, jako kdybychom zavolali metodu <code>tree.getroot().findall()</code>. <li>Tento dotaz, možná trošku překvapivě, v dokumentu nenajde elementy <code>author</code>. Proč ne? Protože je to zkratka pro <code>tree.getroot().findall('{http://www.w3.org/2005/Atom}author')</code>, což znamená „najdi všechny elementy <code>author</code>, které jsou potomky kořenového elementu“. Elementy <code>author</code> nejsou potomky kořenového elementu. Jsou to potomci elementů <code>entry</code>. Takže uvedený dotaz nenajde žádnou shodu.
+</ol>
+
+<p>Existuje také metoda <code>find()</code>, která vrací první
+vyhovující element. Hodí se v situacích, kdy očekáváme pouze jeden
+výskyt, nebo když je výskytů víc, ale zajímá nás jen první. <pre
+class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entries = tree.findall('{http://www.w3.org/2005/Atom}entry')</kbd>           <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(entries)</kbd>
+<samp class="p">3</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">title_element = entries[0].find('{http://www.w3.org/2005/Atom}title')</kbd>  <span class="u">②</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">title_element.text</kbd>
+<samp class="pp">'Dive into history, 2009 edition'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">foo_element = entries[0].find('{http://www.w3.org/2005/Atom}foo')</kbd>      <span class="u">③</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">foo_element</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(foo_element)</kbd>
+<samp class="pp">&lt;class 'NoneType'&gt;</samp>
+</pre>
+<ol>
+<li>Tohle jsme viděli v předchozím příkladu. Naleznou se všechny elementy <code>atom:entry</code>. <li>Metoda <code>find()</code> přebírá dotaz a vrací první vyhovující element. <li>Uvnitř elementu nejsou žádné položky nazvané <code>foo</code>, takže se vrací <code>None</code>.
+</ol>
+
+<blockquote class=note>
+<p><span class="u">☞</span>S metodou <code>find()</code> je spojen
+„chyták“, který vás jednou dostane. Objekt elementu z ElementTree se v
+booleovském kontextu vyhodnocuje jako <code>False</code> v případě,
+kdy neobsahuje žádné potomky (tj. jestliže <code>len(element)</code>
+je rovno nule). To znamená, že zápis <code>if
+element.find('...')</code> netestuje, zda metoda <code>find()</code>
+nalezla vyhovující element. Testuje, zda vyhovující element má nějaké
+potomky! Pokud chceme testovat, zda metoda <code>find()</code> vrátila
+nějaký element, musíme použít zápis <code>if element.find('...') is
+not None</code>.
+</blockquote>
+
+<p>On ale <em>existuje</em> způsob, jak najít elementy veškerých
+<em>příbuzných potomků</em>, tj. dětí, vnuků a dalších elementů na
+libovolné úrovni zanoření. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">all_links = tree.findall('//{http://www.w3.org/2005/Atom}link')</kbd>  <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">all_links</kbd>
+<samp>[&lt;Element {http://www.w3.org/2005/Atom}link at e181b0&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}link at e2b570&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}link at e2b480&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}link at e2b5a0&gt;]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">all_links[0].attrib</kbd>                                              <span class="u">②</span></a>
+<samp class="pp">{'href': 'http://diveintomark.org/',
+ 'type': 'text/html',
+ 'rel': 'alternate'}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">all_links[1].attrib</kbd>                                              <span class="u">③</span></a>
+<samp class="pp">{'href': 'http://diveintomark.org/archives/2009/03/27/dive-into-history-2009-edition',
+ 'type': 'text/html',
+ 'rel': 'alternate'}</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">all_links[2].attrib</kbd>
+<samp class="pp">{'href': 'http://diveintomark.org/archives/2009/03/21/accessibility-is-a-harsh-mistress',
+ 'type': 'text/html',
+ 'rel': 'alternate'}</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">all_links[3].attrib</kbd>
+<samp class="pp">{'href': 'http://diveintomark.org/archives/2008/12/18/give-part-1-container-formats',
+ 'type': 'text/html',
+ 'rel': 'alternate'}</samp></pre>
+<ol>
+<li>Tento dotaz&nbsp;—&nbsp;<code>//{http://www.w3.org/2005/Atom}link</code>&nbsp;—&nbsp;je těm z předchozích příkladů velmi podobný. Jedinou odlišností jsou dvě lomítka na začátku dotazu. Tato dvě lomítka znamenají: „Nedívej se jen na přímé potomky. Chci najít <em>jakékoliv</em> elementy, nezávisle na úrovni zanoření.“ Takže výsledkem je seznam čtyř elementů <code>link</code> a nejen jednoho. <li>První výsledek <em>je</em> přímým potomkem kořenového elementu. Jak vidíme z jeho atributů, jde o alternativní odkaz z úrovně celého obsahu (feed). Odkazuje na <abbr>HTML</abbr> verzi webového místa, které zveřejňovaný obsah popisuje. <li>Ostatní tři výsledky jsou alternativní odkazy z každého elementu <code>entry</code>. Každý element <code>entry</code> obsahuje jeden dětský element <code>link</code>. A protože je na začátku dotazu uvedena dvojice lomítek, najde dotaz všechny.
+</ol>
+
+<!--
+<p>What&#8217;s that? You say you want the power of the
+<code>findall()</code> method, but you want to work with an iterator
+instead of building a complete list? ElementTree can do that too.
+
+<pre class=screen>
+# continuing from the previous example
+<a><samp class=p>>>> </samp><kbd class=pp>it = tree.getiterator('{http://www.w3.org/2005/Atom}link')</kbd>  <span class=u>&#x2460;</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>next(it)</kbd>                                                    <span class=u>&#x2461;</span></a>
+<samp>&lt;Element {http://www.w3.org/2005/Atom}link at 122f1b0></samp>
+<samp class=p>>>> </samp><kbd class=pp>next(it)</kbd>
+<samp>&lt;Element {http://www.w3.org/2005/Atom}link at 122f1e0></samp>
+<samp class=p>>>> </samp><kbd class=pp>next(it)</kbd>
+<samp>&lt;Element {http://www.w3.org/2005/Atom}link at 122f210></samp>
+<samp class=p>>>> </samp><kbd class=pp>next(it)</kbd>
+<samp>&lt;Element {http://www.w3.org/2005/Atom}link at 122f1b0></samp>
+<samp class=p>>>> </samp><kbd class=pp>next(it)</kbd>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+StopIteration</samp></pre>
+<ol>
+<li>The <code>getiterator()</code> method can take zero or one arguments. If called with no arguments, it returns an iterator that spits out every element and child element in the entire document. Or, as shown here, you can call it with an element name in standard ElementTree format. This returns an iterator that spits out only elements of that name.
+<li>Repeatedly calling the <code>next()</code> function with this iterator will eventually return every element of the document that matches the query you passed to the <code>getiterator()</code> method.
+</ol>
+-->
+
+<p>Celkově vzato je metoda <code>findall()</code> objektu třídy
+ElementTree velmi mocným nástrojem, ale dotazovací jazyk může přinést
+pár překvapení. Oficiálně se o něm píše jako o „<a
+href="http://effbot.org/zone/element-xpath.htm">omezené podpoře výrazů
+XPath</a>”. <a href="http://www.w3.org/TR/xpath">XPath</a> je W3C
+standardem pro dotazování v <abbr>XML</abbr> dokumentech. Dotazovací
+jazyk implementovaný třídou ElementTree se XPath podobá do té míry, že
+se hodí pro základní vyhledávání. Ale pokud už znáte XPath, mohou vás
+rozdíly rozčilovat. Teď se podíváme na <abbr>XML</abbr> knihovnu třetí
+strany, která rozšiřuje aplikační rozhraní ElementTree o plnou podporu
+XPath. <p class=a>⁂ <h2 id=xml-lxml>Lxml jde ještě dál</h2>
+
+<p><a href="http://codespeak.net/lxml" /><code>lxml</code></a> je open
+source knihovna třetí strany, která je vybudována nad populárním <a
+href="http://www.xmlsoft.org" />parserem libxml2</a>. Poskytuje
+aplikační rozhraní, které je 100% slučitelné s ElementTree a rozšiřuje
+ho o plnou podporu XPath 1.0 a o pár dalších vylepšení. K dispozici
+jsou <a href="http://pypi.python.org/pypi/lxml" />instalátory pro
+Windows</a>. Uživatelé Linuxu by měli zkusit nainstalovat
+předkompilovaný binární tvar z archivů prostřednictvím nástrojů
+příslušné distribuce, jako je třeba <code>yum</code> nebo
+<code>apt-get</code>. Pokud by to nešlo, museli byste <a
+href="http://codespeak.net/lxml/installation.html"><code>lxml</code>
+nainstalovat ručně</a>. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">from lxml import etree</kbd>                   <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree = etree.parse('examples/feed.xml')</kbd>  <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root = tree.getroot()</kbd>                    <span class="u">③</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root.findall('{http://www.w3.org/2005/Atom}entry')</kbd>  <span class="u">④</span></a>
+<samp>[&lt;Element {http://www.w3.org/2005/Atom}entry at e2b4e0&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}entry at e2b510&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}entry at e2b540&gt;]</samp></pre>
+<ol>
+<li>Jakmile <code>lxml</code> naimportujeme, máme k dispozici stejné aplikační rozhraní jako u zabudované knihovny ElementTree. <li>Funkce <code>parse()</code> — stejná jako u ElementTree. <li>Metoda <code>getroot()</code> — také stejná. <li>Metoda <code>findall()</code> — naprosto stejná.
+</ol>
+
+<p>Pro velké <abbr>XML</abbr> dokumenty je <code>lxml</code> výrazně
+rychlejší než zabudovaná knihovna ElementTree. Pokud používáte pouze
+aplikační rozhraní ElementTree a chcete používat nejrychlejší
+dostupnou implementaci, můžete vyzkoušet naimportovat
+<code>lxml</code> se záchranou v podobě zabudované ElementTree. <pre
+class='nd pp'><code>try:
+    from lxml import etree
+except ImportError:
+    import xml.etree.ElementTree as etree</code></pre>
+
+<p>Ale <code>lxml</code> je víc než pouhá rychlejší podoba
+ElementTree. Její implementace metody <code>findall()</code> podporuje
+komplikovanější výrazy. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import lxml.etree</kbd>                                                                   <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree = lxml.etree.parse('examples/feed.xml')</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree.findall('//{http://www.w3.org/2005/Atom}*[@href]')</kbd>                             <span class="u">②</span></a>
+<samp>[&lt;Element {http://www.w3.org/2005/Atom}link at eeb8a0&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}link at eeb990&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}link at eeb960&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}link at eeb9c0&gt;]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree.findall("//{http://www.w3.org/2005/Atom}*[@href='http://diveintomark.org/']")</kbd>  <span class="u">③</span></a>
+<samp>[&lt;Element {http://www.w3.org/2005/Atom}link at eeb930&gt;]</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">NS = '{http://www.w3.org/2005/Atom}'</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree.findall('//{NS}author[{NS}uri]'.format(NS=NS))</kbd>                                 <span class="u">④</span></a>
+<samp>[&lt;Element {http://www.w3.org/2005/Atom}author at eeba80&gt;,
+ &lt;Element {http://www.w3.org/2005/Atom}author at eebba0&gt;]</samp></pre>
+<ol>
+<li>V tomto příkladu provedeme <code>import lxml.etree</code>. Chceme zde zdůraznit, že jde o vlastnosti specifické pro <code>lxml</code> (takže nenapíšeme, dejme tomu, <code>from lxml import etree</code>). <li>Tento dotaz najde všechny elementy z prostoru jmen Atom, které mají atribut <code>href</code> — ať už se nacházejí v dokumentu kdekoliv. Dvě lomítka (<code>//</code>) na začátku dotazu znamenají „elementy nacházející se kdekoliv (ne jenom potomci nebo kořenový element)“. <code>{http://www.w3.org/2005/Atom}</code> znamená „jen elementy z prostoru jmen Atom“. <code>*</code> znamená „elementy s libovolným lokálním jménem“. A <code>[@href]</code> znamená, „které mají atribut <code>href</code>”. <li>Tento dotaz najde všechny elementy z Atom, které mají <code>href</code> s hodnotou <code>http://diveintomark.org/</code>. <li>S využitím jednoduchého <a href="strings.html#formatting-strings">formátovacího řetězce</a> (protože jinak by se tyto složené dotazy staly neúnosně dlouhé) získáme dotaz, který v prostoru Atom hledá elementy <code>author</code>, které mají mezi svými potomky element <code>uri</code>. Vrátí se jen dva elementy <code>author</code> — jen z prvního a druhého elementu <code>entry</code>. Element <code>author</code> v posledním <code>entry</code> obsahuje jen <code>name</code> — <code>uri</code> mu chybí.
+</ol>
+
+<p>Ještě toho nemáte dost? Do <code>lxml</code> je zahrnuta i podpora
+pro libovolné výrazy XPath 1.0. Nebudu se do hloubky zabývat syntaxí
+XPath. To by samo o sobě vydalo na celou knihu! Ale ukážeme si, jakým
+způsobem je podpora XPath do <code>lxml</code> zahrnuta. <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import lxml.etree</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree = lxml.etree.parse('examples/feed.xml')</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">NSMAP = {'atom': 'http://www.w3.org/2005/Atom'}</kbd>                    <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entries = tree.xpath("//atom:category[@term='accessibility']/..",</kbd>  <span class="u">②</span></a>
+<samp class="p">... </samp><kbd class="pp">    namespaces=NSMAP)</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entries</kbd>                                                            <span class="u">③</span></a>
+<samp>[&lt;Element {http://www.w3.org/2005/Atom}entry at e2b630&gt;]</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry = entries[0]</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry.xpath('./atom:title/text()', namespaces=NSMAP)</kbd>               <span class="u">④</span></a>
+<samp class="pp">['Accessibility is a harsh mistress']</samp></pre>
+<ol>
+<li>Abychom mohli provádět dotazy XPath nad elementy z nějakého prostoru jmen, musíme definovat zobrazení prefixu na prostor jmen. Je to prostě pythonovský slovník. <li>Tady máme dotaz v XPath. Výraz v XPath hledá elementy <code>category</code> (z prostoru jmen Atom), které obsahují atribut <code>term</code> s hodnotou <code>accessibility</code>. To ale ještě není výsledkem dotazu. Podívejte se na úplný konec řetězce dotazu. Všimli jste si úseku <code>/..</code>? Ten znamená „a vrať k právě nalezenému elementu <code>category</code> jeho rodičovský element“. Takže tento jediný dotaz XPath najde všechny elementy potomky <code>&lt;category term='accessibility'&gt;</code>. <li>Funkce <code>xpath()</code> vrací seznam objektů třídy ElementTree. V tomto dokumentu se nachází jediný záznam obsahující <code>category</code>, jehož <code>term</code> má hodnotu <code>accessibility</code>. <li>XPath výraz nevrací vždycky seznam elementů. <abbr>DOM</abbr> (<a href="http://cs.wikipedia.org/wiki/Document_Object_Model">Document Object Model</a>; objektový model dokumentu), který vznikl na základě zpracování (parsing) <abbr>XML</abbr> dokumentu, neobsahuje z technického hlediska elementy, ale <i>uzly</i>. Uzly mohou (podle typu) reprezentovat elementy, atributy nebo dokonce textový obsah. Výsledkem XPath dotazu je seznam uzlů. Tento dotaz vrací seznam textových uzlů: textový obsah (<code>text()</code>) elementu <code>title</code> (<code>atom:title</code>), který je potomkem aktuálního elementu (<code>./</code>).
+</ol>
+
+<p class=a>⁂ <h2 id=xml-generate>Generování XML</h2>
+
+<p>Podpora <abbr>XML</abbr> v Pythonu není omezena na analýzu
+(parsing) existujících dokumentů. Můžeme také vytvářet
+<abbr>XML</abbr> dokumenty zcela od základů. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import xml.etree.ElementTree as etree</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">new_feed = etree.Element('{http://www.w3.org/2005/Atom}feed',</kbd>     <span class="u">①</span></a>
+<a><samp class="p">... </samp><kbd class="pp">    attrib={'{http://www.w3.org/XML/1998/namespace}lang': 'en'})</kbd>  <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(etree.tostring(new_feed))</kbd>                                   <span class="u">③</span></a>
+<samp class="pp">&lt;ns0:feed xmlns:ns0='http://www.w3.org/2005/Atom' xml:lang='en'/&gt;</samp></pre>
+<ol>
+<li>Nový element vznikne vytvořením instance třídy <code>Element</code>. Jako první argument předáváme jméno elementu (prostor jmen + lokální jméno). Tímto příkazem se vytvoří element <code>feed</code> v prostoru jmen Atom. To bude kořenový element našeho nového dokumentu. <li>Atributy k nově vytvořenému elementu přidáme předáním slovníku se jmény a hodnotami atributů argumentem <var>attrib</var>. Poznamenejme, že jména atributů musí být uvedena ve tvaru pro ElementTree — <code>{<var>prostor jmen</var>}<var>lokální jméno</var></code>. <li>Kterýkoliv element (a jeho potomky) můžeme kdykoliv převést na řetězec (serializovat) voláním funkce <code>tostring()</code> z ElementTree.
+</ol>
+
+<p>Jste výsledkem serializace překvapeni? Způsob, jakým ElementTree
+serializuje <abbr>XML</abbr> elementy s prostorem jmen, je sice z
+technického hlediska přesný, ale není optimální. Vzorový
+<abbr>XML</abbr> dokument ze začátku této kapitoly definoval
+<i>výchozí prostor jmen</i>
+(<code>xmlns='http://www.w3.org/2005/Atom'</code>). U dokumentů, kde
+se všechny elementy nacházejí ve stejném prostoru
+jmen&nbsp;—&nbsp;jako u Atom feeds&nbsp;—&nbsp;je definice výchozího
+prostoru jmen užitečná, protože ji uvedeme jen jednou a elementy pak
+můžeme deklarovat jen jejich lokálním jménem
+(<code>&lt;feed&gt;</code>, <code>&lt;link&gt;</code>,
+<code>&lt;entry&gt;</code>). Pokud nepotřebujeme deklarovat elementy z
+jiného prostoru jmen, nemusíme prefixy uvádět. <p><abbr>XML</abbr>
+parser „nevidí“ mezi <abbr>XML</abbr> dokumentem s výchozím prostorem
+jmen a mezi <abbr>XML</abbr> dokumentem s prefixovaným prostorem jmen
+žádný rozdíl. Výsledný <abbr>DOM</abbr> s následující serializací:
+<pre class='nd pp'><code>&lt;ns0:feed
+xmlns:ns0='http://www.w3.org/2005/Atom'
+xml:lang='en'/&gt;</code></pre>
+
+<p>je totožný s <abbr>DOM</abbr> s touto serializací: <pre class='nd
+pp'><code>&lt;feed xmlns='http://www.w3.org/2005/Atom'
+xml:lang='en'/&gt;</code></pre>
+
+<p>Jediný praktický rozdíl spočívá v tom, že druhá serializace je o
+pár znaků kratší. Kdybychom chtěli celý vzorek našeho obsahu (feed)
+přepsat s prefixem <code>ns0:</code> v každé počáteční a koncové
+značce, přidalo by to 4 znaky na každou značku × 79 značek + 4 znaky
+pro vlastní deklaraci prostoru jmen, to je celkem 320 znaků. Za
+předpokladu, že používáme <a href="strings.html#byte-arrays">kódování
+UTF-8</a>, to je 320 bajtů navíc. (Po zabalení pomocí gzip se rozdíl
+zmenší na 21 bajtů, ale 21 bajtů je pořád 21 bajtů.) Pro vás to možná
+nic neznamená, ale pro něco takového jako je Atom feed, který může být
+stahován několikatisíckrát, kdykoliv dojde ke změně, se může úspora
+pár bajtů na dotaz rychle nasčítat. <p>Zabudovaná knihovna ElementTree
+tak jemné ovládání serializace elementů z prostoru jmen nenabízí, ale
+<code>lxml</code> ano. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import lxml.etree</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">NSMAP = {None: 'http://www.w3.org/2005/Atom'}</kbd>                     <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">new_feed = lxml.etree.Element('feed', nsmap=NSMAP)</kbd>                <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(lxml.etree.tounicode(new_feed))</kbd>                             <span class="u">③</span></a>
+<samp class="pp">&lt;feed xmlns='http://www.w3.org/2005/Atom'/&gt;</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">new_feed.set('{http://www.w3.org/XML/1998/namespace}lang', 'en')</kbd>  <span class="u">④</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(lxml.etree.tounicode(new_feed))</kbd>
+<samp class="pp">&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'/&gt;</samp></pre>
+<ol>
+<li>Začneme tím, že definujeme zobrazení prostorů jmen v podobě slovníku. Hodnotami slovníku jsou prostory jmen, klíči jsou požadované prefixy. Použitím <code>None</code> v roli klíče definujeme výchozí prostor jmen. <li>Když teď při vytváření elementu předáme slovník argumentem <var>nsmap</var> (je specifický pro <code>lxml</code>), bude <code>lxml</code> respektovat prefixy prostorů jmen, které jsme definovali. <li>Tato serializace podle očekávání definuje prostor jmen Atom jako výchozí prostor jmen a deklaruje element <code>feed</code> bez prefixu prostoru jmen. <li>Jejda! Zapomněli jsme přidat atribut <code>xml:lang</code>. Libovolný atribut můžeme k libovolnému elementu přidat metodou <code>set()</code>. Přebírá dva argumenty: jméno atributu ve formátu pro ElementTree a hodnotu atributu. (Tato metoda není specifická pro <code>lxml</code>. Jedinou částí specifickou pro <code>lxml</code> byl v tomto příkladu argument <var>nsmap</var>, který v serializovaném výstupu ovládá prefixování prostorem jmen.)
+</ol>
+
+<p>Může se v <abbr>XML</abbr> dokumentech vyskytovat jen jeden element
+na dokument? Samozřejmě že ne. Snadno můžeme vytvořit i elementy
+potomků. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">title = lxml.etree.SubElement(new_feed, 'title',</kbd>          <span class="u">①</span></a>
+<a><samp class="p">... </samp><kbd class="pp">    attrib={'type':'html'})</kbd>                               <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(lxml.etree.tounicode(new_feed))</kbd>                     <span class="u">③</span></a>
+<samp class="pp">&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;&lt;title type='html'/&gt;&lt;/feed&gt;</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">title.text = 'dive into &amp;hellip;'</kbd>                         <span class="u">④</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(lxml.etree.tounicode(new_feed))</kbd>                     <span class="u">⑤</span></a>
+<samp class="pp">&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;&lt;title type='html'&gt;dive into &amp;amp;hellip;&lt;/title&gt;&lt;/feed&gt;</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(lxml.etree.tounicode(new_feed, pretty_print=True))</kbd>  <span class="u">⑥</span></a>
+<samp class="pp">&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;
+&lt;title type='html'&gt;dive into&amp;amp;hellip;&lt;/title&gt;
+&lt;/feed&gt;</samp></pre>
+<ol>
+<li>Při vytváření dětského elementu k existujícímu elementu vytváříme instanci třídy <code>SubElement</code>. Jedinými povinnými argumenty jsou zde rodičovský element (v našem případě <var>new_feed</var>) a jméno nového elementu. Protože má dětský element dědit mapování (zobrazení) prostoru jmen od svého rodiče, nemusíme zde prostoj jmen nebo prefix znovu deklarovat. <li>Můžeme také předat slovník atributů. Klíče hrají roli jmen atributů, hodnoty jsou hodnotami atributů. <li>Podle očekávání byl v prostoru jmen Atom vytvořen element <code>title</code> a byl vložen jako potomek do elementu <code>feed</code>. Protože element <code>title</code> neobsahoval žádný text a neměl své vlastní potomky, serializuje jej <code>lxml</code> jako prázdný element (zkrácený zápis s <code>/&gt;</code> na konci). <li>Pokud chceme elementu nastavit textový obsah, přiřadíme jej jednoduše do vlastnosti <code>.text</code>. <li>Teď už se element <code>title</code> serializuje i se svým textovým obsahem. Každý text, který obsahuje znaky menší než nebo ampersand, musí být při serializaci převeden na speciální posloupnosti. <code>lxml</code> se o to postará automaticky. <li>Při serializaci můžeme předepsat také „tisk v pěkném tvaru“. Za koncové značky a za počáteční značky elementů, které obsahují potomky, ale ne text, se vloží přechody na nový řádek. Vyjádřeno technickými pojmy, <code>lxml</code> přidá „nevýznamné bílé znaky“ za účelem zvýšení čitelnosti výstupu.
+</ol>
+
+<blockquote class=note>
+<p><span class="u">☞</span>Možná byste se chtěli mrknout také na <a
+href="http://github.com/galvez/xmlwitch/tree/master">xmlwitch</a>, což
+je další knihovna třetí strany pro generování <abbr>XML</abbr>. Aby
+byl kód pro generování <abbr>XML</abbr> čitelnější, široce se v ní
+využívá <a href="special-method-names.html#context-managers">příkazu
+<code>with</code></a>.
+</blockquote>
+
+<p class=a>⁂ <h2 id=xml-custom-parser>Analýza porušeného XML</h2>
+
+<p>Specifikace <abbr>XML</abbr> nařizuje, aby všechny <abbr>XML</abbr>
+parsery, které chtějí specifikaci vyhovět, používaly „drakonickou
+obsluhu chyb“. To znamená, že musí s výrazným efektem zastavit,
+jakmile v <abbr>XML</abbr> dokumentu narazí na jakýkoliv prohřešek
+proti korektní podobě. Prohřešky proti správné formě zahrnují
+nespárované počáteční a koncové značky, nedefinované entity (speciální
+posloupnosti pro znaky), nelegální Unicode znaky a řadu dalších
+esoterických pravidel. To je v příkrém kontrastu s jinými běžnými
+formáty, jako je například <abbr>HTML</abbr>. Váš prohlížeč nepřestane
+zobrazovat stránku, ve které zapomenete uvést uzavírací značku
+<abbr>HTML</abbr> nebo když zapomenete zapsat ampersand v atributu
+jako speciální sekvenci. (Běžným omylem je, že <abbr>HTML</abbr> nemá
+definováno ošetření chyb. <a
+href="http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#parsing">Ošetřování
+chyb v <abbr>HTML</abbr></a> je ve skutečnosti definováno velmi dobře,
+ale je výrazně komplikovanější, než <a
+href="unit-testing.html#romantest2">„zastav a začni hořet“</a> v
+okamžiku, kdy se narazí na první chybu.) <p>Někteří lidé věří (a já
+patřím mezi ně), že požadavek na drakonickou obsluhu chyb byl ze
+strany tvůrců <abbr>XML</abbr> nepřiměřený. Nechápejte mě špatně.
+Zjednodušení pravidel pro ošetření chyb má své kouzlo. Ale v praxi je
+koncepce „korektnosti formátu“ ošidnější, než to vypadá — zvlášť u
+<abbr>XML</abbr> (jako je Atom feeds), které jsou zveřejňovány na webu
+a zpřístupňovány protokolem <abbr>HTTP</abbr>. I přes vyzrálost
+formátu <abbr>XML</abbr>, který standardizoval drakonická pravidla pro
+ošetřování chyb v roce 1997, průzkumy stále ukazují, že významná část
+dokumentů Atom feeds nacházejících se na webu je zamořena chybami
+formátu. <p>Takže mám jak teoretické, tak praktické důvody ke
+zpracování (parse) <abbr>XML</abbr> dokumentů „za každou cenu“. To
+znamená, že <em>nechci</em> s kraválem zastavit při prvním prohřešku
+proti korektnosti formátu. Pokud zjistíte, že to cítíte podobně, může
+vám pomoci <code>lxml</code>. <p>Tady máme kousek porušeného
+<abbr>XML</abbr> dokumentu. Prohřešky proti korektnosti jsem
+zvýraznil. <pre class='nd pp'><code>&lt;?xml version='1.0'
+encoding='utf-8'?&gt;
+&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;
+  &lt;title&gt;dive into <mark>&amp;hellip;</mark>&lt;/title&gt;
+...
+&lt;/feed&gt;</code></pre>
+
+<p>Tak tohle je chyba, protože entita <code>&amp;hellip;</code> není v
+<abbr>XML</abbr> definována. (Je definována v <abbr>HTML</abbr>.)
+Pokud se takto porušený obsah (feed) pokusíte zpracovat (parse),
+<code>lxml</code> se zakucká na nedefinované entitě. <pre class='nd
+screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import lxml.etree</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree = lxml.etree.parse('examples/feed-broken.xml')</kbd>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "lxml.etree.pyx", line 2693, in lxml.etree.parse (src/lxml/lxml.etree.c:52591)
+  File "parser.pxi", line 1478, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:75665)
+  File "parser.pxi", line 1507, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:75993)
+  File "parser.pxi", line 1407, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:75002)
+  File "parser.pxi", line 965, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:72023)
+  File "parser.pxi", line 539, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:67830)
+  File "parser.pxi", line 625, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:68877)
+  File "parser.pxi", line 565, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:68125)
+lxml.etree.XMLSyntaxError: Entity 'hellip' not defined, line 3, column 28</samp></pre>
+
+<p>Abychom byli schopni takto porušený <abbr>XML</abbr> dokument
+zpracovat (navzdory prohřešku proti korektnímu formátu), musíme
+vytvořit vlastní <abbr>XML</abbr> parser. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">parser = lxml.etree.XMLParser(recover=True)</kbd>                  <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree = lxml.etree.parse('examples/feed-broken.xml', parser)</kbd>  <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">parser.error_log</kbd>                                             <span class="u">③</span></a>
+<samp>examples/feed-broken.xml:3:28:FATAL:PARSER:ERR_UNDECLARED_ENTITY: Entity 'hellip' not defined</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree.findall('{http://www.w3.org/2005/Atom}title')</kbd>
+<samp>[&lt;Element {http://www.w3.org/2005/Atom}title at ead510&gt;]</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">title = tree.findall('{http://www.w3.org/2005/Atom}title')[0]</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">title.text</kbd>                                                   <span class="u">④</span></a>
+<samp class="pp">'dive into '</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(lxml.etree.tounicode(tree.getroot()))</kbd>                  <span class="u">⑤</span></a>
+<samp class="pp">&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;
+  &lt;title&gt;dive into &lt;/title&gt;
+.
+. [zbývající serializace pro stručnost vynechány]
+.</samp></pre>
+<ol>
+<li>Uživatelský parser (syntaktický analyzátor) vznikne vytvořením instance třídy <code>lxml.etree.XMLParser</code>. Lze jí předat <a href="http://codespeak.net/lxml/parsing.html#parser-options">celou řadu pojmenovaných argumentů</a>. Nás momentálně zajímá argument <var>recover</var>. Pokud jej nastavíme na hodnotu <code>True</code>, <abbr>XML</abbr> parser udělá, co je v jeho silách, aby se z chyb proti korektnímu formátu „zotavil“. <li>Náš <abbr>XML</abbr> dokument zpracujeme pomocí uživatelského parseru tak, že objekt <var>parser</var> předáme funkci <code>parse()</code> jako druhý argument. Všimněte si, že <code>lxml</code> kvůli nedefinované entitě <code>&amp;hellip;</code> nevyvolal žádnou výjimku. <li>Syntaktický analyzátor veškeré prohřešky proti korektnímu formátu zaznamenává. (Ve skutečnosti je zaznamenává nezávisle na tom, zda jsme mu nastavili zotavovací režim po chybě nebo ne.) <li>Protože nevěděl, co má s nedefinovanou entitou <code>&amp;hellip;</code> dělat, parser ji jednoduše vypustil. Takže textový obsah, který se nachází za elementem <code>title</code>, se změní na <code>'dive into '</code>. <li>Jak vidíte ze serializované hodnoty, entita <code>&amp;hellip;</code> se nikam nepřesunula. Byla jednoduše vypuštěna.
+</ol>
+
+<p>Pokud používáme syntaktické analyzátory <abbr>XML</abbr> se
+„zotavením“, pak je nutné znovu zopakovat, že neexistuje <strong>žádná
+záruka vzájemné součinnosti</strong>. Jiný parser se mohl rozhodnout,
+že jde o entitu <code>&amp;hellip;</code> z <abbr>HTML</abbr>, a
+nahradí ji posloupností <code>&amp;amp;hellip;</code>. Je to „lepší“?
+Možná. Je to „správnější“? Ne. Oba případy jsou stejně nesprávné.
+Správné chování (podle specifikace <abbr>XML</abbr>) spočívá v tom, že
+parser <a href="unit-testing.html#romantest2">„zastaví a začne
+hořet“</a>. Pokud jste se rozhodli, že to neuděláte, je to vaše věc.
+<p class=a>⁂ <h2 id=furtherreading>Přečtěte si</h2>
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/XML"><abbr>XML</abbr> na Wikipedia.org</a> (anglicky; <a href="http://cs.wikipedia.org/wiki/Extensible_Markup_Language">česky zde</a>)
+<li><a href="http://docs.python.org/3.1/library/xml.etree.elementtree.html">The ElementTree <abbr>XML</abbr> API</a>
+<li><a href="http://effbot.org/zone/element.htm">Elements and Element Trees</a>
+<li><a href="http://effbot.org/zone/element-xpath.htm">XPath Support in ElementTree</a>
+<li><a href="http://effbot.org/zone/element-iterparse.htm">The ElementTree iterparse Function</a>
+<li><a href="http://codespeak.net/lxml" /><code>lxml</code></a>
+<li><a href="http://codespeak.net/lxml/1.3/parsing.html">Parsing <abbr>XML</abbr> and <abbr>HTML</abbr> with <code>lxml</code></a>
+<li><a href="http://codespeak.net/lxml/1.3/xpathxslt.html">XPath and <abbr>XSLT</abbr> with <code>lxml</code></a>
+<li><a href="http://github.com/galvez/xmlwitch/tree/master">xmlwitch</a>
+</ul>
+
+<p class=v><a rel="prev" href="files.html" title="zpět na
+„Soubory“"><span class="u">☜</span></a> <a rel="next"
+href="serializing.html" title="dopředu na „Serializace pythonovských
+objektů“"><span class="u">☞</span></a>
+<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<script src=j/jquery.js></script>
+<script src=j/prettify.js></script>
+<script src=j/dip3.js></script> 

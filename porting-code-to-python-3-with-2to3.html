@@ -1,0 +1,1203 @@
+﻿<!DOCTYPE html> <meta charset=utf-8>
+<title>Přepis kódu do Pythonu 3 s využitím 2to3 – Ponořme se do Pythonu 3</title>
+<!--[if IE]><script src=j/html5.js></script><![endif]-->
+<link rel=stylesheet href=dip3.css>
+<style>
+</style>
+<link rel=stylesheet media='only screen and (max-device-width: 480px)' href=mobile.css>
+<link rel=stylesheet media=print href=print.css>
+<meta content='initial-scale=1.0' name=viewport>
+<body id=appa>
+<!-- <form action=http://www.google.com/cse><div><input name=cx type=hidden value=014021643941856155761:l5eihuescdw><input name=ie type=hidden value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input name="sa" type="submit" value="Hledej"></div></form> -->
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
+class="u">‣</span> <a
+href="table-of-contents.html#porting-code-to-python-3-with-2to3">Ponořme
+se do Pythonu 3</a> <span class="u">‣</span>
+<p id=level>Úroveň obtížnosti: <span class="u"
+title="expert">♦♦♦♦♦</span>
+<h1>Přepis kódu do Pythonu 3 s využitím <code>2to3</code></h1>
+
+<blockquote class=q>
+<p><span class="u">❝</span> Life is pleasant. Death is peaceful. It’s
+the transition that’s troublesome. <span class="u">❞</span><br
+/>(Život je zábavný. Smrt je klidná. Nepříjemný je ten přechod.)<br
+/>— Isaac Asimov (připsáno)
+</blockquote>
+
+<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
+
+<p class=f>Mezi Pythonem 2 a Pythonem 3 se toho změnilo tolik, že
+najdete jen mizivé procento programů, které bez úprav běží v obou
+verzích. Ale nepropadejte zoufalství! K usnadnění přechodu se Python 3
+dodává s pomocným skriptem nazvaným <code>2to3</code>. Když mu předáte
+svůj zdrojový soubor napsaný pro Python 2 jako vstup, převede
+automaticky do podoby pro Python 3 vše, co dovede. <a
+href="case-study-porting-chardet-to-python-3.html#running2to3">Případová
+studie: Přepis <code>chardet</code> pro Python 3</a> popisuje, jak se
+skript <code>2to3</code> spouští. Ukazuje také věci, které se
+automaticky neopraví. V této příloze najdete dokumentaci toho, co
+<em>dovede</em> opravit automaticky. <h2 id=print>Příkaz
+<code>print</code></h2>
+
+<p>V Pythonu 2 byl <code><dfn>print</dfn></code> příkazem. Pokud jsme
+cokoliv chtěli vytisknout, jednoduše jsme to připsali za klíčové slovo
+<code>print</code>. V Pythonu 3 je <a
+href="your-first-python-program.html#divingin"><code>print()</code>
+funkcí</a>. Pokud chceme cokoliv vytisknout, předáme to funkci
+<code>print()</code> stejně jako každé jiné funkci. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">print</code>
+<td><code class="pp">print()</code>
+<tr><th>② <td><code class="pp">print 1</code>
+<td><code class="pp">print(1)</code>
+<tr><th>③ <td><code class="pp">print 1, 2</code>
+<td><code class="pp">print(1, 2)</code>
+<tr><th>④ <td><code class="pp">print 1, 2,</code>
+<td><code class="pp">print(1, 2, end=' ')</code>
+<tr><th>⑤ <td><code class="pp">print &gt;&gt;sys.stderr, 1, 2, 3</code>
+<td><code class="pp">print(1, 2, 3, file=sys.stderr)</code>
+</table>
+
+<ol>
+<li>Prázdný řádek vytiskneme voláním <code>print()</code> bez zadání argumentů. <li>Jednu hodnotu vytiskneme voláním <code>print()</code> s jedním argumentem. <li>Dvě hodnoty oddělené mezerou vytiskneme voláním <code>print()</code> s dvěma argumenty. <li>V tomhle je malá finta. Pokud jsme v Pythonu 2 ukončili příkaz <code>print</code> čárkou, vytiskly se hodnoty oddělené mezerou, pak se vytiskla ještě jedna koncová mezera a tisk skončil bez generování přechodu na nový řádek. (Z technického hlediska je to o něco komplikovanější. Příkaz <code>print</code> v Pythonu 2 používal nyní již nežádoucí (deprecated) atribut zvaný <var>softspace</var>. Místo skutečného tisku mezery nastavil Python 2 <code>sys.stdout.softspace</code> na 1. Znak mezery ve skutečnosti nebyl vytištěn, dokud se nemělo na stejný řádek tisknout něco dalšího. Pokud další příkaz <code>print</code> tiskl přechod na nový řádek, byl atribut <code>sys.stdout.softspace</code> nastaven na 0 a mezera se nikdy nevytiskla. Tohoto rozdílu byste si pravděpodobně nikdy nevšimli, pokud by vaše aplikace nebyla citlivá na přítomnost nebo nepřítomnost koncových bílých znaků ve výstupu, který byl vygenerován příkazem <code>print</code>.) V Pythonu 3 dosáhneme stejného efektu tím, že funkci <code>print()</code> předáme pojmenovaný argument s hodnotou <code>end=' '</code>. Výchozí hodnotou argumentu <code>end</code> je <code>'\n'</code> (přechod na nový řádek), takže po vytisknutí ostatních argumentů jeho přepsáním potlačíme přechod na nový řádek. <li>V Pythonu 2 jsme mohli výstup přesměrovat do roury (pipe)&nbsp;—&nbsp;například na <code>sys.stderr</code>&nbsp;—&nbsp;uvedením zápisu <code>&gt;&gt;jméno_roury</code>. V Pythonu 3 dosáhneme stejného efektu předáním odkazu na rouru pojmenovaným argumentem <code>file</code>. Výchozí hodnotou argumentu <code>file</code> je <code>sys.stdout</code> (standardní výstup), takže přepsáním této hodnoty dosáhneme přesměrování do jiné roury.
+</ol>
+
+<h2 id=unicodeliteral>Literály Unicode-řetězců</h2>
+
+<p>Python 2 pracoval s dvěma typy řetězců: s <dfn>Unicode</dfn>
+řetězci a s ne-Unicode řetězci. Python 3 podporuje jediný řetězcový
+typ: <a href="strings.html#divingin">Unicode řetězce</a>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">u'PapayaWhip'</code>
+<td><code class="pp">'PapayaWhip'</code>
+<tr><th>② <td><code class="pp">ur'PapayaWhip\foo'</code>
+<td><code class="pp">r'PapayaWhip\foo'</code>
+</table>
+
+<ol>
+<li>Řetězcové literály s prefixem Unicode jsou jednoduše převedeny na obyčejné řetězcové literály, které v Pythonu 3 vždy vyjadřují Unicode řetězce. <li>Surové Unicode řetězce (raw; ve kterých Python neprovádí interpretaci zpětného lomítka jako zahájení escape posloupnosti) jsou převedeny na surové řetězce. V Pythonu 3 jsou surové řetězce vždy v Unicode.
+</ol>
+
+<h2 id=unicode>Globální funkce <code>unicode()</code></h2>
+
+<p>V Pythonu 2 se pro převod objektů na řetězec používaly dvě globální
+funkce: <code>unicode()</code> pro převod na Unicode řetězce a
+<code>str()</code> pro převod na ne-Unicode řetězce. Python 3 má
+jediný řetězcový typ, <a href="strings.html#divingin">Unicode
+řetězce</a>, takže vše, co potřebujeme, je funkce <code>str()</code>.
+(Funkce <code>unicode()</code> už neexistuje.) <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">unicode(cokoliv)</code>
+<td><code class="pp">str(cokoliv)</code>
+</table>
+
+<h2 id=long>Datový typ <code>long</code></h2>
+
+<p>Python 2 používal pro celá čísla dva datové typy: <code>int</code>
+a <code><dfn>long</dfn></code>. Hodnota typu <code>int</code> nemohla
+být větší než konstanta <a
+href="#renames"><code>sys.maxint</code></a>, která byla závislá na
+platformě. „Dlouhá“ čísla byla definována přidáním <code>L</code> na
+konec čísla a mohla nabývat větších hodnot než čísla typu
+<code>int</code>. V Pythonu 3 <a
+href="native-datatypes.html#numbers">je jen jeden celočíselný typ</a>,
+který se jmenuje <code>int</code> a většinou se chová jako typ
+<code>long</code> v Pythonu 2. Protože už neexistují dva typy, nemusí
+se používat speciální syntaxe pro jejich rozlišení. <p>Přečtěte si: <a
+href="http://www.python.org/dev/peps/pep-0237" /><abbr>PEP</abbr> 237:
+Unifying Long Integers and Integers</a>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">x = 1000000000000L</code>
+<td><code class="pp">x = 1000000000000</code>
+<tr><th>② <td><code class="pp">x = 0xFFFFFFFFFFFFL</code>
+<td><code class="pp">x = 0xFFFFFFFFFFFF</code>
+<tr><th>③ <td><code class="pp">long(x)</code>
+<td><code class="pp">int(x)</code>
+<tr><th>④ <td><code class="pp">type(x) is long</code>
+<td><code class="pp">type(x) is int</code>
+<tr><th>⑤ <td><code class="pp">isinstance(x, long)</code>
+<td><code class="pp">isinstance(x, int)</code>
+</table>
+
+<ol>
+<li>Z desítkových číselných literálů pro „dlouhý“ integer (long) se staly desítkové literály pro typ integer. <li>Z šestnáctkových číselných literálů pro „dlouhý“ integer (long) se staly šestnáctkové literály pro typ integer. <li>V Pythonu 3 přestala existovat původní funkce <code>long()</code>, protože přestal existovat typ long (dlouhý integer). K převodu proměnné na celé číslo použijeme funkci <code>int()</code>. <li>Pokud chceme zkontrolovat, zda je proměnná typu integer, zjistíme její typ a porovnáváme ho s <code>int</code> (nikoliv s <code>long</code>). <li>Ke kontrole datového typu můžeme použít i funkci <code>isinstance()</code>. Při zjišťování, zda jde o celočíselný typ, se opět odkážeme na <code>int</code> a ne na <code>long</code>.
+</ol>
+
+<h2 id=ne>Porovnání &lt;&gt;</h2>
+
+<p>Python 2 podporoval operátor <code>&lt;&gt;</code> jako synonymum
+pro <code>!=</code> (porovnání na různost). Python 3 podporuje pouze
+operátor <code>!=</code> a přestal podporovat <code>&lt;&gt;</code>.
+<table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">if x &lt;&gt; y:</code>
+<td><code class="pp">if x != y:</code>
+<tr><th>② <td><code class="pp">if x &lt;&gt; y &lt;&gt; z:</code>
+<td><code class="pp">if x != y != z:</code>
+</table>
+
+<ol>
+<li>Jednoduché porovnání. <li>Složitější porovnání mezi třemi hodnotami.
+</ol>
+
+<h2 id=has_key>Slovníková metoda <code>has_key()</code></h2>
+
+<p>V Pythonu 2 používaly slovníky metodu
+<code><dfn>has_key</dfn>()</code> (doslova „má klíč“) pro testování,
+zda se ve slovníku nachází zadaný klíč. V Pythonu 3 tato metoda
+přestala existovat. Místo ní musíme používat <a
+href="native-datatypes.html#mixed-value-dictionaries">operátor
+<code>in</code></a>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">a_dictionary.has_key('PapayaWhip')</code>
+<td><code class="pp">'PapayaWhip' in a_dictionary</code>
+<tr><th>②</th>
+<td><code class="pp">a_dictionary.has_key(x) or a_dictionary.has_key(y)</code>
+<td><code class="pp">x in a_dictionary or y in a_dictionary</code>
+<tr><th>③ <td><code class="pp">a_dictionary.has_key(x or y)</code>
+<td><code class="pp">(x or y) in a_dictionary</code>
+<tr><th>④ <td><code class="pp">a_dictionary.has_key(x + y)</code>
+<td><code class="pp">(x + y) in a_dictionary</code>
+<tr><th>⑤ <td><code class="pp">x + a_dictionary.has_key(y)</code>
+<td><code class="pp">x + (y in a_dictionary)</code>
+</table>
+
+<ol>
+<li>Nejjednodušší forma. <li>Operátor <code>in</code> má vyšší prioritu než operátor <code>or</code>, takže podvýrazy <code>x in a_dictionary</code> a <code>y in a_dictionary</code> nemusíme uzavírat do závorek. <li>Ale na druhou stranu zde ze stejného důvodu <em>musíme</em> uzavřít do závorek <code>x or y</code>&nbsp;—&nbsp;<code>in</code> má vyšší prioritu než <code>or</code>. (Poznámka: Tento kód se od předchozího řádku zcela liší. Python interpretuje nejdříve <code>x or y</code>. Výsledkem je buď <var>x</var> (pokud se <var>x</var> interpretuje <a href="native-datatypes.html#booleans">v booleovském kontextu jako true</a>), nebo <var>y</var>. Potom pro výslednou hodnotu kontroluje, zda se ve slovníku <var>a_dictionary</var> vyskytuje jako klíč.) <li>Operátor <code>+</code> má vyšší prioritu než operátor <code>in</code>. Z technického hlediska by tento zápis nemusel používat závorky kolem <code>x + y</code>, ale <code>2to3</code> je stejně přidává. <li>U tohoto zápisu musí být kolem <code>y in a_dictionary</code> závorky určitě uvedeny, protože operátor <code>+</code> má vyšší prioritu než operátor <code>in</code>.
+</ol>
+
+<h2 id=dict>Slovníkové metody, které vracejí seznamy</h2>
+
+<p>V Pythonu 2 mnohé slovníkové metody vracely seznamy. Mezi
+nejpoužívanější metody patřily <code><dfn>keys</dfn>()</code>,
+<code><dfn>items</dfn>()</code> a <code><dfn>values</dfn>()</code>. V
+Pythonu 3 všechny tyto metody vracejí dynamické <dfn>pohledy</dfn>
+(view). V některých situacích to nečiní žádný problém. Pokud je
+návratová hodnota těchto metod ihned předána jiné funkci, která
+iteruje přes celou posloupnost, bude jedno, zda je skutečným typem
+seznam nebo pohled (view). V jiném kontextu to ale může mít velký
+vliv. Pokud očekáváme kompletní seznam s jednotlivě adresovatelnými
+prvky, náš kód se zakucká, protože pohledy nepodporují indexování (tj.
+zpřístupňování prvku přes index). <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">a_dictionary.keys()</code>
+<td><code class="pp">list(a_dictionary.keys())</code>
+<tr><th>② <td><code class="pp">a_dictionary.items()</code>
+<td><code class="pp">list(a_dictionary.items())</code>
+<tr><th>③ <td><code class="pp">a_dictionary.iterkeys()</code>
+<td><code class="pp">iter(a_dictionary.keys())</code>
+<tr><th>④ <td><code class="pp">[i for i in a_dictionary.iterkeys()]</code>
+<td><code class="pp">[i for i in a_dictionary.keys()]</code>
+<tr><th>⑤ <td><code class="pp">min(a_dictionary.keys())</code>
+<td><i>žádná změna</i>
+</table>
+
+<ol>
+<li>Skript <code>2to3</code> se přiklání k bezpečnému řešení. Voláním funkce <code>list()</code> převádí hodnotu vracenou metodou <code>keys()</code> na statický seznam. Bude to fungovat vždycky, ale někdy to bude méně efektivní než použití pohledu (view). Převedený kód byste si měli prohlédnout a zvážit, zda je statický seznam nezbytně nutný, nebo zda by nestačil pohled. <li>Další konverze pohledu na seznam — tentokrát u metody <code>items()</code>. Stejnou věc provede <code>2to3</code> s metodou <code>values()</code>. <li>Python 3 už nepodporuje metodu <code>iterkeys()</code>. Použijte <code>keys()</code>, a pokud je to nezbytné, udělejte z pohledu iterátor voláním funkce <code>iter()</code>. <li><code>2to3</code> pozná, když je metoda <code>iterkeys()</code> použita uvnitř generátorové notace seznamu. Převede ji na metodu <code>keys()</code> (neobaluje ji ještě jedním voláním <code>iter()</code>). Funguje to, protože přes pohledy (view) lze iterovat. <li><code>2to3</code> pozná případ, kdy je metoda <code>keys()</code> předána funkci, která iteruje celou posloupností. V takovém případě se návratová hodnota nemusí konvertovat na seznam. Funkce <code>min()</code> bude vesele iterovat i přes pohled. Týká se to funkcí <code>min()</code>, <code>max()</code>, <code>sum()</code>, <code>list()</code>, <code>tuple()</code>, <code>set()</code>, <code>sorted()</code>, <code>any()</code> a <code>all()</code>.
+</ol>
+
+<h2 id=imports>Moduly, které byly přejmenovány nebo reorganizovány</h2>
+
+<p>Několik modulů standardní pythonovské knihovny bylo přejmenováno.
+Několik vzájemně souvisejících modulů bylo spojeno dohromady nebo bylo
+reorganizováno tak, aby byly jejich vztahy logičtější. <h3
+id=http><code>http</code></h3>
+
+<p>V Pythonu 3 bylo několik modulů souvisejících s <abbr>HTTP</abbr>
+spojeno do jednoho balíku nazvaného <code>http</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">import <dfn>httplib</dfn></code>
+<td><code class="pp">import http.client</code>
+<tr><th>② <td><code class="pp">import <dfn>Cookie</dfn></code>
+<td><code class="pp">import http.cookies</code>
+<tr><th>③ <td><code class="pp">import <dfn>cookielib</dfn></code>
+<td><code class="pp">import http.cookiejar</code>
+<tr><th>④ <td><pre class=pp><code>import <dfn>BaseHTTPServer</dfn>
+import <dfn>SimpleHTTPServer</dfn>
+import <dfn>CGIHttpServer</dfn></code></pre>
+<td><code class="pp">import http.server</code>
+</table>
+
+<ol>
+<li>Modul <code>http.client</code> implementuje nízkoúrovňovou knihovnu, která vytváří požadavky na <abbr>HTTP</abbr> zdroje a interpretuje související <abbr>HTTP</abbr> odpovědi. <li>Modul <code>http.cookies</code> poskytuje pythonovské rozhraní pro cookies prohlížeče, které se posílají v <abbr>HTTP</abbr> hlavičce <abbr>HTTP</abbr> hlavička. <li>Modul <code>http.cookiejar</code> manipuluje se soubory na disku, které oblíbené webové prohlížeče používají k ukládání cookies. <li>Modul <code>http.server</code> implementuje jednoduchý <abbr>HTTP</abbr> server.
+</ol>
+
+<h3 id=urllib><code>urllib</code></h3>
+
+<p>Python 2 obsahoval změť překrývajících se modulů pro rozklad
+(parse) a kódování <abbr>URL</abbr> a pro získávání příslušného
+obsahu. V Pythonu 3 byly moduly refaktorizovány a sloučeny do jednoho
+balíku <code>urllib</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">import <dfn>urllib</dfn></code>
+<td><code class="pp">import urllib.request, urllib.parse, urllib.error</code>
+<tr><th>② <td><code class="pp">import <dfn>urllib2</dfn></code>
+<td><code class="pp">import urllib.request, urllib.error</code>
+<tr><th>③ <td><code class="pp">import <dfn>urlparse</dfn></code>
+<td><code class="pp">import urllib.parse</code>
+<tr><th>④ <td><code class="pp">import <dfn>robotparser</dfn></code>
+<td><code class="pp">import urllib.robotparser</code>
+<tr><th>⑤ <td><pre class=pp><code>from urllib import <dfn>FancyURLopener</dfn>
+from urllib import urlencode</code></pre>
+<td><pre class=pp><code>from urllib.request import FancyURLopener
+from urllib.parse import urlencode</code></pre>
+<tr><th>⑥ <td><pre class=pp><code>from urllib2 import <dfn>Request</dfn>
+from urllib2 import <dfn>HTTPError</dfn></code></pre>
+<td><pre class=pp><code>from urllib.request import Request
+from urllib.error import HTTPError</code></pre>
+</table>
+
+<ol>
+<li>Starý modul <code>urllib</code> v Pythonu 2 obsahoval řadu funkcí včetně <code>urlopen()</code> pro načítání dat a <code>splittype()</code>, <code>splithost()</code> a <code>splituser()</code> pro rozklad <abbr>URL</abbr> na podstatné části. Uvnitř nového balíku <code>urllib</code> byly tyto funkce logičtěji přeorganizovány. Skript <code>2to3</code> také změní všechna volání těchto funkcí, aby zohlednil nové schéma pojmenování. <li>Původní modul <code>urllib2</code> z Pythonu 2 byl v Pythonu 3 vložen do balíčku <code>urllib</code>. Všechny oblíbené věci z <code>urllib2</code>&nbsp;—&nbsp;metoda <code>build_opener()</code>, třídy <code>Request</code> a <code>HTTPBasicAuthHandler</code> a související věci&nbsp;—&nbsp;jsou stále k dispozici. <li>Modul <code>urllib.parse</code> z Pythonu 3 obsahuje všechny funkce z původního modulu <code>urlparse</code> z Pythonu 2. <li>Modul <code>urllib.robotparser</code> zpracovává <a href="http://www.robotstxt.org" />soubory <code>robots.txt</code></a>. <li>Třída <code>FancyURLopener</code>, která obsluhuje <abbr>HTTP</abbr> přesměrování a další stavové kódy, je v novém modulu <code>urllib.request</code> stále k dispozici. Funkce <code>urlencode()</code> se přesunula do <code>urllib.parse</code>. <li>Třída <code>Request</code> je v <code>urllib.request</code> stále k dispozici, ale konstanty jako <code>HTTPError</code> byly přesunuty do <code>urllib.error</code>.
+</ol>
+
+<p>Zmínil jsem se o tom, že <code>2to3</code> přepíše také volání
+vašich funkcí? Pokud například v kódu pro Python 2 importujete modul
+<code>urllib</code> a získáváte data voláním
+<code>urllib.urlopen()</code>, skript <code>2to3</code> opraví jak
+příkaz import, tak volání funkce. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><pre class=pp><code>import urllib
+print urllib.urlopen('http://diveintopython3.org/').read()</code></pre>
+<td><pre class=pp><code>import urllib.request, urllib.parse, urllib.error
+print(urllib.request.urlopen('http://diveintopython3.org/').read())</code></pre>
+</table>
+
+<h3 id=dbm><code>dbm</code></h3>
+
+<p>Všechny klony <abbr>DBM</abbr> se nyní nacházejí jediném balíku
+<code>dbm</code>. Pokud potřebujeme použít nějakou specifickou
+variantu, jako například <abbr>GNU</abbr> <abbr>DBM</abbr>, můžeme
+importovat příslušný modul z balíku <code>dbm</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">import <dfn>dbm</dfn></code>
+<td><code class="pp">import dbm.ndbm</code>
+<tr><th>
+<td><code class="pp">import <dfn>gdbm</dfn></code>
+<td><code class="pp">import dbm.gnu</code>
+<tr><th>
+<td><code class="pp">import <dfn>dbhash</dfn></code>
+<td><code class="pp">import dbm.bsd</code>
+<tr><th>
+<td><code class="pp">import <dfn>dumbdbm</dfn></code>
+<td><code class="pp">import dbm.dumb</code>
+<tr><th>
+<td><pre class=pp><code>import <dfn>anydbm</dfn>
+import whichdb</code></pre>
+<td><code class="pp">import dbm</code>
+</table>
+
+<h3 id=xmlrpc><code>xmlrpc</code></h3>
+
+<p><abbr>XML-RPC</abbr> je odlehčená (lightweight) metoda pro
+provádění <abbr>RPC</abbr> (vzdálené volání procedur) přes
+<abbr>HTTP</abbr>. Klientská knihovna pro <abbr>XML-RPC</abbr> a
+několik implementací <abbr>XML-RPC</abbr> serveru jsou nyní
+zkombinovány do jednoho balíčku <code>xmlrpc</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">import <dfn>xmlrpclib</dfn></code>
+<td><code class="pp">import xmlrpc.client</code>
+<tr><th>
+<td><pre class=pp><code>import <dfn>DocXMLRPCServer</dfn>
+import <dfn>SimpleXMLRPCServer</dfn></code></pre>
+<td><code class="pp">import xmlrpc.server</code>
+</table>
+
+<h3 id=othermodules>Ostatní moduly</h3>
+
+<table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><pre class=pp><code>try:
+    import <dfn>cStringIO</dfn> as <dfn>StringIO</dfn>
+except ImportError:
+    import StringIO</code></pre>
+<td><code class="pp">import io</code>
+<tr><th>② <td><pre class=pp><code>try:
+    import cPickle as pickle
+except ImportError:
+    import pickle</code></pre>
+<td><code class="pp">import pickle</code>
+<tr><th>③ <td><code class="pp">import <dfn>__builtin__</dfn></code>
+<td><code class="pp">import builtins</code>
+<tr><th>④ <td><code class="pp">import <dfn>copy_reg</dfn></code>
+<td><code class="pp">import copyreg</code>
+<tr><th>⑤ <td><code class="pp">import <dfn>Queue</dfn></code>
+<td><code class="pp">import queue</code>
+<tr><th>⑥ <td><code class="pp">import <dfn>SocketServer</dfn></code>
+<td><code class="pp">import socketserver</code>
+<tr><th>⑦ <td><code class="pp">import <dfn>ConfigParser</dfn></code>
+<td><code class="pp">import configparser</code>
+<tr><th>⑧ <td><code class="pp">import repr</code>
+<td><code class="pp">import reprlib</code>
+<tr><th>⑨ <td><code class="pp">import <dfn>commands</dfn></code>
+<td><code class="pp">import subprocess</code>
+</table>
+
+<ol>
+<li>Mezi běžné obraty v Pythonu 2 patřil pokus o <code>import cStringIO as StringIO</code>. Pokud operace selhala, provedl se místo toho příkaz <code>import StringIO</code>. V Pythonu 3 už to nedělejte. Modul <code>io</code> to udělá za vás. Nalezne nejrychlejší dostupnou implementaci a použije ji automaticky. <li>Podobný obrat se používal pro importování nejrychlejší implementace pickle. V Pythonu 3 už to nedělejte. Modul <code>pickle</code> to udělá za vás. <li>Modul <code>builtins</code> obsahuje globální funkce, třídy a konstanty, které se používají napříč celým jazykem Python. Redefinicí funkce v modulu <code>builtins</code> provedete redefinici globální funkce úplně všude. Je to přesně tak mocné a děsivé, jak to zní. <li>Modul <code>copyreg</code> přidává podporu „piklení“ pro uživatelské typy definované v C. <li>Modul <code>queue</code> implementuje frontu pro více producentů a více konzumentů. <li>Modul <code>socketserver</code> poskytuje obecné (generické) bázové třídy pro implementaci různých druhů soketových serverů. <li>Modul <code>configparser</code> zpracovává konfigurační soubory ve stylu <abbr>INI</abbr>. <li>Modul <code>reprlib</code> reimplementuje zabudovanou funkci <code>repr()</code> s přidaným ovládáním. Lze předepsat, jak dlouhé mohou reprezentace být, než dojde k jejich ořezání. <li>Modul <code>subprocess</code> umožňuje vytvářet procesy, připojovat se k jejich rourám (pipe) a získávat jejich návratové kódy.
+</ol>
+
+<h2 id=import>Relativní importy uvnitř balíčku</h2>
+
+<p>Balíček je skupina souvisejících modulů, které se používají jako
+celek. Pokud se v Pythonu 2 moduly uvnitř balíčku potřebovaly
+odkazovat jeden na druhý, používali jsme příkaz <code>import
+foo</code> nebo <code>from foo import Bar</code>. V Pythonu 2
+interpret hledal <code>foo.py</code> nejdříve uvnitř aktuálního
+balíčku a teprve potom prohledával ostatní adresáře z pythonovské
+vyhledávací cesty (<code>sys.path</code>). Python 3 funguje trošku
+jinak. Místo prohledávání aktuálního balíčku začne přímo pythonovskou
+vyhledávací cestou. Pokud chceme, aby jeden modul uvnitř balíčku
+importoval jiný modul ze stejného balíčku, musíme explicitně zadat
+relativní cestu mezi uvedenými moduly. <p>Dejme tomu, že bychom měli
+následující balíček s více soubory ve stejném adresáři: <pre>chardet/
+|
++--__init__.py
+|
++--constants.py
+|
++--mbcharsetprober.py
+|
++--universaldetector.py</pre>
+<p>Teď předpokládejme, že <code>universaldetector.py</code> potřebuje
+importovat celý soubor <code>constants.py</code> a jednu třídu z
+<code>mbcharsetprober.py</code>. Jak to vlastně uděláme? <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">import constants</code>
+<td><code class="pp">from . import constants</code>
+<tr><th>② <td><code class="pp">from mbcharsetprober import MultiByteCharSetProber</code>
+<td><code class="pp">from .mbcharsetprober import MultiByteCharsetProber</code>
+</table>
+
+<ol>
+<li>Pokud potřebujeme importovat celý modul odněkud z našeho balíčku, použijeme novou syntaxi <code>from . import</code>. Tečka ve skutečnosti označuje relativní cestu od tohoto souboru (<code>universaldetector.py</code>) k souboru, který chceme importovat (<code>constants.py</code>). V tomto případě se nacházejí ve stejném adresáři, takže použijeme jednu tečku. Importovat můžeme i z rodičovského adresáře (<code>from .. import jinymodul</code>) nebo z podadresáře. <li>Pokud chceme importovat určitou třídu nebo funkci z jiného modulu přímo do prostoru jmen našeho modulu, přidáme k cílovému modulu jako prefix relativní cestu bez koncového lomítka. V tomto případě se <code>mbcharsetprober.py</code> nachází ve stejném adresáři jako <code>universaldetector.py</code>, takže cestu vyjádříme jednou tečkou. Importovat můžeme i z rodičovského adresáře (<code>from ..jinymodul import JinaTrida</code>) nebo z podadresáře.
+</ol>
+
+<h2 id=next>Metoda iterátoru <code>next()</code></h2>
+
+<p>V Pythonu 2 měly iterátory metodu <code><dfn>next</dfn>()</code>,
+která vracela další položku z posloupnosti. V Pythonu 3 to stále
+platí, ale máme k dispozici také <a
+href="generators.html#generators">globální funkci
+<code>next()</code></a>, která přebírá iterátor jako argument. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">anIterator.next()</code>
+<td><code class="pp">next(anIterator)</code>
+<tr><th>② <td><code class="pp">funkce_ktera_vraci_iterator().next()</code>
+<td><code class="pp">next(funkce_ktera_vraci_iterator())</code>
+<tr><th>③ <td><pre class=pp><code>class A:
+    def next(self):
+        pass</code></pre>
+<td><pre class=pp><code>class A:
+    def __next__(self):
+        pass</code></pre>
+<tr><th>④ <td><pre class=pp><code>class A:
+    def next(self, x, y):
+        pass</code></pre>
+<td><i>žádná změna</i>
+<tr><th>⑤ <td><pre class=pp><code>next = 42
+for an_iterator in a_sequence_of_iterators:
+    an_iterator.next()</code></pre>
+<td><pre class=pp><code>next = 42
+for an_iterator in a_sequence_of_iterators:
+    an_iterator.__next__()</code></pre>
+</table>
+
+<ol>
+<li>V nejjednodušším případě nyní místo volání metody iterátoru <code>next()</code> předáváme iterátor globální funkci <code>next()</code>. <li>Pokud máme funkci, která vrací iterátor, zavoláme ji a výsledek předáme funkci <code>next()</code>. (Skript <code>2to3</code> je dost chytrý na to, aby to převedl správně.) <li>Pokud definujeme svou vlastní třídu a míníme ji použít jako iterátor, definujeme speciální metodu <code>__next__()</code>. <li>Pokud definujeme svou vlastní třídu a ta shodou okolností obsahuje metodu pojmenovanou <code>next()</code>, která přebírá jeden nebo víc argumentů, nechá ji skript <code>2to3</code> beze změny. Tato třída nemůže být použita jako iterátor, protože její metoda <code>next()</code> vyžaduje argumenty. <li>Tohle je trošku ošemetné. Pokud máme lokální proměnnou pojmenovanou <var>next</var>, pak bude mít přednost před novou globální funkcí <code>next()</code>. V takovém případě budeme muset pro získání dalšího prvku posloupnosti volat speciální metodu iterátoru <code>__next__()</code>. (Alternativně bychom mohli refaktorizovat kód tak, že by lokální proměnná nebyla pojmenována <var>next</var>, ale to za nás <code>2to3</code> automaticky neudělá.)
+</ol>
+
+<h2 id=filter>Globální funkce <code>filter()</code></h2>
+
+<p>V Pythonu 2 vracela funkce <code><dfn>filter</dfn>()</code> seznam,
+který byl výsledkem filtrování posloupnosti přes funkci, která pro
+každý prvek posloupnosti vracela hodnotu <code>True</code> nebo
+<code>False</code>. V Pythonu 3 funkce <code>filter()</code> nevrací
+seznam, ale iterátor. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">filter(a_function, a_sequence)</code>
+<td><code class="pp">list(filter(a_function, a_sequence))</code>
+<tr><th>② <td><code class="pp">list(filter(a_function, a_sequence))</code>
+<td><i>žádná změna</i>
+<tr><th>③ <td><code class="pp">filter(None, a_sequence)</code>
+<td><code class="pp">[i for i in a_sequence if i]</code>
+<tr><th>④ <td><code class="pp">for i in filter(None, a_sequence):</code>
+<td><i>žádná změna</i>
+<tr><th>⑤ <td><code class="pp">[i for i in filter(a_function, a_sequence)]</code>
+<td><i>žádná změna</i>
+</table>
+
+<ol>
+<li>V nejzákladnějším případě obalí skript <code>2to3</code> volání funkce <code>filter()</code> voláním funkce <code>list()</code>. Tím se provede průchod přes všechny hodnoty a vrátí se skutečný seznam. <li>Pokud je ale volání funkce <code>filter()</code> <em>už obaleno</em> v <code>list()</code>, nebude <code>2to3</code> dělat nic, protože skutečnost, že <code>filter()</code> vrací iterátor v takovém případě není důležitá. <li>Speciální syntaxi <code>filter(None, ...)</code> skript <code>2to3</code> nahradí použitím sémanticky shodné generátorové notace seznamu. <li>V kontextu podobajícímu se cyklům <code>for</code>, kdy stejně dochází k průchodu celou posloupností, není nutné provádět žádné změny. <li>Ani zde se nemusí dělat žádné změny, protože generátorová notace seznamu bude iterovat přes všechny prvky posloupnosti, a to může udělat, ať už <code>filter()</code> vrací iterátor nebo seznam.
+</ol>
+
+<h2 id=map>Globální funkce <code>map()</code></h2>
+
+<p>Funkce <code><dfn>map</dfn>()</code> nyní vrací iterátor. Jde o
+stejný případ jako u funkce <a
+href="#filter"><code>filter()</code></a>. (V Pythonu 2 se vracel
+seznam.) <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">map(a_function, 'PapayaWhip')</code>
+<td><code class="pp">list(map(a_function, 'PapayaWhip'))</code>
+<tr><th>② <td><code class="pp">map(None, 'PapayaWhip')</code>
+<td><code class="pp">list('PapayaWhip')</code>
+<tr><th>③ <td><code class="pp">map(lambda x: x+1, range(42))</code>
+<td><code class="pp">[x+1 for x in range(42)]</code>
+<tr><th>④ <td><code class="pp">for i in map(a_function, a_sequence):</code>
+<td><i>žádná změna</i>
+<tr><th>⑤ <td><code class="pp">[i for i in map(a_function, a_sequence)]</code>
+<td><i>žádná změna</i>
+</table>
+
+<ol>
+<li>Stejně jako u <code>filter()</code> v nejzákladnějším případě obalí skript <code>2to3</code> volání funkce <code>map()</code> voláním <code>list()</code>. <li>Speciální syntaxi <code>map(None, ...)</code>, vyjadřující funkci identity, převede skript <code>2to3</code> na ekvivalentní volání <code>list()</code>. <li>Pokud je prvním argumentem <code>map()</code> lambda funkce, převede <code>2to3</code> zápis s využitím odpovídající generátorové notace seznamu. <li>V kontextu jako u cyklů <code>for</code>, které stejně procházejí celou posloupností, není nutné provádět žádné změny. <li>Ani zde se nemusí dělat žádné změny, protože generátorová notace seznamu předepisuje průchod přes všechny prvky posloupnosti, a to může udělat, ať už <code>map()</code> vrací iterátor nebo seznam.
+</ol>
+
+<h2 id=reduce>Globální funkce <code>reduce()</code></h2>
+
+<p>V Pythonu 3 byla funkce <code><dfn>reduce</dfn>()</code> vyňata z
+globálního prostoru jmen a umístěna do modulu <code>functools</code>.
+<table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">reduce(a, b, c)</code>
+<td><pre class=pp><code>from functools import reduce
+reduce(a, b, c)</code></pre>
+</table>
+
+<h2 id=apply>Globální funkce <code>apply()</code></h2>
+
+<p>V Pythonu 2 existovala globální funkce
+<code><dfn>apply</dfn>()</code>, která přebírala funkci <var>f</var> a
+seznam <code>[a, b, c]</code> a vrátila <code>f(a, b, c)</code>.
+Stejné věci můžeme dosáhnout tím, že funkci zavoláme přímo a před
+předávaný seznam argumentů připíšeme hvězdičku. V Pythonu 3 již funkce
+<code>apply()</code> neexistuje. Musíme použít zápis s hvězdičkou.
+<table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">apply(a_function, a_list_of_args)</code>
+<td><code class="pp">a_function(*a_list_of_args)</code>
+<tr><th>② <td><code class="pp">apply(a_function, a_list_of_args, a_dictionary_of_named_args)</code>
+<td><code class="pp">a_function(*a_list_of_args, **a_dictionary_of_named_args)</code>
+<tr><th>③ <td><code class="pp">apply(a_function, a_list_of_args + z)</code>
+<td><code class="pp">a_function(*a_list_of_args + z)</code>
+<tr><th>④ <td><code class="pp">apply(aModule.a_function, a_list_of_args)</code>
+<td><code class="pp">aModule.a_function(*a_list_of_args)</code>
+</table>
+
+<ol>
+<li>V nejjednodušším případě můžeme funkci při volání předat seznam argumentů (skutečný seznam, jako například <code>[a, b, c]</code>) přidáním hvězdičky před seznam (<code>*</code>). Jde o přesný ekvivalent staré funkce <code>apply()</code> z Pythonu 2. <li>V Pythonu 2 může funkce <code>apply()</code> ve skutečnosti přebírat tři parametry: funkci, seznam argumentů a slovník s pojmenovanými argumenty. V Pythonu 3 můžeme téhož dosáhnout přidáním hvězdičky před seznam argumentů (<code>*</code>) a přidáním dvou hvězdiček před slovník pojmenovaných argumentů (<code>**</code>). <li>Zde se operátor + používá pro zřetězení seznamů. Operátor <code>+</code> má vyšší prioritu než operátor <code>*</code>, takže kolem <code>a_list_of_args + z</code> nemusíme přidávat závorky. <li>Skript <code>2to3</code> je dost chytrý na to, aby převedl i složitá volání <code>apply()</code>, včetně volání funkcí z importovaných modulů.
+</ol>
+
+<h2 id=intern>Globální funkce <code>intern()</code></h2>
+
+<p>V Pythonu 2 bylo možné „internovat“ řetězec voláním funkce
+<code><dfn>intern</dfn>()</code>, čímž došlo k optimalizaci výkonu při
+práci s tímto řetězcem. V Pythonu 3 byla funkce <code>intern()</code>
+přesunuta do modulu <code>sys</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">intern(aString)</code>
+<td><code class="pp">sys.intern(aString)</code>
+</table>
+
+<h2 id=exec>Příkaz <code>exec</code></h2>
+
+<p>Příkaz <code><dfn>exec</dfn></code> se v Pythonu 3 změnil na funkci
+stejně, jako se na funkci změnil <a href="#print">příkaz
+<code>print</code></a>. Funkce <code>exec()</code> přebírá řetězec,
+který obsahuje libovolný pythonovský kód, a provede jej, jako kdyby to
+byl nějaký příkaz nebo výraz. Funkce <code>exec()</code> se podobá <a
+href="advanced-iterators.html#eval"><code>eval()</code></a>, ale je
+ještě mocnější a zlověstnější. Funkce <code>eval()</code> může
+vyhodnocovat jediný výraz, ale funkce <code>exec()</code> může provést
+více příkazů, importů, deklarací funkcí&nbsp;—&nbsp;v podstatě celý
+pythonovský program, předaný jako řetězec. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">exec codeString</code>
+<td><code class="pp">exec(codeString)</code>
+<tr><th>② <td><code class="pp">exec codeString in a_global_namespace</code>
+<td><code class="pp">exec(codeString, a_global_namespace)</code>
+<tr><th>③ <td><code class="pp">exec codeString in a_global_namespace, a_local_namespace</code>
+<td><code class="pp">exec(codeString, a_global_namespace, a_local_namespace)</code>
+</table>
+
+<ol>
+<li>V nejjednodušším případě skript <code>2to3</code> prostě uzavře kód v podobě řetězce do závorek, protože <code>exec()</code> je teď funkce a ne příkaz. <li>Původní příkaz <code>exec</code> mohl přebírat prostor jmen v podobě soukromého prostředí s globálními jmény, ve kterém se měl kód v podobě řetězce provádět. V Pythonu 3 lze dělat totéž. Prostor jmen se funkci <code>exec()</code> jednoduše předá jako druhý parametr. <li>Původní příkaz <code>exec</code> umožňoval dokonce přebírat lokální prostor jmen (podobající se prostoru proměnných definovaných uvnitř nějaké funkce). V Pythonu 3 to funkce <code>exec()</code> dokáže také.
+</ol>
+
+<h2 id=execfile>Příkaz <code>execfile</code></h2>
+
+<p>Původní příkaz <code>execfile</code>, podobně jako původní <a
+href="#exec">příkaz <code>exec</code></a>, spouštěl řetězce, ve
+kterých byl uložen pythonovský kód. Tam, kde <code>exec</code>
+přebíral řetězec, <code>execfile</code> přebíral jméno souboru. Z
+Pythonu 3 byl příkaz <code>execfile</code> vyřazen. Pokud opravdu
+chcete použít soubor s pythonovským kódem a spustit jej (ale nechcete
+jej přitom jednoduše importovat), můžete stejné funkčnosti dosáhnout
+otevřením souboru, načtením jeho obsahu, zavoláním globální funkce
+<code>compile()</code> (aby byl pythonovský interpret donucen kód
+přeložit) a nakonec zavoláním nové funkce <code>exec()</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp"><dfn>execfile</dfn>('a_filename')</code>
+<td><code class="pp">exec(compile(open('a_filename').read(), 'a_filename', 'exec'))</code>
+</table>
+
+<h2 id=repr><code>repr</code>-literály (zpětné apostrofy)</h2>
+
+<p>V Pythonu 2 bylo možné získat reprezentaci objektu použitím
+speciální syntaxe, kdy se libovolný objekt obalil <dfn>zpětnými
+apostrofy</dfn> (backticks; jako například <code>`x`</code>). V
+Pythonu 3 tato schopnost stále existuje, ale už ji nemůžeme vyvolat
+použitím zpětných apostrofů. Místo nich musíme použít globální funkci
+<code>repr()</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">`x`</code>
+<td><code class="pp">repr(x)</code>
+<tr><th>② <td><code class="pp">`'PapayaWhip' + `2``</code>
+<td><code class="pp">repr('PapayaWhip' + repr(2))</code>
+</table>
+
+<ol>
+<li>Připomeňme si, že <var>x</var> může být cokoliv&nbsp;—&nbsp;třída, funkce, modul, primitivní datový typ atd. Funkce <code>repr()</code> funguje na všechno. <li>V Pythonu 2 mohly být zpětné apostrofy zanořeny, což vedlo k tomuto druhu matoucích (ale platných) výrazů. Skript <code>2to3</code> je dost chytrý na to, aby zápis převedl na zanořené volání <code>repr()</code>.
+</ol>
+
+<h2 id=except>Příkaz <code>try...except</code></h2>
+
+<p>Syntaxe pro <a
+href="your-first-python-program.html#exceptions">odchytávání
+<dfn>výjimek</dfn></a> se mezi verzemi Python 2 a Python 3 mírně
+změnila. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><pre class=pp><code>try:
+    import mymodule
+<dfn>except</dfn> ImportError, e
+    pass</code></pre>
+<td><pre class=pp><code>try:
+    import mymodule
+except ImportError as e:
+    pass</code></pre>
+<tr><th>② <td><pre class=pp><code>try:
+    import mymodule
+except (RuntimeError, ImportError), e
+    pass</code></pre>
+<td><pre class=pp><code>try:
+    import mymodule
+except (RuntimeError, ImportError) as e:
+    pass</code></pre>
+<tr><th>③ <td><pre class=pp><code>try:
+    import mymodule
+except ImportError:
+    pass</code></pre>
+<td><i>žádná změna</i>
+<tr><th>④ <td><pre class=pp><code>try:
+    import mymodule
+except:
+    pass</code></pre>
+<td><i>žádná změna</i>
+</table>
+
+<ol>
+<li>Místo čárky se za typem výjimky v Pythonu 3 používá nové klíčové slovo <code>as</code>. <li>Klíčové slovo <code>as</code> funguje i pro odchytávání více typů výjimek najednou. <li>Pokud výjimku jen odchytíme, ale ve skutečnosti nás nezajímá možnost přistupování k samotnému <dfn>objektu</dfn> výjimky, pak se syntaxe používaná v Pythonu 2 shoduje se syntaxí v Pythonu 3. <li>Podobně, pokud používáme záchranu v podobě odchytávání <em>všech</em> výjimek, je syntaxe identická.
+</ol>
+
+<blockquote class=note>
+<p><span class="u">☞</span>Nouzové odchytávání <em>všech</em> výjimek
+byste nikdy neměli používat při importování modulů (ani ve většině
+ostatních případů). Tímto způsobem odchytíte i věci jako
+<code>KeyboardInterrupt</code> (pokud se uživatel pokoušel o přerušení
+činnosti programu stiskem <kbd>Ctrl-C</kbd>) a ztížíte si tím ladění.
+</blockquote>
+
+<h2 id=raise>Příkaz <code>raise</code></h2>
+
+<p>Syntaxe pro <a
+href="your-first-python-program.html#exceptions">vyvolávání našich
+vlastních výjimek</a> se mezi verzemi Python 2 a Python 3 mírně
+změnila. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp"><dfn>raise</dfn> MyException</code>
+<td><i>žádná změna</i>
+<tr><th>② <td><code class="pp">raise MyException, 'error message'</code>
+<td><code class="pp">raise MyException('error message')</code>
+<tr><th>③ <td><code class="pp">raise MyException, 'error message', a_traceback</code>
+<td><code class="pp">raise MyException('error message').with_traceback(a_traceback)</code>
+<tr><th>④ <td><code class="pp">raise 'error message'</code>
+<td><i>nepodporováno</i>
+</table>
+
+<ol>
+<li>Při použití nejjednodušší formy, vyvolání výjimky bez uživatelské chybové zprávy, se syntaxe nezměnila. <li>Změny si povšimneme, když chceme vyvolat výjimku s uživatelským chybovým hlášením. Python 2 odděloval třídu výjimky a uživatelskou zprávu čárkou. Python 3 předává chybovou zprávu jako parametr. <li>Python 2 podporoval při složitější syntaxi vyvolání výjimky s uživatelským zpětným trasováním (stack trace). V Pythonu 3 toho můžeme dosáhnout také, ale syntaxe se docela liší. <li>V Pythonu 2 jsme mohli vyvolat výjimku, aniž jsme zadávali třídu výjimky. Stačilo zadat chybovou zprávu. V Pythonu 3 to již není možné. Skript <code>2to3</code> vás bude varovat, že nebyl schopen tuto situaci opravit automaticky.
+</ol>
+
+<h2 id=throw>Metoda generátorů <code>throw</code></h2>
+
+<p>V Pythonu 2 definovaly generátory metodu
+<code><dfn>throw</dfn>()</code>. Volání
+<code>a_generator.throw()</code> vyvolá výjimku v místě, kde se
+generátor zastavil. Potom se vrací další hodnota, která je
+vyprodukována (yield) generátorovou funkcí. V Pythonu 3 je uvedená
+funkčnost stále k dispozici, ale syntaxe se trochu změnila. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">a_generator.throw(MyException)</code>
+<td><i>žádná změna</i>
+<tr><th>② <td><code class="pp">a_generator.throw(MyException, 'error message')</code>
+<td><code class="pp">a_generator.throw(MyException('error message'))</code>
+<tr><th>③ <td><code class="pp">a_generator.throw('error message')</code>
+<td><i>nepodporováno</i>
+</table>
+
+<ol>
+<li>V nejjednodušším případě generátor vyvolává výjimku bez uživatelské chybové zprávy. V tomto případě se syntaxe v Pythonu 3 vůči Pythonu 2 nezměnila. <li>Pokud generátor vyvolává výjimku <em>s uživatelskou chybovou zprávou</em>, musíme řetězec se zprávou předat vytvářenému objektu výjimky. <li>Python 2 podporoval vyvolání výjimky, která byla tvořena <em>pouze</em> uživatelským chybovým hlášením. Python 3 toto chování nepodporuje a skript <code>2to3</code> zobrazí varování, které říká, že to budete muset opravit ručně.
+</ol>
+
+<h2 id=xrange>Globální funkce <code>xrange()</code></h2>
+
+<p>V Pythonu 2 existovaly dva způsoby získávání hodnot intervalu
+čísel: funkce <code><dfn>range</dfn>()</code> vracela seznam a funkce
+<code><dfn>xrange</dfn>()</code>, vracela iterátor. V Pythonu 3 funkce
+<code>range()</code> vrací iterátor a funkce <code>xrange()</code> už
+neexistuje. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">xrange(10)</code>
+<td><code class="pp">range(10)</code>
+<tr><th>② <td><code class="pp">a_list = range(10)</code>
+<td><code class="pp">a_list = list(range(10))</code>
+<tr><th>③ <td><code class="pp">[i for i in xrange(10)]</code>
+<td><code class="pp">[i for i in range(10)]</code>
+<tr><th>④ <td><code class="pp">for i in range(10):</code>
+<td><i>žádná změna</i>
+<tr><th>⑤ <td><code class="pp">sum(range(10))</code>
+<td><i>žádná změna</i>
+</table>
+
+<ol>
+<li>V nejjednodušším případě skript <code>2to3</code> jednoduše změní <code>xrange()</code> na <code>range()</code>. <li>Pokud kód pro Python 2 používal <code>range()</code>, pak skript <code>2to3</code> neví, zda jsme skutečně potřebovali seznam, nebo zda by vyhověl iterátor. V rámci opatrnosti se vracená hodnota převádí na seznam voláním funkce <code>list()</code>. <li>Pokud by byla funkce <code>xrange()</code> použita uvnitř generátorového zápisu seznamu, pak je skript <code>2to3</code> dost chytrý na to, aby funkci <code>range()</code> <em>neobalil</em> voláním <code>list()</code>. Generátorový zápis seznamu bude bez problémů fungovat s iterátorem, který je funkcí <code>range()</code> vrácen. <li>Bez problémů bude s iterátorem fungovat i cyklus <code>for</code>, takže ani zde není nutné nic měnit. <li>Funkce <code>sum()</code> pracuje s iterátorem také, takže <code>2to3</code> nemusí nic měnit ani zde. Uvedený přístup se, stejně jako v případě <a href="#dict">metod slovníku, které vracejí pohledy (view) místo seznamů</a>, aplikuje i u funkcí <code>min()</code>, <code>max()</code>, <code>sum()</code>, <code>list()</code>, <code>tuple()</code>, <code>set()</code>, <code>sorted()</code>, <code>any()</code> a <code>all()</code>.
+</ol>
+
+<h2 id=raw_input>Globální funkce <code>raw_input()</code> a <code>input()</code></h2>
+
+<p>Python 2 poskytoval pro vyžádání si uživatelského vstupu z
+příkazové řádky dvě globální funkce. První z nich, zvaná
+<code>input()</code>, očekávala, že uživatel vloží pythonovský výraz
+(vrací se jeho výsledek). Druhá z nich, zvaná
+<code><dfn>raw_input</dfn>()</code>, vracela to, co uživatel napsal.
+Začátečníky to velmi mátlo a považovalo se to za „bradavici“ (wart) na
+jazyce. Python 3 tuto nepěknost řeší přejmenováním
+<code>raw_input()</code> na <code>input()</code>, takže to funguje
+způsobem, který většina naivně očekává. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">raw_input()</code>
+<td><code class="pp">input()</code>
+<tr><th>② <td><code class="pp">raw_input('prompt')</code>
+<td><code class="pp">input('prompt')</code>
+<tr><th>③ <td><code class="pp">input()</code>
+<td><code class="pp">eval(input())</code>
+</table>
+
+<ol>
+<li>V nejjednodušším případě se <code>raw_input()</code> mění na <code>input()</code>. <li>V Pythonu 2 mohla funkce <code>raw_input()</code> přebírat vyzývací řetězec jako parametr. Tato možnost je zachována i v Pythonu 3. <li>Pokud chcete, aby se opravdu vyhodnocoval pythonovský výraz zadaný uživatelem, použijte funkci <code>input()</code> a předejte její výsledek funkci <code>eval()</code>.
+</ol>
+
+<h2 id=funcattrs>Atributy funkcí <code>func_*</code></h2>
+
+<p>V Pythonu 2 může kód uvnitř funkce přistupovat ke speciálním
+atributům, které se týkají funkce samotné. V Pythonu 3 byly tyto
+speciální atributy funkcí přejmenovány, aby se dostaly do souladu s
+ostatními atributy. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">a_function.<dfn>func_name</dfn></code>
+<td><code class="pp">a_function.__name__</code>
+<tr><th>② <td><code class="pp">a_function.<dfn>func_doc</dfn></code>
+<td><code class="pp">a_function.__doc__</code>
+<tr><th>③ <td><code class="pp">a_function.<dfn>func_defaults</dfn></code>
+<td><code class="pp">a_function.__defaults__</code>
+<tr><th>④ <td><code class="pp">a_function.<dfn>func_dict</dfn></code>
+<td><code class="pp">a_function.__dict__</code>
+<tr><th>⑤ <td><code class="pp">a_function.<dfn>func_closure</dfn></code>
+<td><code class="pp">a_function.__closure__</code>
+<tr><th>⑥ <td><code class="pp">a_function.<dfn>func_globals</dfn></code>
+<td><code class="pp">a_function.__globals__</code>
+<tr><th>⑦ <td><code class="pp">a_function.<dfn>func_code</dfn></code>
+<td><code class="pp">a_function.__code__</code>
+</table>
+
+<ol>
+<li>Atribut <code>__name__</code> (dříve <code>func_name</code>) obsahuje jméno funkce. <li>Atribut <code>__doc__</code> (dříve <code>func_doc</code>) obsahuje <i>dokumentační řetězec</i>, který byl definován ve zdrojovém textu funkce. <li>Atribut <code>__defaults__</code> (dříve <code>func_defaults</code>) je n-tice obsahující výchozí hodnoty argumentů pro ty z argumentů, pro které byly výchozí hodnoty definovány. <li>Atribut <code>__dict__</code> (dříve <code>func_dict</code>) je prostor jmen uchovávající libovolné atributy funkce. <li>Atribut <code>__closure__</code> (dříve <code>func_closure</code>) je n-tice buněk, které obsahují vazby (bindings) na volné proměnné, které se ve funkci používají. <li>Atribut <code>__globals__</code> (dříve <code>func_globals</code>) je odkaz na globální prostor jmen modulu, ve kterém byla funkce definována. <li>Atribut <code>__code__</code> (dříve <code>func_code</code>) je objekt kódu (code object), reprezentující přeložené tělo funkce.
+</ol>
+
+<h2 id=xreadlines>Metoda <code>xreadlines()</code> V/V objektů</h2>
+
+<p>V Pythonu 2 měly souborové objekty metodu
+<code><dfn>xreadlines</dfn>()</code>, která vracela iterátor
+procházející souborem po řádcích. Kromě jiného se to hodilo pro cykly
+<code>for</code>. Ve skutečnosti to byla tak užitečná metoda, že
+pozdější verze Pythonu 2 přidaly schopnost iterovat samotným
+souborovým objektům. <p>V Pythonu 3 přestala metoda
+<code>xreadlines()</code> existovat. Skript <code>2to3</code> je
+schopen převést jednoduché případy, ale v hraničních situacích po vás
+bude vyžadovat ruční zásah. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">for line in a_file.xreadlines():</code>
+<td><code class="pp">for line in a_file:</code>
+<tr><th>② <td><code class="pp">for line in a_file.xreadlines(5):</code>
+<td><i>žádná změna (vede k nefunkčnímu kódu)</i>
+</table>
+
+<ol>
+<li>Pokud jste byli zvyklí volat <code>xreadlines()</code> bez argumentů, převede toto volání skript <code>2to3</code> jen na souborový objekt. V Pythonu 3 zajistí tento zápis stejnou funkčnost: čte se ze souboru řádek po řádku a provádí se tělo cyklu <code>for</code>. <li>Pokud jste byli zvyklí volat <code>xreadlines()</code> s argumentem (počet řádků, které se mají načíst najednou), pak to skript <code>2to3</code> neopraví a váš kód selže s vysvětlením <code>AttributeError: '_io.TextIOWrapper' object has no attribute 'xreadlines'</code>. Opravu pro Python 3 můžete ručně provést změnou <code>xreadlines()</code> na <code>readlines()</code>. (Metoda <code>readlines()</code> teď vrací iterátor, takže je to stejně efektivní, jako bylo <code>xreadlines()</code> v Pythonu 2.)
+</ol>
+
+<p class=c><span style="font-size:56px;line-height:0.88">☃</span>
+
+<h2 id=tuple_params><code>lambda</code> funkce, které akceptují n-tici místo více parametrů</h2>
+
+<p>V Pythonu 2 jsme mohli definovat anonymní
+<code><dfn>lambda</dfn></code> funkci, která přebírá více parametrů,
+tím, že jsme ji definovali jako funkci, která přebírá n-tici s určeným
+počtem položek. V důsledku toho Python 2 „rozbalil“ n-tici do
+pojmenovaných argumentů, na které jsme se pak mohli uvnitř
+<code>lambda</code> funkce odkazovat jménem. V Pythonu 3 můžeme
+<code>lambda</code> funkci také předávat n-tici, ale pythonovský
+interpret ji nerozbalí do pojmenovaných argumentů. Místo toho se
+budeme muset na jednotlivé argumenty odkazovat pozičním indexem.
+<table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">lambda (x,): x + f(x)</code>
+<td><code class="pp">lambda x1: x1[0] + f(x1[0])</code>
+<tr><th>② <td><code class="pp">lambda (x, y): x + f(y)</code>
+<td><code class="pp">lambda x_y: x_y[0] + f(x_y[1])</code>
+<tr><th>③ <td><code class="pp">lambda (x, (y, z)): x + y + z</code>
+<td><code class="pp">lambda x_y_z: x_y_z[0] + x_y_z[1][0] + x_y_z[1][1]</code>
+<tr><th>④ <td><code class="pp">lambda x, y, z: x + y + z</code>
+<td><i>žádná změna</i>
+</table>
+
+<ol>
+<li>Pokud jsme definovali <code>lambda</code> funkci, která přebírá n-tici s jedním prvkem, stane se z ní v Pythonu 3 <code>lambda</code> funkce, která se odkazuje na <var>x1[0]</var>. Jméno <var>x1</var> je generováno skriptem <code>2to3</code> automaticky, na základě pojmenovaných argumentů původní n-tice. <li><code>lambda</code> funkce s dvouprvkovou n-ticí <var>(x, y)</var> bude převedena na <var>x_y</var> s pozičními argumenty <var>x_y[0]</var> a <var>x_y[1]</var>. <li>Skript <code>2to3</code> zvládne dokonce <code>lambda</code> funkce s vnořenými n-ticemi pojmenovaných argumentů. Výsledný kód v Pythonu 3 je poněkud nečitelný, ale funguje stejným způsobem, jakým fungoval původní kód v Pythonu 2. <li>Můžeme definovat <code>lambda</code> funkce, které přebírají víc argumentů. Pokud kolem argumentů neuvedeme závorky, chová se Python 2 k zápisu jako k <code>lambda</code> funkci s více argumenty. Uvnitř <code>lambda</code> funkce se na pojmenované argumenty odkazujeme jménem jako v každé jiné funkci. V Pythonu 3 tato syntaxe pořád funguje.
+</ol>
+
+<h2 id=methodattrs>Atributy speciálních metod</h2>
+
+<p>V Pythonu 2 se mohly metody tříd odkazovat na objekt třídy, ve
+které jsou definovány, a také na samotný objekt metody. Reference
+<code>im_self</code> odkazovala na objekt instance třídy,
+<code>im_func</code> na objekt funkce a <code>im_class</code> se
+odkazuje na třídu objektu <code>im_self</code>. V Pythonu 3 byly tyto
+speciální atributy metod přejmenovány, aby se dostaly do souladu s
+pojmenováním ostatních atributů. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">aClassInstance.aClassMethod.<dfn>im_func</dfn></code>
+<td><code class="pp">aClassInstance.aClassMethod.__func__</code>
+<tr><th>
+<td><code class="pp">aClassInstance.aClassMethod.<dfn>im_self</dfn></code>
+<td><code class="pp">aClassInstance.aClassMethod.__self__</code>
+<tr><th>
+<td><code class="pp">aClassInstance.aClassMethod.<dfn>im_class</dfn></code>
+<td><code class="pp">aClassInstance.aClassMethod.__self__.__class__</code>
+</table>
+
+<h2 id=nonzero>Speciální metoda <code>__nonzero__</code></h2>
+
+<p>V Pythonu 2 jsme mohli vytvářet své vlastní třídy, které se daly
+používat v booleovském kontextu. Mohli jsme například vytvořit
+instanci takové třídy a pak ji použít v příkazu <code>if</code>.
+Dělalo se to tak, že jsme definovali speciální metodu
+<code>__nonzero__()</code>, která vracela <code>True</code> nebo
+<code>False</code>. Ta se volala, kdykoliv byla instance použita v
+booleovském kontextu. V Pythonu 3 lze dělat totéž, ale jméno metody
+bylo změněno na <code>__bool__()</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><pre class=pp><code>class A:
+    def <dfn>__nonzero__</dfn>(self):
+        pass</code></pre>
+<td><pre class=pp><code>class A:
+    def <dfn>__bool__</dfn>(self):
+        pass</code></pre>
+<tr><th>② <td><pre class=pp><code>class A:
+    def __nonzero__(self, x, y):
+        pass</code></pre>
+<td><i>žádná změna</i>
+</table>
+
+<ol>
+<li>Při vyhodnocování instance v booleovském kontextu se v Pythonu 3 místo <code>__nonzero__()</code> volá metoda <code>__bool__()</code>. <li>Pokud ale máme definovánu metodu <code>__nonzero__()</code>, která vyžaduje nějaké argumenty, bude nástroj <code>2to3</code> předpokládat, že jsme ji používali pro nějaký jiný účel, a neprovede žádné změny.
+</ol>
+
+<h2 id=numliterals>Oktalové literály</h2>
+
+<p>Syntaxe pro zápis čísel v osmičkové soustavě (tj.
+<dfn>oktalových</dfn>) se mezi Pythonem 2 a Pythonem 3 mírně změnila.
+<table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">x = 0755</code>
+<td><code class="pp">x = 0o755</code>
+</table>
+
+<h2 id=renames><code>sys.maxint</code></h2>
+
+<p>V souvislosti <a href="#long">se sloučením typů <code>long</code> a
+<code>int</code></a> pozbyla konstanta <code>sys.maxint</code>
+vypovídací přesnost. Tato hodnota může být stále užitečná při
+zjišťování schopností závislých na platformě. Proto byla v Pythonu
+ponechána, ale byla přejmenována na <code>sys.maxsize</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">from sys import <dfn>maxint</dfn></code>
+<td><code class="pp">from sys import <dfn>maxsize</dfn></code>
+<tr><th>② <td><code class="pp">a_function(<dfn>sys.maxint</dfn>)</code>
+<td><code class="pp">a_function(<dfn>sys.maxsize</dfn>)</code>
+</table>
+
+<ol>
+<li>Z <code>maxint</code> se stává <code>maxsize</code>. <li>Jakékoliv použití <code>sys.maxint</code> se mění na <code>sys.maxsize</code>.
+</ol>
+
+<h2 id=callable>Globální funkce <code>callable()</code></h2>
+
+<p>V Pythonu 2 jsme mohli voláním globální funkce
+<code><dfn>callable</dfn>()</code> zkontrolovat, zda se dá objekt
+volat (jako funkce). Z Pythonu 3 byla tato globální funkce vyřazena.
+Pokud chceme zjistit, zda se dá objekt volat, musíme zkontrolovat, zda
+má speciální metodu <code>__call__()</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">callable(anything)</code>
+<td><code class="pp">hasattr(anything, '__call__')</code>
+</table>
+
+<h2 id=zip>Globální funkce <code>zip()</code></h2>
+
+<p>V Pythonu 2 přebírala globální funkce <code><dfn>zip</dfn>()</code>
+libovolný počet posloupností a vracela seznam n-tic. První n-tice
+obsahovala první položky ze všech posloupností, druhá n-tice
+obsahovala druhé položky ze všech posloupností a tak dále. V Pythonu 3
+vrací funkce <code>zip()</code> místo seznamu iterátor. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">zip(a, b, c)</code>
+<td><code class="pp">list(zip(a, b, c))</code>
+<tr><th>② <td><code class="pp">d.join(zip(a, b, c))</code>
+<td><i>žádná změna</i>
+</table>
+
+<ol>
+<li>Nejjednodušší způsob dosažení původního chování funkce <code>zip()</code> spočívá v obalení návratové hodnoty voláním <code>list()</code>. Tím dojde k průchodu všemi hodnotami iterátoru vraceného funkcí <code>zip()</code> a vytvoří se skutečný seznam výsledků. <li>V kontextu, kde se již využívá iterace přes všechny položky posloupnosti (jako například při volání této metody <code>join()</code>), funguje iterátor vracený funkcí <code>zip()</code> bez problémů. Skript <code>2to3</code> je dost chytrý na to, aby takové případy detekoval a neprováděl ve vašem kódu žádné změny.
+</ol>
+
+<h2 id=standarderror>Výjimka <code>StandardError</code></h2>
+
+<p>V Pythonu 2 byla <code><dfn>StandardError</dfn></code> bázovou
+třídou všech zabudovaných výjimek — až na <code>StopIteration</code>,
+<code>GeneratorExit</code>, <code>KeyboardInterrupt</code> a
+<code>SystemExit</code>. V Pythonu 3 byla třída
+<code>StandardError</code> zrušena. Místo ní se používá třída
+<code>Exception</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">x = StandardError()</code>
+<td><code class="pp">x = Exception()</code>
+<tr><th>
+<td><code class="pp">x = StandardError(a, b, c)</code>
+<td><code class="pp">x = Exception(a, b, c)</code>
+</table>
+
+<h2 id=types>Konstanty modulu <code>types</code></h2>
+
+<p>Modul <code>types</code> obsahuje širokou paletu konstant, které
+nám pomáhají určovat typ objektu. V Pythonu 2 obsahoval konstanty pro
+všechny primitivní typy, jako jsou <code>dict</code> a
+<code>int</code>. Z Pythonu 3 byly tyto konstanty odstraněny. Místo
+nich se používá jméno primitivního typu. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">types.<dfn>UnicodeType</dfn></code>
+<td><code class="pp">str</code>
+<tr><th>
+<td><code class="pp">types.<dfn>StringType</dfn></code>
+<td><code class="pp">bytes</code>
+<tr><th>
+<td><code class="pp">types.<dfn>DictType</dfn></code>
+<td><code class="pp">dict</code>
+<tr><th>
+<td><code class="pp">types.<dfn>IntType</dfn></code>
+<td><code class="pp">int</code>
+<tr><th>
+<td><code class="pp">types.<dfn>LongType</dfn></code>
+<td><code class="pp">int</code>
+<tr><th>
+<td><code class="pp">types.<dfn>ListType</dfn></code>
+<td><code class="pp">list</code>
+<tr><th>
+<td><code class="pp">types.<dfn>NoneType</dfn></code>
+<td><code class="pp">type(None)</code>
+<tr><th>
+<td><code class="pp">types.<dfn>BooleanType</dfn></code>
+<td><code class="pp">bool</code>
+<tr><th>
+<td><code class="pp">types.<dfn>BufferType</dfn></code>
+<td><code class="pp">memoryview</code>
+<tr><th>
+<td><code class="pp">types.<dfn>ClassType</dfn></code>
+<td><code class="pp">type</code>
+<tr><th>
+<td><code class="pp">types.<dfn>ComplexType</dfn></code>
+<td><code class="pp">complex</code>
+<tr><th>
+<td><code class="pp">types.<dfn>EllipsisType</dfn></code>
+<td><code class="pp">type(Ellipsis)</code>
+<tr><th>
+<td><code class="pp">types.<dfn>FloatType</dfn></code>
+<td><code class="pp">float</code>
+<tr><th>
+<td><code class="pp">types.<dfn>ObjectType</dfn></code>
+<td><code class="pp">object</code>
+<tr><th>
+<td><code class="pp">types.<dfn>NotImplementedType</dfn></code>
+<td><code class="pp">type(NotImplemented)</code>
+<tr><th>
+<td><code class="pp">types.<dfn>SliceType</dfn></code>
+<td><code class="pp">slice</code>
+<tr><th>
+<td><code class="pp">types.<dfn>TupleType</dfn></code>
+<td><code class="pp">tuple</code>
+<tr><th>
+<td><code class="pp">types.<dfn>TypeType</dfn></code>
+<td><code class="pp">type</code>
+<tr><th>
+<td><code class="pp">types.<dfn>XRangeType</dfn></code>
+<td><code class="pp">range</code>
+</table>
+
+<blockquote class=note>
+<p><span class="u">☞</span><code>types.StringType</code> se převádí na
+<code>bytes</code> a ne na <code>str</code>, protože „řetězec“ v
+Pythonu 2 (ne Unicode řetězec, ale obyčejný řetězec) je ve skutečnosti
+jen posloupností bajtů odpovídajících určitému znakovému kódování.
+</blockquote>
+
+<h2 id=isinstance>Globální funkce <code>isinstance()</code></h2>
+
+<p>Funkce <code>isinstance()</code> kontroluje, zda je objekt instancí
+určité třídy nebo typu. V Pythonu 2 jsme mohli předat n-tici typů a
+<code>isinstance()</code> vrátila <code>True</code>, pokud byl objekt
+jedním z uvedených typů. V Pythonu 3 lze dělat totéž, ale předávání
+stejného typu dvakrát se považuje za nežádoucí (deprecated). <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">isinstance(x, (int, float, int))</code>
+<td><code class="pp">isinstance(x, (int, float))</code>
+</table>
+
+<h2 id=basestring>Datový typ <code>basestring</code></h2>
+
+<p>Python 2 pracoval s dvěma typy řetězců: Unicode a ne-Unicode. Ale
+existoval v něm ještě jeden typ, <code><dfn>basestring</dfn></code>.
+Jednalo se o abstraktní typ, nadtřídu jak pro typ <code>str</code>,
+tak pro typ <code>unicode</code>. Nebylo možné ji volat nebo z ní
+vytvářet instanci přímo, ale mohli jste ji předat globální funkci
+<code>isinstance()</code>, když jste chtěli zkontrolovat, zda je
+objekt buď Unicode, nebo ne-Unicode řetězcem. V Pythonu 3 existuje
+jediný řetězcový typ, takže důvod k existenci typu
+<code>basestring</code> pominul. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">isinstance(x, basestring)</code>
+<td><code class="pp">isinstance(x, str)</code>
+</table>
+
+<h2 id=itertools><code>itertools</code> module</h2>
+
+<p>Python 2.3 zavedl modul <code>itertools</code>, který definoval
+varianty globálních funkcí <code>zip()</code>, <code>map()</code> a
+<code>filter()</code>, které místo seznamu vracely iterátory. V
+Pythonu 3 tyto globální funkce vracejí iterátory, takže uvedené funkce
+byly z modulu <code>itertools</code> odstraněny. (<a
+href="advanced-iterators.html#more-itertools">V modulu
+<code>itertools</code> je stále mnoho užitečných funkcí</a>, nejen ty
+právě zmíněné.) <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">itertools.<dfn>izip</dfn>(a, b)</code>
+<td><code class="pp">zip(a, b)</code>
+<tr><th>② <td><code class="pp">itertools.<dfn>imap</dfn>(a, b)</code>
+<td><code class="pp">map(a, b)</code>
+<tr><th>③ <td><code class="pp">itertools.<dfn>ifilter</dfn>(a, b)</code>
+<td><code class="pp">filter(a, b)</code>
+<tr><th>④ <td><code class="pp">from itertools import imap, izip, foo</code>
+<td><code class="pp">from itertools import foo</code>
+</table>
+
+<ol>
+<li>Místo <code>itertools.izip()</code> použijte jednoduše globální funkci <code>zip()</code>. <li>Místo <code>itertools.imap()</code> použijte jednoduše <code>map()</code>. <li>Z <code>itertools.ifilter()</code> se stává <code>filter()</code>. <li>Modul <code>itertools</code> v Pythonu 3 pořád existuje. Jen v něm chybí funkce, které byly přesunuty do globálního prostoru jmen. Skript <code>2to3</code> je dost chytrý na to, aby odstranil importy, které neexistují, a ponechal ostatní importy nedotčené.
+</ol>
+
+<h2 id=sys_exc><code>sys.exc_type</code>, <code>sys.exc_value</code>, <code>sys.exc_traceback</code></h2>
+
+<p>U Pythonu 2 se v modulu <code>sys</code> nacházely tři proměnné,
+které jsme mohli používat během obsluhy výjimky:
+<code>sys.exc_type</code>, <code>sys.exc_value</code>,
+<code>sys.exc_traceback</code>. (Ve skutečnosti mají původ už v
+Pythonu 1.) Už od Pythonu 1.5 bylo používání těchto proměnných
+považováno za nežádoucí (deprecated) ve prospěch
+<code>sys.exc_info()</code>, což je funkce vracející n-tici se všemi
+třemi hodnotami. V Pythonu 3 byly tyto tři individuální proměnné
+nakonec odstraněny. Musíme používat funkci
+<code>sys.exc_info()</code>. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp"><dfn>sys.exc_type</dfn></code>
+<td><code class="pp">sys.exc_info()[0]</code>
+<tr><th>
+<td><code class="pp"><dfn>sys.exc_value</dfn></code>
+<td><code class="pp">sys.exc_info()[1]</code>
+<tr><th>
+<td><code class="pp"><dfn>sys.exc_traceback</dfn></code>
+<td><code class="pp">sys.exc_info()[2]</code>
+</table>
+
+<h2 id=paren>Generátory seznamů nad n-ticemi</h2>
+
+<p>Pokud jsme v Pythonu 2 chtěli použít generátorovou notaci seznamu,
+která předepisovala iteraci přes n-tici, nemuseli jsme hodnoty n-tice
+uzavírat do kulatých závorek. V Pythonu 3 se explicitní závorky
+vyžadují. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp">[i for i in 1, 2]</code>
+<td><code class="pp">[i for i in (1, 2)]</code>
+</table>
+
+<h2 id=getcwdu>Funkce <code>os.getcwdu()</code></h2>
+
+<p>V Pythonu 2 byla k dispozici funkce pojmenovaná
+<code>os.getcwd()</code>, která vracela aktuální pracovní adresář jako
+(ne-Unicode) řetězec. Protože moderní souborové systémy umí pracovat
+se jmény adresářů v libovolném znakovém kódování, zavedl Python 2.3
+funkci <code>os.getcwdu()</code>. Funkce <code>os.getcwdu()</code>
+vracela aktuální pracovní adresář jako Unicode řetězec. V Pythonu 3
+existuje <a href="strings.html#divingin">jediný řetězcový typ
+(Unicode)</a>, takže <code>os.getcwd()</code> je vším, co potřebujeme.
+<table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>
+<td><code class="pp"><dfn>os.getcwdu</dfn>()</code>
+<td><code class="pp">os.getcwd()</code>
+</table>
+
+<h2 id=metaclass>Metatřídy</h2>
+
+<p>V Pythonu 2 jsme mohli metatřídy vytvářet buď definicí argumentu
+<code>metaclass</code> v deklaraci třídy, nebo definicí speciálního
+atributu <code><dfn>__metaclass__</dfn></code> na úrovni třídy. V
+Pythonu 3 byl tento atribut třídy odstraněn. <table>
+<tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><pre class=pp><code>class C(metaclass=PapayaMeta):
+    pass</code></pre>
+<td><i>žádná změna</i>
+<tr><th>② <td><pre class=pp><code>class Whip:
+    __metaclass__ = PapayaMeta</code></pre>
+<td><pre class=pp><code>class Whip(metaclass=PapayaMeta):
+    pass</code></pre>
+<tr><th>③ <td><pre class=pp><code>class C(Whipper, Beater):
+    __metaclass__ = PapayaMeta</code></pre>
+<td><pre class=pp><code>class C(Whipper, Beater, metaclass=PapayaMeta):
+    pass</code></pre>
+</table>
+
+<ol>
+<li>Deklarace metatřídy v místě deklarace třídy fungovala v Pythonu 2 a funguje stejně i v Pythonu 3. <li>Deklarace metatřídy pomocí atributu třídy fungovala v Pythonu 2, ale v Pythonu 3 již ne. <li>Skript <code>2to3</code> je dost chytrý na to, aby zkonstruoval platnou deklaraci třídy dokonce i v případech, kdy třída dědí z jedné nebo více bázových tříd.
+</ol>
+
+<h2 id=nitpick>Věci týkající se stylu</h2>
+
+<p>Zbytek zde popsaných „oprav“ ve skutečnosti nejsou opravy jako
+takové. Tyto úpravy nemění podstatu, ale styl. Jde o věci, které
+fungují jak v Pythonu 2, tak v Pythonu 3. Vývojáři Pythonu ale mají
+zájem na tom, aby byl pythonovský kód tak jednotný, jak je to jen
+možné. Z tohoto pohledu existuje oficiální <a
+href="http://www.python.org/dev/peps/pep-0008" />Python style
+guide</a> (Průvodce stylem jazyka Python), který
+popisuje&nbsp;—&nbsp;až do nesnesitelnosti&nbsp;—&nbsp;všechny možné
+detaily, které vás téměř určitě nezajímají. A když už
+<code>2to3</code> vytváří tak mohutnou infrastrukturu pro konverzi
+pythonovského kódu z jedné podoby do druhé, vzali si autoři za své
+přidat pár nepovinných rysů, které by zlepšily čitelnost vašich
+pythonovských programů. <h3 id=set_literal>Množinové literály
+(<code>set()</code>; explicitně)</h3>
+
+<p>V Pythonu 2 bylo jediným možným vyjádřením definice množinového
+literálu volání <code>set(posloupnost)</code>. V Pythonu 3 tato
+možnost stále funguje, ale čistší způsob spočívá v použití nového
+zápisu množinového literálu: složené závorky. Funguje to pro všechny
+množiny s výjimkou prázdné množiny. Je to tím, že slovníky používají
+složené závorky také a zápis <a
+href="native-datatypes.html#emptyset"><code>{}</code> byl již vyhrazen
+pro prázdný slovník a ne pro prázdnou množinu</a>. <blockquote
+class=note>
+<p><span class="u">☞</span>Skript <code>2to3</code> standardně
+množinové literály zapsané pomocí <code>set()</code> neupravuje. Pokud
+chceme tuto úpravu povolit, uvedeme při volání <code>2to3</code> na
+příkazovém řádku <kbd>-f set_literal</kbd> (f jako fix).
+</blockquote>
+
+<table>
+<tr><th>Poznámky <th>Před <th>Po <tr><th>
+<td><code class="pp">set([1, 2, 3])</code>
+<td><code class="pp">{1, 2, 3}</code>
+<tr><th>
+<td><code class="pp">set((1, 2, 3))</code>
+<td><code class="pp">{1, 2, 3}</code>
+<tr><th>
+<td><code class="pp">set([i for i in a_sequence])</code>
+<td><code class="pp">{i for i in a_sequence}</code>
+</table>
+
+<h3 id=buffer>Globální funkce <code>buffer()</code> (explicitně)</h3>
+
+<p>Pythonovské objekty implementované v jazyce C exportují takzvané
+„rozhraní bloku paměti“ (buffer interface), které umožňuje ostatnímu
+pythonovskému kódu přímo číst blok paměti a zapisovat do něj. (Je to
+přesně tak mocné a děsivé, jak to zní.) V Pythonu 3 byla funkce
+<code>buffer()</code> přejmenována na <code>memoryview()</code>. (Ve
+skutečnosti je to sice o něco komplikovanější, ale rozdíly můžete
+téměř určitě ignorovat.) <blockquote class=note>
+<p><span class="u">☞</span>Skript <code>2to3</code> standardně funkci
+<code>buffer()</code> neopravuje. Pokud chceme tuto úpravu povolit,
+uvedeme při volání <code>2to3</code> na příkazovém řádku <kbd>-f
+buffer</kbd>.
+</blockquote>
+
+<table>
+<tr><th>Poznámky <th>Před <th>Po <tr><th>
+<td><code class="pp">x = <dfn>buffer</dfn>(y)</code>
+<td><code class="pp">x = <dfn>memoryview</dfn>(y)</code>
+</table>
+
+<h3 id=wscomma>Bílé znaky kolem čárek (explicitně)</h3>
+
+<p>Navzdory drakonickým pravidlům pro používání bílých znaků
+(whitespace) při odsazování a předsazování se Python chová docela
+volně k používání bílých znaků v jiných oblastech. Uvnitř seznamů,
+n-tic, množin a slovníků se mohou bílé znaky objevit před a za čárkami
+bez škodlivých účinků. Jenže Průvodce stylem jazyka Python říká, že
+před čárkami se nemá psát žádná mezera a za čárkou se má psát jedna.
+Ačkoliv se zde jedná o čistě estetickou záležitost (kód funguje tak
+jako tak, v Pythonu 2 i v Pythonu 3), skript <code>2to3</code> tuto
+věc může volitelně opravit. <blockquote class=note>
+<p><span class="u">☞</span>Skript <code>2to3</code> standardně psaní
+bílých znaků kolem čárek neupravuje. Pokud chceme tuto úpravu povolit,
+uvedeme při volání <code>2to3</code> na příkazovém řádku <kbd>-f
+wscomma</kbd>.
+</blockquote>
+
+<table>
+<tr><th>Poznámky <th>Před <th>Po <tr><th>
+<td><code class="pp">a ,b</code>
+<td><code class="pp">a, b</code>
+<tr><th>
+<td><code class="pp">{a :b}</code>
+<td><code class="pp">{a: b}</code>
+</table>
+
+<h3 id=idioms>Běžné obraty (explicitně)</h3>
+
+<p>V pythonovské komunitě postupně vznikla celá řada používaných
+obratů. Některé se datují až k Pythonu 1, jako například cyklus
+<code>while 1:</code>. (Až do verze 2.3 neměl Python opravdový
+booleovský typ, takže vývojáři místo pravdivostních hodnot používali
+<code>1</code> a <code>0</code>.) Moderní pythonovští programátoři by
+své mozky měli natrénovat na modernější podobu takových obratů.
+<blockquote class=note>
+<p><span class="u">☞</span>Skript <code>2to3</code> standardně opravu
+běžných obratů neprovádí. Pokud chceme tuto úpravu povolit, uvedeme
+při volání <code>2to3</code> na příkazovém řádku <kbd>-f idioms</kbd>.
+</blockquote>
+
+<table>
+<tr><th>Poznámky <th>Před <th>Po <tr><th>
+<td><pre class=pp><code>while 1:
+    do_stuff()</code></pre>
+<td><pre class=pp><code>while True:
+    do_stuff()</code></pre>
+<tr><th>
+<td><code class="pp">type(x) == T</code>
+<td><code class="pp">isinstance(x, T)</code>
+<tr><th>
+<td><code class="pp">type(x) is T</code>
+<td><code class="pp">isinstance(x, T)</code>
+<tr><th>
+<td><pre class=pp><code>a_list = list(a_sequence)
+a_list.sort()
+do_stuff(a_list)</code></pre>
+<td><pre class=pp><code>a_list = sorted(a_sequence)
+do_stuff(a_list)</code></pre>
+</table>
+
+<p class=v><a href="packaging.html" rel="prev" title="zpět na „Balení
+pythonovských knihoven“"><span class="u">☜</span></a> <a
+href="special-method-names.html" rel="next" title="Dopředu na „Jména
+speciálních metod“"><span class="u">☞</span></a>
+<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<script src=j/jquery.js></script>
+<script src=j/prettify.js></script>
+<script src=j/dip3.js></script> 

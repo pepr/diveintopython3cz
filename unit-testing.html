@@ -1,0 +1,909 @@
+﻿<!DOCTYPE html> <meta charset=utf-8>
+<title>Unit Testing – Ponořme se do Pythonu 3</title>
+<!--[if IE]><script src=j/html5.js></script><![endif]-->
+<link rel=stylesheet href=dip3.css>
+<style>
+body{counter-reset:h1 9}
+</style>
+<link rel=stylesheet media='only screen and (max-device-width: 480px)' href=mobile.css>
+<link rel=stylesheet media=print href=print.css>
+<meta name=viewport content='initial-scale=1.0'>
+<!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
+class="u">‣</span> <a
+href="table-of-contents.html#unit-testing">Ponořme se do Pythonu 3</a>
+<span class="u">‣</span>
+<p id=level>Úroveň obtížnosti: <span class="u"
+title="začátečník">♦♦♢♢♢</span>
+<h1>Unit Testing</h1>
+<blockquote class=q>
+<p><span class="u">❝</span> Certitude is not the test of certainty. We
+have been cocksure of many things that were not so. <span
+class="u">❞</span><br />(Pocit jistoty není měřítkem jistoty. Byli
+jsme si skálopevně jisti mnoha věcmi, které takové nebyly.)<br />— <a
+href="http://en.wikiquote.org/wiki/Oliver_Wendell_Holmes,_Jr.">Oliver
+Wendell Holmes, Jr.</a>
+</blockquote>
+<p id=toc>&nbsp; <h2 id=divingin>(Ne)ponořme se</h2>
+<p class=f>Ta dnešní mládež. Jsou tak zkažení těmi rychlými počítači a
+módními „dynamickými“ jazyky. Rychle napsat, pak dodat a ladit až
+nakonec (jestli vůbec). Za mých časů jsme dodržovali disciplínu. Říkám
+disciplínu! Museli jsme psát programy <em>ručně</em>, na
+<em>papír</em> a cpát je do počítače na <em>děrných štítcích</em>. A
+ono se nám to <em>líbilo</em>! A cože? Že je ten nadpis anglicky?
+Buďte rádi, že není v ruštině. Mnozí z vás ani neví, jak přečíst
+jednotlivá písmenka azbuky. No dobrá, trochu zvážním. Dá se to
+přeložit jako „testování jednotek“ nebo „jednotkové testování“. Ještě
+se k tomu dostaneme.
+
+<p>V této kapitole si napíšeme a odladíme pár pomocných funkcí pro
+konverzi na a z římských čísel. Způsob tvorby a ověřování římských
+čísel jsme si ukázali v podkapitole <a
+href="regular-expressions.html#romannumerals">Případová studie: Římská
+čísla</a>. Teď si poodstoupíme a zvážíme, kolik by dalo práce rozšířit
+původní kód na obousměrné pomocné funkce. <p><a
+href="regular-expressions.html#romannumerals">Pravidla pro římská
+čísla</a> vedla k řadě zajímavých postřehů: <ol>
+<li>Existuje jen jeden správný způsob vyjádření konkrétního čísla římskými číslicemi. <li>Platí také opak. Pokud je řetězec znaků platným římským číslem, reprezentuje jen jedno možné číslo (to znamená, že řetězec může být interpretován jen jedním způsobem). <li>Římskými čísly lze vyjádřit jen omezený rozsah čísel, konkrétně od <code>1</code> do <code>3999</code>. Římané používali několik způsobů vyjádření větších čísel. Tak například pruhem nad římským číslem vyjadřovali, že jeho číselná hodnota musí být vynásobená tisícem. Pro účely této kapitoly budeme uvažovat jen římská čísla od <code>1</code> do <code>3999</code>. <li>Neexistuje způsob, jak římskými číslicemi vyjádřit nulu. <li>Neexistuje způsob, jak římskými číslicemi vyjádřit záporná čísla. <li>Neexistuje způsob, jak římskými číslicemi vyjádřit zlomky nebo neceločíselné hodnoty.
+</ol>
+<p>Začněme mapovat, co by takový modul <code>roman.py</code> měl
+dělat. Bude obsahovat dvě hlavní funkce, <code>to_roman()</code> (na
+římské číslo) a <code>from_roman()</code> (z římského čísla). Funkce
+<code>to_roman()</code> by měla převzít celé číslo v intervalu od
+<code>1</code> do <code>3999</code> a vrátit jeho reprezentaci
+římskými číslicemi jako řetězec... <p>Hned tady se zastavíme. Teď
+uděláme něco trošku neočekávaného. Napíšeme si testovací příklad,
+který kontroluje, zda funkce <code>to_roman()</code> dělá to, co po ní
+chceme. Čtete dobře. Jdeme psát kód, který testuje jiný kód, který
+jsme ještě nenapsali. <p>Říká se tomu <i>vývoj řízený testy
+(test-driven development)</i> nebo <abbr>TDD</abbr>. (V anglické
+literatuře si potrpí na zavádění a používání zkratek.) Dvojice
+převodních funkcí&nbsp;—&nbsp;<code>to_roman()</code> a později
+<code>from_roman()</code>&nbsp;—&nbsp;může být napsána a testována
+jako <em>jednotka</em> (unit), odděleně od jakéhokoliv většího
+programu, který funkce importuje. V Pythonu najdeme rámec (framework)
+pro unit testing (tedy testování jednotek), který má podobu příhodně
+nazvaného modulu <code>unittest</code>. <p>Unit testing (testování
+jednotek) představuje důležitou součást celkové vývojové strategie
+založené na testování. Pokud testy jednotek píšete, je důležité,
+abyste je napsali brzy a abyste je udržovali v závislosti na změnách
+kódu a požadavků. Mnozí lidé se přimlouvají za to, aby se testy psaly
+dříve než kód, který mají testovat. V této kapitole si takový přístup
+předvedeme. Ale testy jednotek mají své výhody nezávisle na tom, kdy
+je napíšete. <ul>
+<li>Napsání jednotkových testů (i takto se to dá překládat) ještě před napsáním kódu vás účelným způsobem donutí upřesnit své požadavky <li>Při vlastním psaní kódu vás pak jednotkové testy brzdí před psaním nadbytečných věcí. Jakmile všechny testy projdou, dosáhli jste úplné funkčnosti. <li>Při provádění refaktorizace kódu vám testy jednotek pomohou prokázat, že se nová verze chová stejným způsobem jako ta stará. <li>Při údržbě kódu vám existence testů pomůže krýt záda (v originále se mluví o té části těla, kde záda ztrácejí své slušné jméno) v situaci, kdy na vás někdo přiletí a řve, že vaše poslední změny pokazily jejich původní kód. („Ale <em>pane</em>, ale když jsem změny zveřejňoval, všechny unit testy prošly...“) <li>Pokud píšeme kód v týmu, pak existence společné sady testů dramaticky snižuje možnost, že by váš kód způsobil nefunkčnost kódu někoho jiného. Jejich testy jednotek totiž můžete spustit jako první. (Tenhle druh závodů v psaní kódu už jsem zažil. Tým si zadání rozdělí, každý si převezme specifikace svého úkolu, napíše pro něj jednotkové testy a pak je dá k dispozici ostatním členům týmu. Při takovém postupu nikdo nezabloudí tak daleko, že by jím vyvíjený kód nespolupracoval s výsledky ostatních.)
+</ul>
+<p class=a>⁂ <h2 id=romantest1>Jediná otázka</h2>
+<aside>Každý test je ostrov.</aside>
+<p>Testovací případ (test case) odpovídá na jedinou otázku, která se
+testovaného kódu týká. Testovací případ by měl být schopen... <ul>
+<li>...běžet zcela samostatně, bez jakéhokoliv lidského zásahu. Unit testing (testování jednotek) souvisí s automatizací. <li>...sám rozhodnout o tom, zda testovaná funkce prošla nebo selhala — bez nutnosti posuzování výsledků člověkem. <li>...běžet izolovaně, odděleně od jakýchkoliv jiných testovacích případů (dokonce i když testují stejnou funkci). Každý testovací případ je ostrov.
+</ul>
+<p>S ohledem na uvedené předpoklady začněme budovat testovací případ
+pro první požadavek: <ol>
+<li>Funkce <code>to_roman()</code> by měla vracet reprezentaci římského čísla pro všechna celá čísla v intervalu <code>1</code> až <code>3999</code>.
+</ol>
+<p>V prvním okamžiku není zřejmé, jak následující kód dělá... no
+vlastně <em>cokoliv</em>. Definuje třídu, která nemá žádnou metodu
+<code>__init__()</code>. Třída sice <em>má</em> nějakou metodu, ale ta
+se nikdy nevolá. Celý skript obsahuje blok <code>__main__</code>, ale
+nenajdeme v něm odkaz ani na třídu, ani na její metodu. Ale on opravdu
+něco dělá. Za to ručím. <p class=d>[<a
+href="examples/romantest1.py">stáhnout <code>romantest1.py</code></a>]
+<pre class=pp><code>import roman1
+import unittest
+
+<a>class KnownValues(unittest.TestCase):               <span class="u">①</span></a>
+    known_values = ( (1, 'I'),
+                     (2, 'II'),
+                     (3, 'III'),
+                     (4, 'IV'),
+                     (5, 'V'),
+                     (6, 'VI'),
+                     (7, 'VII'),
+                     (8, 'VIII'),
+                     (9, 'IX'),
+                     (10, 'X'),
+                     (50, 'L'),
+                     (100, 'C'),
+                     (500, 'D'),
+                     (1000, 'M'),
+                     (31, 'XXXI'),
+                     (148, 'CXLVIII'),
+                     (294, 'CCXCIV'),
+                     (312, 'CCCXII'),
+                     (421, 'CDXXI'),
+                     (528, 'DXXVIII'),
+                     (621, 'DCXXI'),
+                     (782, 'DCCLXXXII'),
+                     (870, 'DCCCLXX'),
+                     (941, 'CMXLI'),
+                     (1043, 'MXLIII'),
+                     (1110, 'MCX'),
+                     (1226, 'MCCXXVI'),
+                     (1301, 'MCCCI'),
+                     (1485, 'MCDLXXXV'),
+                     (1509, 'MDIX'),
+                     (1607, 'MDCVII'),
+                     (1754, 'MDCCLIV'),
+                     (1832, 'MDCCCXXXII'),
+                     (1993, 'MCMXCIII'),
+                     (2074, 'MMLXXIV'),
+                     (2152, 'MMCLII'),
+                     (2212, 'MMCCXII'),
+                     (2343, 'MMCCCXLIII'),
+                     (2499, 'MMCDXCIX'),
+                     (2574, 'MMDLXXIV'),
+                     (2646, 'MMDCXLVI'),
+                     (2723, 'MMDCCXXIII'),
+                     (2892, 'MMDCCCXCII'),
+                     (2975, 'MMCMLXXV'),
+                     (3051, 'MMMLI'),
+                     (3185, 'MMMCLXXXV'),
+                     (3250, 'MMMCCL'),
+                     (3313, 'MMMCCCXIII'),
+                     (3408, 'MMMCDVIII'),
+                     (3501, 'MMMDI'),
+                     (3610, 'MMMDCX'),
+                     (3743, 'MMMDCCXLIII'),
+                     (3844, 'MMMDCCCXLIV'),
+                     (3888, 'MMMDCCCLXXXVIII'),
+                     (3940, 'MMMCMXL'),
+<a>                     (3999, 'MMMCMXCIX'))           <span class="u">②</span></a>
+
+<a>    def test_to_roman_known_values(self):           <span class="u">③</span></a>
+        '''to_roman should give known result with known input'''
+        for integer, numeral in self.known_values:
+<a>            result = roman1.to_roman(integer)       <span class="u">④</span></a>
+<a>            self.assertEqual(numeral, result)       <span class="u">⑤</span></a>
+
+if __name__ == '__main__':
+    unittest.main()</code></pre>
+<ol>
+<li>Když chceme napsat nějaký testovací případ (test case), musíme nejdříve vytvořit třídu odvozenou od třídy <code>TestCase</code> z modulu <code>unittest</code>. Uvedená třída nám poskytuje řadu užitečných metod, které můžeme v našem testovacím případě využít pro testování specifických podmínek. <li>Tohle je seznam dvojic s celým číslem a s římským číslem, které jsem ověřil ručně. Obsahuje deset nejmenších čísel, největší číslo, každé číslo, které se vyjadřuje jednoznakovým římským číslem, a náhodnou sadu dalších platných čísel. Nemusíme testovat každý možný vstup, ale měli bychom se pokusit otestovat všechny zřejmé hraniční případy. <li>Pro každý jednotlivý test je vytvořena jeho vlastní metoda. Metoda testu nemá žádné parametry, nevrací žádnou hodnotu a její jméno musí začínat čtyřmi písmeny <code>test</code>. Pokud testovací metoda skončí normálně, bez vyvolání výjimky, pokládáme test za úspěšný. Pokud metoda vyvolá výjimku, považujeme to za selhání testu. <li>Tady voláme skutečnou funkci <code>to_roman()</code>. (Tu funkci jsme zatím nenapsali, ale jakmile ji jednou napíšeme, tento řádek ji zavolá.) Všimněte si, že jsme v tomto okamžiku pro funkci <code>to_roman()</code> definovali aplikační programové rozhraní (<abbr>API</abbr>). Musí přebírat celé číslo (převáděné číslo) a vrací řetězec (reprezentaci římského čísla). Pokud by rozhraní funkce bylo jiné, test by selhal. Všimněte si také, že při volání <code>to_roman()</code> žádnou výjimku neodchytáváme. Je to záměrné. Funkce <code>to_roman()</code> by při volání s platným vstupem žádnou výjimku vyvolat neměla a uvedené vstupní hodnoty jsou všechny platné. Pokud <code>to_roman()</code> vyvolá výjimku, bude se to považovat za selhání tohoto testu. <li>Dejme tomu, že funkce <code>to_roman()</code> byla korektně definována, korektně volána, úspěšně skončila a vrátila výsledek. Pak nám jako poslední krok zbývá zkontrolovat, zda vrátila <em>správnou</em> hodnotu. Jde o obecně používaný dotaz. Ke kontrole, zda se dvě hodnoty shodují, poskytuje třída <code>TestCase</code> metodu <code>assertEqual</code>. Pokud výsledek (<var>result</var>) vrácený funkcí <code>to_roman()</code> neodpovídá očekávané známé hodnotě (<var>numeral</var>), vyvolá <code>assertEqual</code> výjimku a test selže. Pokud se ty dvě hodnoty shodují, neudělá <code>assertEqual</code> nic. Pokud všechny hodnoty vrácené funkcí <code>to_roman()</code> odpovídají očekávaným hodnotám, <code>assertEqual</code> nikdy výjimku nevyvolá, takže metoda <code>test_to_roman_known_values</code> nakonec normálně skončí. To znamená, že funkce <code>to_roman()</code> testem prošla.
+</ol>
+<aside>Napište test, který selže, a pak programujte, dokud neprojde.</aside>
+<p>Jakmile máme vytvořen testovací případ, začneme psát funkci
+<code>to_roman()</code>. Nejdříve ji nahradíme prázdnou funkcí a
+ověříme si, že test selhává. Pokud by test prošel, aniž jsme napsali
+nějaký kód, pak by testy náš kód vůbec netestovaly! Unit testing je
+jako tanec: testy vedou, kód následuje. Napište test, který selže, a
+pak programujte, dokud neprojde. <pre class=pp><code># roman1.py
+
+def to_roman(n):
+    '''convert integer to Roman numeral'''
+<a>    pass                                   <span class="u">①</span></a></code></pre>
+<ol>
+<li>V této fázi bychom rádi definovali rozhraní funkce <code>to_roman()</code>, ale nechceme zatím psát žádný kód. (Náš test musí nejdříve selhat.) Prázdné funkčnosti dosáhneme použitím pythonovského vyhrazeného slova <code>pass</code>, které dělá doslova nic.
+</ol>
+<p>Spuštění testu zajistíme provedením <code>romantest1.py</code> z
+příkazového řádku. Pokud jej zavoláme s volbou <code>-v</code>,
+dosáhneme podrobnějšího výstupu, takže přesně uvidíme, co se při běhu
+každého testovacího případu děje. S trochou štěstí by váš výstup měl
+vypadat nějak takto: <pre class='screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest1.py -v</kbd>
+<a><samp>test_to_roman_known_values (__main__.KnownValues)</samp>                      <span class="u">①</span></a>
+<a><samp>to_roman should give known result with known input ... FAIL</samp>            <span class="u">②</span></a>
+<samp>
+======================================================================
+FAIL: to_roman should give known result with known input
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest1.py", line 73, in test_to_roman_known_values
+    self.assertEqual(numeral, result)
+<a>AssertionError: 'I' != None                                            <span class="u">③</span></a>
+
+----------------------------------------------------------------------
+<a>Ran 1 test in 0.016s                                                   <span class="u">④</span></a>
+
+<a>FAILED (failures=1)                                                    <span class="u">⑤</span></a></samp></pre>
+<ol>
+<li>Když skript spustíme, spustí se funkce <code>unittest.main()</code>, která zajistí provedení každého testovacího případu. Každý testovací případ je metodou třídy z <code>romantest1.py</code>. U testovacích tříd se nevyžaduje nějaká zvláštní organizace. Každá z nich může obsahovat jedinou metodu, nebo můžeme mít jednu třídu, která obsahuje množství testovacích metod. Jediným požadavkem je to, že každá testovací třída musí dědit z třídy <code>unittest.TestCase</code>. <li>Pro každý testovací případ modul <code>unittest</code> vytiskne <code>docstring</code> metody a to, zda test prošel (pass) nebo selhal (fail). Tento test podle očekávání selhal. <li>Pro každý testovací případ, který selhal, zobrazí <code>unittest</code> trasovací informaci, která přesně ukazuje, co se stalo. V tomto případě vyvolala metoda <code>assertEqual()</code> výjimku <code>AssertionError</code>, protože se očekávalo, že funkce <code>to_roman(1)</code> vrátí <code>'I'</code>, ale nevrátila. (Protože jsme v ní explicitně neuvedli příkaz <code>return</code>, vrátila funkce hodnotu <code>None</code>, což je pythonovský ekvivalent hodnoty null.) <li>Po detailních výpisech každého testu zobrazí <code>unittest</code> souhrnně, kolik testů se provádělo a jak dlouho to trvalo. <li>Testovací běh celkově selhal, protože minimálně jeden test neprošel. Pokud testovací případ neprojde, rozlišuje <code>unittest</code> mezi selháním (failure) a chybou (error). Selhání (failure) je důsledkem volání metody <code>assertXYZ</code>, jako je například <code>assertEqual</code> nebo <code>assertRaises</code>, která selhala, protože neplatí předepsaná podmínka nebo nebyla vyvolána očekávaná výjimka. Za chybu (error) se považuje jakýkoliv jiný druh výjimky, která vznikla uvnitř testované kódu nebo v kódu testovacího případu.
+</ol>
+<p>A <em>teď</em> už můžeme konečně napsat funkci
+<code>to_roman()</code>. <p class=d>[<a
+href="examples/roman1.py">stáhnout <code>roman1.py</code></a>] <pre
+class=pp><code>roman_numeral_map = (('M',  1000),
+                     ('CM', 900),
+                     ('D',  500),
+                     ('CD', 400),
+                     ('C',  100),
+                     ('XC', 90),
+                     ('L',  50),
+                     ('XL', 40),
+                     ('X',  10),
+                     ('IX', 9),
+                     ('V',  5),
+                     ('IV', 4),
+<a>                     ('I',  1))                 <span class="u">①</span></a>
+
+def to_roman(n):
+    '''convert integer to Roman numeral'''
+    result = ''
+    for numeral, integer in roman_numeral_map:
+<a>        while n &gt;= integer:                     <span class="u">②</span></a>
+            result += numeral
+            n -= integer
+    return result</code></pre>
+<ol>
+<li><var>roman_numeral_map</var> je n-tice n-tic, které definují tři věci: znakovou reprezentaci nejzákladnějších římských čísel, pořadí římských čísel (sestupně od <code>M</code> až po <code>I</code>), hodnotu každého římského čísla. Každá vnitřní n-tice je dvojicí <code>(<var>římské číslo</var>, <var>hodnota</var>)</code>. Nejsou zde jen jednoznaková římská čísla. Jsou zde definována i dvojznaková čísla jako <code>CM</code> („o jedno sto méně než jeden tisíc“). Tím se kód funkce <code>to_roman()</code> zjednoduší. <li>Zde je to místo, kde se bohatá datová struktura <var>roman_numeral_map</var> uplatní, protože díky ní k realizaci odečítacího pravidla nepotřebujeme žádnou speciální logiku. Při převodu na římské číslo jednoduše procházíme strukturou <var>roman_numeral_map</var> a hledáme největší celočíselnou hodnotu, která je menší nebo rovna vstupu. Jakmile ji nalezneme, přidáme její reprezentaci římským číslem na konec výstupu, odečteme odpovídající celočíselnou hodnotu od vstupu, namydlíme, opláchneme, zopakujeme.
+</ol>
+<p>Pokud vám pořád není jasné, jak funkce <code>to_roman()</code>
+pracuje, přidejte na konec cyklu <code>while</code> volání funkce
+<code>print()</code>: <pre class='nd pp'><code>
+while n &gt;= integer:
+    result += numeral
+    n -= integer
+    print('subtracting {0} from input, adding {1} to output'.format(integer, numeral))</code></pre>
+<p>S ladicími příkazy <code>print()</code> vypadá výstup takto: <pre
+class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import roman1</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">roman1.to_roman(1424)</kbd>
+<samp>subtracting 1000 from input, adding M to output
+subtracting 400 from input, adding CD to output
+subtracting 10 from input, adding X to output
+subtracting 10 from input, adding X to output
+subtracting 4 from input, adding IV to output
+'MCDXXIV'</samp></pre>
+<p>Takže se zdá, že funkce <code>to_roman()</code> pracuje
+přinejmenším v tomto ručně zkoušeném případě. Ale projde testovacím
+případem, který jsme napsali? <pre class='nd screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest1.py -v</kbd>
+<samp>test_to_roman_known_values (__main__.KnownValues)
+<a>to_roman should give known result with known input ... ok               <span class="u">①</span></a>
+
+----------------------------------------------------------------------
+Ran 1 test in 0.016s
+
+OK</samp></pre>
+<ol>
+<li>Hurá! Funkce <code>to_roman()</code> prošla testovacím případem nazvaným „známé hodnoty“. Není sice všeobsažný, ale prověřil schopnosti funkce celou škálou vstupů, včetně vstupů, které produkují každé jednoznakové římské číslo, největší možný vstup (<code>3999</code>), a vstupu, který produkuje nejdelší možné římské číslo (<code>3888</code>). V tomto okamžiku už můžeme docela důvěřovat tomu, že funkce pracuje pro libovolnou správnou vstupní hodnotu, kterou bychom mohli zadat.
+</ol>
+<p>„Správný“ vstup? Hmm. A co takhle chybný vstup? <p class=a>⁂ <h2
+id=romantest2>„Zastav a začni hořet“</h2>
+<aside>Pythonovská signalizace typu „zastav a začni hořet“ spočívá ve vyvolání výjimky.</aside>
+<p>Ono ale nestačí, když funkce uspějí při zadání správného vstupu.
+Musíme otestovat také to, že při chybném vstupu dojde k jejich
+selhání. Ale nemůže jít o jakýkoliv způsob selhání. Funkce musí selhat
+očekávaným způsobem. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import roman1</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">roman1.to_roman(4000)</kbd>
+<samp class="pp">'MMMM'</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">roman1.to_roman(5000)</kbd>
+<samp class="pp">'MMMMM'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">roman1.to_roman(9000)</kbd>  <span class="u">①</span></a>
+<samp class="pp">'MMMMMMMMM'</samp></pre>
+<ol>
+<li>Tohle určitě není to, co jsme chtěli. Vždyť se dokonce nejedná ani o platné římské číslo! Každé z těchto čísel leží ve skutečnosti mimo rozsah přijatelných vstupů, ale funkce pro ně stejně vrací falešné, vykonstruované hodnoty. Pokud potichu vracíme špatné hodnoty, je to <em>velmi špatné</em>. Pokud má program selhat, pak je mnohem lepší, když selže rychle a nahlas. Jak se říká, „zastav a začni hořet“. (Jde o překlad anglické fráze „<a href="http://en.wikipedia.org/wiki/Halt_and_Catch_Fire">Halt And Catch Fire</a>“, která se při práci na úrovních blízkých hardwaru vztahuje k mechanismu velmi dobře pozorovatelného projevu nějaké neočekávané chyby. Vysvětlení původu této hlášky se různí, od skutečně kouřících přežhavených drátků feritové paměti při dynamické realizaci instrukce HALT, až po speciální nedokumentované strojové instrukce, které uvedou procesor do testovacího režimu.) Pythonovská signalizace typu „zastav a začni hořet“ spočívá ve vyvolání výjimky.
+</ol>
+<p>Měli byste si položit otázku: „Jak bychom to mohli vyjádřit formou
+testovatelného požadavku?“ Co kdybychom začali nějak takto:
+<blockquote>
+<p>Pokud funkci <code>to_roman()</code> zadáme celé číslo větší než
+<code>3999</code>, měla by vyvolat výjimku
+<code>OutOfRangeError</code>.
+</blockquote>
+<p>Jak by vypadal příslušný test? <p class=d>[<a
+href="examples/romantest2.py">stáhnout <code>romantest2.py</code></a>]
+<pre class=pp><code><a>class ToRomanBadInput(unittest.TestCase):
+<span class="u">①</span></a>
+<a>    def test_too_large(self):                                             <span class="u">②</span></a>
+        '''to_roman should fail with large input'''
+<a>        self.assertRaises(roman2.OutOfRangeError, roman2.to_roman, 4000)  <span class="u">③</span></a></code></pre>
+<ol>
+<li>Podobně jako v předchozím testovacím případě vytvoříme třídu, která dědí z <code>unittest.TestCase</code>. Jedna třída sice může obsahovat více než jeden test (jak si ukážeme v této kapitole později), ale já jsem se rozhodl, že vytvořím novou třídu, protože tento test dělá něco jiného než ten minulý. Všechny testy správných vstupů budeme udržovat v jedné třídě a o všechny testy chybných vstupů se bude starat druhá třída. <li>Vlastní test, stejně jako v předchozím testovacím případě, má podobu metody třídy. Její jméno začíná písmeny <code>test</code>. <li>Třída <code>unittest.TestCase</code> poskytuje metodu <code>assertRaises</code>, která přebírá následující argumenty: očekávanou výjimku, testovanou funkci a argumenty, které jí chceme předat. (Pokud testovaná funkce očekává více než jeden argument, předejte je metodě <code>assertRaises</code> všechny v daném pořadí. Ona už se postará o jejich předání testované funkci.)
+</ol>
+<p>Věnujte zvláštní pozornost tomu poslednímu řádku kódu. Místo toho,
+abychom volali <code>to_roman()</code>, přímo a ručně zkontrolovali,
+že vyvolává konkrétní výjimku (obalením <a
+href="your-first-python-program.html#exceptions">do bloku
+<code>try...except</code></a>), metoda <code>assertRaises</code> to
+vše udělá za nás. Musíme jí jen říct, jakou výjimku očekáváme
+(<code>roman2.OutOfRangeError</code>), předat funkci
+(<code>to_roman()</code>) a její argumenty (<code>4000</code>). Metoda
+<code>assertRaises</code> se postará o zavolání
+<code>to_roman()</code> a o kontrolu toho, že vyvolala výjimku
+<code>roman2.OutOfRangeError</code>. <p>Poznamenejme také, že funkci
+<code>to_roman()</code> předáváme jako argument. Nevoláme ji a ani
+nepředáváme její jméno jako řetězec. Zmínil jsem se už dříve o tom,
+jak je šikovné, že <a
+href="your-first-python-program.html#everythingisanobject">v Pythonu
+je vše objektem</a>? <p>Takže co se stane, když spustíme sadu testů
+doplněnou o tento nový test? <pre class='screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest2.py -v</kbd>
+<samp>test_to_roman_known_values (__main__.KnownValues)
+to_roman should give known result with known input ... ok
+test_too_large (__main__.ToRomanBadInput)
+<a>to_roman should fail with large input ... ERROR                         <span class="u">①</span></a>
+
+======================================================================
+ERROR: to_roman should fail with large input                          
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest2.py", line 78, in test_too_large
+    self.assertRaises(roman2.OutOfRangeError, roman2.to_roman, 4000)
+<a>AttributeError: 'module' object has no attribute 'OutOfRangeError'      <span class="u">②</span></a>
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (errors=1)</samp></pre>
+<ol>
+<li>Asi jste očekávali, že dojde k selhání (protože zatím jsme nenapsali žádný kód, aby to prošlo), ale... ono to ve skutečnosti „neselhalo“ (fail). Místo toho došlo k „chybě“ (error). Je to sice jemný, ale důležitý rozdíl. Jednotkový test má ve skutečnosti <em>tři</em> návratové hodnoty: prošel (pass), selhal (fail) a chyba (error). „Pass“ (prošel) samozřejmě znamená, že test prošel. Kód dělá to, co jsme očekávali. „Fail“ (selhal) vyjadřuje to, co udělal minulý test (než jsme napsali kód, díky kterému prošel). Kód se provedl, ale výsledek neodpovídá tomu, co jsme očekávali. „Error“ (chyba) se objeví, když kód ani správně nedoběhl. <li>A proč vlastně kód správně neproběhl? Vše se dozvíme z trasovacího hlášení. Testovaný modul vůbec nedefinuje výjimku zvanou <code>OutOfRangeError</code> (tj. hodnota mimo platný rozsah). Připomeňme si, že uvedenou výjimku jsme předali metodě <code>assertRaises()</code>, protože právě tohle má být výjimka, kterou má funkce vyvolat, když zadáme vstup mimo platný rozsah. Ale tato výjimka vůbec neexistuje, takže volání metody <code>assertRaises()</code> selhalo. Metoda neměla vůbec šanci otestovat funkci <code>to_roman()</code>. Tak daleko se vůbec nedostala.
+</ol>
+<p>K vyřešení zmíněného problému musíme v <code>roman2.py</code>
+doplnit definici výjimky <code>OutOfRangeError</code>. <pre
+class=pp><code><a>class OutOfRangeError(ValueError):  <span
+class="u">①</span></a>
+<a>    pass                            <span class="u">②</span></a></code></pre>
+<ol>
+<li>Výjimky mají podobu tříd. Chyba „mimo platný rozsah“ je druhem chyby hodnoty. Hodnota argumentu se nachází mimo přijatelné meze. Z tohoto důvodu výjimka dědí ze zabudované výjimky <code>ValueError</code>. Není to nezbytně nutné (mohli bychom prostě dědit od bázové třídy <code>Exception</code>, tj. obecná výjimka), ale zdá se to být správné. <li>Výjimky samy o sobě ve skutečnosti nic nedělají, ale potřebujete nejméně jeden řádek kódu, abychom definovali třídu. Volání <code>pass</code> sice nic nedělá, ale je to řádek pythonovského kódu, který zajistí, že třída vznikne.
+</ol>
+<p>Teď spustíme sadu testů znovu. <pre class='screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest2.py -v</kbd>
+<samp>test_to_roman_known_values (__main__.KnownValues)
+to_roman should give known result with known input ... ok
+test_too_large (__main__.ToRomanBadInput)
+<a>to_roman should fail with large input ... FAIL                          <span class="u">①</span></a>
+
+======================================================================
+FAIL: to_roman should fail with large input
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest2.py", line 78, in test_too_large
+    self.assertRaises(roman2.OutOfRangeError, roman2.to_roman, 4000)
+<a>AssertionError: OutOfRangeError not raised by to_roman                 <span class="u">②</span></a>
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.016s
+
+FAILED (failures=1)</samp></pre>
+<ol>
+<li>Nový test sice stále neprošel, ale už také nevrací chybu. Místo toho došlo k selhání testu. To je pokrok! To znamená, že volání metody <code>assertRaises()</code> tentokrát prošlo a rámec pro testování jednotek (unit test framework) skutečně testoval funkci <code>to_roman()</code>. <li>Funkce <code>to_roman()</code> zatím, samozřejmě, nevyvolává právě definovanou výjimku <code>OutOfRangeError</code>, protože jsme jí ještě neřekli, že to má dělat. To je ale výborná zpráva! Znamená to, že máme platný testovací případ&nbsp;—&nbsp;selhává (fails) před napsáním kódu, který zajistí, že projde.
+</ol>
+<p>Teď napíšeme kód, který zajistí, aby funkce testem prošla. <p
+class=d>[<a href="examples/roman2.py">stáhnout
+<code>roman2.py</code></a>] <pre class=pp><code>def to_roman(n):
+    '''convert integer to Roman numeral'''
+    if n &gt; 3999:
+<a>        raise OutOfRangeError('number out of range (must be less than 4000)')  <span class="u">①</span></a>
+
+    result = ''
+    for numeral, integer in roman_numeral_map:
+        while n &gt;= integer:
+            result += numeral
+            n -= integer
+    return result</code></pre>
+<ol>
+<li>Přímočaré řešení: Pokud je daný vstup (<var>n</var>) větší než <code>3999</code>, vyvolej výjimku <code>OutOfRangeError</code>. Tento jednotkový test nekontroluje, zda výjimku doprovází lidsky čitelný řetězec. Mohli bychom napsat další test, který by to kontroloval (ale pozor na problémy s internacionalizací; řetězce se mohou lišit v závislosti na jazyku uživatele a v závislosti na prostředí).
+</ol>
+<p>Vede úprava k tomu, že test projde? Pojďme to zjistit. <pre
+class='screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest2.py -v</kbd>
+<samp>test_to_roman_known_values (__main__.KnownValues)
+to_roman should give known result with known input ... ok
+test_too_large (__main__.ToRomanBadInput)
+<a>to_roman should fail with large input ... ok                            <span class="u">①</span></a>
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK</samp></pre>
+<ol>
+<li>Hurá! Oba testy prošly. Protože jsme pracovali po krocích (přebíhali jsme mezi testováním a psaním kódu), můžeme si být jisti, že ty dva řádky kódu, které jsme právě napsali, byly příčinou toho, že se výsledek testu změnil z „fail“ (selhal) na „pass“ (prošel). Tento druh (sebe)důvěry sice nebyl zadarmo, ale během života našeho kódu se ještě vyplatí.
+</ol>
+
+<p class=a>⁂ <h2 id=romantest3>Více zastávek, více ohně</h2>
+
+<p>Spolu s testováním čísel, která jsou příliš velká, bychom měli
+testovat i čísla, která jsou příliš malá. Přesně jak jsme poznamenali
+<a href="#divingin">v našich požadavcích na funkčnost</a>, římská
+čísla nemohou vyjádřit nulu nebo záporná čísla. <pre class='nd
+screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import roman2</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">roman2.to_roman(0)</kbd>
+<samp class="pp">''</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">roman2.to_roman(-1)</kbd>
+<samp class="pp">''</samp></pre>
+
+<p>Hmm, <em>tohle</em> není dobré. Přidejme testy pro každou z těchto
+podmínek. <p class=d>[<a href="examples/romantest3.py">stáhnout
+<code>romantest3.py</code></a>] <pre class=pp><code>class
+ToRomanBadInput(unittest.TestCase):
+    def test_too_large(self):
+        '''to_roman should fail with large input'''
+<a>        self.assertRaises(roman3.OutOfRangeError, roman3.to_roman, 4000)  <span class="u">①</span></a>
+
+    def test_zero(self):
+        '''to_roman should fail with 0 input'''
+<a>        self.assertRaises(roman3.OutOfRangeError, roman3.to_roman, 0)     <span class="u">②</span></a>
+
+    def test_negative(self):
+        '''to_roman should fail with negative input'''
+<a>        self.assertRaises(roman3.OutOfRangeError, roman3.to_roman, -1)    <span class="u">③</span></a></code></pre>
+<ol>
+<li>Metoda <code>test_too_large()</code> se od minulého kroku nezměnila. Ponechal jsem ji zde, abych ukázal, kam nový kód zapadá. <li>Máme tu nový test, metodu <code>test_zero()</code>. Je to stejné jako u metody <code>test_too_large()</code>. Metodě <code>assertRaises()</code> z třídy <code>unittest.TestCase</code> říkáme, aby zavolala naši funkci <code>to_roman()</code> s parametrem <code>0</code> a zkontrolovala, zda vyvolá příslušnou výjimku <code>OutOfRangeError</code>. <li>Metoda <code>test_negative()</code> je téměř shodná až na to, že funkci <code>to_roman()</code> předává hodnotu <code>-1</code>. Pokud kterýkoliv z těchto nových testů <em>nevyvolá</em> výjimku <code>OutOfRangeError</code> (protože funkce buď vrátí nějakou skutečnou hodnotu nebo vyvolá nějakou jinou výjimku), bude se to považovat za selhání testu.
+</ol>
+
+<p>Teď zkontrolujme, že testy selhávají: <pre class='nd screen
+cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest3.py -v</kbd>
+<samp>test_to_roman_known_values (__main__.KnownValues)
+to_roman should give known result with known input ... ok
+test_negative (__main__.ToRomanBadInput)
+to_roman should fail with negative input ... FAIL
+test_too_large (__main__.ToRomanBadInput)
+to_roman should fail with large input ... ok
+test_zero (__main__.ToRomanBadInput)
+to_roman should fail with 0 input ... FAIL
+
+======================================================================
+FAIL: to_roman should fail with negative input
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest3.py", line 86, in test_negative
+    self.assertRaises(roman3.OutOfRangeError, roman3.to_roman, -1)
+AssertionError: OutOfRangeError not raised by to_roman
+
+======================================================================
+FAIL: to_roman should fail with 0 input
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest3.py", line 82, in test_zero
+    self.assertRaises(roman3.OutOfRangeError, roman3.to_roman, 0)
+AssertionError: OutOfRangeError not raised by to_roman
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+FAILED (failures=2)</samp></pre>
+
+<p>Výborně. Oba testy podle očekávání selhaly. Teď se přepněme na
+psaní kódu a uvidíme, co můžeme dělat, aby testy prošly. <p
+class=d>[<a href="examples/roman3.py">stáhnout
+<code>roman3.py</code></a>] <pre class=pp><code>def to_roman(n):
+    '''convert integer to Roman numeral'''
+<a>    if not (0 &lt; n &lt; 4000):                                              <span class="u">①</span></a>
+<a>        raise OutOfRangeError('number out of range (must be 1..3999)')  <span class="u">②</span></a>
+
+    result = ''
+    for numeral, integer in roman_numeral_map:
+        while n &gt;= integer:
+            result += numeral
+            n -= integer
+    return result</code></pre>
+<ol>
+<li>Tohle je pěkná pythonovská zkratka — více porovnání najednou. Je to ekvivalentní zápisu <code>if not ((0 &lt; n) and (n &lt; 4000))</code>, ale je to mnohem čitelnější. Tento řádek kódu by měl zachytit vstupy, které jsou příliš velké, záporné nebo nulové. <li>Pokud podmínky změníte, nezapomeňte odpovídajícím způsobem upravit i lidsky čitelný řetězec. Rámci <code>unittest</code> je to jedno. Pokud by ale váš kód vyvolával nesprávně popsané výjimky, ztížilo by se tím ruční ladění.
+</ol>
+
+<p>Mohl bych vám ukázat celou sérii nesouvisejících příkladů, které
+ukazují, že zkratka umožňující několik porovnání najednou funguje.
+Místo toho ale spustím testy jednotek a dokážu vám to. <pre class='nd
+screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest3.py -v</kbd>
+<samp>test_to_roman_known_values (__main__.KnownValues)
+to_roman should give known result with known input ... ok
+test_negative (__main__.ToRomanBadInput)
+to_roman should fail with negative input ... ok
+test_too_large (__main__.ToRomanBadInput)
+to_roman should fail with large input ... ok
+test_zero (__main__.ToRomanBadInput)
+to_roman should fail with 0 input ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.016s
+
+OK</samp></pre>
+
+<p class=a>⁂ <h2 id=romantest4>A ještě jedna věc…</h2>
+
+<p>Mezi <a href="#divingin">požadavky na převod</a> na římská čísla
+byl ještě jeden, který se týkal neceločíselného vstupu. <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import roman3</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">roman3.to_roman(0.5)</kbd>  <span class="u">①</span></a>
+<samp class="pp">''</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">roman3.to_roman(1.0)</kbd>  <span class="u">②</span></a>
+<samp class="pp">'I'</samp></pre>
+<ol>
+<li>A jéje, to je špatné. <li>Jejda, tohle je ještě horší. V obou uvedených případech by měla být vyvolána výjimka. Místo toho produkují falešné výstupy.
+</ol>
+
+<p>Testování na neceločíselný vstup není obtížné. Nejdříve si
+definujeme výjimku <code>NotIntegerError</code>. <pre class='nd
+pp'><code># roman4.py
+class OutOfRangeError(ValueError): pass
+<mark>class NotIntegerError(ValueError): pass</mark></code></pre>
+
+<p>Dále napíšeme testovací případ, který kontroluje výskyt výjimky
+<code>NotIntegerError</code>. <pre class='nd pp'><code>class
+ToRomanBadInput(unittest.TestCase):
+    .
+    .
+    .
+    def test_non_integer(self):
+        '''to_roman should fail with non-integer input'''
+<mark>        self.assertRaises(roman4.NotIntegerError, roman4.to_roman, 0.5)</mark></code></pre>
+
+<p>Teď zkontrolujme, zda test správně selhává. <pre class='nd screen
+cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest4.py -v</kbd>
+<samp>test_to_roman_known_values (__main__.KnownValues)
+to_roman should give known result with known input ... ok
+test_negative (__main__.ToRomanBadInput)
+to_roman should fail with negative input ... ok
+test_non_integer (__main__.ToRomanBadInput)
+to_roman should fail with non-integer input ... FAIL
+test_too_large (__main__.ToRomanBadInput)
+to_roman should fail with large input ... ok
+test_zero (__main__.ToRomanBadInput)
+to_roman should fail with 0 input ... ok
+
+======================================================================
+FAIL: to_roman should fail with non-integer input
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest4.py", line 90, in test_non_integer
+    self.assertRaises(roman4.NotIntegerError, roman4.to_roman, 0.5)
+<mark>AssertionError: NotIntegerError not raised by to_roman</mark>
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+FAILED (failures=1)</samp></pre>
+
+<p>Napíšeme kód, který má zajistit, aby test prošel. <pre
+class=pp><code>def to_roman(n):
+    '''convert integer to Roman numeral'''
+    if not (0 &lt; n &lt; 4000):
+        raise OutOfRangeError('number out of range (must be 1..3999)')
+<a>    if not isinstance(n, int):                                          <span class="u">①</span></a>
+<a>        raise NotIntegerError('non-integers can not be converted')      <span class="u">②</span></a>
+
+    result = ''
+    for numeral, integer in roman_numeral_map:
+        while n &gt;= integer:
+            result += numeral
+            n -= integer
+    return result</code></pre>
+<ol>
+<li>Zabudovaná funkce <code>isinstance()</code> testuje, zda je daná proměnná určitého typu (nebo, z technického hlediska, nějakého z něj odvozeného typu). <li>Pokud argument <var>n</var> není typu <code>int</code>, vyvolej naši zbrusu novou výjimku <code>NotIntegerError</code>.
+</ol>
+
+<p>Nakonec zkontrolujeme, že tento kód zajistil průchod testem. <pre
+class='nd screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest4.py -v</kbd>
+<samp>test_to_roman_known_values (__main__.KnownValues)
+to_roman should give known result with known input ... ok
+test_negative (__main__.ToRomanBadInput)
+to_roman should fail with negative input ... ok
+test_non_integer (__main__.ToRomanBadInput)
+to_roman should fail with non-integer input ... ok
+test_too_large (__main__.ToRomanBadInput)
+to_roman should fail with large input ... ok
+test_zero (__main__.ToRomanBadInput)
+to_roman should fail with 0 input ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK</samp></pre>
+
+<p>Funkce <code>to_roman()</code> prošla všemi testy a žádné další
+testy mě nenapadají. Takže nastal čas, abychom se přesunuli k
+<code>from_roman()</code>. <p class=a>⁂ <h2 id=romantest5>Symetrie,
+která potěší</h2>
+
+<p>Převod řetězce vyjadřujícího římské číslo na číselnou hodnotu
+vypadá složitěji než převod čísla na římské číslo. Určitě budeme muset
+zajistit ověření platnosti. Zkontrolovat, zda je číslo rovno nule, je
+snadné. O něco obtížněji se kontroluje, zda je řetězec platným římským
+číslem. Jenže my už jsme zkonstruovali <a
+href="regular-expressions.html#romannumerals">regulární výraz, který
+zkontroluje, zda jde o římské číslo</a>. Takže tuhle část už máme
+hotovou. <p>Zbývá nám problém samotné konverze řetězce. Jak za chvíli
+uvidíme, díky existenci datové struktury, kterou jsme definovali pro
+převod určitých římských čísel na celočíselné hodnoty, bude jádro
+funkce <code>from_roman()</code> stejně přímočaré jako u funkce
+<code>to_roman()</code>. <p>Ale nejdříve testy. Pro ověření správnosti
+konkrétních hodnot budeme potřebovat test „známých hodnot“. Naše
+testovací sada již <a href="#romantest1">tabulku známých hodnot</a>
+obsahuje, takže ji využijme. <pre class='nd pp'><code>    def
+test_from_roman_known_values(self):
+        '''from_roman should give known result with known input'''
+        for integer, numeral in self.known_values:
+            result = roman5.from_roman(numeral)
+            self.assertEqual(integer, result)</code></pre>
+
+<p>Najdeme zde potěšitelnou symetrii. Funkce <code>to_roman()</code> a
+<code>from_roman()</code> jsou vzájemně inverzní. První z nich převádí
+čísla na zvláštně formátované řetězce a druhá převádí zvláštně
+formátované řetězce na celá čísla. Teoreticky bychom měli být schopni
+dospět ke zvolenému číslu oklikou tak, že je nejdříve předáme funkci
+<code>to_roman()</code>. Získaný řetězec předáme funkci
+<code>from_roman()</code> a výsledné číslo by se mělo shodovat s
+počátečním. <pre class='nd pp'><code>n = from_roman(to_roman(n)) pro
+všechny hodnoty n</code></pre>
+
+<p>V tomto případě „všechny hodnoty“ znamená jakoukoliv hodnotu
+<code>1..3999</code>, protože toto je platný rozsah vstupů pro funkci
+<code>to_roman()</code>. Tuto symetrii můžeme vyjádřit testovacím
+případem, který prochází všechny hodnoty <code>1..3999</code>, volá
+<code>to_roman()</code>, volá <code>from_roman()</code> a kontroluje,
+zda se výstup shoduje s původním vstupem. <pre class='nd
+pp'><code>class RoundtripCheck(unittest.TestCase):
+    def test_roundtrip(self):
+        '''from_roman(to_roman(n))==n for all n'''
+        for integer in range(1, 4000):
+            numeral = roman5.to_roman(integer)
+            result = roman5.from_roman(numeral)
+            self.assertEqual(integer, result)</code></pre>
+
+<p>Tyto nové testy zatím ani neselžou (fail). Zatím jsme vůbec
+nedefinovali funkci <code>from_roman()</code>, takže způsobí chyby
+(errors). <pre class='nd screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest5.py</kbd>
+<samp>E.E....
+======================================================================
+ERROR: test_from_roman_known_values (__main__.KnownValues)
+from_roman should give known result with known input
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest5.py", line 78, in test_from_roman_known_values
+    result = roman5.from_roman(numeral)
+AttributeError: 'module' object has no attribute 'from_roman'
+
+======================================================================
+ERROR: test_roundtrip (__main__.RoundtripCheck)
+from_roman(to_roman(n))==n for all n
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest5.py", line 103, in test_roundtrip
+    result = roman5.from_roman(numeral)
+AttributeError: 'module' object has no attribute 'from_roman'
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.019s
+
+FAILED (errors=2)</samp></pre>
+
+<p>Problém vyřešíme rychlým vytvořením náhradní funkce. <pre class='nd
+pp'><code># roman5.py
+def from_roman(s):
+    '''convert Roman numeral to integer'''</code></pre>
+
+<p>(Hej, všimli jste si toho? Definoval jsem funkci, která neobsahuje
+nic než <a
+href="your-first-python-program.html#docstrings">docstring</a>
+(dokumentační řetězec). Tohle je v Pythonu legální. Někteří
+programátoři vás ve skutečnosti zapřísahají: „Nepište náhrady.
+Dokumentujte!“) <p>Teď už testovací případy opravdu selžou (fail).
+<pre class='nd screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest5.py</kbd>
+<samp>F.F....
+======================================================================
+FAIL: test_from_roman_known_values (__main__.KnownValues)
+from_roman should give known result with known input
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest5.py", line 79, in test_from_roman_known_values
+    self.assertEqual(integer, result)
+AssertionError: 1 != None
+
+======================================================================
+FAIL: test_roundtrip (__main__.RoundtripCheck)
+from_roman(to_roman(n))==n for all n
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest5.py", line 104, in test_roundtrip
+    self.assertEqual(integer, result)
+AssertionError: 1 != None
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.002s
+
+FAILED (failures=2)</samp></pre>
+
+<p>Nastal čas napsat funkci <code>from_roman()</code>. <pre
+class=pp><code>def from_roman(s):
+    """convert Roman numeral to integer"""
+    result = 0
+    index = 0
+    for numeral, integer in roman_numeral_map:
+<a>        while s[index:index+len(numeral)] == numeral:  <span class="u">①</span></a>
+            result += integer
+            index += len(numeral)
+    return result</code></pre>
+<ol>
+<li>Základní vzorec je zde stejný jako <a href="#romantest1">u funkce <code>to_roman()</code></a>. Procházíme datovou strukturou s římskými čísly (n-tice n-tic), ale místo hledání nejvyšších možných číselných hodnot se snažíme hledat řetězec znaků s „nejvyšším“ možným římským číslem.
+</ol>
+
+<p>Pokud vám pořád není jasné, jak funkce <code>from_roman()</code>
+pracuje, přidejte na konec cyklu <code>while</code> volání funkce
+<code>print</code>: <pre><code>def from_roman(s):
+    """convert Roman numeral to integer"""
+    result = 0
+    index = 0
+    for numeral, integer in roman_numeral_map:
+        while s[index:index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+<mark>            print('found', numeral, 'of length', len(numeral), ', adding', integer)</mark></code></pre>
+
+<pre class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import roman5</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">roman5.from_roman('MCMLXXII')</kbd>
+<samp class="pp">found M of length 1, adding 1000
+found CM of length 2, adding 900
+found L of length 1, adding 50
+found X of length 1, adding 10
+found X of length 1, adding 10
+found I of length 1, adding 1
+found I of length 1, adding 1
+1972</samp></pre>
+
+<p>Nastal opět čas ke spuštění testů. <pre class='nd screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest5.py</kbd>
+<samp>.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.060s
+
+OK</samp></pre>
+
+<p>Máme tady dvě vzrušující zprávy. Ta první je, že funkce
+<code>from_roman()</code> funguje pro správné vstupy — přinejmenším
+pro všechny <a href="#romantest1">známé hodnoty</a>. Ta druhá zpráva
+je, že test „kruhovým voláním“ (round trip test) také prošel. Když to
+zkombinujeme dohromady, můžeme si být docela jistí tím, že jak funkce
+<code>to_roman()</code>, tak funkce <code>from_roman()</code> pracují
+správně pro všechny možné správné hodnoty. (Není to ale zaručeno.
+Teoreticky je možné, že <code>to_roman()</code> obsahuje chybu, která
+pro určité hodnoty vstupů produkuje špatná římská čísla, <em>a
+současně</em> funkce <code>from_roman()</code> obsahuje obrácenou
+chybu, která produkuje stejná, ale špatná čísla přesně pro tu množinu
+římských čísel, která funkce <code>to_roman()</code> vygenerovala
+nesprávně. V závislosti na vaší aplikaci a na požadavcích by vám to
+mohlo dělat starosti. Pokud tomu tak je, napište obsažnější testovací
+případy, které vaše starosti rozptýlí.) <p class=a>⁂ <h2
+id=romantest6>Více špatných vstupů</h2>
+
+<p>Teď, když už funkce <code>from_roman()</code> pracuje správně pro
+korektní vstup, nastal čas k umístění posledního kousku skládanky —
+zajištění správné funkce pro špatné vstupy. To znamená, že musíme
+najít způsob, jak se podívat na řetězec a určit, zda je platným
+římským číslem. To už je ze své podstaty obtížnější než <a
+href="#romantest3">ověřování správnosti číselného vstupu</a> ve funkci
+<code>to_roman()</code>. Ale máme k dispozici mocný nástroj —
+regulární výrazy. (Pokud regulární výrazy neznáte, pak je vhodná doba
+na to, abyste si přečetli <a href="regular-expressions.html">kapitolu
+o regulárních výrazech</a>.) <p>V podkapitole <a
+href="regular-expressions.html#romannumerals">Případová studie: Římská
+čísla</a> jsme viděli, že existuje několik jednoduchých pravidel pro
+konstrukci římského čísla, která jsou založena na využití písmen
+<code>M</code>, <code>D</code>, <code>C</code>, <code>L</code>,
+<code>X</code>, <code>V</code> a <code>I</code>. Pojďme si tato
+pravidla zopakovat: <ul>
+<li>V některých případech se znaky sčítají. <code>I</code> je <code>1</code>, <code>II</code> je rovno <code>2</code> a <code>III</code> znamená <code>3</code>. <code>VI</code> se rovná <code>6</code> (doslova „<code>5</code> a <code>1</code>“), <code>VII</code> je <code>7</code> a <code>VIII</code> je <code>8</code>. <li>Desítkové znaky (<code>I</code>, <code>X</code>, <code>C</code> a <code>M</code>) se mohou opakovat nanejvýš třikrát. Hodnotu <code>4</code> musíme vyjádřit odečtením od dalšího vyššího pětkového znaku. Hodnotu <code>4</code> nemůžeme zapsat jako <code>IIII</code>. Místo toho ji musíme zapsat jako <code>IV</code> („o <code>1</code> méně než <code>5</code>“). <code>40</code> se zapisuje jako <code>XL</code> („o <code>10</code> méně než <code>50</code>“), <code>41</code> jako <code>XLI</code>, <code>42</code> jako <code>XLII</code>, <code>43</code> jako <code>XLIII</code> a následuje <code>44</code> jako <code>XLIV</code> („o <code>10</code> méně než <code>50</code> a k tomu o <code>1</code> méně než <code>5</code>“). <li>Někdy znaky vyjadřují... opak sčítání. Když některé znaky umístíme před jiné, provádíme odčítání od konečné hodnoty. Například hodnotu <code>9</code> musíme vyjádřit odečtením od dalšího vyššího desítkového znaku: <code>8</code> zapíšeme jako <code>VIII</code>, ale <code>9</code> zapíšeme <code>IX</code> („o <code>1</code> méně než <code>10</code>“) a ne jako <code>VIIII</code> (protože znak <code>I</code> nemůžeme opakovat čtyřikrát). <code>90</code> je <code>XC</code>, <code>900</code> je <code>CM</code>. <li>Pětkové znaky se nesmí opakovat. <code>10</code> se vždy zapisuje jako <code>X</code> a nikdy jako <code>VV</code>. <code>100</code> je vždy <code>C</code>, nikdy <code>LL</code>. <li>Římská čísla se čtou zleva doprava, takže na pořadí znaků velmi záleží. <code>DC</code> znamená <code>600</code>, ale <code>CD</code> je úplně jiné číslo (<code>400</code>, „o <code>100</code> méně než <code>500</code>“). <code>CI</code> je <code>101</code>, ale <code>IC</code> není dokonce vůbec platné římské číslo (protože <code>1</code> nemůžeme přímo odčítat od <code>100</code>; musíme to napsat jako <code>XCIX</code>, „o <code>10</code> méně než <code>100</code> a k tomu o <code>1</code> méně než <code>10</code>“).
+</ul>
+
+<p>Takže jeden z užitečných testů bude ověřovat, že by funkce
+<code>from_roman()</code> měla selhat (fail) v případě, kdy jí předáme
+řetězec s příliš mnoha opakujícími se římskými číslicemi. Co znamená
+„příliš mnoho“, závisí na konkrétní číslici. <pre class='nd
+pp'><code>class FromRomanBadInput(unittest.TestCase):
+    def test_too_many_repeated_numerals(self):
+        '''from_roman should fail with too many repeated numerals'''
+        for s in ('MMMM', 'DD', 'CCCC', 'LL', 'XXXX', 'VV', 'IIII'):
+            self.assertRaises(roman6.InvalidRomanNumeralError, roman6.from_roman, s)</code></pre>
+
+<p>Další užitečný test bude založen na kontrole, že se neopakují
+některé vzory. Například <code>IX</code> je <code>9</code>, ale
+<code>IXIX</code> je vždy neplatné. <pre class='nd pp'><code>    def
+test_repeated_pairs(self):
+        '''from_roman should fail with repeated pairs of numerals'''
+        for s in ('CMCM', 'CDCD', 'XCXC', 'XLXL', 'IXIX', 'IVIV'):
+            self.assertRaises(roman6.InvalidRomanNumeralError, roman6.from_roman, s)</code></pre>
+
+<p>Třetí test by mohl kontrolovat, zda se číslice objevují ve správném
+pořadí, od nejvyšších k nejnižším hodnotám. Například <code>CL</code>
+je <code>150</code>, ale <code>LC</code> je vždy neplatné, protože
+číslice pro <code>50</code> se nesmí nikdy vyskytovat před číslicí pro
+<code>100</code>. Tento test zahrnuje náhodně zvolenou množinu
+nesprávných předchůdců: <code>I</code> před <code>M</code>,
+<code>V</code> před <code>X</code> a tak dále. <pre class='nd
+pp'><code>    def test_malformed_antecedents(self):
+        '''from_roman should fail with malformed antecedents'''
+        for s in ('IIMXCC', 'VX', 'DCM', 'CMM', 'IXIV',
+                  'MCMC', 'XCX', 'IVI', 'LM', 'LD', 'LC'):
+            self.assertRaises(roman6.InvalidRomanNumeralError, roman6.from_roman, s)</code></pre>
+
+<p>Každý z těchto testů spoléhá na to, že funkce
+<code>from_roman()</code> vyvolává novou výjimku
+<code>InvalidRomanNumeralError</code>, kterou jsme ještě nedefinovali.
+<pre class='nd pp'><code># roman6.py
+class InvalidRomanNumeralError(ValueError): pass</code></pre>
+
+<p>Všechny tři testy by měly selhat (fail), protože funkce
+<code>from_roman()</code> momentálně neprovádí žádnou kontrolu
+platnosti. (Pokud by neselhaly teď, tak co by vlastně testovaly?) <pre
+class='nd screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest6.py</kbd>
+<samp>FFF.......
+======================================================================
+FAIL: test_malformed_antecedents (__main__.FromRomanBadInput)
+from_roman should fail with malformed antecedents
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest6.py", line 113, in test_malformed_antecedents
+    self.assertRaises(roman6.InvalidRomanNumeralError, roman6.from_roman, s)
+AssertionError: InvalidRomanNumeralError not raised by from_roman
+
+======================================================================
+FAIL: test_repeated_pairs (__main__.FromRomanBadInput)
+from_roman should fail with repeated pairs of numerals
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest6.py", line 107, in test_repeated_pairs
+    self.assertRaises(roman6.InvalidRomanNumeralError, roman6.from_roman, s)
+AssertionError: InvalidRomanNumeralError not raised by from_roman
+
+======================================================================
+FAIL: test_too_many_repeated_numerals (__main__.FromRomanBadInput)
+from_roman should fail with too many repeated numerals
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "romantest6.py", line 102, in test_too_many_repeated_numerals
+    self.assertRaises(roman6.InvalidRomanNumeralError, roman6.from_roman, s)
+AssertionError: InvalidRomanNumeralError not raised by from_roman
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.058s
+
+FAILED (failures=3)</samp></pre>
+
+<p>Fajn. Teď už do funkce <code>from_roman()</code> potřebujeme přidat
+jen <a href="regular-expressions.html#romannumerals">regulární výraz,
+který testuje platnost římských čísel</a>. <pre class='nd
+pp'><code>roman_numeral_pattern = re.compile('''
+    ^                   # začátek řetězce
+    M{0,3}              # tisíce - 0 až 3 M
+    (CM|CD|D?C{0,3})    # stovky - 900 (CM), 400 (CD), 0-300 (0 až 3 C),
+                        #        nebo 500-800 (D následované 0 až 3 C)
+    (XC|XL|L?X{0,3})    # desítky - 90 (XC), 40 (XL), 0-30 (0 až 3 X),
+                        #        nebo 50-80 (L následované 0 až 3 X)
+    (IX|IV|V?I{0,3})    # jednotky - 9 (IX), 4 (IV), 0-3 (0 až 3 I),
+                        #        nebo 5-8 (V následované 0 až 3 I)
+    $                   # konec řetězce
+    ''', re.VERBOSE)
+
+def from_roman(s):
+    '''convert Roman numeral to integer'''
+<mark>    if not roman_numeral_pattern.search(s):
+        raise InvalidRomanNumeralError('Invalid Roman numeral: {0}'.format(s))</mark>
+
+    result = 0
+    index = 0
+    for numeral, integer in roman_numeral_map:
+        while s[index : index + len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+    return result</code></pre>
+
+<p>A znovu spustíme testy… <pre class='nd screen cmdline'>
+<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest7.py</kbd>
+<samp>..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.066s
+
+OK</samp></pre>
+
+<p>A cenu za zklamání roku dostává… slovo „<code>OK</code>“, které
+modul <code>unittest</code> zobrazí poté, co všechny testy prošly. <p
+class=v><a href="advanced-iterators.html" rel="prev" title="zpět na
+„Iterátory pro pokročilé“”"><span class="u">☜</span></a> <a
+href="refactoring.html" rel="next" title="dopředu na
+„Refaktorizace“"><span class="u">☞</span></a>
+<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<script src=j/jquery.js></script>
+<script src=j/prettify.js></script>
+<script src=j/dip3.js></script> 

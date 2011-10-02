@@ -1,0 +1,408 @@
+﻿<!DOCTYPE html> <meta charset=utf-8>
+<title>Generátorová notace – Ponořme se do Pythonu 3</title>
+<!--[if IE]><script src=j/html5.js></script><![endif]-->
+<link rel=stylesheet href=dip3.css>
+<style>
+body{counter-reset:h1 3}
+</style>
+<link rel=stylesheet media='only screen and (max-device-width: 480px)' href=mobile.css>
+<link rel=stylesheet media=print href=print.css>
+<meta name=viewport content='initial-scale=1.0'>
+<!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
+class="u">‣</span> <a
+href="table-of-contents.html#comprehensions">Ponořme se do Pythonu
+3</a> <span class="u">‣</span>
+<p id=level>Úroveň obtížnosti: <span class="u"
+title="začátečník">♦♦♢♢♢</span>
+<h1>Generátorová notace</h1>
+<blockquote class=q>
+<p><span class="u">❝</span> Our imagination is stretched to the
+utmost, not, as in fiction, to imagine things which are not really
+there, but just to comprehend those things which are. <span
+class="u">❞</span><br />(Naše představivost je napjatá do krajnosti.
+Ne jako u fikce, abychom si představili věci, které zde nejsou, ale
+proto, abychom jen obsáhli věci, které jsou zde.)<br />— <a
+href="http://en.wikiquote.org/wiki/Richard_Feynman">Richard
+Feynman</a>
+</blockquote>
+<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
+<p class=f>V každém programovacím jazyce najdeme určitý rys, který
+záměrně zjednodušuje nějakou komplikovanou věc. Pokud přicházíte se
+zkušenostmi z jiného jazyka, můžete to snadno přehlédnout, protože váš
+starý jazyk právě tu určitou věc nezjednodušoval (protože dalo práci
+místo toho zjednodušit něco jiného). V této kapitole se seznámíme s
+generátorovou notací seznamů (list comprehensions), s generátorovou
+notací slovníků (dictionary comprehensions) a s generátorovou notací
+množin (set comprehensions). Jde o tři související koncepty, jejichž
+jádrem je jedna velmi mocná technika. Ale nejdříve si uděláme malou
+odbočku ke dvěma modulům, které vám usnadní orientaci ve vašem
+lokálním souborovém systému. <p class=a>⁂ <h2 id=os>Práce se soubory a
+s adresáři</h2>
+
+<p>Python 3 se dodává s modulem zvaným <code>os</code>, což je zkratka
+pro „operační systém“. <a
+href="http://docs.python.org/3.1/library/os.html">Modul
+<code>os</code></a> obsahuje spoustu funkcí pro získávání informací o
+lokálních adresářích, souborech, procesech a proměnných
+prostředí&nbsp;—&nbsp;a v některých případech s nimi umožňuje
+manipulovat. Python se snaží co nejlépe, aby pro <a
+href="installing-python.html">všechny podporované operační systémy</a>
+nabízel jednotné <abbr>API</abbr> (aplikační programové rozhraní).
+Cílem je, aby vaše programy běžely na libovolném počítači a aby přitom
+obsahovaly co nejméně kódu, který by byl závislý na platformě. <h3
+id=getcwd>Aktuální pracovní adresář</h3>
+
+<p>Pokud s Pythonem právě začínáte, strávíte ještě hodně času <a
+href="installing-python.html#idle">v pythonovském shellu</a>. V celé
+knize se budete setkávat s příklady, jako je tento: <ol>
+<li>Importujte jeden z modulů nacházejících se <a href="examples" />v adresáři <code>examples</code></a> (příklady).
+<li>Zavolejte funkci z tohoto modulu. <li>Vysvětlete výsledky.
+</ol>
+
+<aside>Vždy existuje to, čemu se říká aktuální pracovní adresář.</aside>
+
+<p>Pokud o aktuálním pracovním adresáři nic nevíte, pak krok 1
+pravděpodobně selže a objeví se výjimka <code>ImportError</code>.
+Proč? Protože Python se bude po modulu dívat <a
+href="your-first-python-program.html#importsearchpath">ve vyhledávací
+cestě pro import</a>, ale nenajde jej, protože adresář
+<code>examples</code> se v žádném adresáři z vyhledávací cesty
+nenachází. Aby to prošlo, můžete udělat jednu ze dvou věcí: <ol>
+<li>Adresář <code>examples</code> přidáte do vyhledávací cesty pro import. <li>Změníte aktuální pracovní adresář na <code>examples</code>.
+</ol>
+
+<p>Aktuální pracovní adresář je neviditelný údaj, který si Python
+neustále udržuje v paměti. Aktuální pracovní adresář existuje vždy —
+ať už jste v pythonovském shellu, spouštíte svůj vlastní pythonovský
+skript z příkazového řádku nebo spouštíte pythonovský <abbr>CGI</abbr>
+skript na nějakém webovém serveru. <p>Pro vypořádání se s aktuálním
+pracovním adresářem nabízí modul <code>os</code> dvě funkce. <pre
+class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import os</kbd>                                            <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(os.getcwd())</kbd>                                   <span class="u">②</span></a>
+<samp>C:\Python31</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">os.chdir('/Users/pilgrim/diveintopython3/examples')</kbd>  <span class="u">③</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(os.getcwd())</kbd>                                   <span class="u">④</span></a>
+<samp>C:\Users\pilgrim\diveintopython3\examples</samp></pre>
+<ol>
+<li>Modul <code>os</code> je součástí Pythonu. Můžete jej importovat kdykoliv a kdekoliv. <li>Informaci o aktuálním pracovním adresáři získáte použitím funkce <code>os.getcwd()</code>. Pokud používáte grafický pythonovský shell, pak se aktuální pracovní adresář zpočátku nachází v adresáři, ve kterém je umístěn spustitelný program pythonovského shellu. Při práci pod Windows to záleží na tom, kam jste Python nainstalovali. Výchozí adresář je <code>c:\Python31</code>. Pokud používáte konzolový pythonovský shell, pak se aktuální pracovní adresář zpočátku nachází v adresáři, ve kterém jste spustili <code>python3</code>. <li>Aktuální pracovní adresář můžeme měnit použitím funkce <code>os.chdir()</code>. <li>Při volání funkce <code>os.chdir()</code> jsem použil cestu v linuxovém stylu (normální lomítka, žádné písmeno disku), i když pracuji pod Windows. To je právě jedno z míst, kde se Python snaží zamaskovat rozdíly mezi operačními systémy.
+</ol>
+
+<h3 id=ospath>Práce se jmény souborů a adresářů</h3>
+
+<p>Když už se bavíme o adresářích, chtěl bych vás upozornit na modul
+<code>os.path</code>. Ten obsahuje funkce pro manipulace se jmény
+souborů a adresářů. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import os</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(os.path.join('/Users/pilgrim/diveintopython3/examples/', 'humansize.py'))</kbd>              <span class="u">①</span></a>
+<samp>/Users/pilgrim/diveintopython3/examples/humansize.py</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(os.path.join('/Users/pilgrim/diveintopython3/examples', 'humansize.py'))</kbd>               <span class="u">②</span></a>
+<samp>/Users/pilgrim/diveintopython3/examples\humansize.py</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(os.path.expanduser('~'))</kbd>                                                               <span class="u">③</span></a>
+<samp>c:\Users\pilgrim</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(os.path.join(os.path.expanduser('~'), 'diveintopython3', 'examples', 'humansize.py'))</kbd>  <span class="u">④</span></a>
+<samp>c:\Users\pilgrim\diveintopython3\examples\humansize.py</samp></pre>
+<ol>
+<li>Funkce <code>os.path.join()</code> sestaví cestu z jedné nebo více částí cesty. V tomto případě jednoduše spojí řetězce. <li>Tento příklad už není tak jednoduchý. Funkce <code>os.path.join()</code> před napojením jména souboru navíc přidá k cestě jedno lomítko. Místo obyčejného lomítka použila zpětné lomítko, protože jsem tento příklad pouštěl pod Windows. Pokud byste stejný příklad zkoušeli na systémech Linux nebo Mac OS X, použilo by se normální lomítko. Nepárejte se s lomítky. Používejte vždy <code>os.path.join()</code> a nechejte na Pythonu, aby udělal, co je správné. <li>Funkce <code>os.path.expanduser()</code> rozepíše cestu, která pro vyjádření domácího adresáře aktuálního uživatele používá znak <code>~</code>. Funguje to na libovolné platformě, kde mají uživatelé přidělený svůj domácí adresář, tedy na Linuxu, Mac OS X a ve Windows. Vrácená cesta neobsahuje koncové lomítko, ale to funkci <code>os.path.join()</code> nevadí. <li>Kombinováním těchto technik můžeme snadno konstruovat cesty do adresářů a k souborům, které se nacházejí v uživatelově domácím adresáři. Funkce <code>os.path.join()</code> přebírá libovolný počet argumentů. Jakmile jsem to zjistil, skákal jsem radostí, protože při přípravě mých nástrojů v nějakém novém jazyce je <code>addSlashIfNecessary()</code> (přidejLomítkoPokudJeToNutné) jednou z těch otravných malých funkcí, které si musím vždy znovu napsat. V Pythonu takovou funkci <em>nepište</em>. Chytří lidé už se o to postarali za vás.
+</ol>
+
+<p>Modul <code>os.path</code> obsahuje také funkce, které umí rozdělit
+plné cesty, jména adresářů a souborů na jejich podstatné části. <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">pathname = '/Users/pilgrim/diveintopython3/examples/humansize.py'</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">os.path.split(pathname)</kbd>                                        <span class="u">①</span></a>
+<samp class="pp">('/Users/pilgrim/diveintopython3/examples', 'humansize.py')</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">(dirname, filename) = os.path.split(pathname)</kbd>                  <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">dirname</kbd>                                                        <span class="u">③</span></a>
+<samp class="pp">'/Users/pilgrim/diveintopython3/examples'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">filename</kbd>                                                       <span class="u">④</span></a>
+<samp class="pp">'humansize.py'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">(shortname, extension) = os.path.splitext(filename)</kbd>            <span class="u">⑤</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shortname</kbd>
+<samp class="pp">'humansize'</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">extension</kbd>
+<samp class="pp">'.py'</samp></pre>
+<ol>
+<li>Funkce <code>split</code> rozdělí plnou cestu a vrátí n-tici, která obsahuje zvlášť cestu a zvlášť jméno souboru. <li>Pamatujete si, že jsme se bavili o možnosti vracet více hodnot z funkce <a href="native-datatypes.html#multivar">přiřazením hodnot více proměnným najednou</a>? Funkce <code>os.path.split()</code> dělá přesně tohle. Výsledek funkce <code>split</code> přiřadíme do n-tice s dvěma proměnnými. Každá z proměnných získá hodnotu odpovídajícího prvku vracené dvojice. <li>První proměnná, <var>dirname</var>, obdrží hodnotu prvního prvku n-tice, kterou vrací funkce <code>os.path.split()</code>, a sice cestu k souboru. <li>Druhá proměnná, <var>filename</var>, obdrží hodnotu druhého prvku n-tice vracené funkcí <code>os.path.split()</code>, jméno souboru. <li>Modul <code>os.path</code> obsahuje také funkci <code>os.path.splitext()</code>, která rozdělí jméno souboru a vrací dvojici obsahující jméno souboru bez přípony a příponu. Pro jejich přiřazení do oddělených proměnných použijeme stejnou techniku.
+</ol>
+
+<h3 id=glob>Výpis adresářů</h3>
+
+<p>Dalším nástrojem z pythonovské standardní knihovny je modul
+<code>glob</code>. Umožní nám z programu snadno získat obsah nějakého
+adresáře. Používá typ zástupných znaků (wildcards), které už asi znáte
+z práce na příkazovém řádku. <aside>Modul <code>glob</code> používá
+shellovské zástupné znaky.</aside>
+
+<pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">os.chdir('/Users/pilgrim/diveintopython3/')</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import glob</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">glob.glob('examples/*.xml')</kbd>                  <span class="u">①</span></a>
+<samp class="pp">['examples\\feed-broken.xml',
+ 'examples\\feed-ns0.xml',
+ 'examples\\feed.xml']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">os.chdir('examples/')</kbd>                        <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">glob.glob('*test*.py')</kbd>                       <span class="u">③</span></a>
+<samp class="pp">['alphameticstest.py',
+ 'pluraltest1.py',
+ 'pluraltest2.py',
+ 'pluraltest3.py',
+ 'pluraltest4.py',
+ 'pluraltest5.py',
+ 'pluraltest6.py',
+ 'romantest1.py',
+ 'romantest10.py',
+ 'romantest2.py',
+ 'romantest3.py',
+ 'romantest4.py',
+ 'romantest5.py',
+ 'romantest6.py',
+ 'romantest7.py',
+ 'romantest8.py',
+ 'romantest9.py']</samp></pre>
+<ol>
+<li>Modul <code>glob</code> zpracovává masku se zástupným znakem a vrací cesty ke všem souborům a adresářům, které masce se zástupným znakem odpovídají. V tomto příkladu je maska složena z cesty do adresáře a z „<code>*.xml</code>“. Budou jí odpovídat všechny <code>.xml</code> soubory v podadresáři <code>examples</code>. <li>Teď jako aktuální pracovní adresář zvolíme podadresář <code>examples</code>. Funkce <code>os.chdir()</code> umí pracovat i s relativními cestami. <li>Ve vzorku pro funkci <code>glob</code> můžeme použít více zástupných znaků. Tento příklad nalezne v aktuálním pracovním adresáři všechny soubory, které končí příponou <code>.py</code> a kdekoliv ve jméně souboru obsahují slovo <code>test</code>.
+</ol>
+
+<h3 id=osstat>Získání dalších informací o souboru</h3>
+
+<p>Každý moderní souborový systém ukládá o každém souboru metadata,
+jako jsou: datum vytvoření, datum poslední modifikace, velikost
+souboru atd. Pro zpřístupnění těchto metadat poskytuje Python jednotné
+<abbr>API</abbr>. Soubor se nemusí otevírat. Vše, co potřebujete znát,
+je jeho jméno. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import os</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(os.getcwd())</kbd>                 <span class="u">①</span></a>
+<samp class="pp">c:\Users\pilgrim\diveintopython3\examples</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">metadata = os.stat('feed.xml')</kbd>     <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">metadata.st_mtime</kbd>                  <span class="u">③</span></a>
+<samp class="pp">1247520344.9537716</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import time</kbd>                        <span class="u">④</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">time.localtime(metadata.st_mtime)</kbd>  <span class="u">⑤</span></a>
+<samp class="pp">time.struct_time(tm_year=2009, tm_mon=7, tm_mday=13, tm_hour=17,
+  tm_min=25, tm_sec=44, tm_wday=0, tm_yday=194, tm_isdst=1)</samp>
+</pre>
+<ol>
+<li>Aktuálním pracovním adresářem je složka <code>examples</code>. <li><code>feed.xml</code> je soubor ve složce <code>examples</code>. Voláním funkce <code>os.stat()</code> získáme objekt, který obsahuje několik různých typů informací o souboru (metadat). <li><code>st_mtime</code> zachycuje čas poslední modifikace, ale není uložen ve tvaru, který by byl moc použitelný. (Z technického pohledu je to počet sekund od Epochy, kde Epocha je definována jako první sekunda 1. ledna 1970. Vážně!) <li>Modul <code>time</code> je součástí standardní pythonovské knihovny. Obsahuje funkce pro převody mezi různými reprezentacemi času, pro formátování času do řetězcové podoby a pro hraní si s časovými zónami. <li>Funkce <code>time.localtime()</code> převádí hodnotu času ze sekund-od-Epochy (z položky <code>st_mtime</code> objektu vraceného funkcí <code>os.stat()</code>) na použitelnější strukturu obsahující rok, měsíc, den, hodinu, minutu, sekundu atd. Tento soubor byl naposledy změněn 13. července 2009 přibližně v 17 hodin a 25 minut.
+</ol>
+
+<pre class=screen>
+# pokračování předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">metadata.st_size</kbd>                              <span class="u">①</span></a>
+<samp class="pp">3070</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import humansize</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">humansize.approximate_size(metadata.st_size)</kbd>  <span class="u">②</span></a>
+<samp class="pp">'3.0 KiB'</samp></pre>
+<ol>
+<li>Funkce <code>os.stat()</code> vrací také velikost souboru, a to v položce <code>st_size</code>. Soubor <code>feed.xml</code> obsahuje <code>3070</code> bajtů. <li>Položku <code>st_size</code> můžeme předat <a href="your-first-python-program.html#divingin">funkci <code>approximate_size()</code></a>.
+</ol>
+
+<h3 id=abspath>Jak vytvořit absolutní cesty</h3>
+
+<p><a href="#osstat">V předcházející podkapitole</a> jsme voláním
+funkce <code>glob.glob()</code> získali seznam s relativními cestami.
+V prvním příkladu jsme získali cesty jako
+<code>'examples\feed.xml'</code>. V druhém příkladu jsme získali
+dokonce ještě kratší relativní cesty jako
+<code>'romantest1.py'</code>. Za předpokladu, že zůstaneme ve stejném
+pracovním adresáři, můžeme tyto relativní cesty používat pro otevření
+souborů nebo pro získávání jejich metadat. Ale pokud chceme vytvořit
+absolutní cestu&nbsp;—&nbsp;tj. takovou, která obsahuje jména všech
+adresářů až po kořenový adresář nebo včetně jména disku&nbsp;—, budeme
+potřebovat funkci <code>os.path.realpath()</code>. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import os</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(os.getcwd())</kbd>
+<samp class="pp">c:\Users\pilgrim\diveintopython3\examples</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(os.path.realpath('feed.xml'))</kbd>
+<samp class="pp">c:\Users\pilgrim\diveintopython3\examples\feed.xml</samp></pre>
+
+<p class=a>⁂ <h2 id=listcomprehension>Generátorová notace seznamu</h2>
+
+<aside>V generátorové notaci seznamu můžeme použít libovolný pythonovský výraz.</aside>
+
+<p><dfn>Generátorová notace seznamu</dfn> (anglicky list comprehension
+[list komprihenšn]) umožňuje stručný zápis vytvoření seznamu z jiného
+seznamu aplikováním funkce na všechny prvky zdrojového seznamu.
+(Poznámka překladatele: Pojem „list comprehension“ je znám z
+deklarativních jazyků a má charakter syntaktické konstrukce. V jazyce
+Python se „vnitřku“ deklarativního zápisu podobá <a
+href="advanced-iterators.html#generator-expressions">generátorový
+výraz</a>. Tímto způsobem byl odvozen český pojem „generátorová
+notace“. Někdy je pojem „list comprehension“ použit v procedurálním,
+dynamickém smyslu. V takové situaci můžeme uvažovat o pojmu „generátor
+seznamu“. Pokud se bavíme o jeho výsledku, můžeme uvažovat i o pojmu
+„generovaný seznam“. Vzhledem k tomu, že zavedený český pojem pro tuto
+konstrukci asi neexistuje — studentům příslušných oborů vysokých škol
+přijde po krátké chvíli anglický pojem srozumitelný —, budu volněji
+používat některou z uvedených variant. Někdy budu poněkud dlouhý pojem
+„generátorová notace seznamu“ zkracovat. Kritériem volby bude dobrá
+srozumitelnost.) <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list = [1, 9, 8, 4]</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">[elem * 2 for elem in a_list]</kbd>           <span class="u">①</span></a>
+<samp class="pp">[2, 18, 16, 8]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>                                  <span class="u">②</span></a>
+<samp class="pp">[1, 9, 8, 4]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list = [elem * 2 for elem in a_list]</kbd>  <span class="u">③</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd>a_list</kbd>
+<samp class="pp">[2, 18, 16, 8]</samp></pre>
+<ol>
+<li>Aby nám to začalo dávat smysl, podívejme se na zápis zprava doleva. Seznam <var>a_list</var> je zde zdrojem zobrazení. Interpret jazyka Python prochází seznam <var>a_list</var> po jednom prvku a dočasně přiřazuje jeho hodnotu do proměnné <var>elem</var>. Poté Python aplikuje funkci <code><var>elem</var> * 2</code> a připojí výsledek na konec cílového seznamu. <li>Generátorová notace produkuje nový seznam. Původní seznam zůstává nezměněný. <li>Výsledek generátoru seznamu můžeme bezpečně přiřadit do proměnné, která zachycovala původní seznam. Python nejdříve vytvoří nový seznam v paměti a teprve po dokončení jeho generování přiřadí výsledek do původní proměnné.
+</ol>
+
+<p>V generátorové notaci seznamu můžeme využít libovolný pythonovský
+výraz, včetně funkcí z modulu <code>os</code>, které slouží k
+manipulaci se soubory a adresáři. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import os, glob</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">glob.glob('*.xml')</kbd>                                 <span class="u">①</span></a>
+<samp class="pp">['feed-broken.xml', 'feed-ns0.xml', 'feed.xml']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">[os.path.realpath(f) for f in glob.glob('*.xml')]</kbd>  <span class="u">②</span></a>
+<samp class="pp">['c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-broken.xml',
+ 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-ns0.xml',
+ 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed.xml']</samp>
+</pre>
+<ol>
+<li>Toto volání vrací seznam všech <code>.xml</code> souborů v aktuálním pracovním adresáři. <li>Tato generátorová notace přebírá předchozí seznam <code>.xml</code> souborů a transformuje jej na seznam jmen s plnou cestou.
+</ol>
+
+<p>Generátorová notace seznamu může navíc předepisovat i filtraci
+položek. To znamená, že může vyprodukovat výsledek, který bude kratší
+než původní seznam. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import os, glob</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">[f for f in glob.glob('*.py') if os.stat(f).st_size &gt; 6000]</kbd>  <span class="u">①</span></a>
+<samp class="pp">['pluraltest6.py',
+ 'romantest10.py',
+ 'romantest6.py',
+ 'romantest7.py',
+ 'romantest8.py',
+ 'romantest9.py']</samp>
+</pre>
+<ol>
+<li>Filtraci seznamu provedeme vložením podmínky <code>if</code> na konec generátorové notace. Pro každou položku seznamu bude vyhodnocen výraz za klíčovým slovem <code>if</code>. Pokud je výsledkem výrazu <code>True</code>, pak bude položka zahrnuta do výstupu. Tato generátorová notace seznamu předepisuje zpracování všech souborů s příponou <code>.py</code> v aktuálním adresáři. Výraz za <code>if</code> zajišťuje filtraci seznamu testováním, zda je velikost každého souboru větší než <code>6000</code> bajtů. Takových souborů je šest, takže generátorová notace produkuje seznam se šesti jmény souborů.
+</ol>
+
+<p>Všechny předchozí příklady generátorové notace seznamu používaly
+jen jednoduché výrazy&nbsp;—&nbsp;násobení čísla konstantou, volání
+jedné funkce, nebo jednoduše vracely původní položky seznamu (po
+filtraci). Ale generátorová notace seznamu může být libovolně složitá.
+<pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import os, glob</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">[(os.stat(f).st_size, os.path.realpath(f)) for f in glob.glob('*.xml')]</kbd>            <span class="u">①</span></a>
+<samp class="pp">[(3074, 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-broken.xml'),
+ (3386, 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-ns0.xml'),
+ (3070, 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed.xml')]</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import humansize</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">[(humansize.approximate_size(os.stat(f).st_size), f) for f in glob.glob('*.xml')]</kbd>  <span class="u">②</span></a>
+<samp class="pp">[('3.0 KiB', 'feed-broken.xml'),
+ ('3.3 KiB', 'feed-ns0.xml'),
+ ('3.0 KiB', 'feed.xml')]</samp></pre>
+<ol>
+<li>Tato generátorová notace nalezne v aktuálním pracovním adresáři všechny soubory s příponou <code>.xml</code>, zjistí velikost každého z nich (voláním funkce <code>os.stat()</code>) a vytvoří dvojice obsahující jméno souboru a absolutní cestu k souboru (voláním funkce <code>os.path.realpath()</code>). <li>Tento generátorový zápis seznamu vychází z předchozího. Pro velikost každého <code>.xml</code> souboru se volá <a href="your-first-python-program.html#divingin">funkce <code>approximate_size()</code></a>.
+</ol>
+
+<p class=a>⁂ <h2 id=dictionarycomprehension>Generátorová notace
+slovníku</h2>
+
+<p><dfn>Generátorová notace slovníku</dfn> (anglicky dictionary
+comprehension [dikšenri komprihenšn]) se podobá generátorové notaci
+seznamu, ale místo seznamu popisuje vytvoření slovníku. <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import os, glob</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">metadata = [(f, os.stat(f)) for f in glob.glob('*test*.py')]</kbd>    <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">metadata[0]</kbd>                                                     <span class="u">②</span></a>
+<samp class="pp">('alphameticstest.py', nt.stat_result(st_mode=33206, st_ino=0, st_dev=0,
+ st_nlink=0, st_uid=0, st_gid=0, st_size=2509, st_atime=1247520344,
+ st_mtime=1247520344, st_ctime=1247520344))
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">metadata_dict = {f:os.stat(f) for f in glob.glob('*test*.py')}</kbd>  <span class="u">③</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(metadata_dict)</kbd>                                             <span class="u">④</span></a>
+<samp>&lt;class 'dict'&gt;</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(metadata_dict.keys())</kbd>                                      <span class="u">⑤</span></a>
+<samp class="pp">['romantest8.py', 'pluraltest1.py', 'pluraltest2.py', 'pluraltest5.py',
+ 'pluraltest6.py', 'romantest7.py', 'romantest10.py', 'romantest4.py',
+ 'pluraltest6.py', 'romantest7.py', 'romantest10.py', 'romantest4.py',
+ 'romantest3.py', 'romantest5.py', 'romantest6.py', 'alphameticstest.py',
+ 'pluraltest4.py']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">metadata_dict['alphameticstest.py'].st_size</kbd>                     <span class="u">⑥</span></a>
+<samp class="pp">2509</samp></pre>
+<ol>
+<li>Toto není generátorová notace slovníku, ale <a href="#listcomprehension">generátorová notace seznamu</a>. Nalezne všechny soubory s příponou <code>.py</code>, které ve svém jméně obsahují podřetězec <code>test</code>. Pak se vytvoří dvojice obsahující jméno souboru a jeho metadata (voláním funkce <code>os.stat()</code>). <li>Každá položka výsledného seznamu je dvojice. <li>Ale toto už je generátorová notace slovníku. Až na dva rozdíly se syntaxe podobá generátorové notaci seznamu. Zaprvé, místo do hranatých závorek je celá uzavřena do složených závorek. Zadruhé, pro každou položku místo jednoho výrazu obsahuje dva výrazy oddělené dvojtečkou. Výraz před dvojtečkou (v našem případě <code>f</code>) představuje klíč slovníku. Výraz za dvojtečkou (v našem případě <code>os.stat(f)</code>) je hodnota. <li>Generátorová notace slovníku produkuje slovník. <li>Klíče uvedeného slovníku zachycují jména souborů, která se vrátila z volání <code>glob.glob('*test*.py')</code>. <li>Hodnotou přidruženou ke každému klíči je hodnota vrácená funkcí <code>os.stat()</code>. To znamená, že v tomto slovníku můžeme na základě jména souboru „vyhledat“ jeho metadata. Jednou z částí metadat je <code>st_size</code>, zachycující velikost souboru. Soubor <code>alphameticstest.py</code> obsahuje <code>2509</code> bajtů.
+</ol>
+
+<p>Také u generátorové notace slovníků (podobně jako u generátorové
+notace seznamů) můžeme přidat podmínku <code>if</code>, která zajistí
+filtraci vyhodnocením výrazu pro každou položku vstupní posloupnosti.
+<pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import os, glob, humansize</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">metadata_dict = {f:os.stat(f) for f in glob.glob('*')}</kbd>                                  <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">humansize_dict = {os.path.splitext(f)[0]:humansize.approximate_size(meta.st_size) \     </kbd>
+<samp class="p">... </samp><kbd class="pp">                  for f, meta in metadata_dict.items() if meta.st_size &gt; 6000}</kbd>          <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(humansize_dict.keys())</kbd>                                                             <span class="u">③</span></a>
+<samp class="pp">['romantest9', 'romantest8', 'romantest7', 'romantest6', 'romantest10', 'pluraltest6']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">humansize_dict['romantest9']</kbd>                                                            <span class="u">④</span></a>
+<samp class="pp">'6.5 KiB'</samp></pre>
+<ol>
+<li>Tato generátorová notace konstruuje seznam všech souborů v aktuálním pracovním adresáři (<code>glob.glob('*')</code>), získává metadata každého souboru (<code>os.stat(f)</code>) a vytváří slovník, jehož klíči jsou jména souborů a k nim přiřazené hodnoty jsou metadata každého souboru. <li>Tato generátorová notace vychází z předchozí. Odfiltrovává soubory menší než <code>6000</code> bajtů (<code>if meta.st_size &gt; 6000</code>) a takto přefiltrovaný seznam používá k vytvoření slovníku. Jeho klíče tvoří jména souborů bez přípony (<code>os.path.splitext(f)[0]</code>) a hodnotami jsou přibližné velikosti těchto souborů (<code>humansize.approximate_size(meta.st_size)</code>). <li>V předchozím příkladu jsme si ukázali, že těchto souborů je šest. Z toho vyplývá, že slovník bude mít šest položek. <li>Hodnotou každého klíče je řetězec vrácený funkcí <code>approximate_size()</code>.
+</ol>
+
+<h3 id=stupiddicttricks>Další legrácky s generátorovou notací slovníků</h3>
+
+<p>Následující trik využívající generátorové notace slovníku se nám
+jednoho dne může hodit. Jde o vzájemnou záměnu klíčů a hodnot
+slovníku. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict = {'a': 1, 'b': 2, 'c': 3}</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">{value:key for key, value in a_dict.items()}</kbd>
+<samp class="pp">{1: 'a', 2: 'b', 3: 'c'}</samp></pre>
+
+<p>Bude to samozřejmě fungovat jen v případě, kdy jsou hodnoty ve
+slovníku neměnitelného typu (immutable), jako jsou řetězce nebo
+n-tice. Pokud totéž zkusíte se slovníkem, který obsahuje seznamy,
+dojde k velkolepé havárii. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict = {'a': [1, 2, 3], 'b': 4, 'c': 5}</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">{value:key for key, value in a_dict.items()}</kbd>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "&lt;stdin&gt;", line 1, in &lt;dictcomp&gt;
+TypeError: unhashable type: 'list'</samp></pre>
+
+<p class=a>⁂ <h2 id=setcomprehension>Generátorová notace množin</h2>
+
+<p>Neměli bychom opomenout, že i syntaxe pro množiny zahrnuje
+generátorovou notaci. Pozoruhodně se podobá syntaxi pro generátorový
+zápis slovníků. Jediný rozdíl spočívá v tom, že množiny mají místo
+párů <em>klíč: hodnota</em> jen hodnoty. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set = set(range(10))</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">{x ** 2 for x in a_set}</kbd>           <span class="u">①</span></a>
+<samp class="pp">{0, 1, 4, 81, 64, 9, 16, 49, 25, 36}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">{x for x in a_set if x % 2 == 0}</kbd>  <span class="u">②</span></a>
+<samp class="pp">{0, 8, 2, 4, 6}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">{2**x for x in range(10)}</kbd>         <span class="u">③</span></a>
+<samp class="pp">{32, 1, 4, 2, 64, 8, 16, 128, 256, 512}</samp>
+</pre>
+<ol>
+<li>Vstupem generátorové notace množiny může být množina. Tato generátorová notace množiny vyhodnocuje druhé mocniny prvků z množiny čísel od <code>0</code> do <code>9</code>. <li>Generátorové notace množin (stejně jako generátorové notace seznamů a slovníků) mohou obsahovat podmínku <code>if</code>, která vstupní položky před zařazením do výsledné množiny filtruje. <li>Vstupem generátorové notace množiny ale nemusí být množina. Může jí být jakákoliv posloupnost.
+</ol>
+
+<p class=a>⁂ <h2 id=furtherreading>Přečtěte si</h2>
+<ul>
+<li><a href="http://docs.python.org/3.1/library/os.html">modul <code>os</code></a> (standardní dokumentace)
+<li><a href="http://www.doughellmann.com/PyMOTW/os" /><code>os</code>&nbsp;—&nbsp;Portable access to operating system specific features</a> (přenositelné zpřístupnění specifických vlastností vázaných na operační systém)
+<li><a href="http://docs.python.org/3.1/library/os.path.html">modul <code>os.path</code></a> (standardní dokumentace)
+<li><a href="http://www.doughellmann.com/PyMOTW/ospath" /><code>os.path</code>&nbsp;—&nbsp;Platform-independent manipulation of file names</a> (platformově nezávislá manipulace se jmény souborů)
+<li><a href="http://docs.python.org/3.1/library/glob.html">modul <code>glob</code></a> (standardní dokumentace)
+<li><a href="http://www.doughellmann.com/PyMOTW/glob" /><code>glob</code>&nbsp;—&nbsp;Filename pattern matching</a> (vyhledávání souborů podle vzorků)
+<li><a href="http://docs.python.org/3.1/library/time.html">modul <code>time</code></a> (standardní dokumentace)
+<li><a href="http://www.doughellmann.com/PyMOTW/time" /><code>time</code>&nbsp;—&nbsp;Functions for manipulating clock time</a> (funkce pro manipulaci času hodin)
+<li><a href="http://docs.python.org/3.1/tutorial/datastructures.html#list-comprehensions">List comprehensions</a> (standardní tutorial)
+<li><a href="http://docs.python.org/3.1/tutorial/datastructures.html#nested-list-comprehensions">Nested list comprehensions</a> (vnořená generátorová notace seznamů; standardní tutorial)
+<li><a href="http://docs.python.org/3.1/tutorial/datastructures.html#looping-techniques">Looping techniques</a> (techniky zápisu cyklů; standardní tutorial)
+</ul>
+<p class=v><a href="native-datatypes.html" rel="prev" title="zpět na
+„Přirozené datové typy“"><span class="u">☜</span></a> <a
+href="strings.html" rel="next" title="dopředu na „Řetězce“"><span
+class="u">☞</span></a>
+<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<script src=j/jquery.js></script>
+<script src=j/prettify.js></script>
+<script src=j/dip3.js></script> 

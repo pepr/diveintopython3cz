@@ -1,0 +1,1228 @@
+﻿<!DOCTYPE html> <meta charset=utf-8>
+<title>Webové služby nad HTTP – Ponořme se do Pythonu 3</title>
+<!--[if IE]><script src=j/html5.js></script><![endif]-->
+<link rel=stylesheet href=dip3.css>
+<style>
+body{counter-reset:h1 14}
+mark{display:inline}
+</style>
+<link rel=stylesheet media='only screen and (max-device-width: 480px)' href=mobile.css>
+<link rel=stylesheet media=print href=print.css>
+<meta name=viewport content='initial-scale=1.0'>
+<!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
+class="u">‣</span> <a
+href="table-of-contents.html#http-web-services">Ponořme se do Pythonu
+3</a> <span class="u">‣</span>
+<p id=level>Úroveň obtížnosti: <span class="u" title="pro
+pokročilé">♦♦♦♦♢</span>
+<h1>Webové služby nad HTTP</h1>
+<blockquote class=q>
+<p><span class="u">❝</span> A ruffled mind makes a restless pillow.
+<span class="u">❞</span><br />(Rozbouřená mysl je nepohodlný
+polštář.)<br />— Charlotte Bronteová
+</blockquote>
+<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
+<p class=f>Z filozofického hlediska můžeme webové služby nad HTTP
+(HyperText Transfer Protocol) popsat devíti slovy: výměna dat se
+vzdálenými servery pouze s použitím operací protokolu
+<abbr>HTTP</abbr>. Pokud chceme ze serveru získat data, použijeme
+<abbr>HTTP</abbr> <code>GET</code>. Pokud chceme nová data na server
+zaslat, použijeme <abbr>HTTP</abbr> <code>POST</code>. Některá
+pokročilejší aplikační rozhraní (<abbr>API</abbr>) webových služeb nad
+<abbr>HTTP</abbr> umožňují také vytváření, modifikaci a rušení dat
+použitím <abbr>HTTP</abbr> <code>PUT</code> a <abbr>HTTP</abbr>
+<code>DELETE</code>. To je vše. Žádné registry, žádné obálky, žádný
+obalující kód, žádné tunelování. „Slovesa“, která jsou součástí
+<abbr>HTTP</abbr> protokolu (<code>GET</code>, <code>POST</code>,
+<code>PUT</code> a <code>DELETE</code>) přímo odpovídají operacím na
+aplikační úrovni pro získávání, vytváření, modifikaci a rušení dat.
+<p>Hlavní výhodou tohoto přístupu je jednoduchost a právě jednoduchost
+vedla k jeho oblibě. Data&nbsp;—&nbsp;obvykle <a
+href="xml.html"><abbr>XML</abbr></a> nebo <a
+href="serializing.html#json"><abbr>JSON</abbr></a>&nbsp;—&nbsp;mohou
+být vytvořena a uložena jako statická, nebo mohou být generována
+dynamicky, skriptem na straně serveru. Všechny hlavní programovací
+jazyky (samozřejmě včetně Pythonu) umožňují stahování těchto dat
+prostřednictvím svých <abbr>HTTP</abbr>-knihoven. Jednodušší je i
+ladění. Každý prostředek (resource) webové služby nad
+<abbr>HTTP</abbr> má jednoznačnou adresu v podobě <abbr>URL</abbr>. Po
+zadání do webového prohlížeče dojde k načtení a hned vidíte surová
+data. <p>Příklady webových služeb nad <abbr>HTTP</abbr>: <ul>
+<li><a href="http://code.google.com/apis/gdata" />Aplikační rozhraní Google Data</a> vám umožní uživatelsky pracovat s celou řadou služeb Google, včetně <a href="http://www.blogger.com" />Blogger</a> a <a href="http://www.youtube.com" />YouTube</a>. <li><a href="http://www.flickr.com/services/api" />Flickr Services</a> vám umožní odesílat a stahovat fotografie z <a href="http://www.flickr.com" />Flickr</a>. <li><a href="http://apiwiki.twitter.com" />Twitter <abbr>API</abbr></a> vám umožní zveřejňovat krátké zprávy na <a href="http://twitter.com" />Twitter</a>. <li><a href="http://www.programmableweb.com/apis/directory/1?sort=mashups">…a řada dalších</a>
+</ul>
+
+<p>Pro interakci s webovými službami nad <abbr>HTTP</abbr> jsou v
+Pythonu 3 k dispozici dvě různé knihovny: <ul>
+<li><a href="http://docs.python.org/3.1/library/http.client.html"><code>http.client</code></a> je nízkoúrovňová knihovna, která implementuje <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html"><abbr>RFC</abbr> 2616</a>, tedy <abbr>HTTP</abbr>-protokol. <li><a href="http://docs.python.org/3.1/library/urllib.request.html"><code>urllib.request</code></a> je knihovna na vyšší úrovni abstrakce, vybudovaná nad <code>http.client</code>. Poskytuje standardní aplikační rozhraní pro zpřístupňování jak <abbr>HTTP</abbr>, tak <abbr>FTP</abbr> serverů, automaticky následuje přesměrování <abbr>HTTP</abbr> a podporuje některé běžné formy autentizace v <abbr>HTTP</abbr>.
+</ul>
+
+<p>Takže který mám použít? Z těchto dvou žádný. Místo toho byste měli
+použít <a href="http://code.google.com/p/httplib2"
+/><code>httplib2</code></a>, což je open source knihovna třetí strany,
+která implementuje <abbr>HTTP</abbr> do větších detailů než
+<code>http.client</code>. Současně používá lepší abstrakce než
+<code>urllib.request</code>. <p>Abyste porozuměli tomu, proč je
+<code>httplib2</code> tou správnou volbou, musíte nejdříve porozumět
+<abbr>HTTP</abbr>. <p class=a>⁂ <h2 id=http-features>Vlastnosti
+HTTP</h2>
+
+<p>Každý <abbr>HTTP</abbr> klient by měl podporovat pět důležitých
+vlastností. <h3 id=caching>Používání mezipaměti</h3>
+
+<p>Nejdůležitější věcí, které musíme v souvislosti s libovolným typem
+webové služby rozumět, je to, že přístup k síti je velmi drahý. Nemám
+na mysli cenu „v penězích“ (i když šířka přenosového pásma není
+zadarmo). Mám na mysli to, že hrozně dlouhou dobu zabere otevření
+spojení, odeslání požadavku a získání odezvy ze vzdáleného serveru.
+Dokonce i v případě nejrychlejšího dostupného spojení může být
+<i>latence</i> (tj. čas mezi zasláním požadavku a zahájením přijímání
+dat odpovědi) vyšší, než byste předpokládali. Směrovače mohou
+zafungovat divně, paket se ztratí, na mezilehlý server někdo
+zaútočil... Na veřejné internetové síti <a
+href="http://isc.sans.org/">není nikdy klidná chvilka</a> a nic s tím
+nenaděláte. <aside><code>Cache-Control: max-age</code> znamená
+„neotravujte mě až do příštího týdne“.</aside>
+
+<p>Při návrhu <abbr>HTTP</abbr> se počítalo s využíváním mezipaměti
+(cache). Existuje dokonce samostatná třída zařízení (zvaných
+„mezipaměťové proxy-servery“, anglicky „chaching proxies“), jejichž
+jedinou prací je ležet mezi vámi a zbytkem světa a minimalizovat
+zatěžování sítě. Vaše firma nebo váš poskytovatel připojení
+(<abbr>ISP</abbr>) téměř jistě mezipaměťové proxy-servery udržuje, i
+když si toho nemusíte být vědomi. Fungují, protože používání
+mezipaměti (caching) je součástí <abbr>HTTP</abbr> protokolu.
+<p>Následuje konkrétní příklad toho, jak to funguje. Prostřednictvím
+svého prohlížeče navštívíte <a
+href="http://diveintomark.org/"><code>diveintomark.org</code></a>.
+Uvedená stránka používá pro pozadí obrázek <a
+href="http://wearehugh.com/m.jpg"><code>wearehugh.com/m.jpg</code></a>.
+Když váš prohlížeč obrázek stáhne, server k němu přiloží následující
+<abbr>HTTP</abbr> hlavičky: <pre class=nd><code>HTTP/1.1 200 OK
+Date: Sun, 31 May 2009 17:14:04 GMT
+Server: Apache
+Last-Modified: Fri, 22 Aug 2008 04:28:16 GMT
+ETag: "3075-ddc8d800"
+Accept-Ranges: bytes
+Content-Length: 12405
+<mark>Cache-Control: max-age=31536000, public</mark>
+<mark>Expires: Mon, 31 May 2010 17:14:04 GMT</mark>
+Connection: close
+Content-Type: image/jpeg</code></pre>
+
+<p>Hlavičky <code>Cache-Control</code> a <code>Expires</code> říkají
+vašemu prohlížeči (a všem mezipaměťovým proxy-serverům mezi vámi a
+serverem), že se tento obrázek může získávat z mezipaměti až jeden
+rok. <em>Celý rok!</em> A pokud někdy v příštím roce navštívíte jinou
+stránku, která také obsahuje odkaz na tento obrázek, váš prohlížeč jej
+načte ze své mezipaměti, <em>aniž by vyvolal jakoukoliv síťovou
+aktivitu</em>. <p>Ale počkejte, bude to ještě lepší. Dejme tomu, že
+váš prohlížeč obrázek z lokální mezipaměti z nějakého důvodu odstraní.
+Možná mu došlo místo na disku, možná jste mezipaměť vyprázdnili ručně.
+Z jakéhokoliv důvodu. Ale <abbr>HTTP</abbr> hlavičky říkají, že tato
+data mohou být uchovávána veřejnými mezipaměťovými proxy-servery. (Z
+technického pohledu je důležité, co hlavičky <em>neříkají</em>.
+Hlavička <code>Cache-Control</code> neuvádí klíčové slovo
+<code>private</code>, takže data mohou být uložena v mezipaměti
+automaticky.) Mezipaměťové proxy-servery jsou navrženy tak, že mají k
+dispozici obrovské množství úložného prostoru — pravděpodobně ho mají
+mnohem více, než má vyhrazeno váš lokální prohlížeč. <p>Pokud vaše
+firma nebo váš poskytovatel připojení spravuje mezipaměťový
+proxy-server, může se v jeho mezipaměti obrázek pořád ještě nacházet.
+Pokud navštívíte <code>diveintomark.org</code> znovu, podívá se váš
+prohlížeč po obrázku do lokální mezipaměti, ale nenajde jej. Takže
+vytvoří síťový požadavek a pokusí se obrázek stáhnout ze vzdáleného
+serveru. Pokud ale mezipaměťový proxy-server pořád má kopii uvedeného
+obrázku, váš požadavek zachytí a dodá vám obrázek ze <em>své</em>
+mezipaměti. To znamená, že se váš požadavek ke vzdálenému serveru
+nikdy nedostane. Ve skutečnosti nemusí opustit vaši firemní síť.
+Získání obrázku je rychlejší (méně skoků po síti) a vaše firma ušetří
+peníze (z vnějšího světa se stahuje méně dat). <p>Použití mezipamětí v
+<abbr>HTTP</abbr> funguje, pokud všechny strany dělají, co mají. Na
+jedné straně musí servery v odpovědích posílat správné hlavičky. Na
+druhé straně musí klienti hlavičkám rozumět, respektovat je a nežádat
+stejná data dvakrát. Mezilehlé proxy-servery nejsou všelékem. Mohou
+být „chytré“ jen do té míry, do jaké jim to servery a klienti umožní.
+<p>Standardní pythonovské knihovny pro <abbr>HTTP</abbr> používání
+mezipaměti nepodporují, ale <code>httplib2</code> ano. <h3
+id=last-modified>Kontrola Last-Modified</h3>
+
+<p>Některá data se nemění nikdy, zatímco jiná data se mění pořád. A
+mezi tím je obrovské množství dat, která se <em>mohla</em> změnit, ale
+nezměnila se. Publikovaný obsah (feed) serveru CNN.com se mění každých
+pár minut, ale publikovaný obsah mého weblogu se nemusí změnit celé
+dny nebo týdny. I kdyby to byl ten druhý případ, nechci klientům říct,
+aby si můj publikovaný obsah brali z mezipaměti celé týdny, protože
+pokud bych doopravdy něco nového zveřejnil, lidé by se o tom celé
+týdny nedozvěděli (protože by respektovali mé hlavičky týkající se
+mezipaměti, které říkají „neobtěžujte se s kontrolou tohoto
+publikovaného obsahu po celé týdny“). Na druhou stranu zase nechci,
+aby klienti stahovali celý publikovaný obsah (feed) každou hodinu,
+pokud se vůbec nezměnil! <aside><code>304: Not Modified</code> znamená
+„stejné nesmysly, jiný den“.</aside>
+
+<p><abbr>HTTP</abbr> nabízí řešení i pro tento případ. Pokud o data
+žádáme poprvé, server může zpět poslat hlavičku
+<code>Last-Modified</code> (naposledy změněno). Je to přesně to, jak
+to vypadá: datum a čas, kdy se data naposledy změnila. Obrázek pozadí,
+na který vedl odkaz z <code>diveintomark.org</code>, doprovázela
+hlavička <code>Last-Modified</code>. <pre class=nd><code>HTTP/1.1 200
+OK
+Date: Sun, 31 May 2009 17:14:04 GMT
+Server: Apache
+<mark>Last-Modified: Fri, 22 Aug 2008 04:28:16 GMT</mark>
+ETag: "3075-ddc8d800"
+Accept-Ranges: bytes
+Content-Length: 12405
+Cache-Control: max-age=31536000, public
+Expires: Mon, 31 May 2010 17:14:04 GMT
+Connection: close
+Content-Type: image/jpeg
+</code></pre>
+
+<p>Pokud požadujeme stejná data podruhé (nebo potřetí nebo počtvrté),
+můžeme v dotazu poslat hlavičku <code>If-Modified-Since</code> (pokud
+bylo změněno od) s hodnotou data a času, které jsme od serveru dostali
+minule. Pokud se data od té doby změnila, pak server vrátí nová data
+doplněná o stavový kód <code>200</code>. Ale pokud se data od té doby
+<em>nezměnila</em>, server pošle zpět speciální stavový kód protokolu
+<abbr>HTTP</abbr> — <code>304</code>. Ten říká „od doby, kdy ses
+naposledy ptal, se tato data nezměnila“. Z příkazového řádku si to
+můžeme ověřit nástrojem <a href="http://curl.haxx.se" />curl</a>: <pre
+class='nd screen'>
+<samp class="p">you@localhost:~$ </samp><kbd>curl -I <mark>-H "If-Modified-Since: Fri, 22 Aug 2008 04:28:16 GMT"</mark> http://wearehugh.com/m.jpg</kbd>
+<samp>HTTP/1.1 304 Not Modified
+Date: Sun, 31 May 2009 18:04:39 GMT
+Server: Apache
+Connection: close
+ETag: "3075-ddc8d800"
+Expires: Mon, 31 May 2010 18:04:39 GMT
+Cache-Control: max-age=31536000, public</samp></pre>
+
+<p>A proč by to mělo být vylepšení? Protože když server pošle
+<code>304</code>, <em>neposílá data znovu</em>. Dostaneme pouze
+stavový kód. Kontrola poslední modifikace zajistí, že se nezměněná
+data nebudou stahovat podruhé i v případě, kdy došlo k vypršení
+platnosti kopie v lokální mezipaměti. (Jako bonus navíc obsahuje
+odpověď <code>304</code> také hlavičky pro mezipaměť. Proxy-servery si
+kopii dat drží, dokonce i když oficiálně „expirovala“, v naději, že se
+data <em>ve skutečnosti</em> nezměnila a že další požadavek povede k
+odpovědi se stavovým kódem <code>304</code> a s aktualizovanými
+informacemi pro mezipaměť.) <p>Standardní pythonovské knihovny pro
+<abbr>HTTP</abbr> nepodporují kontrolu data poslední modifikace, ale
+<code>httplib2</code> ano. <h3 id=etags>Kontrola ETag</h3>
+
+<p>ETagy (tag = značka) představují alternativní způsob dosažení
+stejného efektu jako v případě <a href="#last-modified">kontroly
+last-modified</a>. Při použití ETagů posílá server spolu s
+požadovanými daty v hlavičce <code>ETag</code> s heš-kódem (hash).
+(Jak se přesně heš-hodnota určí, to závisí zcela na serveru. Jediný
+požadavek je takový, aby se změnila, pokud se změní data.) Obrázek
+pozadí, na který vedl odkaz z <code>diveintomark.org</code>,
+doprovázela hlavička <code>ETag</code>. <pre class=nd><code>HTTP/1.1
+200 OK
+Date: Sun, 31 May 2009 17:14:04 GMT
+Server: Apache
+Last-Modified: Fri, 22 Aug 2008 04:28:16 GMT
+<mark>ETag: "3075-ddc8d800"</mark>
+Accept-Ranges: bytes
+Content-Length: 12405
+Cache-Control: max-age=31536000, public
+Expires: Mon, 31 May 2010 17:14:04 GMT
+Connection: close
+Content-Type: image/jpeg
+</code></pre>
+
+<aside><code>ETag</code> vyjadřuje „nic nového pod sluncem“.</aside>
+
+<p>Pokud stejná data požadujeme podruhé, přiložíme heš-hodnotu v
+hlavičce pořadavku <code>If-None-Match</code> (pokud žádná data
+neodpovídají). Pokud se data nezměnila, server pošle zpět stavový kód
+<code>304</code>. Server — stejně jako v případě kontroly založené na
+čase poslední modifikace — pošle zpět <em>pouze</em> stavový kód
+<code>304</code>. Stejná data znovu neposílá. Přiložením heš-hodnoty v
+ETagu při druhém požadavku serveru říkáme, že při shodě heše není
+nutné posílat stejná data znovu, protože je <a href="#caching">pořád
+máme schovaná od minula</a>. <p>Opět vyzkoušíme pomocí
+<kbd>curl</kbd>: <pre class='nd screen'>
+<a><samp class="p">you@localhost:~$ </samp><kbd>curl -I <mark>-H "If-None-Match: \"3075-ddc8d800\""</mark> http://wearehugh.com/m.jpg</kbd>  <span class="u">①</span></a>
+<samp>HTTP/1.1 304 Not Modified
+Date: Sun, 31 May 2009 18:04:39 GMT
+Server: Apache
+Connection: close
+ETag: "3075-ddc8d800"
+Expires: Mon, 31 May 2010 18:04:39 GMT
+Cache-Control: max-age=31536000, public</samp></pre>
+<ol>
+<li>ETagy se běžně uzavírají do uvozovek, ale <em>tyto uvozovky jsou součástí hodnoty</em>. To znamená, že v hlavičce <code>If-None-Match</code> musíme serveru poslat zpět i uvozovky.
+</ol>
+
+<p>Standardní pythonovské knihovny pro <abbr>HTTP</abbr> používání
+ETagů nepodporují, ale <code>httplib2</code> ano. <h3
+id=compression>Komprese</h3>
+
+<p>Pokud se bavíme o webových službách nad <abbr>HTTP</abbr>, pak se
+téměř vždy bavíme o přesunování textových dat po drátech tam a zase
+zpět. Možná jsou ve formátu <abbr>XML</abbr>, možná jsou v
+<abbr>JSON</abbr>, možná je to <a href="strings.html#boring-stuff"
+title="nic jako „prostý“ text neexistuje">prostý text</a>. Text se dá
+dobře komprimovat nezávisle na použitém formátu. Příklad publikovaného
+obsahu (feed) z <a href="xml.html">kapitoly XML</a> má nekomprimovaný
+3070 bajtů, ale po kompresi algoritmem gzip má 941 bajtů. To je jen 30
+% původní velikosti! <p><abbr>HTTP</abbr> podporuje <a
+href="http://www.iana.org/assignments/http-parameters">několik
+komprimačních algoritmů</a>. Mezi dva nejběžnější patří <a
+href="http://www.ietf.org/rfc/rfc1952.txt">gzip</a> a <a
+href="http://www.ietf.org/rfc/rfc1951.txt">deflate</a>. Pokud přes
+<abbr>HTTP</abbr> požadujeme nějaký prostředek (resource), můžeme
+serveru říci, aby ho poslal v komprimovaném formátu. Do požadavku
+vložíme hlavičku <code>Accept-encoding</code>, ve které vyjmenujeme
+námi podporované komprimační algoritmy. Pokud server některý z těchto
+algoritmů podporuje, pošle nám zpět komprimovaná data (s hlavičkou
+<code>Content-encoding</code>, která říká, jaký algoritmus byl
+použit). O dekompresi se už musíme postarat sami. <blockquote
+class=note>
+<p><span class="u">☞</span>Důležitý tip pro vývojáře kódu na straně
+serveru: Ujistěte se, že komprimovaná podoba zdroje dostane přidělenou
+jinou značku <a href="#etags">Etag</a> než nekomprimovaná verze. V
+opačném případě by došlo ke zmatení mezipaměťových proxy-serverů a ty
+by mohly klientům vracet komprimovanou verzi, se kterou by si klient
+nemusel poradit. Více detailů o této delikátní záležitosti si můžete
+přečíst v diskusi <a
+href="https://issues.apache.org/bugzilla/show_bug.cgi?id=39727">Apache
+bug 39727</a>.
+</blockquote>
+
+<p>Standardní pythonovské knihovny pro <abbr>HTTP</abbr> kompresi
+nepodporují, ale <code>httplib2</code> ano. <h3
+id=redirects>Přesměrování</h3>
+
+<p><a href="http://www.w3.org/Provider/Style/URI">Senzační
+<abbr>URI</abbr> se nemění</a>, ale mnohá <abbr>URI</abbr> jsou
+opravdu... nesenzační. Webová místa se reorganizují, stránky se
+přesouvají na nové adresy. Dokonce i webové služby mohou být
+reorganizovány. Publikovaný obsah (syndicated feed) mohl být přesunut
+z <code>http://example.com/index.xml</code> do
+<code>http://example.com/xml/atom.xml</code>. Nebo se při rozšiřování
+a reorganizaci firmy mohla přesunout celá doména. Z
+<code>http://www.example.com/index.xml</code> se mění na
+<code>http://server-farm-1.example.com/index.xml</code>.
+<aside><code>Location</code> znamená „podívej se támhle“!</aside>
+
+<p>Pokaždé, když <abbr>HTTP</abbr> server požádáme o nějaký zdroj
+(resource), vrací v odpovědi stavový kód. Stavový kód <code>200</code>
+znamená „vše v pořádku, tady je požadovaná stránka“. Stavový kód
+<code>404</code> znamená „stránka nenalezena“. (Chybu 404 jste už asi
+při brouzdání po webu viděli.) Stavové kódy ve skupině 300 vyjadřují
+nějakou formu přesměrování. <p><abbr>HTTP</abbr> nabízí několik
+způsobů, jakými se dá oznámit, že se požadované zdroje přesunuly. Dvě
+nejběžnější techniky používají stavové kódy <code>302</code> a
+<code>301</code>. Stavový kód <code>302</code> označuje <i>dočasné
+přesměrování</i>. Znamená „ejhle, je to dočasně přesunuté“ (a v
+hlavičce <code>Location</code> se vrátí dočasná adresa). Stavový kód
+<code>301</code> označuje <i>trvalé přesměrování</i>. Znamená „ejhle,
+je to trvale přesunuté“ (a v hlavičce <code>Location</code> se vrací
+nová adresa). Pokud obdržíte stavový kód <code>302</code> a novou
+adresu, pak máte podle specifikace <abbr>HTTP</abbr> pro požadovanou
+věc použít novou adresu. Ale až se budete na stejný zdroj informací
+ptát příště, máte to znovu zkusit s původní adresou. Pokud ale
+obdržíte stavový kód <code>301</code> a k němu novou adresu, očekává
+se od vás, že od toho okamžiku začnete používat novou adresu. <p>Modul
+<code>urllib.request</code> při obdržení příslušného stavového kódu od
+<abbr>HTTP</abbr> serveru sice „následuje“ přesměrování, ale neřekne
+vám, že tato situace nastala. Dostanete data, která jste požadovali,
+ale nikdy se nedozvíte, že se použitá knihovna zachovala „užitečně“ a
+následovala přesměrování za vás. Takže pořád bušíte na staré adrese a
+pokaždé jste serverem přesměrováni na novou adresu a modul
+<code>urllib.request</code> pokaždé „užitečně“ následuje přesměrování.
+Jinými slovy, tato knihovna se k trvalému přesměrování chová stejně
+jako k dočasnému přesměrování. To znamená, že se místo jednoho kola
+provedou vždycky dvě. To je špatné jak pro server, tak pro vás.
+<p>Knihovna <code>httplib2</code> trvalé přesměrování zvládá. Nejen že
+vám řekne, že nastalo trvalé přesměrování, ale lokálně si je poznamená
+a přesměrovaná <abbr>URL</abbr> automaticky přepíše dříve, než vznese
+příslušný požadavek. <p class=a>⁂ <h2 id=dont-try-this-at-home>Jak se
+nedostat k datům přes HTTP</h2>
+
+<p>Dejme tomu, že přes <abbr>HTTP</abbr> chceme stáhnout informační
+zdroj, jako je například <a href="xml.html">Atom feed</a>. Protože jde
+o publikovaný obsah (feed), nebudeme jej stahovat jen jednou. Budeme
+jej stahovat opakovaně, pořád dokola. (Většina čteček publikovaného
+obsahu (feed reader) kontroluje změny každou hodinu.) Nejdříve
+vyzkoušíme „rychlý a špinavý“ způsob a pak se podíváme, jak bychom to
+mohli provádět lépe. <pre class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import urllib.request</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_url = 'http://diveintopython3.org/examples/feed.xml'</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">data = urllib.request.urlopen(a_url).read()</kbd>  <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(data)</kbd>                                   <span class="u">②</span></a>
+<samp class="pp">&lt;class 'bytes'&gt;</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(data)</kbd>
+<samp class="pp">&lt;?xml version='1.0' encoding='utf-8'?&gt;
+&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;
+  &lt;title&gt;dive into mark&lt;/title&gt;
+  &lt;subtitle&gt;currently between addictions&lt;/subtitle&gt;
+  &lt;id&gt;tag:diveintomark.org,2001-07-29:/&lt;/id&gt;
+  &lt;updated&gt;2009-03-27T21:56:07Z&lt;/updated&gt;
+  &lt;link rel='alternate' type='text/html' href='http://diveintomark.org/'/&gt;
+  …
+</samp></pre>
+<ol>
+<li>Stažení čehokoliv přes <abbr>HTTP</abbr> je v Pythonu neuvěřitelně jednoduché. Dá se to ve skutečnosti napsat na jeden řádek. Modul <code>urllib.request</code> nabízí šikovnou funkci <code>urlopen()</code>, která přebírá adresu požadované stránky a vrací objekt typu stream, ze kterého získáme celý obsah stránky prostým zavoláním metody <code>read()</code>. Už to asi nemůže být jednodušší. <li>Metoda <code>urlopen().read()</code> vrací vždy <a href="strings.html#byte-arrays">objekt typu <code>bytes</code> a ne řetězec</a>. Vzpomeňte si — bajty jsou bajty, znaky jsou abstrakce. <abbr>HTTP</abbr> servery nepracují s abstrakcemi. Kdykoliv požádáme o nějaký zdroj (resource), dostaneme bajty. Pokud z toho chceme udělat řetězec, musíme <a href="http://feedparser.org/docs/character-encoding.html">zjistit znakové kódování</a> a provést explicitní převod na řetězec.
+</ol>
+
+<p>A co na tom je špatného? Při rychlém, jednorázovém přístupu během
+ladění a vývoje na tom není špatného nic. Dělám to takhle pořád. Chtěl
+jsem publikovaný obsah (feed), dostal jsem publikovaný obsah. Stejná
+technika funguje pro libovolné webové stránky. Ale jakmile o tom
+začneme uvažovat z pohledu webové služby, která se má využívat
+pravidelně (tj. požadavek na získání publikovaného obsahu každou
+hodinu), pak by to bylo neefektivní a my bychom byli nezdvořilí. <p
+class=a>⁂ <h2 id=whats-on-the-wire>Co že to máme na drátě?</h2>
+
+<p>Abychom viděli, proč je to neefektivní a nezdvořilé, obrátíme se na
+ladicí prostředky pythonovské knihovny pro <abbr>HTTP</abbr> a
+uvidíme, co běhá „po drátech“ (tj. co se přenáší v síti). <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">from http.client import HTTPConnection</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">HTTPConnection.debuglevel = 1</kbd>                                       <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">from urllib.request import urlopen</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response = urlopen('http://diveintopython3.org/examples/feed.xml')</kbd>  <span class="u">②</span></a>
+<samp><a>send: b'GET /examples/feed.xml HTTP/1.1                                 <span class="u">③</span></a>
+<a>Host: diveintopython3.org                                               <span class="u">④</span></a>
+<a>Accept-Encoding: identity                                               <span class="u">⑤</span></a>
+<a>User-Agent: Python-urllib/3.1'                                          <span class="u">⑥</span></a>
+Connection: close
+reply: 'HTTP/1.1 200 OK'
+…další ladicí informace vypuštěny…</samp></pre>
+<ol>
+<li>Jak už jsem se zmínil na začátku této kapitoly, <code>urllib.request</code> spoléhá na další standardní pythonovskou knihovnu, <code>http.client</code>. S knihovnou <code>http.client</code> za normálních okolností do přímého styku nepřicházíte. (Modul <code>urllib.request</code> ji importuje automaticky.) Ale my si ji importujeme ručně, abychom mohli nastavit příznak ladění u třídy <code>HTTPConnection</code>, kterou modul <code>urllib.request</code> používá pro připojení k <abbr>HTTP</abbr> serveru. <li>Když teď máme ladicí příznak nastaven, budou se informace o <abbr>HTTP</abbr> požadavku a o odpovědi na něj tisknout v reálném čase. Když si vyžádáme Atom feed, je vidět, že modul <code>urllib.request</code> posílá serveru pět řádků. <li>První řádek uvádí používané <abbr>HTTP</abbr> sloveso (metodu; zde <code>GET</code>) a cestu ke zdroji (bez uvedení jména domény). <li>Druhý řádek uvádí doménu, ze které byl požadavek na feed vznesen. <li>Třetí řádek uvádí komprimační algoritmy, které klient podporuje. Jak bylo uvedeno výše, <a href="#compression"><code>urllib.request</code> standardně kompresi nepodporuje</a>. <li>Čtvrtý řádek uvádí jméno knihovny, jejímž prostřednictvím byl požadavek vznesen. Výchozí hodnotou je <code>Python-urllib</code> a číslo verze. Jak <code>urllib.request</code>, tak <code>httplib2</code> podporují změnu identifikace zprostředkovatele tím, že se do požadavku jednoduše přidá hlavička <code>User-Agent</code>, která přepíše výchozí hodnotu.
+</ol>
+
+<aside>Stahovali jsme 3070 bajtů, i když bychom mohli stahovat pouhých 941.</aside>
+
+<p>Teď se podívejme na to, jakou odpověď poslal server zpět. <pre
+class=screen>
+# pokračování předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(response.headers.as_string())</kbd>        <span class="u">①</span></a>
+<samp><a>Date: Sun, 31 May 2009 19:23:06 GMT            <span class="u">②</span></a>
+Server: Apache
+<a>Last-Modified: Sun, 31 May 2009 06:39:55 GMT   <span class="u">③</span></a>
+<a>ETag: "bfe-93d9c4c0"                           <span class="u">④</span></a>
+Accept-Ranges: bytes
+<a>Content-Length: 3070                           <span class="u">⑤</span></a>
+<a>Cache-Control: max-age=86400                   <span class="u">⑥</span></a>
+Expires: Mon, 01 Jun 2009 19:23:06 GMT
+Vary: Accept-Encoding
+Connection: close
+Content-Type: application/xml</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">data = response.read()</kbd>                     <span class="u">⑦</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(data)</kbd>
+<samp class="pp">3070</samp></pre>
+<ol>
+<li>Odpověď (<var>response</var>) vrácená funkcí <code>urllib.request.urlopen()</code> obsahuje všechny <abbr>HTTP</abbr> hlavičky, které server poslal zpět. Obsahuje také metody pro stahování skutečných dat. K tomu se dostaneme za minutku. <li>Server říká, kdy zpracoval náš požadavek. <li>Odpověď obsahuje i hlavičku <a href="#last-modified"><code>Last-Modified</code></a>. <li>Odpověď obsahuje také hlavičku <a href="#etags"><code>ETag</code></a>. <li>Data mají velikost 3070 bajtů. Všimněte si, že zde <em>není</em> hlavička <code>Content-encoding</code>. V požadavku jsme uvedli, že přijímáme jen nekomprimovaná data (<code>Accept-encoding: identity</code>), takže jsme tím pádem dostali nekomprimovaná data. <li>V odpovědi se nacházejí hlavičky pro mezipaměti, které říkají, že publikovaný obsah (feed) může být brán z mezipaměti po dobu 24 hodin (86 400 sekund). <li>A nakonec stáhneme skutečná data voláním <code>response.read()</code>. Z výsledku funkce <code>len()</code> vidíme, že se stáhlo všech 3070 bajtů najednou.
+</ol>
+
+<p>Jak sami vidíte, tento kód je už teď neefektivní. Požadoval (a
+obdržel) nekomprimovaná data. Určitě vím, že uvedený server podporuje
+<a href="#compression">kompresi gzip</a>, ale v <abbr>HTTP</abbr> se
+komprese zapíná na vyžádání. Nepožádali jsme o ni, tak jsme ji
+nedostali. To znamená, že jsme stahovali 3070 bajtů v situaci, kdy
+jsme mohli stahovat pouhých 941. Zlobivý pejsek, žádná sušenka. <p>Ale
+moment, začíná to být ještě horší! Abychom viděli, jak neefektivní ten
+kód je, požádáme o stejný publikovaný obsah (feed) podruhé. <pre
+class='nd screen'>
+# pokračování <a href="#whats-on-the-wire">předchozího příkladu</a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response2 = urlopen('http://diveintopython3.org/examples/feed.xml')</kbd>
+<samp>send: b'GET /examples/feed.xml HTTP/1.1
+Host: diveintopython3.org
+Accept-Encoding: identity
+User-Agent: Python-urllib/3.1'
+Connection: close
+reply: 'HTTP/1.1 200 OK'
+…další ladicí informace vypuštěny…</samp></pre>
+
+<p>Všimli jste si na tom požadavku něčeho zvláštního? Vůbec se
+nezměnil! Je naprosto stejný jako ten předchozí. Žádná známka použití
+<a href="#last-modified">hlavičky <code>If-Modified-Since</code></a>.
+Žádná známka použití <a href="#etags">hlavičky
+<code>If-None-Match</code></a>. Žádný respekt k hlavičkám mezipaměti.
+Ještě pořád žádná komprese. <p>A co se stane, když uděláme stejnou věc
+dvakrát? Dostaneme stejnou odpověď. Dvakrát. <pre class=screen>
+# pokračování předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(response2.headers.as_string())</kbd>     <span class="u">①</span></a>
+<samp>Date: Mon, 01 Jun 2009 03:58:00 GMT
+Server: Apache
+Last-Modified: Sun, 31 May 2009 22:51:11 GMT
+ETag: "bfe-255ef5c0"
+Accept-Ranges: bytes
+Content-Length: 3070
+Cache-Control: max-age=86400
+Expires: Tue, 02 Jun 2009 03:58:00 GMT
+Vary: Accept-Encoding
+Connection: close
+Content-Type: application/xml</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">data2 = response2.read()</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(data2)</kbd>                               <span class="u">②</span></a>
+<samp class="pp">3070</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">data2 == data</kbd>                            <span class="u">③</span></a>
+<samp class="pp">True</samp></pre>
+<ol>
+<li>Server pořád posílá stejné pole „chytrých“ hlaviček: <code>Cache-Control</code> a <code>Expires</code> pro mezipaměť (cache), <code>Last-Modified</code> a <code>ETag</code> pro sledování „nezměněného stavu“. A dokonce hlavičku <code>Vary: Accept-Encoding</code>, kterou server dává najevo, že by mohl podporovat kompresi, kdybychom si o ni řekli. Ale my jsme to neudělali. <li>A ještě jednou, při získávání dat se stáhlo všech 3070 bajtů… <li>…stejných 3070 bajtů, které jsme stáhli už minule.
+</ol>
+
+<p>Protokol <abbr>HTTP</abbr> je navržen, aby pracoval lepším
+způsobem. Knihovna <code>urllib</code> umí <abbr>HTTP</abbr> asi tak,
+jak já umím španělsky&nbsp;—&nbsp;dost na to, abych se dostal z
+problémů, ale ne dost k vedení konverzace. A <abbr>HTTP</abbr> se týká
+konverzace. Je čas přejít ke knihovně, která protokolem
+<abbr>HTTP</abbr> mluví plynule. <p class=a>⁂ <h2
+id=introducing-httplib2>Představujeme <code>httplib2</code></h2>
+
+<p>Než začneme knihovnu <code>httplib2</code> používat, musíme ji
+nainstalovat. Navštivte stránku <a
+href="http://code.google.com/p/httplib2"
+/><code>code.google.com/p/httplib2/</code></a> a stáhněte poslední
+verzi. <code>httplib2</code> je k dispozici pro Python 2.x a pro
+Python 3.x. Ujistěte se, že jde o verzi pro Python 3. Jmenuje se
+podobně jako <code>httplib2-python3-0.5.0.zip</code>. (V době překladu
+už to bylo jinak: <code>httplib2-0.6.0.zip</code>; uvnitř jsou obě
+verze.) <p>Rozbalte archiv, otevřete terminálové okno a přejděte do
+nově vytvořeného adresáře <code>httplib2</code>. Pod Windows otevřete
+menu <code>Start</code>, vyberte <code>Run...</code>, napište
+<kbd>cmd.exe</kbd> a stiskněte <kbd>ENTER</kbd>. <pre class=screen>
+<samp class="p">c:\Users\pilgrim\Downloads&gt; </samp><kbd><mark>dir</mark></kbd>
+<samp> Volume in drive C has no label.
+ Volume Serial Number is DED5-B4F8
+
+ Directory of c:\Users\pilgrim\Downloads
+
+07/28/2009  12:36 PM    &lt;DIR&gt;          .
+07/28/2009  12:36 PM    &lt;DIR&gt;          ..
+07/28/2009  12:36 PM    &lt;DIR&gt;          httplib2-python3-0.5.0
+07/28/2009  12:33 PM            18,997 httplib2-python3-0.5.0.zip
+               1 File(s)         18,997 bytes
+               3 Dir(s)  61,496,684,544 bytes free</samp>
+
+<samp class="p">c:\Users\pilgrim\Downloads&gt; </samp><kbd><mark>cd httplib2-python3-0.5.0</mark></kbd>
+<samp class="p">c:\Users\pilgrim\Downloads\httplib2-python3-0.5.0&gt; </samp><kbd><mark>c:\python31\python.exe setup.py install</mark></kbd>
+<samp>running install
+running build
+running build_py
+running install_lib
+creating c:\python31\Lib\site-packages\httplib2
+copying build\lib\httplib2\iri2uri.py -&gt; c:\python31\Lib\site-packages\httplib2
+copying build\lib\httplib2\__init__.py -&gt; c:\python31\Lib\site-packages\httplib2
+byte-compiling c:\python31\Lib\site-packages\httplib2\iri2uri.py to iri2uri.pyc
+byte-compiling c:\python31\Lib\site-packages\httplib2\__init__.py to __init__.pyc
+running install_egg_info
+Writing c:\python31\Lib\site-packages\httplib2-python3_0.5.0-py3.1.egg-info</samp></pre>
+
+<p>V Mac OS X spusťte aplikaci <code>Terminal.app</code>, kterou
+najdete ve složce <code>/Applications/Utilities/</code>. V Linuxu
+spusťte aplikaci <code>Terminal</code>, kterou obvykle najdete v menu
+<code>Applications</code> pod <code>Accessories</code> nebo
+<code>System</code>. <pre class='screen cmdline'>
+<samp class="p">you@localhost:~/Desktop$ </samp><kbd><mark>unzip httplib2-python3-0.5.0.zip</mark></kbd>
+<samp>Archive:  httplib2-python3-0.5.0.zip
+  inflating: httplib2-python3-0.5.0/README
+  inflating: httplib2-python3-0.5.0/setup.py
+  inflating: httplib2-python3-0.5.0/PKG-INFO
+  inflating: httplib2-python3-0.5.0/httplib2/__init__.py
+  inflating: httplib2-python3-0.5.0/httplib2/iri2uri.py</samp>
+<samp class="p">you@localhost:~/Desktop$ </samp><kbd><mark>cd httplib2-python3-0.5.0/</mark></kbd>
+<samp class="p">you@localhost:~/Desktop/httplib2-python3-0.5.0$ </samp><kbd><mark>sudo python3 setup.py install</mark></kbd>
+<samp>running install
+running build
+running build_py
+creating build
+creating build/lib.linux-x86_64-3.1
+creating build/lib.linux-x86_64-3.1/httplib2
+copying httplib2/iri2uri.py -&gt; build/lib.linux-x86_64-3.1/httplib2
+copying httplib2/__init__.py -&gt; build/lib.linux-x86_64-3.1/httplib2
+running install_lib
+creating /usr/local/lib/python3.1/dist-packages/httplib2
+copying build/lib.linux-x86_64-3.1/httplib2/iri2uri.py -&gt; /usr/local/lib/python3.1/dist-packages/httplib2
+copying build/lib.linux-x86_64-3.1/httplib2/__init__.py -&gt; /usr/local/lib/python3.1/dist-packages/httplib2
+byte-compiling /usr/local/lib/python3.1/dist-packages/httplib2/iri2uri.py to iri2uri.pyc
+byte-compiling /usr/local/lib/python3.1/dist-packages/httplib2/__init__.py to __init__.pyc
+running install_egg_info
+Writing /usr/local/lib/python3.1/dist-packages/httplib2-python3_0.5.0.egg-info</samp></pre>
+
+<p>Abychom mohli <code>httplib2</code> používat, vytvoříme instanci
+třídy <code>httplib2.Http</code>. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import httplib2</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">h = httplib2.Http('.cache')</kbd>                                                    <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response, content = h.request('http://diveintopython3.org/examples/feed.xml')</kbd>  <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response.status</kbd>                                                                <span class="u">③</span></a>
+<samp class="pp">200</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">content[:52]</kbd>                                                                   <span class="u">④</span></a>
+<samp class="pp">b"&lt;?xml version='1.0' encoding='utf-8'?&gt;\r\n&lt;feed xmlns="</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(content)</kbd>
+<samp class="pp">3070</samp></pre>
+<ol>
+<li>Primárním rozhraním k <code>httplib2</code> je objekt třídy <code>Http</code>. Z důvodů, které si ukážeme v další podkapitole, bychom při vytváření objektu třídy <code>Http</code> měli vždy předávat jméno adresáře. Adresář nemusí existovat. V případě potřeby si jej <code>httplib2</code> vytvoří. <li>Jakmile máme objekt třídy <code>Http</code> k dispozici, můžeme data získat jednoduše tím, že zavoláme metodu <code>request()</code> a předáme jí adresu dat. Pro dané <abbr>URL</abbr> se tím vytvoří požadavek <abbr>HTTP</abbr> <code>GET</code>. (Později v této kapitole si ukážeme, jak můžeme vytvořit jiné <abbr>HTTP</abbr> požadavky, jako například <code>POST</code>.) <li>Metoda <code>request()</code> vrací dvě hodnoty. První hodnotou je objekt třídy <code>httplib2.Response</code>, který obsahuje všechny <abbr>HTTP</abbr> hlavičky vrácené serverem. Například hodnota stavového kódu (<code>status</code>) <code>200</code> indikuje, že byl dotaz proveden úspěšně. <li>Proměnná <var>content</var> obsahuje data, která <abbr>HTTP</abbr> server vrátil. Data se vracejí jako <a href="strings.html#byte-arrays">objekt typu <code>bytes</code>, nikoliv jako řetězec</a>. Pokud z toho chceme udělat řetězec, musíme <a href="http://feedparser.org/docs/character-encoding.html">zjistit znakové kódování</a> a převést si je sami.
+</ol>
+
+<blockquote class=note>
+<p><span class="u">☞</span>Pravděpodobně budete potřebovat jen jeden
+objekt třídy <code>httplib2.Http</code>. Existují rozumné důvody pro
+vytváření více než jednoho objektu, ale měli byste to dělat jen v
+případě, kdy víte, proč je potřebujete. „Potřebuji získávat data ze
+dvou různých <abbr>URL</abbr>“ takovým důvodem není. Použijte objekt
+třídy <code>Http</code> znovu — prostě zavolejte metodu
+<code>request()</code> dvakrát.
+</blockquote>
+
+<h3 id=why-bytes>Krátká odbočka vysvětlující, proč <code>httplib2</code> vrací bajty místo řetězců</h3>
+
+<p>Bajty. Řetězce. To je bolest. Proč <code>httplib2</code> nemůže
+„jednoduše“ provést konverzi za nás? No, ono je to komplikované,
+protože pravidla pro zjištění znakového kódování jsou specifická v
+závislosti na tom, jaký zdroj (resource) požadujeme. Jak by mohla
+<code>httplib2</code> vědět, jaký druh zdroje požadujeme? Obvykle bývá
+uveden v <abbr>HTTP</abbr> hlavičce <code>Content-Type</code>, ale
+tato hlavička je v <abbr>HTTP</abbr> nepovinná a ne všechny
+<abbr>HTTP</abbr> servery ji vkládají. Pokud tato hlavička není
+součástí <abbr>HTTP</abbr> odpovědi, ponechává se odhad na klientovi.
+(Říká se tomu anglicky „content sniffing“ čili „čmuchání v obsahu“.
+Výsledek není nikdy perfektní.) <p>Pokud víme, jaký druh dat očekáváme
+(v našem případě <abbr>XML</abbr> dokument), mohli bychom „jednoduše“
+předat objekt typu <code>bytes</code> <a
+href="xml.html#xml-parse">funkci
+<code>xml.etree.ElementTree.parse()</code></a>. To by fungovalo, kdyby
+<abbr>XML</abbr> dokument obsahoval informaci o svém vlastním kódování
+znaků (jako je tomu v tomto případě). Ale jde o nepovinný údaj a ne
+všechny <abbr>XML</abbr> dokumenty ho používají. Pokud
+<abbr>XML</abbr> dokument informaci o kódování neobsahuje, měl by se
+klient podívat na transportní obálku&nbsp;—&nbsp;tj. na
+<abbr>HTTP</abbr> hlavičku <code>Content-Type</code>, která by mohla
+parametr <code>charset</code> obsahovat. <p class=ss><a
+style="border:0" href="http://www.cafepress.com/feedparser"><img
+src="http://feedparser.org/img/feedparser.jpg" alt="[Tričko podporuji
+RFC 3023]" width="150" height="150" /></a>
+
+<p>Ale ono je to ještě horší. Teď už může být informace o kódování
+uvedena na dvou místech: uvnitř samotného <abbr>XML</abbr>dokumentu a
+uvnitř <abbr>HTTP</abbr> hlavičky <code>Content-Type</code>. Jenže
+když je tato informace uvedena <em>na obou</em> místech, které z nich
+vyhraje? Podle <a href="http://www.ietf.org/rfc/rfc3023.txt">RFC
+3023</a> platí (a přísahám, to jsem si nevymyslel): pokud je v
+<abbr>HTTP</abbr> hlavičce <code>Content-Type</code> uveden typ média
+<code>application/xml</code>, <code>application/xml-dtd</code>,
+<code>application/xml-external-parsed-entity</code> nebo libovolný z
+podtypů <code>application/xml</code>, jako je
+<code>application/atom+xml</code> nebo
+<code>application/rss+xml</code> nebo dokonce
+<code>application/rdf+xml</code>, pak je kódování rovno <ol>
+<li>kódování zadanému parametrem <code>charset</code> v <abbr>HTTP</abbr> hlavičce <code>Content-Type</code> nebo <li>kódování zadanému atributem <code>encoding</code> v <abbr>XML</abbr> deklaraci uvnitř dokumentu nebo <li><abbr>UTF-8</abbr>
+</ol>
+
+<p>Na druhou stranu, pokud je v <abbr>HTTP</abbr> hlavičce
+<code>Content-Type</code> uveden typ média <code>text/xml</code>,
+<code>text/xml-external-parsed-entity</code> nebo podtyp jako
+<code>text/AnythingAtAll+xml</code>, pak se atribut uvádějící kódování
+v <abbr>XML</abbr> deklaraci uvnitř dokumentu zcela ignoruje a
+kódování je rovno <ol>
+<li>kódování zadanému parametrem charset v <abbr>HTTP</abbr> hlavičce <code>Content-Type</code> nebo <li><code>us-ascii</code>
+</ol>
+
+<p>A to se bavíme jen o <abbr>XML</abbr> dokumentech. Pro
+<abbr>HTML</abbr> dokumenty vytvořily webové prohlížeče taková <a
+type="application/pdf"
+href="http://www.adambarth.com/papers/2009/barth-caballero-song.pdf">byzantská
+pravidla pro zjišťování obsahu (content-sniffing)</a>
+[<abbr>PDF</abbr>], že se <a
+href="http://www.google.com/search?q=barth+content-type+processing+model">stále
+ještě snažíme všechna zjistit</a>. <p>„<a
+href="http://code.google.com/p/httplib2/source/checkout">Opravy jsou
+vítány</a>.“ <h3 id=httplib2-caching>Jak <code>httplib2</code> zachází
+s mezipamětí</h3>
+
+<p>Vzpomínáte si, že jsem vás v předchozí podkapitole nabádal, abyste
+vždy vytvářeli objekt třídy <code>httplib2.Http</code> se zadaným
+jménem adresáře? Důvod se jmenuje mezipaměť (cache). <pre
+class=screen>
+# pokračování z <a href="#introducing-httplib2">předchozího příkladu</a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response2, content2 = h.request('http://diveintopython3.org/examples/feed.xml')</kbd>  <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response2.status</kbd>                                                                 <span class="u">②</span></a>
+<samp class="pp">200</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">content2[:52]</kbd>                                                                    <span class="u">③</span></a>
+<samp class="pp">b"&lt;?xml version='1.0' encoding='utf-8'?&gt;\r\n&lt;feed xmlns="</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(content2)</kbd>
+<samp class="pp">3070</samp></pre>
+<ol>
+<li>Tohle by vás nemělo moc překvapit. Stejnou věc už jsme dělali naposledy s tou výjimkou, že výsledek ukládáme do dvou nových proměnných. <li><abbr>HTTP</abbr> opět vrací stavový kód (<code>status</code>) <code>200</code>, jako minule. <li>Stažený obsah je také stejný jako minule.
+</ol>
+
+<p>Takže... koho to zajímá? Ukončete pythonovský interaktivní shell a
+spusťte nové sezení. Hned vám to ukážu. <pre class=screen>
+# toto NENÍ pokračování z předchozího příkladu!
+# Ukončete, prosím, interaktivní shell
+# a spusťte nový.
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import httplib2</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">httplib2.debuglevel = 1</kbd>                                                        <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">h = httplib2.Http('.cache')</kbd>                                                    <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response, content = h.request('http://diveintopython3.org/examples/feed.xml')</kbd>  <span class="u">③</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(content)</kbd>                                                                   <span class="u">④</span></a>
+<samp class="pp">3070</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response.status</kbd>                                                                <span class="u">⑤</span></a>
+<samp class="pp">200</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response.fromcache</kbd>                                                             <span class="u">⑥</span></a>
+<samp class="pp">True</samp></pre>
+<ol>
+<li>Zapněme ladění a podívejme se, <a href="#whats-on-the-wire">co nám lítá po drátech</a>. Takto se v <code>httplib2</code> zapíná ladicí režim (srovnejte se zapínáním v <code>http.client</code>). <code>httplib2</code> vytiskne všechna data, která se posílají na server, a některé klíčové informace, které se posílají zpět. <li>Vytvoříme objekt třídy <code>httplib2.Http</code> se stejným jménem adresáře jako minule. <li>Vyžádáme si stejné <abbr>URL</abbr> jako minule. <em>Zdá se, že se nic nestalo.</em> Přesněji řečeno, nic se neposílá na server a ze serveru se nic nevrací. Na síti nepozorujeme vůbec žádnou aktivitu. <li>Přesto jsme nějaká data „přijali“&nbsp;—&nbsp;ve skutečnosti jsme dostali všechno. <li>A „přijali“ jsme také stavový kód protokolu <abbr>HTTP</abbr>, který říká, že „požadavek“ byl úspěšný. <li>Tady je důvod: „odpověď“ byla vygenerována z lokální mezipaměti <code>httplib2</code>. Adresář, jehož jméno jsme zadávali při vytváření objektu třídy <code>httplib2.Http</code>, slouží knihovně <code>httplib2</code> jako mezipaměť (cache) pro všechny operace, které se kdy provedly.
+</ol>
+
+<aside>Co se děje na drátě? Vůbec nic.</aside>
+
+<blockquote class=note>
+<p><span class="u">☞</span>Pokud chcete v <code>httplib2</code>
+zapnout ladicí režim, musíte nastavit konstantu na úrovni modulu
+(<code>httplib2.debuglevel</code>) a potom vytvořit nový objekt třídy
+<code>httplib2.Http</code>. Pokud chcete ladicí režim vypnout, musíte
+změnit tutéž konstantu na úrovni modulu a potom vytvořit nový objekt
+třídy <code>httplib2.Http</code>.
+</blockquote>
+
+<p>Minule jsme požadovali data z konkrétního <abbr>URL</abbr>.
+Požadavek byl úspěšný (<code>status: 200</code>). Odpověď zahrnovala
+nejen data publikovaného obsahu, ale také množinu <a
+href="#caching">hlaviček pro mezipaměť</a> (caching headers). Ty
+každému příjemci říkají, že si tento zdroj může pamatovat po dobu až
+24 hodin (<code>Cache-Control: max-age=86400</code>, což je 24 hodin v
+sekundách). <code>httplib2</code> hlavičkám pro mezipaměť rozumí a
+respektuje je. Předchozí odpověď byla uložena do adresáře
+<code>.cache</code> (jehož jméno jsme zadali při vytváření objektu
+třídy <code>Http</code>). Platnost obsahu mezipaměti zatím nevypršela,
+takže když data ze stejného <abbr>URL</abbr> požadujeme podruhé,
+<code>httplib2</code> jednoduše vrátí zapamatovaný výsledek, aniž by
+došlo ke komunikaci po síti. <p>Říkám „jednoduše“, ale za touto
+jednoduchostí je evidentně skryto hodně složitostí. Knihovna
+<code>httplib2</code> zvládá používání mezipaměti v <abbr>HTTP</abbr>
+<em>automaticky</em> a <em>aniž se o to musíme starat</em>. Pokud z
+nějakého důvodu potřebujeme vědět, zda odpověď přichází z mezipaměti,
+můžeme zkontrolovat <code>response.fromcache</code>. Z jiného
+pohledu... prostě to funguje. <p id=bypass-the-cache>Dejme tomu, že
+teď máme data v mezipaměti, ale chceme ji obejít a znovu si je vyžádat
+od vzdáleného serveru. Prohlížeče to někdy dělají, když si to uživatel
+vyžádá. Například stisk <kbd>F5</kbd> obnoví aktuální stránku, ale
+stiskem <kbd>Ctrl+F5</kbd> se obejde mezipaměť a aktuální stránka se
+znovu vyžádá ze vzdáleného serveru. Možná si myslíte „aha, prostě
+smažu data ze své lokální mezipaměti a provedu požadavek znovu“. Tohle
+byste udělat mohli. Ale vzpomeňte si, že se to může týkat více stran
+než jen vás a vzdáleného serveru. Což takhle mezilehlé proxy-servery?
+Ty jsou zcela mimo vaši kontrolu a pořád mohou uchovávat ona data ve
+své mezipaměti. A s radostí vám je vrátí, protože obsah jejich
+mezipaměti je (z jejich pohledu) stále platný. <p>Takže místo toho,
+abyste manipulovali s lokální mezipamětí a doufali v nejlepší, měli
+byste využít vlastností <abbr>HTTP</abbr> k zajištění toho, že se váš
+požadavek skutečně dostal až ke vzdálenému serveru. <pre class=screen>
+# pokračování předchozího příkladu
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response2, content2 = h.request('http://diveintopython3.org/examples/feed.xml',</kbd>
+<a><samp class="p">... </samp><kbd class="pp">    headers={'cache-control':'no-cache'})</kbd>  <span class="u">①</span></a>
+<samp><a>connect: (diveintopython3.org, 80)             <span class="u">②</span></a>
+send: b'GET /examples/feed.xml HTTP/1.1
+Host: diveintopython3.org
+user-agent: Python-httplib2/$Rev: 259 $
+accept-encoding: deflate, gzip
+cache-control: no-cache'
+reply: 'HTTP/1.1 200 OK'
+…další ladicí informace vypuštěny…</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response2.status</kbd>
+<samp class="pp">200</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response2.fromcache</kbd>                        <span class="u">③</span></a>
+<samp class="pp">False</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(dict(response2.items()))</kbd>             <span class="u">④</span></a>
+<samp class="pp">{'status': '200',
+ 'content-length': '3070',
+ 'content-location': 'http://diveintopython3.org/examples/feed.xml',
+ 'accept-ranges': 'bytes',
+ 'expires': 'Wed, 03 Jun 2009 00:40:26 GMT',
+ 'vary': 'Accept-Encoding',
+ 'server': 'Apache',
+ 'last-modified': 'Sun, 31 May 2009 22:51:11 GMT',
+ 'connection': 'close',
+ '-content-encoding': 'gzip',
+ 'etag': '"bfe-255ef5c0"',
+ 'cache-control': 'max-age=86400',
+ 'date': 'Tue, 02 Jun 2009 00:40:26 GMT',
+ 'content-type': 'application/xml'}</samp></pre>
+<ol>
+<li><code>httplib2</code> vám umožní přidat k jakémukoliv odcházejícímu požadavku libovolné <abbr>HTTP</abbr> hlavičky. Abychom obešli <em>všechny</em> mezipaměti (nejen lokální diskovou, ale také mezipaměťové proxy-servery mezi námi a vzdáleným serverem), přidáme do slovníku <var>headers</var> hlavičku <code>no-cache</code>. <li>Teď vidíme, že <code>httplib2</code> zahajuje síťový požadavek. <code>httplib2</code> rozumí hlavičkám pro mezipaměť a respektuje je <em>v obou směrech</em>&nbsp;—&nbsp;jako součást přicházející odpovědi <em>i jako součást odcházejícího požadavku</em>. Knihovna si všimla, že jsme přidali hlavičku <code>no-cache</code>, takže úplně obešla své lokální mezipaměti. Potom ale nemá na výběr a musí odeslat požadavek na data do sítě. <li>Tato odpověď <em>nebyla</em> generovaná z naší lokální mezipaměti. To samozřejmě víme, protože jsme viděli ladicí informaci týkající se odcházejícího požadavku. Ale je dobré, že si to můžeme ověřit v programu. <li>Požadavek byl úspěšný. Opět jsme ze vzdáleného serveru stáhli celý publikovaný obsah (feed). Server samozřejmě poslal zpět s požadovanými daty (feed) i celou sadu <abbr>HTTP</abbr> hlaviček. Jsou mezi nimi i hlavičky pro mezipaměť, které <code>httplib2</code> použije pro aktualizaci své lokální mezipaměti v naději, že se při <em>příštím</em> požadavku na stejná data bude moci vyhnout přístupu na síť. Návrh používání mezipamětí v <abbr>HTTP</abbr> je zcela podřízen maximalizaci úspěšnosti mezipamětí (cache hit) a minimalizaci přístupu k síti. I když jsme tentokrát mezipaměti obešli, vzdálený server by opravdu ocenil, kdybychom si výsledek do mezipaměti uložili — s ohledem na příští možný dotaz.
+</ol>
+
+<h3 id=httplib2-etags>Jak <code>httplib2</code> zachází s hlavičkami <code>Last-Modified</code> a <code>ETag</code></h3>
+
+<p><a href="#caching">Hlavičky mezipaměti</a>
+<code>Cache-Control</code> a <code>Expires</code> se nazývají
+<i>indikátory čerstvosti</i> (freshness indicators). Říkají
+mezipamětem jasným způsobem, že se do vypršení platnosti obsahu
+mezipaměti můžeme zcela vyhnout přístupu k síti. Přesně takové chování
+jsme viděli <a href="#httplib2-caching">v předchozí podkapitole</a>:
+pokud je indikována čerstvost, <code>httplib2</code> při vrácení dat z
+mezipaměti <em>negeneruje ani bajt síťové aktivity</em> (pokud ovšem
+explicitně nepředepíšeme <a href="#bypass-the-cache">obejití
+mezipaměti</a>). <p>Ale jak to bude vypadat v případě, kdy se data
+<em>mohla</em> změnit, ale přitom se nezměnila? Pro tento účel
+<abbr>HTTP</abbr> definuje hlavičky <a
+href="#last-modified"><code>Last-Modified</code></a> a <a
+href="#etags"><code>Etag</code></a>. Těmto hlavičkám se říká
+<i>validátory</i>. Pokud už lokální mezipaměť není čerstvá, může
+klient s dalším dotazem zaslat validátory, aby si ověřil, zda se data
+skutečně změnila. Pokud se data nezměnila, server pošle zpět stavový
+kód <code>304</code> <em>a žádná data</em>. Takže tu sice stále
+dochází ke vzájemné komunikaci po síti, ale výsledkem je stahování
+menšího množství bajtů. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import httplib2</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">httplib2.debuglevel = 1</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">h = httplib2.Http('.cache')</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response, content = h.request('http://diveintopython3.org/')</kbd>  <span class="u">①</span></a>
+<samp>connect: (diveintopython3.org, 80)
+send: b'GET / HTTP/1.1
+Host: diveintopython3.org
+accept-encoding: deflate, gzip
+user-agent: Python-httplib2/$Rev: 259 $'
+reply: 'HTTP/1.1 200 OK'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(dict(response.items()))</kbd>                                 <span class="u">②</span></a>
+<samp class="pp">{'-content-encoding': 'gzip',
+ 'accept-ranges': 'bytes',
+ 'connection': 'close',
+ 'content-length': '6657',
+ 'content-location': 'http://diveintopython3.org/',
+ 'content-type': 'text/html',
+ 'date': 'Tue, 02 Jun 2009 03:26:54 GMT',
+<mark> 'etag': '"7f806d-1a01-9fb97900"',</mark>
+<mark> 'last-modified': 'Tue, 02 Jun 2009 02:51:48 GMT',</mark>
+ 'server': 'Apache',
+ 'status': '200',
+ 'vary': 'Accept-Encoding,User-Agent'}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(content)</kbd>                                                  <span class="u">③</span></a>
+<samp class="pp">6657</samp></pre>
+<ol>
+<li>Místo publikovaného obsahu (feed) budeme tentokrát stahovat domácí stránku webového místa (home page), která je v <abbr>HTML</abbr>. Protože tuto stránku požadujeme úplně poprvé, nemůže <code>httplib2</code> s požadavkem nic moc udělat a odešle s ním minimum hlaviček. <li>Odpověď obsahuje velké množství <abbr>HTTP</abbr> hlaviček… ale žádné informace pro mezipaměť. Ale obsahuje jak hlavičku <code>ETag</code>, tak hlavičku <code>Last-Modified</code>. <li>V době vytváření příkladu měla stránka 6657 bajtů. Od té doby už se pravděpodobně změnila, ale tím se nebudeme zatěžovat.
+</ol>
+
+<pre class=screen>
+# pokračování z předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response, content = h.request('http://diveintopython3.org/')</kbd>  <span class="u">①</span></a>
+<samp>connect: (diveintopython3.org, 80)
+send: b'GET / HTTP/1.1
+Host: diveintopython3.org
+<a>if-none-match: "7f806d-1a01-9fb97900"                             <span class="u">②</span></a>
+<a>if-modified-since: Tue, 02 Jun 2009 02:51:48 GMT                  <span class="u">③</span></a>
+accept-encoding: deflate, gzip
+user-agent: Python-httplib2/$Rev: 259 $'
+<a>reply: 'HTTP/1.1 304 Not Modified'                                <span class="u">④</span></a></samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response.fromcache</kbd>                                            <span class="u">⑤</span></a>
+<samp class="pp">True</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response.status</kbd>                                               <span class="u">⑥</span></a>
+<samp class="pp">200</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response.dict['status']</kbd>                                       <span class="u">⑦</span></a>
+<samp class="pp">'304'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(content)</kbd>                                                  <span class="u">⑧</span></a>
+<samp class="pp">6657</samp></pre>
+<ol>
+<li>O stejnou stránku jsme požádali znovu, prostřednictvím stejného objektu třídy <code>Http</code> (a se stejnou lokální mezipamětí). <li><code>httplib2</code> pošle serveru zpět validátor <code>ETag</code> jako obsah hlavičky <code>If-None-Match</code>. <li><code>httplib2</code> pošle zpět serveru také validátor <code>Last-Modified</code> jako hodnotu hlavičky <code>If-Modified-Since</code>. <li>Server se podívá na zaslané validátory, podívá se na požadovanou stránku a zjistí, že se stránka od posledního požadavku nezměnila. Proto pošle zpět stavový kód <code>304</code> <em>a žádná data</em>. <li>A zpět ke klientovi. <code>httplib2</code> obdrží stavový kód <code>304</code> a načte obsah stránky ze své mezipaměti. <li>Tohle může být trošku matoucí. Ve skutečnosti tu máme <em>dva</em> stavové kódy&nbsp;—&nbsp;<code>304</code> (který vrátil server teď a který způsobil, že <code>httplib2</code> použije svou mezipaměť) a <code>200</code> (který vrátil server <em>minule</em> a který je spolu s daty uložen v mezipaměti pro <code>httplib2</code>). <code>response.status</code> vrací stavový kód odpovědi z mezipaměti. <li>Pokud chceme zjistit surový stavový kód vrácený serverem, můžeme jej zjistit nahlédnutím do <code>response.dict</code>, což je slovník aktuálních hlaviček vrácených serverem. <li>Ať je to jakkoliv, data opět získáte v proměnné <var>content</var>. Obecně vzato, nepotřebujeme vědět, proč byl požadavek obsloužen z mezipaměti. (Dokonce nás nemusí vůbec zajímat, že byl obsloužen z mezipaměti. To je v pořádku. Knihovna <code>httplib2</code> je dost chytrá na to, abychom si mohli hrát na hlupáky.) V tomto okamžiku už metoda <code>request()</code> vrátila řízení volajícímu kódu. <code>httplib2</code> už aktualizovala svou mezipaměť a vrátila nám data.
+</ol>
+
+<h3 id=httplib2-compression>Jak <code>http2lib</code> pracuje s kompresí</h3>
+
+<aside>“We have both kinds of music, country AND western.”<br />(Máme oba druhy hudby, country i western.)</aside>
+
+<p><abbr>HTTP</abbr> podporuje <a href="#compression">několik typů
+komprese</a>. Dva nejpoužívanější typy jsou gzip a deflate.
+<code>httplib2</code> podporuje oba. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response, content = h.request('http://diveintopython3.org/')</kbd>
+<samp>connect: (diveintopython3.org, 80)
+send: b'GET / HTTP/1.1
+Host: diveintopython3.org
+<a>accept-encoding: deflate, gzip                          <span class="u">①</span></a>
+user-agent: Python-httplib2/$Rev: 259 $'
+reply: 'HTTP/1.1 200 OK'</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(dict(response.items()))</kbd>
+<samp class="pp"><a>{'-content-encoding': 'gzip',                           <span class="u">②</span></a>
+ 'accept-ranges': 'bytes',
+ 'connection': 'close',
+ 'content-length': '6657',
+ 'content-location': 'http://diveintopython3.org/',
+ 'content-type': 'text/html',
+ 'date': 'Tue, 02 Jun 2009 03:26:54 GMT',
+ 'etag': '"7f806d-1a01-9fb97900"',
+ 'last-modified': 'Tue, 02 Jun 2009 02:51:48 GMT',
+ 'server': 'Apache',
+ 'status': '304',
+ 'vary': 'Accept-Encoding,User-Agent'}</samp></pre>
+<ol>
+<li>Pokaždé když <code>httplib2</code> odešle požadavek, vloží do něj hlavičku <code>Accept-Encoding</code>, kterou serveru oznámí, že zvládá jak kompresi <code>deflate</code>, tak <code>gzip</code>. <li>V tomto případě server odpověděl daty komprimovanými algoritmem gzip. V tomto okamžiku metoda <code>request()</code> vrací řízení, <code>httplib2</code> dekomprimovala (rozbalila) tělo odpovědi a umístila je do proměnné <var>content</var>. Pokud jste zvědaví, jestli odpověď přišla komprimovaná, můžete zkontrolovat <var>response['-content-encoding']</var>. Ale jinak si s tím nemusíte dělat starosti.
+</ol>
+
+<h3 id=httplib2-redirects>Jak <code>httplib2</code> řeší přesměrování</h3>
+
+<p><abbr>HTTP</abbr> definuje <a href="#redirects">dva druhy
+přesměrování</a>: dočasné a trvalé. U dočasných přesměrování se nedělá
+nic zvláštního až na to, že se mají následovat (follow), což
+<code>httplib2</code> provede automaticky. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import httplib2</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">httplib2.debuglevel = 1</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">h = httplib2.Http('.cache')</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response, content = h.request('http://diveintopython3.org/examples/feed-302.xml')</kbd>  <span class="u">①</span></a>
+<samp>connect: (diveintopython3.org, 80)
+<a>send: b'GET /examples/feed-302.xml HTTP/1.1                                            <span class="u">②</span></a>
+Host: diveintopython3.org
+accept-encoding: deflate, gzip
+user-agent: Python-httplib2/$Rev: 259 $'
+<a>reply: 'HTTP/1.1 302 Found'                                                            <span class="u">③</span></a>
+<a>send: b'GET /examples/feed.xml HTTP/1.1                                                <span class="u">④</span></a>
+Host: diveintopython3.org
+accept-encoding: deflate, gzip
+user-agent: Python-httplib2/$Rev: 259 $'
+reply: 'HTTP/1.1 200 OK'</samp></pre>
+<ol>
+<li>Na tomto <abbr>URL</abbr> není žádný publikovaný obsah. Nastavil jsem svůj server, aby signalizoval dočasné přesměrování na správnou adresu. <li>Tady je náš požadavek. <li>A tady je odpověď: <code>302 Found</code>. I když se to zde nezobrazuje, odpověď obsahuje také hlavičku <code>Location</code>, která ukazuje na skutečné <abbr>URL</abbr>. <li><code>httplib2</code> se ihned otočí a „následuje“ přesměrování vydáním dalšího požadavku na <abbr>URL</abbr>, které je uvedeno v hlavičce <code>Location</code>: <code>http://diveintopython3.org/examples/feed.xml</code>
+</ol>
+
+<p>„Následování“ přesměrování není nic jiného, než co ukazuje tento
+příklad. <code>httplib2</code> pošle požadavek pro <abbr>URL</abbr>,
+které jsme požadovali. Server odvětí odpovědí, která říká: „Ne ne.
+Místo toho se podívejte támhle.“ <code>httplib2</code> odešle další
+požadavek pro nové <abbr>URL</abbr>. <pre class=screen>
+# pokračování z předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response</kbd>                                                          <span class="u">①</span></a>
+<samp class="pp">{'status': '200',
+ 'content-length': '3070',
+<a> 'content-location': 'http://diveintopython3.org/examples/feed.xml',  <span class="u">②</span></a>
+ 'accept-ranges': 'bytes',
+ 'expires': 'Thu, 04 Jun 2009 02:21:41 GMT',
+ 'vary': 'Accept-Encoding',
+ 'server': 'Apache',
+ 'last-modified': 'Wed, 03 Jun 2009 02:20:15 GMT',
+ 'connection': 'close',
+<a> '-content-encoding': 'gzip',                                         <span class="u">③</span></a>
+ 'etag': '"bfe-4cbbf5c0"',
+<a> 'cache-control': 'max-age=86400',                                    <span class="u">④</span></a>
+ 'date': 'Wed, 03 Jun 2009 02:21:41 GMT',
+ 'content-type': 'application/xml'}</samp></pre>
+<ol>
+<li>Odpověď (<var>response</var>), kterou jste obdrželi z jediného volání metody <code>request()</code>, je odpovědí z konečného <abbr>URL</abbr>. <li><code>httplib2</code> přidá konečné <abbr>URL</abbr> do slovníku <var>response</var> jako <code>content-location</code>. Nejde o hlavičku, která by přišla ze serveru. Je to záležitost specifická pro <code>httplib2</code>. <li>Jen abych nezapomněl, tento feed je <a href="#httplib2-compression">komprimovaný</a>. <li>A uchovatelný v mezipaměti (cacheable). (To je důležité — jak uvidíme za minutku.)
+</ol>
+
+<p>Slovník <var>response</var>, který se nám vrátí, poskytuje
+informace <em>o konečném</em> <abbr>URL</abbr>. A co když chceme
+informace o přechodných <abbr>URL</abbr>, tedy o těch, která byla
+přesměrována na konečné <abbr>URL</abbr>? <code>httplib2</code> nám
+umožní i to. <pre class=screen>
+# pokračování z předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response.previous</kbd>                                                     <span class="u">①</span></a>
+<samp class="pp">{'status': '302',
+ 'content-length': '228',
+ 'content-location': 'http://diveintopython3.org/examples/feed-302.xml',
+ 'expires': 'Thu, 04 Jun 2009 02:21:41 GMT',
+ 'server': 'Apache',
+ 'connection': 'close',
+ 'location': 'http://diveintopython3.org/examples/feed.xml',
+ 'cache-control': 'max-age=86400',
+ 'date': 'Wed, 03 Jun 2009 02:21:41 GMT',
+ 'content-type': 'text/html; charset=iso-8859-1'}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(response)</kbd>                                                        <span class="u">②</span></a>
+<samp class="pp">&lt;class 'httplib2.Response'&gt;</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(response.previous)</kbd>
+<samp class="pp">&lt;class 'httplib2.Response'&gt;</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response.previous.previous</kbd>                                            <span class="u">③</span></a>
+<samp class="p">&gt;&gt;&gt;</samp></pre>
+<ol>
+<li>Atribut <var>response.previous</var> uchovává referenci na předchozí objekt odpovědi, který <code>httplib2</code> následovala, aby získala současný objekt odpovědi. <li>Jak <var>response</var>, tak <var>response.previous</var> jsou objekty třídy <code>httplib2.Response</code>. <li>To znamená, že můžeme řetězec přesměrování sledovat zpětně ještě dál kontrolou <var>response.previous.previous</var>. (Scénář: jedno <abbr>URL</abbr> je přesměrováno na druhé <abbr>URL</abbr>, které je přesměrováno na třetí <abbr>URL</abbr>. To se opravdu může stát!) V tomto případě už jsme dosáhli začátku řetězce přesměrování, takže atribut má hodnotu <code>None</code>.
+</ol>
+
+<p>Co se stane, když si vyžádáme stejné <abbr>URL</abbr> znovu? <pre
+class=screen>
+# pokračování z předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response2, content2 = h.request('http://diveintopython3.org/examples/feed-302.xml')</kbd>  <span class="u">①</span></a>
+<samp>connect: (diveintopython3.org, 80)
+<a>send: b'GET /examples/feed-302.xml HTTP/1.1                                              <span class="u">②</span></a>
+Host: diveintopython3.org
+accept-encoding: deflate, gzip
+user-agent: Python-httplib2/$Rev: 259 $'
+<a>reply: 'HTTP/1.1 302 Found'                                                              <span class="u">③</span></a></samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">content2 == content</kbd>                                                                  <span class="u">④</span></a>
+<samp class="pp">True</samp></pre>
+<ol>
+<li>Stejné <abbr>URL</abbr>, stejný objekt třídy <code>httplib2.Http</code> (a tím pádem stejná mezipaměť). <li>Odpověď <code>302</code> nebyla v mezipaměti, takže <code>httplib2</code> pošle pro stejné <abbr>URL</abbr> další požadavek. <li>A ještě jednou, server odpovídá kódem <code>302</code>. Ale všimněte si, co se <em>nestalo</em>: chybí druhý dotaz na konečné <abbr>URL</abbr>, <code>http://diveintopython3.org/examples/feed.xml</code>. Tato odpověď byla v mezipaměti (vzpomeňte si na hlavičku <code>Cache-Control</code>, kterou jsme viděli v předchozím příkladu). Jakmile <code>httplib2</code> obdržela kód <code>302 Found</code>, <em>zkontrolovala si před vydáním dalšího požadavku obsah mezipaměti</em>. Mezipaměť obsahovala čerstvou kopii <code>http://diveintopython3.org/examples/feed.xml</code>, takže nebylo nutné žádat o data znovu. <li>V tomto okamžiku dochází k návratu z metody <code>request()</code>. Přečetla data publikovaného obsahu (feed) z mezipaměti a vrátila je. Jde samozřejmě o stejná data, která jsme obdrželi minule.
+</ol>
+
+<p>Jinými slovy, při dočasném přesměrování nemusíme dělat nic
+zvláštního. <code>httplib2</code> je bude následovat automaticky.
+Skutečnost, že je jedno <abbr>URL</abbr> přesměrováno na jiné, nemá na
+<code>httplib2</code> žádné dopady z hlediska podpory komprese,
+použití mezipaměti, <code>ETag</code>ů nebo jakýchkoliv jiných rysů
+<abbr>HTTP</abbr>. <p>Trvalá přesměrování jsou ve své jednoduchosti
+podobná. <pre class=screen>
+# pokračování z předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response, content = h.request('http://diveintopython3.org/examples/feed-301.xml')</kbd>  <span class="u">①</span></a>
+<samp>connect: (diveintopython3.org, 80)
+send: b'GET /examples/feed-301.xml HTTP/1.1
+Host: diveintopython3.org
+accept-encoding: deflate, gzip
+user-agent: Python-httplib2/$Rev: 259 $'
+<a>reply: 'HTTP/1.1 301 Moved Permanently'                                                <span class="u">②</span></a></samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response.fromcache</kbd>                                                                 <span class="u">③</span></a>
+<samp class="pp">True</samp></pre>
+<ol>
+<li>Ještě jednou. Toto <abbr>URL</abbr> ve skutečnosti neexistuje. Nastavil jsem svůj server, aby produkoval trvalé přesměrování na <code>http://diveintopython3.org/examples/feed.xml</code>. <li>A tady to máme: stavový kód <code>301</code>. Ale znovu si všimněte, co se <em>nestalo</em>: neobjevil se žádný požadavek na přesměrované <abbr>URL</abbr>. Proč ne? Protože už se nachází v lokální mezipaměti. <li><code>httplib2</code> „následovala“ přesměrování přímo do své mezipaměti.
+</ol>
+
+<p>Ale počkejte! Ono je toho ještě víc! <pre class=screen>
+# pokračování z předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response2, content2 = h.request('http://diveintopython3.org/examples/feed-301.xml')</kbd>  <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">response2.fromcache</kbd>                                                                  <span class="u">②</span></a>
+<samp class="pp">True</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">content2 == content</kbd>                                                                  <span class="u">③</span></a>
+<samp class="pp">True</samp>
+</pre>
+<ol>
+<li>Tady je ten rozdíl mezi dočasným a trvalým přesměrováním: jakmile jednou <code>httplib2</code> následuje trvalé přesměrování, všechny další požadavky se stejným <abbr>URL</abbr> budou transparentně přepsány na cílové <abbr>URL</abbr> <em>aniž se kvůli originálnímu <abbr>URL</abbr> komunikuje po síti</em>. Připomeňme si, že ladicí režim je pořád zapnutý. Přesto nevidíme vůbec žádný výstup síťové aktivity. <li>Ano, tato odpověď byla vytažena z lokální mezipaměti. <li>Ano, dostali jsme celý publikovaný obsah (z mezipaměti).
+</ol>
+
+<p><abbr>HTTP</abbr>. Funguje. <p class=a>⁂ <h2 id=beyond-get>Za
+hranicemi HTTP GET</h2>
+
+<p>Webové služby nad <abbr>HTTP</abbr> se neomezují jen na požadavky
+typu <code>GET</code>. Co kdybychom chtěli vytvořit něco nového?
+Kdykoliv přidáte komentář do diskusního fóra, aktualizujete weblog,
+upravujete svůj stav na mikroblogové službě, jakou je <a
+href="http://twitter.com" />Twitter</a> nebo <a
+href="http://identi.ca" />Identi.ca</a>, používáte pravděpodobně
+<abbr>HTTP</abbr> <code>POST</code>. <p>Jak Twitter, tak Identi.ca
+nabízejí pro zveřejňování a aktualizaci vašeho stavu, popsaného 140
+nebo méně znaky, jednoduché rozhraní založené na <abbr>HTTP</abbr>.
+Podívejme se na dokumentaci aplikačního rozhraní pro aktualizaci
+vašeho stavu <a
+href="http://laconi.ca/trac/wiki/TwitterCompatibleAPI">v systému
+Identi.ca</a>. <blockquote class=pf>
+<p><b>Identi.ca <abbr>REST</abbr> <abbr>API</abbr> Metoda:
+statuses/update</b><br /> Aktualizuje stav autentizovaného uživatele.
+Vyžaduje parametr <code>status</code>, popsaný níže. Požadavek musí
+být typu <code>POST</code>. <dl>
+<dt><abbr>URL</abbr>
+<dd><code>https://identi.ca/api/statuses/update.<i><var>format</var></i></code>
+<dt>Formáty <dd><code>xml</code>, <code>json</code>, <code>rss</code>, <code>atom</code>
+<dt><abbr>HTTP</abbr> metod(y) <dd><code>POST</code>
+<dt>Vyžaduje autentizaci <dd>ano <dt>Parametry <dd><code>status</code>. Povinný. Text aktualizace vašeho stavu. Kódované <abbr>URL</abbr> podle potřeby.
+</dl>
+</blockquote>
+
+<p>Jak to funguje? Když chceme na Identi.ca zveřejnit novou zprávu,
+musíme zaslat požadavek typu <abbr>HTTP</abbr> <code>POST</code> na
+<code>http://identi.ca/api/statuses/update.<i>format</i></code>. (Část
+<var>format</var> nepatří k <abbr>URL</abbr>. Nahrazuje se datovým
+formátem, v jakém nám má server vrátit odpověď na náš požadavek. Takže
+pokud požadujeme odpověď v <abbr>XML</abbr>, musíme zaslat požadavek
+na <code>https://identi.ca/api/statuses/update.xml</code>.) Požadavek
+musí obsahovat parametr nazvaný <code>status</code>, který obsahuje
+text pro aktualizaci našeho stavu. A požadavek musí být autentizován.
+<p>Autentizován? Jistě. Když chceme na Identi.ca aktualizovat svůj
+stav, musíme prokázat svou totožnost. Identi.ca není jako wiki. Svůj
+vlastní stav můžeme aktualizovat jen my. Pro účel bezpečné a snadno
+použitelné autentizace používá Identi.ca <a
+href="http://en.wikipedia.org/wiki/Basic_access_authentication"><abbr>HTTP</abbr>
+Basic Authentication</a> (základní autentizaci; známou také jako <a
+href="http://www.ietf.org/rfc/rfc2617.txt">RFC 2617</a>) přes
+<abbr>SSL</abbr>. <code>httplib2</code> podporuje jak
+<abbr>SSL</abbr>, tak <abbr>HTTP</abbr> Basic Authentication, takže
+tahle část bude snadná. <p>Požadavek <code>POST</code> se od požadavku
+<code>GET</code> liší, protože nese <i>náklad</i>. Nákladem jsou data,
+která chceme poslat na server. Částí dat, kterou toto aplikační
+rozhraní metody <em>vyžaduje</em>, je <code>status</code> (stav) a měl
+by mít podobu <i>kódovaného <abbr>URL</abbr></i>. Je to velmi
+jednoduchý serializační formát. Vstupem je množina dvojic klíč-hodnota
+(tj. <a href="native-datatypes.html#dictionaries">slovník</a>) a
+výsledkem je řetězec. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">from urllib.parse import urlencode</kbd>              <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">data = {'status': 'Test update from Python 3'}</kbd>  <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">urlencode(data)</kbd>                                 <span class="u">③</span></a>
+<samp>'status=Test+update+from+Python+3'</samp></pre>
+<ol>
+<li>V Pythonu pro zakódování slovníku do podoby <abbr>URL</abbr> najdeme pomocnou funkci: <code>urllib.parse.urlencode()</code>. <li>Aplikační rozhraní systému Identi.ca očekává zhruba takovýto slovník. Obsahuje jeden klíč, <code>status</code>, jehož hodnotou je text jedné aktualizace stavu. <li>A takto vypadá řetězec kódovaného <abbr>URL</abbr>. To je <i>náklad</i>, který bude požadavkem <abbr>HTTP</abbr> <code>POST</code> odeslán „po drátě“ na server s aplikačním rozhraním Identi.ca.
+</ol>
+
+<p>
+
+<pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">from urllib.parse import urlencode</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import httplib2</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">httplib2.debuglevel = 1</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">h = httplib2.Http('.cache')</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">data = {'status': 'Test update from Python 3'}</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">h.add_credentials('diveintomark', '<var>MY_SECRET_PASSWORD</var>', 'identi.ca')</kbd>    <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">resp, content = h.request('https://identi.ca/api/statuses/update.xml',</kbd>
+<a><samp class="p">... </samp><kbd class="pp">    'POST',</kbd>                                                             <span class="u">②</span></a>
+<a><samp class="p">... </samp><kbd class="pp">    urlencode(data),</kbd>                                                    <span class="u">③</span></a>
+<a><samp class="p">... </samp><kbd class="pp">    headers={'Content-Type': 'application/x-www-form-urlencoded'})</kbd>      <span class="u">④</span></a></pre>
+<ol>
+<li>Tímto způsobem <code>httplib2</code> pracuje s autentizací. Jméno a heslo uložíme metodou <code>add_credentials()</code>. Když se <code>httplib2</code> pokusí o vydání požadavku, server odpoví stavovým kódem <code>401 Unauthorized</code> (neautorizováno) a připojí seznam autentizačních metod, které podporuje (v hlavičce <code>WWW-Authenticate</code>). <code>httplib2</code> automaticky vytvoří hlavičku <code>Authorization</code> a pošle požadavek s <abbr>URL</abbr> znovu. <li>Druhý parametr uvádí typ <abbr>HTTP</abbr> požadavku. V tomto případě je to <code>POST</code>. <li>Třetím parametrem je <i>náklad</i>, který se serveru posílá. Posíláme slovník se stavovou zprávou zakódovaný do podoby <abbr>URL</abbr>. <li>Nakonec musíme serveru říct, že náklad má podobu dat zakódovaných do podoby <abbr>URL</abbr>.
+</ol>
+
+<blockquote class=note>
+<p><span class="u">☞</span>Třetím parametrem metody
+<code>add_credentials()</code> je doména, ve které osobní údaje platí.
+Měli byste ji vždy uvádět! Pokud doménu vynecháte a později znovu
+použijete objekt třídy <code>httplib2.Http</code> pro jiné
+autentizované místo, mohla by <code>httplib2</code> způsobit únik
+jména a hesla z jednoho místa na druhé místo (site).
+</blockquote>
+
+<p>A o čem zpívají dráty: <pre class=screen>
+# pokračování z předchozího příkladu
+<samp>send: b'POST /api/statuses/update.xml HTTP/1.1
+Host: identi.ca
+Accept-Encoding: identity
+Content-Length: 32
+content-type: application/x-www-form-urlencoded
+user-agent: Python-httplib2/$Rev: 259 $
+
+status=Test+update+from+Python+3'
+<a>reply: 'HTTP/1.1 401 Unauthorized'                        <span class="u">①</span></a>
+<a>send: b'POST /api/statuses/update.xml HTTP/1.1            <span class="u">②</span></a>
+Host: identi.ca
+Accept-Encoding: identity
+Content-Length: 32
+content-type: application/x-www-form-urlencoded
+<a>authorization: Basic SECRET_HASH_CONSTRUCTED_BY_HTTPLIB2  <span class="u">③</span></a>
+user-agent: Python-httplib2/$Rev: 259 $
+
+status=Test+update+from+Python+3'
+<a>reply: 'HTTP/1.1 200 OK'                                  <span class="u">④</span></a></samp></pre>
+<ol>
+<li>Po prvním požadavku odpoví server stavovým kódem <code>401 Unauthorized</code>. <code>httplib2</code> nikdy neposílá autentizační hlavičky, pokud si o ně server explicitně neřekne. Server si o ně říká tímto způsobem. <li><code>httplib2</code> okamžitě zareaguje opakovaným odesláním požadavku se stejným <abbr>URL</abbr>. <li>Tentokrát obsahuje jméno a heslo, která jsme přidali metodou <code>add_credentials()</code>. <li>Funguje to!
+</ol>
+
+<p>A co vlastně server posílá po úspěšném požadavku zpět? To zcela
+závisí na aplikačním rozhraní příslušné webové služby. V některých
+protokolech (jako například <a
+href="http://www.ietf.org/rfc/rfc5023.txt">Atom Publishing
+Protocol</a>) posílá server zpět stavový kód <code>201 Created</code>
+spolu s umístěním nově vytvořeného zdroje (resource) v hlavičce
+<code>Location</code>. Identi.ca posílá zpět <code>200 OK</code> a
+<abbr>XML</abbr> dokument, který obsahuje informace o nově vytvořeném
+zdroji. <pre class=screen>
+# pokračování z předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(content.decode('utf-8'))</kbd>                             <span class="u">①</span></a>
+<samp class="pp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;status&gt;
+<a> &lt;text&gt;Test update from Python 3&lt;/text&gt;                        <span class="u">②</span></a>
+ &lt;truncated&gt;false&lt;/truncated&gt;
+ &lt;created_at&gt;Wed Jun 10 03:53:46 +0000 2009&lt;/created_at&gt;
+ &lt;in_reply_to_status_id&gt;&lt;/in_reply_to_status_id&gt;
+ &lt;source&gt;api&lt;/source&gt;
+<a> &lt;id&gt;5131472&lt;/id&gt;                                              <span class="u">③</span></a>
+ &lt;in_reply_to_user_id&gt;&lt;/in_reply_to_user_id&gt;
+ &lt;in_reply_to_screen_name&gt;&lt;/in_reply_to_screen_name&gt;
+ &lt;favorited&gt;false&lt;/favorited&gt;
+ &lt;user&gt;
+  &lt;id&gt;3212&lt;/id&gt;
+  &lt;name&gt;Mark Pilgrim&lt;/name&gt;
+  &lt;screen_name&gt;diveintomark&lt;/screen_name&gt;
+  &lt;location&gt;27502, US&lt;/location&gt;
+  &lt;description&gt;tech writer, husband, father&lt;/description&gt;
+  &lt;profile_image_url&gt;http://avatar.identi.ca/3212-48-20081216000626.png&lt;/profile_image_url&gt;
+  &lt;url&gt;http://diveintomark.org/&lt;/url&gt;
+  &lt;protected&gt;false&lt;/protected&gt;
+  &lt;followers_count&gt;329&lt;/followers_count&gt;
+  &lt;profile_background_color&gt;&lt;/profile_background_color&gt;
+  &lt;profile_text_color&gt;&lt;/profile_text_color&gt;
+  &lt;profile_link_color&gt;&lt;/profile_link_color&gt;
+  &lt;profile_sidebar_fill_color&gt;&lt;/profile_sidebar_fill_color&gt;
+  &lt;profile_sidebar_border_color&gt;&lt;/profile_sidebar_border_color&gt;
+  &lt;friends_count&gt;2&lt;/friends_count&gt;
+  &lt;created_at&gt;Wed Jul 02 22:03:58 +0000 2008&lt;/created_at&gt;
+  &lt;favourites_count&gt;30768&lt;/favourites_count&gt;
+  &lt;utc_offset&gt;0&lt;/utc_offset&gt;
+  &lt;time_zone&gt;UTC&lt;/time_zone&gt;
+  &lt;profile_background_image_url&gt;&lt;/profile_background_image_url&gt;
+  &lt;profile_background_tile&gt;false&lt;/profile_background_tile&gt;
+  &lt;statuses_count&gt;122&lt;/statuses_count&gt;
+  &lt;following&gt;false&lt;/following&gt;
+  &lt;notifications&gt;false&lt;/notifications&gt;
+&lt;/user&gt;
+&lt;/status&gt;</samp></pre>
+<ol>
+<li>Připomeňme si, že data vracená <code>httplib2</code> jsou vždy <a href="strings.html#byte-arrays">bajty</a> a ne řetězce. Abychom je mohli převést na řetězec, musíme je dekódovat s použitím příslušného znakového kódování. Aplikační rozhraní systému Identi.ca vždy vrací výsledky v <abbr>UTF-8</abbr>. Takže tato část je snadná. <li>Zde je text stavové zprávy, kterou jsme právě zveřejnili. <li>Toto je unikátní identifikátor nové stavové zprávy. Identi.ca jej používá pro konstrukci <abbr>URL</abbr>, které se dá použít pro zobrazení zprávy na webu.
+</ol>
+
+<p>A tady ji máme: <p class=c><img class="fr"
+src="i/identica-screenshot.png" alt="snímek obrazovky, který ukazuje
+zveřejněnou stavovou zprávu na Identi.ca" width="740" height="449" />
+
+<p class=a>⁂ <h2 id=beyond-post>Za hranicemi HTTP POST</h2>
+
+<p><abbr>HTTP</abbr> se neomezuje jen na <code>GET</code> a
+<code>POST</code>. Nepochybně jde o nejběžnější typy dotazů, obzvlášť
+ze strany webových prohlížečů. Ale rozhraní webových služeb může jít
+za hranice <code>GET</code> a <code>POST</code> — a knihovna
+<code>httplib2</code> je na to připravená. <pre class=screen>
+# pokračování z předchozího příkladu
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">from xml.etree import ElementTree as etree</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">tree = etree.fromstring(content)</kbd>                                          <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">status_id = tree.findtext('id')</kbd>                                           <span class="u">②</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">status_id</kbd>
+<samp class="pp">'5131472'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">url = 'https://identi.ca/api/statuses/destroy/{0}.xml'.format(status_id)</kbd>  <span class="u">③</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">resp, deleted_content = h.request(url, 'DELETE')</kbd>                          <span class="u">④</span></a></pre>
+<ol>
+<li>Sever vrátil <abbr>XML</abbr>, že ano? A my už víme, <a href="xml.html#xml-parse">jak <abbr>XML</abbr> zpracovat</a>. <li>Metoda <code>findtext()</code> najde první objekt odpovídající zadanému výrazu a extrahuje jeho textový obsah. V tomto případě hledáme element <code>&lt;id&gt;</code>. <li>Z textového obsahu elementu <code>&lt;id&gt;</code> můžeme zkonstruovat <abbr>URL</abbr> pro vymazání stavové zprávy, kterou jsme zrovna zveřejnili. <li>Zprávu vymažeme tím, že pro zmíněné <abbr>URL</abbr> vytvoříme požadavek <abbr>HTTP</abbr> <code>DELETE</code>.
+</ol>
+
+<p>Po drátech běhá následující: <pre class=screen>
+<samp><a>send: b'DELETE /api/statuses/destroy/5131472.xml HTTP/1.1      <span class="u">①</span></a>
+Host: identi.ca
+Accept-Encoding: identity
+user-agent: Python-httplib2/$Rev: 259 $
+
+'
+<a>reply: 'HTTP/1.1 401 Unauthorized'                             <span class="u">②</span></a>
+<a>send: b'DELETE /api/statuses/destroy/5131472.xml HTTP/1.1      <span class="u">③</span></a>
+Host: identi.ca
+Accept-Encoding: identity
+<a>authorization: Basic SECRET_HASH_CONSTRUCTED_BY_HTTPLIB2       <span class="u">④</span></a>
+user-agent: Python-httplib2/$Rev: 259 $
+
+'
+<a>reply: 'HTTP/1.1 200 OK'                                       <span class="u">⑤</span></a></samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">resp.status</kbd>
+<samp class="pp">200</samp></pre>
+<ol>
+<li>„Odstraň tuto stavovou zprávu.“ <li>„Je mi líto, Dave [dejve]. Obávám se, že to nemohu udělat.“ <li>„Neautorizováno <span class="u" title="kombinace vykřičníku s otazníkem!">‽</span> Hmmm. Odstraň tu stavovou zprávu, <em>prosím</em>… <li>…a tady je mé jméno a heslo.“ <li>„Považuj to za hotovou věc!“
+</ol>
+
+<p>Puf a je to pryč. <p class=c><img class="fr"
+src="i/identica-deleted.png" alt="snímek obrazovky, který ukazuje
+odstraněnou zprávu na Identi.ca" width="740" height="449" />
+
+<p class=a>⁂ <h2 id=furtherreading>Přečtěte si</h2>
+
+<p><code>httplib2</code>: <ul>
+<li><a href="http://code.google.com/p/httplib2" />Stránka projektu <code>httplib2</code></a> (anglicky)
+<li><a href="http://code.google.com/p/httplib2/wiki/ExamplesPython3">Další příklady kódu využívajícího <code>httplib2</code></a> (anglicky)
+<li><a href="http://www.xml.com/pub/a/2006/02/01/doing-http-caching-right-introducing-httplib2.html">Doing <abbr>HTTP</abbr> Caching Right: Introducing <code>httplib2</code></a> (anglický článek)
+<li><a href="http://www.xml.com/pub/a/2006/03/29/httplib2-http-persistence-and-authentication.html"><code>httplib2</code>: <abbr>HTTP</abbr> Persistence and Authentication</a> (anglický článek)
+</ul>
+
+<p>Práce <abbr>HTTP</abbr> s mezipamětí: <ul>
+<li><a href="http://www.mnot.net/cache_docs" /><abbr>HTTP</abbr> Tutorial</a> — napsal Mark Nottingham <li><a href="http://code.google.com/p/doctype/wiki/ArticleHttpCaching">How to control caching with <abbr>HTTP</abbr> headers</a> (anglický článek o Google Doctype)
+</ul>
+
+<p><abbr>RFC</abbr>: <ul>
+<li><a href="http://www.ietf.org/rfc/rfc2616.txt">RFC 2616: <abbr>HTTP</abbr></a>
+<li><a href="http://www.ietf.org/rfc/rfc2617.txt">RFC 2617: <abbr>HTTP</abbr> Basic Authentication</a>
+<li><a href="http://www.ietf.org/rfc/rfc1951.txt">RFC 1951: deflate compression</a>
+<li><a href="http://www.ietf.org/rfc/rfc1952.txt">RFC 1952: gzip compression</a>
+</ul>
+
+<p class=v><a rel="prev" href="serializing.html" title="zpět na
+„Serializace pythonovských objektů“"><span class="u">☜</span></a> <a
+rel="next" href="case-study-porting-chardet-to-python-3.html"
+title="dopředu na „Případová studie: Přepis chardet pro Python
+3“"><span class="u">☞</span></a>
+<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<script src=j/jquery.js></script>
+<script src=j/prettify.js></script>
+<script src=j/dip3.js></script> 

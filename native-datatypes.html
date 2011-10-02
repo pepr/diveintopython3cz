@@ -1,0 +1,963 @@
+﻿<!DOCTYPE html> <meta charset=utf-8>
+<title>Přirozené datové typy – Ponořme se do Pythonu 3</title>
+<!--[if IE]><script src=j/html5.js></script><![endif]-->
+<link rel=stylesheet href=dip3.css>
+<style>
+body{counter-reset:h1 2}
+</style>
+<link rel=stylesheet media='only screen and (max-device-width: 480px)' href=mobile.css>
+<link rel=stylesheet media=print href=print.css>
+<meta name=viewport content='initial-scale=1.0'>
+<!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
+class="u">‣</span> <a
+href="table-of-contents.html#native-datatypes">Ponořme se do Pythonu
+3</a> <span class="u">‣</span>
+<p id=level>Úroveň obtížnosti: <span class="u"
+title="začátečník">♦♦♢♢♢</span>
+<h1>Přirozené datové typy</h1>
+<blockquote class=q>
+<p><span class="u">❝</span> Wonder is the foundation of all
+philosophy, inquiry its progress, ignorance its end. <span
+class="u">❞</span><br />(Zvědavost je základem celé filozofie, hledání
+odpovědí na otázky ji žene vpřed, ignorance ji zabíjí.)<br />— Michel
+de Montaigne
+</blockquote>
+<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
+<p class=f>Datové typy. Přestaňme si na chvíli všímat <a
+href="your-first-python-program.html">našeho prvního pythonovského
+programu</a> a pojďme si popovídat o datových typech. <a
+href="your-first-python-program.html#declaringfunctions">Každá hodnota
+v Pythonu je určitého datového typu</a>, ale u proměnných nemusíme
+datový typ deklarovat. Jak to tedy funguje? Při každém přiřazení
+hodnoty do proměnné si Python zjistí, jakého typu hodnota je, a
+vnitřně si to eviduje. <p>Python používá mnoho přirozených datových
+typů (ve smyslu „přirozených pro Python“). Uveďme zde ty hlavní: <ol>
+<li><b>Boolean</b> (booleovský typ) nabývá buď hodnoty <code>True</code> nebo <code>False</code>. <li><b>Čísla</b> mohou být celá (integer; <code>1</code> a <code>2</code>), reálná (float; <code>1.1</code> a <code>1.2</code>), zlomky (fraction; <code>1/2</code> and <code>2/3</code>), nebo dokonce <a href="http://en.wikipedia.org/wiki/Complex_number">čísla komplexní</a>. <li><b>Řetězce</b> jsou posloupnosti Unicode znaků. Tuto podobu může mít například <abbr>HTML</abbr> dokument. <li><b>Bajty</b> a <b>pole bajtů</b>, například soubor s obrázkem ve formátu <abbr>JPEG</abbr>. <li><b>Seznamy</b> jsou uspořádané posloupnosti hodnot. <li><b>N-tice</b> jsou uspořádané, neměnné posloupnosti hodnot. <li><b>Množiny</b> jsou neuspořádané kolekce hodnot. <li><b>Slovníky</b> jsou neuspořádané kolekce dvojic klíč-hodnota.
+</ol>
+<p>Těch typů je samozřejmě víc. V Pythonu <a
+href="your-first-python-program.html#everythingisanobject">je vše
+objektem</a>, proto musí existovat také typy jako <i>modul</i>,
+<i>funkce</i>, <i>třída</i>, <i>metoda</i>, <i>soubor</i>, a dokonce
+<i>přeložený kód</i>. S některými z nich už jsme se setkali: <a
+href="your-first-python-program.html#runningscripts">moduly mají
+jména</a>, <a href="your-first-python-program.html#docstrings">funkce
+mají <code>docstring</code></a> atd. O třídách se dozvíte v kapitole
+<a href="iterators.html">Třídy a iterátory</a>, o souborech v kapitole
+<a href="files.html">Soubory</a>. <p>Řetězce a bajty jsou důležité do
+té míry&nbsp;—&nbsp;a jsou také dost komplikované&nbsp;—, že jim je
+věnována <a href="strings.html">samostatná kapitola</a>. Nejdříve se
+podívejme na ty zbývající. <p class=a>⁂ <h2 id=booleans>Booleovský
+typ</h2>
+<aside>V booleovském kontextu můžete použít téměř libovolný výraz.</aside>
+<p>Objekt booleovského typu nabývá buď hodnoty true (pravda) nebo
+false (nepravda). Pro přímé přiřazení <dfn>booleovských</dfn> hodnot
+definuje Python dvě konstanty, příhodně pojmenované
+<code><dfn>True</dfn></code> a <code><dfn>False</dfn></code>.
+Booleovská hodnota může vzniknout také vyhodnocením výrazu. Na
+některých místech (jako u příkazu <code>if</code>) Python dokonce
+předpokládá, že se výraz vyhodnotí do podoby booleovské hodnoty. Těmto
+místům se říká <i>booleovský kontext</i>. V booleovském kontextu
+můžeme použít téměř libovolný výraz. Python se pokusí získat jeho
+pravdivostní hodnotu. Pravidla, podle kterých se v booleovském
+kontextu výsledek chápe jako pravdivý nebo nepravdivý (true nebo
+false), jsou pro různé datové typy různá. (Jakmile uvidíte dále v této
+kapitole konkrétní příklady, bude vám to dávat větší smysl.)
+<p>Vezměme si například následující úryvek z <a
+href="your-first-python-program.html#divingin"><code>humansize.py</code></a>:
+<pre class='nd pp'><code>if size &lt; 0:
+    raise ValueError('number must be non-negative')</code></pre>
+<p>Proměnná <var>size</var> obsahuje celé číslo, 0 je celé číslo a
+<code>&lt;</code> je číselný operátor. Výsledek výrazu <code>size &lt;
+0</code> má vždy booleovskou hodnotu. V pythonovském shellu si
+vyzkoušejte následující: <pre class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">size = 1</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">size &lt; 0</kbd>
+<samp class="pp">False</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">size = 0</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">size &lt; 0</kbd>
+<samp class="pp">False</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">size = -1</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">size &lt; 0</kbd>
+<samp class="pp">True</samp></pre>
+<p>V důsledku problematického dědictví z Pythonu 2 se s booleovskými
+hodnotami může zacházet jako s čísly. <code>True</code> je
+<code>1</code>; <code>False</code> je 0. <pre class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">True + True</kbd>
+<samp class="pp">2</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">True - False</kbd>
+<samp class="pp">1</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">True * False</kbd>
+<samp class="pp">0</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">True / False</kbd>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ZeroDivisionError: int division or modulo by zero</samp></pre>
+<p>Ajajaj! Takové věci nedělejte. Zapomeňte, že jsem se o tom vůbec
+zmínil. <p class=a>⁂ <h2 id=numbers>Čísla</h2>
+<p>Čísla jsou obdivuhodná. Můžete si je vybrat z tak ohromného
+množství. Python podporuje jak <dfn>celá čísla</dfn> (integer), tak
+čísla <dfn>reálná</dfn> (floating point). Nerozlišují se deklarací
+datového typu. Python je od sebe poznává podle přítomnosti nebo
+nepřítomnosti <dfn>desetinné tečky</dfn>. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(1)</kbd>                 <span class="u">①</span></a>
+<samp class="pp">&lt;class 'int'&gt;</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">isinstance(1, int)</kbd>      <span class="u">②</span></a>
+<samp class="pp">True</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">1 + 1</kbd>                   <span class="u">③</span></a>
+<samp class="pp">2</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">1 + 1.0</kbd>                 <span class="u">④</span></a>
+<samp class="pp">2.0</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(2.0)</kbd>
+<samp class="pp">&lt;class 'float'&gt;</samp></pre>
+<ol>
+<li>Pro ověření typu libovolné hodnoty nebo proměnné můžeme použít funkci <code>type()</code>. Jak se dalo čekat, hodnota <code>1</code> je typu <code>int</code>. <li>Podobně můžeme voláním funkce <code>isinstance()</code> ověřit, zda hodnota či proměnná odpovídá zadanému typu. <li>Přidáním <code>int</code> k <code>int</code> vzniká výsledek typu <code>int</code>. <li>Přidáním <code>int</code> k <code>float</code> vzniká výsledek typu <code>float</code>. Aby mohl Python provést sčítání, vynutí si převod typu <code>int</code> na <code>float</code>. Poté vrátí výsledek typu <code>float</code>.
+</ol>
+<h3 id=number-coercion>Vynucení převodu celých čísel na reálná a naopak</h3>
+<p>Jak jste zrovna viděli, některé operátory (například sčítání) mohou
+podle potřeby vynutit převod celého čísla na číslo reálné. Ale k
+převodu je můžete donutit taky vy sami. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">float(2)</kbd>                <span class="u">①</span></a>
+<samp class="pp">2.0</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">int(2.0)</kbd>                <span class="u">②</span></a>
+<samp class="pp">2</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">int(2.5)</kbd>                <span class="u">③</span></a>
+<samp class="pp">2</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">int(-2.5)</kbd>               <span class="u">④</span></a>
+<samp class="pp">-2</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">1.12345678901234567890</kbd>  <span class="u">⑤</span></a>
+<samp class="pp">1.1234567890123457</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(1000000000000000)</kbd>  <span class="u">⑥</span></a>
+<samp class="pp">&lt;class 'int'&gt;</samp></pre>
+<ol>
+<li>Voláním funkce <code>float()</code> můžeme explicitně vynutit převod <code>int</code> (typ pro celé číslo) na <code>float</code> (typ pro reálné číslo). <li>A nebude asi moc překvapivé, že voláním <code>int()</code> můžeme vynutit převod <code>float</code> na <code>int</code>. <li>Funkce <code>int()</code> nezaokrouhluje, ale odsekává. <li>Funkce <code>int()</code> odsekává desetinnou část u záporných čísel směrem k nule. Jde o funkci opravdového odsekávání, ne o funkci <code>floor</code> (tj. u záporných čísel dojde ke zvětšení čísla, protože například <code>–2.5</code> se změní na <code>–2</code>). <li>Čísla typu <code>float</code> jsou uložena s přesností na 15 desetinných míst. <li>Celá čísla mohou být libovolně velká.
+</ol>
+<blockquote class='note compare python2'>
+<p><span class="u">☞</span>Python 2 měl oddělené typy <code>int</code>
+a <code>long</code>. Datový typ <code>int</code> byl omezen konstantou
+<code>sys.maxint</code>, která byla platformově závislá, ale obvykle
+nabývala hodnoty <code>2<sup>32</sup>-1</code>. Python 3 má pouze
+jeden celočíselný typ, který se chová většinou jako původní typ
+<code>long</code> z Pythonu 2. Detaily naleznete v <a
+href="http://www.python.org/dev/peps/pep-0237"><abbr>PEP</abbr>
+237</a>.
+</blockquote>
+<h3 id=common-numerical-operations>Běžné operace s čísly</h3>
+<p>S čísly můžete dělat všechno možné. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">11 / 2</kbd>      <span class="u">①</span></a>
+<samp class="pp">5.5</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">11 // 2</kbd>     <span class="u">②</span></a>
+<samp class="pp">5</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">−11 // 2</kbd>    <span class="u">③</span></a>
+<samp class="pp">−6</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">11.0 // 2</kbd>   <span class="u">④</span></a>
+<samp class="pp">5.0</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">11 ** 2</kbd>     <span class="u">⑤</span></a>
+<samp class="pp">121</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">11 % 2</kbd>      <span class="u">⑥</span></a>
+<samp class="pp">1</samp>
+</pre>
+<ol>
+<li>Operátor <code>/</code> provádí dělení. Vrací výsledek typu <code>float</code> dokonce i v případě, že činitel i jmenovatel jsou typu <code>int</code>. <li>Operátor <code>//</code> provádí svým způsobem podivné celočíselné dělení. Pokud je výsledek kladný, můžete o něm uvažovat, že vznikl odseknutím desetinných míst (tedy nikoliv zaokrouhlením). Ale pozor na to. <li>Při celočíselném dělení záporných čísel provede operátor <code>//</code> zaokrouhlení „nahoru“ k nejbližšímu celému číslu. Z matematického hlediska zaokrouhluje „dolů“, protože <code>−6</code> je menší než <code>−5</code>. Ale pokud byste očekávali, že dojde k odseknutí na <code>−5</code>, tak byste se nachytali. <li>Operátor <code>//</code> nevrací celé číslo vždy. Pokud je čitatel nebo jmenovatel typu <code>float</code>, bude výsledek sice opět zaokrouhlen na celé číslo, ale výsledná hodnota bude typu <code>float</code>. <li>Operátor <code>**</code> znamená „umocněno na“. <code>11<sup>2</sup></code> je <code>121</code>. <li>Operátor <code>%</code> vrací zbytek po celočíselném dělení. <code>11</code> děleno <code>2</code> je <code>5</code> a zbytek je <code>1</code>. Takže výsledkem bude <code>1</code>.
+</ol>
+<blockquote class='note compare python2'>
+<p><span class="u">☞</span>V Pythonu 2 obvykle operátor <code>/</code>
+prováděl celočíselné dělení. Ale když jste ve svém kódu použili
+speciální direktivu, mohli jste jeho význam přepnout na reálné dělení.
+V Pythonu 3 operátor <code>/</code> vyjadřuje vždy dělení s reálným
+výsledkem (floating point division). Na detaily se podívejte do <a
+href="http://www.python.org/dev/peps/pep-0238" /><abbr>PEP</abbr>
+238</a>.
+</blockquote>
+<h3 id=fractions>Zlomky</h3>
+<p>Python vás neomezuje jen na celá a reálná čísla. Zvládne celou tu
+fantastickou matiku, kterou jste se učili na střední škole a rychle
+jste ji zapomněli. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import fractions</kbd>              <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">x = fractions.Fraction(1, 3)</kbd>  <span class="u">②</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">x</kbd>
+<samp class="pp">Fraction(1, 3)</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">x * 2</kbd>                         <span class="u">③</span></a>
+<samp class="pp">Fraction(2, 3)</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">fractions.Fraction(6, 4)</kbd>      <span class="u">④</span></a>
+<samp class="pp">Fraction(3, 2)</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">fractions.Fraction(0, 0)</kbd>      <span class="u">⑤</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "fractions.py", line 96, in __new__
+    raise ZeroDivisionError('Fraction(%s, 0)' % numerator)
+ZeroDivisionError: Fraction(0, 0)</samp></pre>
+<ol>
+<li>Používání zlomků zahájíme importem modulu <code>fractions</code>. <li>Zlomek definujeme tak, že vytvoříme objekt třídy <code>Fraction</code> a předáme mu čitatele a jmenovatele. <li>Se zlomky můžeme provádět obvyklé matematické operace. Ty vracejí nový objekt třídy <code>Fraction</code>. <code>2 * (1/3) = (2/3)</code>
+<li>Objekt třídy <code>Fraction</code> zlomky automaticky krátí. <code>(6/4) = (3/2)</code>
+<li>Python má dost rozumu na to, aby nevytvořil zlomek s nulovým jmenovatelem.
+</ol>
+<h3 id=trig>Trigonometrie</h3>
+<p>Python zvládne i základy trigonometrie. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import math</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">math.pi</kbd>                <span class="u">①</span></a>
+<samp class="pp">3.1415926535897931</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">math.sin(math.pi / 2)</kbd>  <span class="u">②</span></a>
+<samp class="pp">1.0</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">math.tan(math.pi / 4)</kbd>  <span class="u">③</span></a>
+<samp class="pp">0.99999999999999989</samp></pre>
+<ol>
+<li>Modul <code>math</code> definuje konstantu π, čili poměr mezi obvodem kružnice a jejím průměrem. <li>Modul <code>math</code> zvládá všechny základní trigonometrické funkce včetně <code>sin()</code>, <code>cos()</code>, <code>tan()</code> a varianty jako <code>asin()</code>. <li>Ale pozor na to, že Python neoplývá nekonečnou přesností. Funkce <code>tan(π / 4)</code> by měla vrátit <code>1.0</code> a ne <code>0.99999999999999989</code>.
+</ol>
+<h3 id=numbers-in-a-boolean-context>Čísla v booleovském kontextu</h3>
+<aside>Nulová hodnota se interpretuje jako false, nenulová jako true.</aside>
+<p>Čísla můžete použít <a href="#booleans">v booleovském kontextu</a>
+— například v příkazu <code>if</code>. Nulové hodnoty se interpretují
+jako false, nenulové jako true. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">def is_it_true(anything):</kbd>             <span class="u">①</span></a>
+<samp class="p">... </samp><kbd class="pp">  if anything:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("yes, it's true")</kbd>
+<samp class="p">... </samp><kbd class="pp">  else:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("no, it's false")</kbd>
+<samp class="p">...</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(1)</kbd>                         <span class="u">②</span></a>
+<samp>yes, it's true</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(-1)</kbd>
+<samp>yes, it's true</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(0)</kbd>
+<samp>no, it's false</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(0.1)</kbd>                       <span class="u">③</span></a>
+<samp>yes, it's true</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(0.0)</kbd>
+<samp>no, it's false</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import fractions</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(fractions.Fraction(1, 2))</kbd>  <span class="u">④</span></a>
+<samp>yes, it's true</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(fractions.Fraction(0, 1))</kbd>
+<samp>no, it's false</samp></pre>
+<ol>
+<li>A to víte, že své vlastní funkce můžete definovat i v pythonovském interaktivním shellu? Stačí zmáčknout <kbd>ENTER</kbd> na konci každého řádku a vše ukončit stiskem <kbd>ENTER</kbd> na prázdném řádku. <li>V booleovském kontextu se nenulová celá čísla chápou jako true a nula jako false. <li>Nenulová reálná čísla se chápou jako true, <code>0.0</code> se chápe jako false. Ale bacha na tu poslední hodnotu! Pokud dojde k sebemenší zaokrouhlovací chybě (což není nemožné, jak jste si mohli všimnout v předchozí podkapitole), pak bude Python testovat místo nuly například <code>0.0000000000001</code> a vrátí hodnotu <code>True</code>. <li>Zlomky můžeme také použít v booleovském kontextu. Hodnota <code>Fraction(0, n)</code> se pro všechny hodnoty <var>n</var> vyhodnotí jako false. Všechny ostatní zlomky se vyhodnotí jako true.
+</ol>
+<p class=a>⁂ <h2 id=lists>Seznamy</h2>
+<p>Seznamy jsou v Pythonu nejpoužívanějšími datovými typy. Když řeknu
+„<dfn>seznam</dfn>“ (anglicky list [list]), může vás napadnout „pole,
+jehož velikost musím předem deklarovat, které může obsahovat jen prvky
+stejného typu atd.“. Tímto směrem neuvažujte. Seznamy jsou mnohem
+lepší. <blockquote class='note compare perl5'>
+<p><span class="u">☞</span>Pythonovský seznam se podobá poli (array) v
+Perl 5. Proměnné polí v jazyce Perl 5 vždycky začínají znakem
+<code>@</code>. Pythonovské proměnné můžou být pojmenovány zcela
+libovolně. Python si vnitřně eviduje jejich datový typ.
+</blockquote>
+<blockquote class='note compare java'>
+<p><span class="u">☞</span>Pythonovský seznam má větší možnosti než
+pole (array) v jazyce Java. (Ačkoliv pokud je to vše, co od života
+očekáváte, můžete jej tímto způsobem používat.) Podobnější je mu třída
+<code>ArrayList</code>, která umožňuje uchovávání libovolných objektů
+a při přidání nových položek se může dynamicky zvětšit.
+</blockquote>
+<h3 id=creatinglists>Vytvoření seznamu</h3>
+<p>Seznam můžeme vytvořit snadno. Čárkami oddělené hodnoty uzavřeme do
+hranatých závorek. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list = ['a', 'b', 'mpilgrim', 'z', 'example']</kbd>  <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['a', 'b', 'mpilgrim', 'z', 'example']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[0]</kbd>                                        <span class="u">②</span></a>
+<samp class="pp">'a'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[4]</kbd>                                        <span class="u">③</span></a>
+<samp class="pp">'example'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[-1]</kbd>                                       <span class="u">④</span></a>
+<samp class="pp">'example'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[-3]</kbd>                                       <span class="u">⑤</span></a>
+<samp class="pp">'mpilgrim'</samp></pre>
+<ol>
+<li>Nejdříve jsme nadefinovali seznam s pěti položkami. Všimněte si, že zachovávají své původní pořadí. Není to náhoda. Seznam je uspořádaná kolekce položek. <li>Seznam můžeme používat jako pole s indexováním od nuly. První prvek každého neprázdného seznamu zpřístupníme vždy zápisem <code>a_list[0]</code>. <li>Poslední prvek tohoto pětiprvkového seznamu je <code>a_list[4]</code>, protože indexování začíná nulou. <li>Záporným indexem zpřístupňujeme položky ve směru od konce seznamu k začátku. Poslední prvek každého neprázdného seznamu zpřístupníme vždy zápisem <code>a_list[-1]</code>. <li>Pokud se vám zdá použití záporného indexu matoucí, uvažujte o něm takto: <code>a_list[-<var>n</var>] == a_list[len(a_list) - <var>n</var>]</code>. Takže pro náš seznam pak platí <code>a_list[-3] == a_list[5 - 3] == a_list[2]</code>.
+</ol>
+<h3 id=slicinglists>Vytváření podseznamů</h3>
+<aside>a_list[0] je vždy první položkou seznamu a_list.</aside>
+<p>Jakmile máme vytvořen seznam, můžeme získat jakoukoliv jeho část.
+Anglicky se tomu říká „<i>slicing</i> the list“, což můžeme přeložit
+jako „<i>vykrajování</i> ze seznamu“ nebo „výřez ze seznamu“ nebo — z
+pohledu abstraktního záměru — vytváření podseznamu. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['a', 'b', 'mpilgrim', 'z', 'example']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[1:3]</kbd>            <span class="u">①</span></a>
+<samp class="pp">['b', 'mpilgrim']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[1:-1]</kbd>           <span class="u">②</span></a>
+<samp class="pp">['b', 'mpilgrim', 'z']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[0:3]</kbd>            <span class="u">③</span></a>
+<samp class="pp">['a', 'b', 'mpilgrim']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[:3]</kbd>             <span class="u">④</span></a>
+<samp class="pp">['a', 'b', 'mpilgrim']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[3:]</kbd>             <span class="u">⑤</span></a>
+<samp class="pp">['z', 'example']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[:]</kbd>              <span class="u">⑥</span></a>
+<samp class="pp">['a', 'b', 'mpilgrim', 'z', 'example']</samp></pre>
+<ol>
+<li>Část seznamu, výřez (slice), můžeme získat zadáním dvou indexů. Návratovou hodnotou je nový seznam, který obsahuje položky od prvního indexu výřezu (v tomto případě <code>a_list[1]</code>) až po položku (ale vyjma) s druhým indexem výřezu (v našem případě <code>a_list[3]</code>). <li>Výřez funguje i v případě, kdy je hodnota jednoho nebo obou indexů výřezu záporná. Můžete si pomoci následujícím způsobem uvažování. Když se na seznam díváme zleva doprava, pak první index výřezu určuje první položku, kterou chceme, a druhý index výřezu určuje první položku, kterou nechceme. Vrací se vše mezi tím. <li>Seznamy se indexují od nuly, takže zápis <code>a_list[0:3]</code> vrací první tři položky seznamu počínaje položkou <code>a_list[0]</code> až po <code>a_list[3]</code> vyjma (ta už se nevrací). <li>Pokud je levý index výřezu roven nule, můžeme nulu vynechat a Python si ji tam dosadí. Takže zápis <code>a_list[:3]</code> vede ke stejnému výsledku jako <code>a_list[0:3]</code>, protože počáteční nula se dosadí jako implicitní hodnota. <li>Podobně, pokud by pravý index výřezu měl mít hodnotu rovnou délce seznamu, můžeme jej vynechat. Protože náš seznam má pět položek, vede zápis <code>a_list[3:]</code> ke stejnému výsledku jako <code>a_list[3:5]</code>. A najdeme zde potěšitelnou symetrii. V našem pětiprvkovém seznamu vrací zápis <code>a_list[:3]</code> první tři položky a <code>a_list[3:]</code> vrací zbývající dvě. Obecně platí, že <code>a_list[:<var>n</var>]</code> vždy vrátí prvních <var>n</var> položek a <code>a_list[<var>n</var>:]</code> vrátí zbytek — nezávisle na délce seznamu. <li>Pokud vynecháme oba indexy výřezu, jsou ve výsledku zahrnuty všechny položky původního seznamu. Ale není to totéž jako původní proměnná <var>a_list</var>. Jde o nový seznam, který má shodou okolností stejné položky. Zápis <code>a_list[:]</code> je tedy zkratkou pro získání úplné kopie seznamu.
+</ol>
+<h3 id=extendinglists>Přidávání položek do seznamu</h3>
+<p>Položku můžeme do seznamu přidat čtyřmi způsoby. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list = ['a']</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list = a_list + [2.0, 3]</kbd>    <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>                        <span class="u">②</span></a>
+<samp class="pp">['a', 2.0, 3]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.append(True)</kbd>           <span class="u">③</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['a', 2.0, 3, True]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.extend(['four', 'Ω'])</kbd>  <span class="u">④</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['a', 2.0, 3, True, 'four', 'Ω']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.insert(0, 'Ω')</kbd>         <span class="u">⑤</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['Ω', 'a', 2.0, 3, True, 'four', 'Ω']</samp></pre>
+<ol>
+<li>Operátor <code>+</code> spojí seznamy a vytvoří nový seznam. Seznam může obsahovat libovolný počet položek. Neexistuje zde žádný limit (pouze velikost dostupné paměti). Ale co se týká paměti, měli bychom si dát pozor na to, že spojením seznamů vzniká v paměti další seznam. V našem případě je nový seznam ihned přiřazen do existující proměnné <var>a_list</var>. Takže tento řádek kódu ve skutečnosti představuje dvoufázový proces&nbsp;—&nbsp;spojení (konkatenace) a přiřazení&nbsp;—, který může u rozsáhlých seznamů (dočasně) spotřebovat velké množství paměti. <li>Seznam může obsahovat položky libovolného datového typu a v jednom seznamu nemusí být všechny položky stejného typu. V našem případě máme seznam obsahující řetězec, reálné číslo a celé číslo. <li>Metoda <code>append()</code> přidává jednu položku na konec seznamu. (Teď už máme v seznamu položky se <em>čtyřmi</em> rozdílnými datovými typy!) <li>Seznamy jsou implementovány formou třídy. „Vytvoření“ seznamu tedy znamená vytvoření instance třídy. V tomto smyslu mají seznamy metody, které nad nimi pracují. Metoda <code>extend()</code> přebírá jeden argument, kterým je seznam. Každý jeho prvek připojí na konec původního seznamu (append). <li>Metoda <code>insert()</code> vloží do seznamu jednu položku. Prvním argumentem je index první položky seznamu, která bude z této pozice odsunuta. Položky seznamu nemusí být jedinečné. Například v našem případě teď seznam obsahuje dvě samostatné položky s hodnotou <code>'Ω'</code>: první položku (<code>a_list[0]</code>) a poslední položku (<code>a_list[6]</code>).
+</ol>
+
+<blockquote class='note compare perl'>
+<p><span class="u">☞</span>Volání metody
+<code><var>a_list</var>.insert(0, <var>value</var>)</code> se podobá
+použití funkce <code>unshift()</code> v jazyce Perl. Vloží prvek na
+začátek seznamu a index všech ostatních položek se zvýší, aby vzniklo
+potřebné místo.
+</blockquote>
+
+<p>Podívejme se podrobněji na rozdíly mezi <code>append()</code> a
+<code>extend()</code>. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list = ['a', 'b', 'c']</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.extend(['d', 'e', 'f'])</kbd>  <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['a', 'b', 'c', 'd', 'e', 'f']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(a_list)</kbd>                     <span class="u">②</span></a>
+<samp class="pp">6</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[-1]</kbd>
+<samp class="pp">'f'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.append(['g', 'h', 'i'])</kbd>  <span class="u">③</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['a', 'b', 'c', 'd', 'e', 'f', ['g', 'h', 'i']]</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(a_list)</kbd>                     <span class="u">④</span></a>
+<samp class="pp">7</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[-1]</kbd>
+<samp class="pp">['g', 'h', 'i']</samp></pre>
+<ol>
+<li>Metoda <code>extend()</code> přebírá jeden argument, kterým je vždy seznam, a přidá každý jeho prvek do seznamu <var>a_list</var>. <li>Pokud začnete se seznamem o třech položkách a rozšíříte jej voláním <code>extend()</code> o seznam s dalšími třemi položkami, dostanete seznam s šesti položkami. <li>Ve srovnání s tím metoda <code>append()</code> přebírá jeden argument, který může být libovolného datového typu. Na tomto řádku předáváme metodě <code>append()</code> seznam s třemi položkami. <li>Pokud jsme začali se seznamem o šesti položkách a předaný seznam připojíme na konec, dostaneme seznam se sedmi položkami. Proč se sedmi? Protože poslední položkou (kterou jsme právě připojili) je <em>celý seznam</em>. Seznam může obsahovat data libovolného typu, včetně seznamu. Může to být právě to, co jste chtěli. Nebo možná nechtěli. Každopádně jste si o to řekli, a proto jste to dostali.
+</ol>
+<h3 id=searchinglists>Vyhledávání hodnoty v seznamu</h3>
+<pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list = ['a', 'b', 'new', 'mpilgrim', 'new']</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.count('new')</kbd>       <span class="u">①</span></a>
+<samp class="pp">2</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">'new' in a_list</kbd>           <span class="u">②</span></a>
+<samp class="pp">True</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">'c' in a_list</kbd>
+<samp class="pp">False</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.index('mpilgrim')</kbd>  <span class="u">③</span></a>
+<samp class="pp">3</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.index('new')</kbd>       <span class="u">④</span></a>
+<samp class="pp">2</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.index('c')</kbd>         <span class="u">⑤</span></a>
+<samp class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: list.index(x): x not in list</samp></pre>
+<ol>
+<li>Metoda <code>count()</code> vrací počet výskytů určité hodnoty v seznamu (což se dalo čekat). <li>Pokud se chcete dozvědět jen to, jestli nějaká hodnota v seznamu je nebo ne, pak je použití operátoru <code>in</code> o něco rychlejší než volání metody <code>count()</code>. Operátor <code>in</code> vždy vrací <code>True</code> nebo <code>False</code>. Neřekne vám, kolikrát se daná hodnota v seznamu vyskytuje. <li>Ani operátor <code>in</code> ani metoda <code>count()</code> vám ale neřeknou, <em>kde</em> se v seznamu hodnota vyskytuje. Pokud chcete zjistit, kde se hodnota v seznamu nachází, použijte metodu <code>index()</code>. Pokud neřeknete jinak, bude prohledávat celý seznam. Ale nepovinným druhým argumentem můžete zadat index (od nuly), na kterém má hledání začít. A můžeme dokonce zadat nepovinný třetí argument s indexem místa, kde má hledání skončit. <li>Metoda <code>index()</code> najde <em>první</em> výskyt zadané hodnoty v seznamu. V tomto případě se hodnota <code>'new'</code> vyskytuje v seznamu dvakrát: <code>a_list[2]</code> a <code>a_list[4]</code>. Ale metoda <code>index()</code> vrátí jen index prvního výskytu. <li>Co byste ale možná <em>nečekali</em>, je to, že v případě nenalezení hodnoty v seznamu vyvolá metoda <code>index()</code> výjimku.
+</ol>
+
+<p>Počkat! Co? Je to tak. Pokud metoda <code>index()</code> nenajde v
+seznamu zadanou hodnotu, vyvolá výjimku. Jde o zjevně odlišné chování
+ve srovnání s jinými jazyky, které vracejí nějakou neplatnou hodnotu
+indexu (jako například <code>-1</code>). Ze začátku se vám to může
+zdát protivné, ale myslím, že to časem oceníte. Znamená to, že program
+zhavaruje v místě vzniku problému místo toho, aby potichu a divně
+selhal o chvíli později. Vzpomeňte si, že hodnota <a
+href="#creatinglists"><code>-1</code> je platným indexem prvku v
+seznamu</a>. Kdyby metoda <code>index()</code> místo výjimky vracela
+hodnotu <code>-1</code>, mohlo by to vést k poměrně nezábavným
+zážitkům při ladění. <h3 id=removingfromlists>Odstraňování položek ze
+seznamu</h3>
+
+<aside>V seznamech nikdy nevznikají díry.</aside>
+
+<p>Seznamy se mohou automaticky nafukovat a smršťovat. Jejich expanzi
+už jsme si ukázali. Odstraňování položek ze seznamu můžeme také
+provést několika způsoby. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list = ['a', 'b', 'new', 'mpilgrim', 'new']</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[1]</kbd>
+<samp class="pp">'b'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">del a_list[1]</kbd>         <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['a', 'new', 'mpilgrim', 'new']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[1]</kbd>             <span class="u">②</span></a>
+<samp class="pp">'new'</samp></pre>
+<ol>
+<li>Pro odstranění určené položky ze seznamu můžeme použít příkaz <code><dfn>del</dfn></code>. <li>Pokud se pokoušíme o přístup k položce s indexem <code>1</code> poté, co jsme položku s indexem <code>1</code> odstranili, <em>nedojde</em> k chybě. Poziční index všech položek, které následují za rušenou položkou, bude posunut tak, aby byla vzniklá mezera zaplněna.
+</ol>
+
+<p>Že neznáte ten správný poziční index? Žádný problém. Odstranění
+položek můžete předepsat také jejich hodnotou. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.remove('new')</kbd>  <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['a', 'mpilgrim', 'new']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.remove('new')</kbd>  <span class="u">②</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['a', 'mpilgrim']</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.remove('new')</kbd>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ValueError: list.remove(x): x not in list</samp></pre>
+<ol>
+<li>K odstranění položky ze seznamu můžete použít metodu <code>remove()</code>. Metoda <code>remove()</code> přebírá zadanou <em>hodnotu</em> a odstraní ze seznamu její první výskyt. A opět. Všechny položky, které následují za rušenou položkou, budou posunuty tak, aby byla vzniklá mezera zaplněna. V seznamech nikdy nevznikají díry. <li>Metodu <code>remove()</code> můžete volat, kdykoliv se vám to hodí. Ale pokud se pokusíte o odstranění položky s hodnotou, která se v seznamu nevyskytuje, bude vyvolána výjimka.
+</ol>
+
+<h3 id=popgoestheweasel>Odstraňování položek ze seznamu: Bonusové kolo</h3>
+
+<p>Další zajímavou metodou seznamu je <code>pop()</code>. Metoda
+<code>pop()</code> představuje další způsob <a
+href="#removingfromlists">odstraňování položek ze seznamu</a>, ale s
+malou fintou. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list = ['a', 'b', 'new', 'mpilgrim']</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.pop()</kbd>   <span class="u">①</span></a>
+<samp class="pp">'mpilgrim'</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['a', 'b', 'new']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.pop(1)</kbd>  <span class="u">②</span></a>
+<samp class="pp">'b'</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
+<samp class="pp">['a', 'new']</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.pop()</kbd>
+<samp class="pp">'new'</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.pop()</kbd>
+<samp class="pp">'a'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list.pop()</kbd>   <span class="u">③</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+IndexError: pop from empty list</samp></pre>
+<ol>
+<li>Pokud voláme metodu <code>pop()</code> bez argumentů, odstraní poslední položku seznamu <em>a vrátí hodnotu, která byla odstraněna</em>. <li>Metodou <code>pop()</code> můžeme ze seznamu odstranit libovolnou položku. Jednoduše jí předáme poziční index. Odstraní požadovanou položku, posune následující položky tak, aby zaplnila mezeru, a vrátí odstraněnou hodnotu. <li>Pokud voláme <code>pop()</code> pro prázdný seznam, vznikne výjimka.
+</ol>
+
+<blockquote class='note compare perl'>
+<p><span class="u">☞</span>Volání metody seznamu <code>pop()</code>
+bez argumentu se podobá volání funkce <code>pop()</code> v jazyce
+Perl. Odstraní poslední položku seznamu a vrátí hodnotu, která byla
+odstraněna. V jazyce Perl existuje také funkce <code>shift()</code>,
+která odstraní první položku a vrátí její hodnotu. Jde o ekvivalent
+pythonovského volání <code><var>a_list</var>.pop(0)</code>.
+</blockquote>
+
+<h3 id=lists-in-a-boolean-context>Seznamy v booleovském kontextu</h3>
+<aside>Prázdné seznamy se vyhodnocují jako false, ostatní seznamy jako true.</aside>
+<p>Seznam můžeme použít také <a href="#booleans">v booleovském
+kontextu</a>, jako například v příkazu <code>if</code>. <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">def is_it_true(anything):</kbd>
+<samp class="p">... </samp><kbd class="pp">  if anything:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("yes, it's true")</kbd>
+<samp class="p">... </samp><kbd class="pp">  else:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("no, it's false")</kbd>
+<samp class="p">...</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true([])</kbd>             <span class="u">①</span></a>
+<samp>no, it's false</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(['a'])</kbd>          <span class="u">②</span></a>
+<samp>yes, it's true</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true([False])</kbd>        <span class="u">③</span></a>
+<samp>yes, it's true</samp></pre>
+<ol>
+<li>Prázdný seznam se v booleovském kontextu vyhodnocuje jako false. <li>Libovolný seznam, který obsahuje aspoň jednu položku, se vyhodnocuje jako true. <li>Libovolný neprázdný seznam se vyhodnocuje jako true. Hodnota položek je nepodstatná.
+</ol>
+
+<p class=a>⁂ <h2 id=tuples>N-tice</h2>
+
+<p><dfn>N-tice</dfn> (anglicky <dfn>tuple</dfn>) se chová jako
+neměnitelný seznam. Jakmile je n-tice jednou vytvořena, nedá se nijak
+změnit. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_tuple = ("a", "b", "mpilgrim", "z", "example")</kbd>  <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_tuple</kbd>
+<samp class="pp">('a', 'b', 'mpilgrim', 'z', 'example')</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_tuple[0]</kbd>                                        <span class="u">②</span></a>
+<samp class="pp">'a'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_tuple[-1]</kbd>                                       <span class="u">③</span></a>
+<samp class="pp">'example'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_tuple[1:3]</kbd>                                      <span class="u">④</span></a>
+<samp class="pp">('b', 'mpilgrim')</samp></pre>
+<ol>
+<li>N-tice se definuje stejným způsobem jako seznam. Jediný rozdíl spočívá v tom, že posloupnost prvků neuzavřeme do hranatých závorek, ale do kulatých. <li>Prvky n-tice mají definované pořadí, stejně jako u seznamu. N-tice se indexují od nuly (jako seznam), takže první element neprázdné n-tice se zapisuje vždy <code>a_tuple[0]</code>. <li>Záporné indexy se vyhodnocují od konce n-tice, stejně jako u seznamu. <li>Dají se z nich získávat výřezy (slice), stejně jako u seznamů. Když získáte výřez se seznamu, má podobu nového seznamu. Když předepíšete výřez z n-tice, dostanete novou n-tici.
+</ol>
+
+<p>Hlavní rozdíl mezi n-ticemi a seznamy je ten, že n-tice nemohou být
+změněny. Z technického pohledu říkáme, že n-tice jsou
+<dfn>neměnitelné</dfn> (anglicky <dfn>immutable</dfn>). Prakticky se
+to projevuje tak, že neposkytují žádnou metodu, která by nám je
+dovolila změnit. Seznamy mají metody jako <code>append()</code>,
+<code>extend()</code>, <code>insert()</code>, <code>remove()</code> a
+<code>pop()</code>. N-tice žádnou z těchto metod nemají. Z n-tice
+můžeme vytvořit výřez (protože se vytváří nová n-tice), můžeme
+zjišťovat, zda n-tice obsahuje určitou hodnotu (protože tím ke změně
+n-tice nedochází) a... to je všechno. <pre class=screen>
+# pokračování předchozího příkladu
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_tuple</kbd>
+<samp class="pp">('a', 'b', 'mpilgrim', 'z', 'example')</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_tuple.append("new")</kbd>               <span class="u">①</span></a>
+<samp class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'append'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_tuple.remove("z")</kbd>                 <span class="u">②</span></a>
+<samp class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+AttributeError: 'tuple' object has no attribute 'remove'</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_tuple.index("example")</kbd>            <span class="u">③</span></a>
+<samp class="pp">4</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">"z" in a_tuple</kbd>                      <span class="u">④</span></a>
+<samp class="pp">True</samp></pre>
+<ol>
+<li>Do n-tice nemůžeme přidávat další prvky. N-tice nemají ani metodu <code>append()</code> ani <code>extend()</code>. <li>Z n-tice nemůžeme prvky odstranit. N-tice nemají žádnou z metod <code>remove()</code> nebo <code>pop()</code>. <li>V n-tici <em>můžeme</em> prvky vyhledávat, protože tím nedochází k její změně. <li>Můžeme také použít operátor <code>in</code> pro testování, zda n-tice obsahuje zadaný prvek.
+</ol>
+
+<p>Takže na co jsou n-tice dobré?</p>
+
+<ul> 
+<li>N-tice jsou rychlejší než seznamy. Pokud potřebujete nadefinovat konstantní sadu hodnot a vše, co s nimi budete kdy chtít dělat, bude jejich procházení, použijte místo seznamu n-tici. <li>Pokud data nepotřebujete měnit a učiníte je „chráněnými proti zápisu“, bude váš kód bezpečnější. Pokud použijete místo seznamu n-tici, je to, jako kdybyste použili příkaz <code>assert</code>, který by kontroloval, zda jsou data konstantní. Překonat to můžeme jen záměrně (a s využitím specifické funkce). <li>Některé n-tice mohou být použity jako slovníkové klíče (přesněji řečeno, n-tice, které obsahují <i>neměnitelné</i> (immutable) hodnoty jako jsou řetězce, čísla a jiné n-tice). V roli slovníkových klíčů nemůžou nikdy vystupovat seznamy, protože seznamy nejsou neměnitelné (immutable).
+</ul>
+
+<blockquote class=note>
+<p><span class="u">☞</span>N-tice mohou být převedeny na seznamy a
+naopak. Zabudovaná funkce <code>tuple()</code> může převzít seznam a
+vrací n-tici se stejnými prvky. A naopak funkce <code>list()</code>
+může převzít zadanou n-tici a vrací seznam. Z pohledu účinku tedy
+funkce <code>tuple()</code> seznam zmrazí a funkce naopak
+<code>list()</code> rozpustí n-tici.
+</blockquote>
+
+<h3 id=tuples-in-a-boolean-context>N-tice v booleovském kontextu</h3>
+
+<p>N-tice můžeme použít <a href="#booleans">v booleovském
+kontextu</a>, jako například v příkazu <code>if</code>. <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">def is_it_true(anything):</kbd>
+<samp class="p">... </samp><kbd class="pp">  if anything:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("yes, it's true")</kbd>
+<samp class="p">... </samp><kbd class="pp">  else:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("no, it's false")</kbd>
+<samp class="p">...</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(())</kbd>             <span class="u">①</span></a>
+<samp>no, it's false</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(('a', 'b'))</kbd>     <span class="u">②</span></a>
+<samp>yes, it's true</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true((False,))</kbd>       <span class="u">③</span></a>
+<samp>yes, it's true</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type((False))</kbd>              <span class="u">④</span></a>
+<samp class="pp">&lt;class 'bool'&gt;</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type((False,))</kbd>
+<samp class="pp">&lt;class 'tuple'&gt;</samp></pre>
+<ol>
+<li>Prázdná n-tice se v booleovském kontextu vyhodnocuje jako false. <li>Libovolná n-tice s alespoň jednou položkou se vyhodnocuje jako true. <li>Libovolná n-tice s alespoň jednou položkou se vyhodnocuje jako true. Hodnota položek je nepodstatná. Ale co tady dělá ta čárka? <li>Pokud chceme vytvořit n-tici s jedinou položkou, pak musíme za hodnotu připsat čárku. Pokud bychom čárku nepřidali, Python by si myslel, že jsme jednoduše přidali nadbytečnou dvojici závorek. Je to sice neškodné, ale n-tice se tím nevytvoří.
+</ol>
+
+<h3 id=multivar>Přiřazení více hodnot najednou</h3>
+
+<p>Následuje parádní programátorská zkratka. V Pythonu můžete n-tici
+použít pro přiřazení více hodnot najednou. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">v = ('a', 2, True)</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd>(x, y, z) = v</kbd>       <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">x</kbd>
+<samp class="pp">'a'</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">y</kbd>
+<samp class="pp">2</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">z</kbd>
+<samp class="pp">True</samp></pre>
+<ol>
+<li><var>v</var> je n-tice o třech prvcích a <code>(x, y, z)</code> je n-tice s třemi proměnnými. Přiřazení jedné do druhé vede k přiřazení každé z hodnot n-tice <var>v</var> do jednotlivých proměnných v uvedeném pořadí.
+</ol>
+
+<p>Využít se toho dá všemožnými způsoby. Dejme tomu, že chcete
+pojmenovat řadu hodnot. K rychlému přiřazení po sobě jdoucích hodnot
+můžete využít zabudovanou funkci <code>range()</code> a vícenásobné
+přiřazení. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY) = range(7)</kbd>  <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">MONDAY</kbd>                                                                       <span class="u">②</span></a>
+<samp class="pp">0</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">TUESDAY</kbd>
+<samp class="pp">1</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">SUNDAY</kbd>
+<samp class="pp">6</samp></pre>
+<ol>
+<li>Zabudovaná funkce <code>range()</code> vytváří posloupnost celých čísel. (Z technického hlediska nevrací funkce <code>range()</code> seznam ani n-tici, ale <a href="iterators.html">iterátor</a>. Odlišnosti se naučíme později.) <var>MONDAY</var>, <var>TUESDAY</var>, <var>WEDNESDAY</var>, <var>THURSDAY</var>, <var>FRIDAY</var>, <var>SATURDAY</var>, a <var>SUNDAY</var> jsou proměnné, které definujeme. (Tento příklad pochází z modulu <code>calendar</code>, což je malý zábavný modul, který tiskne kalendář podobně jako <abbr>UNIX</abbr>ový program <code>cal</code>. Modul <code>calendar</code> definuje pro dny v týdnu celočíselné konstanty.) <li>V tomto okamžiku má každá z proměnných svou hodnotu: Proměnná <var>MONDAY</var> je rovna <code>0</code>, <var>TUESDAY</var> má hodnotu <code>1</code> a tak dále.
+</ol>
+
+<p>Současného přiřazení více proměnným můžeme využít také pro
+vytváření funkcí, které vracejí více hodnot najednou. Jednoduše v nich
+vrátíme n-tici se všemi požadovanými hodnotami. Ve volajícím kódu se k
+výsledku můžeme chovat jako k jedné n-tici, nebo jej můžeme přiřadit
+do více jednotlivých proměnných. Tento obrat používá řada standardních
+pythonovských knihoven, včetně modulu <code>os</code>. O něm si něco
+řekneme <a href="comprehensions.html#os">v následující kapitole</a>.
+<p class=a>⁂ <h2 id=sets>Množiny</h2>
+
+<p><dfn>Množina</dfn> (set) je neuspořádanou kolekcí jedinečných
+hodnot. Jedna množina může obsahovat hodnoty libovolného neměnitelného
+(immutable) datového typu. Pokud máme k dispozici dvě množiny, můžeme
+s nimi provádět standardní množinové operace, jako je sjednocení,
+průnik a rozdíl množin. <h3 id=creating-a-set>Vytvoření množiny</h3>
+
+<p>Ale nejdříve proberme základy. Množinu vytvoříme snadno. <pre
+class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set = {1}</kbd>     <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{1}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(a_set)</kbd>     <span class="u">②</span></a>
+<samp class="pp">&lt;class 'set'&gt;</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set = {1, 2}</kbd>  <span class="u">③</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{1, 2}</samp></pre>
+<ol>
+<li>Pokud chceme vytvořit množinu s jednou hodnotou, uzavřeme hodnotu do složených závorek (<code>{}</code>). <li>Množiny jsou ve skutečnosti implementovány jako <a href="iterators.html#defining-classes">třídy</a>, ale tím se teď nebudeme zatěžovat. <li>Pokud chceme vytvořit množinu s více hodnotami, oddělíme hodnoty čárkami a vše uzavřeme do složených závorek.
+</ol>
+
+<p>Množinu můžeme vytvořit i ze <a href="#lists">seznamu</a>. <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list = ['a', 'b', 'mpilgrim', True, False, 42]</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set = set(a_list)</kbd>                           <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>                                         <span class="u">②</span></a>
+<samp class="pp">{'a', False, 'b', True, 'mpilgrim', 42}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>                                        <span class="u">③</span></a>
+<samp class="pp">['a', 'b', 'mpilgrim', True, False, 42]</samp></pre>
+<ol>
+<li>K vytvoření množiny ze seznamu použijeme funkce <code>set()</code>. (Puntičkáři, kteří vědí, jak jsou množiny implementovány, by zde podotkli, že ve skutečnosti nejde o volání funkce, ale o vytváření instance třídy. Já vám <em>slibuji</em>, že se o tomto rozdílu dozvíte v této knize později. Prozatím nám bude stačit vědět, že <code>set()</code> se chová jako funkce a že vrací množinu.) <li>Jak už jsem se zmínil dříve, jedna množina může obsahovat hodnoty libovolného datového typu. A zmínil jsem se také, že množiny jsou <em>neuspořádané</em>. Tato množina si nepamatuje původní pořadí prvků v seznamu, který byl použit k jejímu vytvoření. Pokud byste do množiny přidávali další prvky, nebude si množina pamatovat pořadí, v jakém jste je vkládali. <li>Původní seznam zůstává nezměněn.
+</ol>
+
+<p id=emptyset>Že zatím nemáte k dispozici žádné hodnoty? Žádný
+problém. Můžeme vytvořit prázdnou množinu. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set = set()</kbd>    <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>            <span class="u">②</span></a>
+<samp class="pp">set()</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(a_set)</kbd>      <span class="u">③</span></a>
+<samp class="pp">&lt;class 'set'&gt;</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(a_set)</kbd>       <span class="u">④</span></a>
+<samp class="pp">0</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">not_sure = {}</kbd>    <span class="u">⑤</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(not_sure)</kbd>
+<samp class="pp">&lt;class 'dict'&gt;</samp></pre>
+<ol>
+<li>K vytvoření prázdné množiny zavoláme <code>set()</code> bez argumentů. <li>Zobrazená reprezentace prázdné množiny vypadá trochu divně. Očekávali jste spíš něco jako <code>{}</code>? Tímto způsobem se vyjadřuje prázdný slovník a ne množina. O slovnících se dozvíme později, ale ještě v této kapitole. <li>Navzdory podivnosti zobrazené reprezentace to skutečně <em>je</em> množina... <li>...a tato množina neobsahuje žádné prvky. <li>Prázdnou množinu nelze vytvořit zápisem dvou složených závorek kvůli historickým způsobům přeneseným z Pythonu 2. Tímto způsobem se vyjadřuje prázdný slovník a ne množina.
+</ol>
+
+<h3 id=modifying-sets>Úprava množiny</h3>
+
+<p>Do existující množiny můžeme přidávat hodnoty dvěma různými
+způsoby: metodou <code>add()</code> a metodou <code>update()</code>.
+<pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set = {1, 2}</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.add(4)</kbd>  <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{1, 2, 4}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(a_set)</kbd>    <span class="u">②</span></a>
+<samp class="pp">3</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.add(1)</kbd>  <span class="u">③</span></a>
+<samp class="pp">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{1, 2, 4}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(a_set)</kbd>    <span class="u">④</span></a>
+<samp class="pp">3</samp></pre>
+<ol>
+<li>Metoda <code>add()</code> přebírá jeden argument, který může být libovolného datového typu, a přidává zadanou hodnotu do množiny. <li>Množina teď má tři členy. <li>Množiny jsou kolekcemi <em>jedinečných hodnot</em>. Pokud do množiny zkusíme přidat hodnotu, která se v ní již nachází, neudělá to nic. Nevznikne chyba. Jde zkrátka o prázdnou operaci. <li>Množina má <em>pořád</em> jen tři členy.
+</ol>
+
+<pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set = {1, 2, 3}</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{1, 2, 3}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.update({2, 4, 6})</kbd>                       <span class="u">①</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>                                         <span class="u">②</span></a>
+<samp class="pp">{1, 2, 3, 4, 6}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.update({3, 6, 9}, {1, 2, 3, 5, 8, 13})</kbd>  <span class="u">③</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{1, 2, 3, 4, 5, 6, 8, 9, 13}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.update([10, 20, 30])</kbd>                    <span class="u">④</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{1, 2, 3, 4, 5, 6, 8, 9, 10, 13, 20, 30}</samp></pre>
+<ol>
+<li>Metoda <code>update()</code> přebírá jeden argument, rovněž množinu, a přidá všechny její členy do původní množiny. Je to, jako kdybychom volali metodu <code>add()</code> pro všechny členy množiny předané argumentem. <li>Protože cílová množina nemůže obsahovat jednu hodnotu dvakrát, duplicitní hodnoty se ignorují. <li>Ve skutečnosti můžete metodu <code>update()</code> volat s libovolným počtem argumentů. Pokud ji zavoláte s dvěma množinami, metoda <code>update()</code> přidá všechny členy z každé z předaných množin do původní množiny (duplicitní hodnoty se přeskočí). <li>Metoda <code>update()</code> umí zpracovat objekty různých datových typů, včetně seznamů. Pokud jí předáte seznam, pak metoda <code>update()</code> přidá do původní množiny všechny členy seznamu.
+</ol>
+
+<h3 id=removing-from-sets>Odstraňování položek z množiny</h3>
+
+<p>Jednotlivé hodnoty lze z množiny odstranit třemi způsoby. První
+dva, <code>discard()</code> a <code>remove()</code>, se liší v jedné
+malé drobnosti. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set = {1, 3, 6, 10, 15, 21, 28, 36, 45}</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{1, 3, 36, 6, 10, 45, 15, 21, 28}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.discard(10)</kbd>                        <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{1, 3, 36, 6, 45, 15, 21, 28}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.discard(10)</kbd>                        <span class="u">②</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{1, 3, 36, 6, 45, 15, 21, 28}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.remove(21)</kbd>                         <span class="u">③</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{1, 3, 36, 6, 45, 15, 28}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.remove(21)</kbd>                         <span class="u">④</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+KeyError: 21</samp></pre>
+<ol>
+<li>Metoda <code>discard()</code> přebírá jeden argument a zadanou hodnotu odebere z množiny. <li>Pokud metodu <code>discard()</code> voláme s hodnotou, která v množině neexistuje, neprovede se nic. Nevznikne chyba. Jde o prázdnou operaci. <li>Metoda <code>remove()</code> také přebírá hodnotu jediného argumentu a také odstraňuje hodnotu z množiny. <li>Odlišnost se projeví v případě, kdy se zadaná hodnota v množině nenachází. V takovém případě metoda <code>remove()</code> vyvolá výjimku <code>KeyError</code>.
+</ol>
+
+<p>Množiny, stejně jako seznamy, podporují metodu <code>pop()</code>.
+<pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set = {1, 3, 6, 10, 15, 21, 28, 36, 45}</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.pop()</kbd>                                <span class="u">①</span></a>
+<samp class="pp">1</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.pop()</kbd>
+<samp class="pp">3</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.pop()</kbd>
+<samp class="pp">36</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">{6, 10, 45, 15, 21, 28}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.clear()</kbd>                              <span class="u">②</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set</kbd>
+<samp class="pp">set()</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.pop()</kbd>                                <span class="u">③</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+KeyError: 'pop from an empty set'</samp></pre>
+<ol>
+<li>Metoda <code>pop()</code> odstraní jeden prvek z množiny a vrátí jeho hodnotu. Ale množiny jsou neuspořádané a neexistuje u nich nic takového jako „poslední“ hodnota. Proto také neexistuje možnost ovlivnit, která hodnota bude odstraněna. Je to zcela náhodné. <li>Metoda <code>clear()</code> odstraní <em>všechny</em> prvky množiny a množina se stane prázdnou. Ve výsledku je to stejné jako provedení příkazu <code>a_set = set()</code>, který vytvoří novou prázdnou množinu a přepíše původní hodnotu proměnné <var>a_set</var>. <li>Pokus o volání metody <code>pop()</code> pro prázdnou množinu vede k vyvolání výjimky <code>KeyError</code>.
+</ol>
+
+<h3 id=common-set-operations>Běžné množinové operace</h3>
+
+<p>Pythonovský datový typ <code>set</code> podporuje několik běžných
+množinových operací. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set = {2, 4, 5, 9, 12, 21, 30, 51, 76, 127, 195}</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">30 in a_set</kbd>                                                     <span class="u">①</span></a>
+<samp class="pp">True</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">31 in a_set</kbd>
+<samp class="pp">False</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">b_set = {1, 2, 3, 5, 6, 8, 9, 12, 15, 17, 18, 21}</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.union(b_set)</kbd>                                              <span class="u">②</span></a>
+<samp class="pp">{1, 2, 195, 4, 5, 6, 8, 12, 76, 15, 17, 18, 3, 21, 30, 51, 9, 127}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.intersection(b_set)</kbd>                                       <span class="u">③</span></a>
+<samp class="pp">{9, 2, 12, 5, 21}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.difference(b_set)</kbd>                                         <span class="u">④</span></a>
+<samp class="pp">{195, 4, 76, 51, 30, 127}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.symmetric_difference(b_set)</kbd>                               <span class="u">⑤</span></a>
+<samp class="pp">{1, 3, 4, 6, 8, 76, 15, 17, 18, 195, 127, 30, 51}</samp></pre>
+<ol>
+<li>Pokud chceme otestovat, zda je daná hodnota prvkem množiny, použijeme operátor <code>in</code>. Funguje stejným způsobem jako u seznamů. <li>Metoda <code>union()</code> (sjednocení) vrací novou množinu, která obsahuje všechny prvky jak z jedné, tak z druhé množiny. <li>Metoda <code>intersection()</code> (průnik) vrací novou množinu, která obsahuje všechny prvky nacházející se v <em>obou množinách současně</em>. <li>Metoda <code>difference()</code> (rozdíl) vrací novou množinu obsahující všechny prvky, které se nacházejí v množině <var>a_set</var>, ale nenacházejí se v množině <var>b_set</var>. <li>Metoda <code>symmetric_difference()</code> (symetrický rozdíl) vrací novou množinu obsahující všechny prvky, které se nacházejí <em>právě v jedné</em> z množin.
+</ol>
+
+<p>Tři z těchto metod jsou symetrické. <pre class=screen>
+# pokračování předchozího příkladu
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">b_set.symmetric_difference(a_set)</kbd>                                       <span class="u">①</span></a>
+<samp class="pp">{3, 1, 195, 4, 6, 8, 76, 15, 17, 18, 51, 30, 127}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">b_set.symmetric_difference(a_set) == a_set.symmetric_difference(b_set)</kbd>  <span class="u">②</span></a>
+<samp class="pp">True</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">b_set.union(a_set) == a_set.union(b_set)</kbd>                                <span class="u">③</span></a>
+<samp class="pp">True</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">b_set.intersection(a_set) == a_set.intersection(b_set)</kbd>                  <span class="u">④</span></a>
+<samp class="pp">True</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">b_set.difference(a_set) == a_set.difference(b_set)</kbd>                      <span class="u">⑤</span></a>
+<samp class="pp">False</samp></pre>
+<ol>
+<li>Symetrický rozdíl množin <var>a_set</var> od <var>b_set</var> <em>vypadá</em> jinak než symetrický rozdíl množin <var>b_set</var> od <var>a_set</var>. Ale pamatujte na to, že množiny jsou neuspořádané. Jakékoliv dvě množiny, jejichž všechny hodnoty se shodují (žádná nesmí být vynechána), se považují za shodné. <li>A přesně tento případ nastal zde. Nenechte se zmást reprezentacemi těchto množin zobrazenými pythonovským shellem. Obsahují stejné hodnoty, takže jsou shodné. <li>Sjednocení dvou množin je také symetrické. <li>Průnik dvou množin je rovněž symetrický. <li>Rozdíl dvou množin symetrický není. Ono to dává smysl. Podobá se to odčítání jednoho čísla od druhého. Na pořadí operandů zde záleží.
+</ol>
+
+<p>A nakonec tu máme několik otázek, které můžeme množinám položit.
+<pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set = {1, 2, 3}</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">b_set = {1, 2, 3, 4}</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.issubset(b_set)</kbd>    <span class="u">①</span></a>
+<samp class="pp">True</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">b_set.issuperset(a_set)</kbd>  <span class="u">②</span></a>
+<samp class="pp">True</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.add(5)</kbd>             <span class="u">③</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_set.issubset(b_set)</kbd>
+<samp class="pp">False</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">b_set.issuperset(a_set)</kbd>
+<samp class="pp">False</samp></pre>
+<ol>
+<li>Množina <var>a_set</var> je <dfn>podmnožinou</dfn> množiny <var>b_set</var>&nbsp;—&nbsp;všechny prvky množiny <var>a_set</var> jsou současně prvky množiny <var>b_set</var>. <li>Stejnou otázku můžeme položit obráceně. Množina <var>b_set</var> je <dfn>nadmnožinou</dfn> množiny <var>a_set</var>, protože všechny prvky množiny <var>a_set</var> jsou současně prvky množiny <var>b_set</var>. <li>Jakmile do množiny <var>a_set</var> přidáme hodnotu, která se v množině <var>b_set</var> nenachází, oba testy vrátí hodnotu <code>False</code>.
+</ol>
+
+<h3 id=sets-in-a-boolean-context>Množiny v booleovském kontextu</h3>
+
+<p>Množiny můžeme použít <a href="#booleans">v booleovském
+kontextu</a>, například v příkazu <code>if</code>. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">def is_it_true(anything):</kbd>
+<samp class="p">... </samp><kbd class="pp">  if anything:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("yes, it's true")</kbd>
+<samp class="p">... </samp><kbd class="pp">  else:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("no, it's false")</kbd>
+<samp class="p">...</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(set())</kbd>          <span class="u">①</span></a>
+<samp>no, it's false</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true({'a'})</kbd>          <span class="u">②</span></a>
+<samp>yes, it's true</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true({False})</kbd>        <span class="u">③</span></a>
+<samp>yes, it's true</samp></pre>
+<ol>
+<li>Prázdná množina se v booleovském kontextu vyhodnocuje jako false. <li>Libovolná množina s alespoň jedním prvkem se vyhodnocuje jako true. <li>Libovolná množina s alespoň jedním prvkem se vyhodnocuje jako true. Hodnota prvků je nepodstatná.
+</ol>
+
+<p class=a>⁂ <h2 id=dictionaries>Slovníky</h2>
+
+<p><dfn>Slovník</dfn> (dictionary) je neuspořádaná kolekce dvojic
+klíč-hodnota. Když do slovníku přidáme klíč, musíme do něj současně
+přidat i hodnotu, která ke klíči patří. (Hodnotu můžeme v budoucnu
+kdykoliv změnit.) Pythonovské slovníky jsou optimalizované pro
+získávání hodnoty k zadanému klíči, ale ne naopak. <blockquote
+class='note compare perl5'>
+<p><span class="u">☞</span>Pythonovský slovník se chová jako hash (čti
+[heš]; vyhledávací tabulka) v Perl 5. V jazyce Perl 5 začínají
+proměnné typu hash vždy znakem <code>%</code>. Pythonovské proměnné
+mohou být pojmenovány zcela libovolně. Python si vnitřně eviduje
+jejich datový typ.
+</blockquote>
+<h3 id=creating-dictionaries>Vytvoření slovníku</h3>
+<p>Slovník vytvoříme snadno. Syntaxe se podobá <a
+href="#sets">množinové</a>, ale místo pouhé hodnoty zadáváme dvojice
+klíč-hodnota. Jakmile slovník existuje, můžeme v něm vyhledávat
+hodnoty podle jejich klíče. <pre class=screen>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict = {'server': 'db.diveintopython3.org', 'database': 'mysql'}</kbd>  <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict</kbd>
+<samp class="pp">{'server': 'db.diveintopython3.org', 'database': 'mysql'}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict['server']</kbd>                                                    <span class="u">②</span></a>
+'db.diveintopython3.org'
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict['database']</kbd>                                                  <span class="u">③</span></a>
+'mysql'
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict['db.diveintopython3.org']</kbd>                                    <span class="u">④</span></a>
+<samp class="traceback">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+KeyError: 'db.diveintopython3.org'</samp></pre>
+<ol>
+<li>Nejdříve vytvoříme slovník s dvěma položkami a přiřadíme ho do proměnné <var>a_dict</var>. Každá položka je tvořena dvojicí klíč-hodnota a celý výčet položek je uzavřen ve složených závorkách. <li>Řetězec <code>'server'</code> je zde klíčem a k němu přidruženou hodnotou, na kterou se odkážeme zápisem <code>a_dict['server']</code>, je <code>'db.diveintopython3.org'</code>. <li>Řetězec <code>'database'</code> je zde klíčem. K němu přidruženou hodnotou, na kterou se odkážeme zápisem <code>a_dict['database']</code>, je <code>'mysql'</code>. <li>Hodnoty můžeme získat na základě klíče, ale klíče nemůžeme získat na základě znalosti hodnoty. Takže <code>a_dict['server']</code> obsahuje <code>'db.diveintopython3.org'</code>, ale <code>a_dict['db.diveintopython3.org']</code> vyvolá výjimku, protože <code>'db.diveintopython3.org'</code> není klíčem.
+</ol>
+<h3 id=modifying-dictionaries>Úprava slovníku</h3>
+<p>Slovníky nemají žádné předem určené omezení velikosti. Dvojici
+klíč-hodnota můžeme do slovníku přidat kdykoliv. Nebo můžeme měnit
+hodnotu příslušející ke klíči. Pokračování předchozího příkladu: <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict</kbd>
+<samp class="pp">{'server': 'db.diveintopython3.org', 'database': 'mysql'}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict['database'] = 'blog'</kbd>  <span class="u">①</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict</kbd>
+<samp class="pp">{'server': 'db.diveintopython3.org', 'database': 'blog'}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict['user'] = 'mark'</kbd>      <span class="u">②</span></a>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict</kbd>                       <span class="u">③</span></a>
+<samp class="pp">{'server': 'db.diveintopython3.org', 'user': 'mark', 'database': 'blog'}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict['user'] = 'dora'</kbd>      <span class="u">④</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict</kbd>
+<samp class="pp">{'server': 'db.diveintopython3.org', 'user': 'dora', 'database': 'blog'}</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict['User'] = 'mark'</kbd>      <span class="u">⑤</span></a>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_dict</kbd>
+<samp class="pp">{'User': 'mark', 'server': 'db.diveintopython3.org', 'user': 'dora', 'database': 'blog'}</samp></pre>
+<ol>
+<li>Ve slovníku se nemohou nacházet duplicitní klíče. Pokud přiřadíme hodnotu k existujícímu klíči, dojde k přepsání původní hodnoty. <li>Dvojici klíč-hodnota můžeme přidat kdykoliv. Tato syntaxe se shoduje s případem změny existujících hodnot. <li>Nová položka slovníku (klíč <code>'user'</code>, hodnota <code>'mark'</code>) se objevila uprostřed. To, že se u prvního příkladu položky objevily seřazené, byla pouhá náhoda. Stejná náhoda je to, že se nyní jeví jako rozházené. <li>Přiřazení hodnoty k existujícímu klíči slovníku vede k prosté náhradě staré hodnoty novou. <li>Změní se tímto příkazem hodnota klíče <code>user</code> zpět na „mark“? Nikoliv! Prohlédněte si klíč pořádně. V řetězci <kbd>User</kbd> je napsáno velké <kbd>U</kbd>. Klíče slovníků jsou citlivé na velikost písmen, takže tento příkaz vytváří novou dvojici klíč-hodnota a existující hodnotu nepřepíše. Klíč se vám sice může zdát podobný, ale z pohledu Pythonu je úplně jiný.
+</ol>
+<h3 id=mixed-value-dictionaries>Slovníky se smíšeným obsahem</h3>
+<p>Slovníky nejsou určeny jen pro řetězce. Hodnoty ve slovníku mohou
+být libovolného datového typu včetně celých čísel, booleovských
+hodnot, libovolných objektů nebo dokonce slovníků. Uvnitř jednoho
+slovníku nemusí být všechny hodnoty stejného typu. Můžeme je míchat
+podle potřeby. Klíče slovníků mají větší omezení, ale mohou být typu
+řetězec, celé číslo a několika dalších typů. Datové typy klíčů v
+jednom slovníku můžeme také míchat. <p>Se slovníky s neřetězcovými
+klíči a hodnotami jsme se vlastně už setkali v kapitole <a
+href="your-first-python-program.html#divingin">Váš první pythonovský
+program</a>. <pre class='nd pp'><code>SUFFIXES = {1000: ['KB', 'MB',
+'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+            1024: ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']}</code></pre>
+<p>Teď to v interaktivním shellu rozkucháme. <pre class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">SUFFIXES = {1000: ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],</kbd>
+<samp class="p">... </samp><kbd class="pp">            1024: ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']}</kbd>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(SUFFIXES)</kbd>      <span class="u">①</span></a>
+<samp class="pp">2</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">1000 in SUFFIXES</kbd>   <span class="u">②</span></a>
+<samp class="pp">True</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">SUFFIXES[1000]</kbd>     <span class="u">③</span></a>
+<samp class="pp">['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">SUFFIXES[1024]</kbd>     <span class="u">④</span></a>
+<samp class="pp">['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">SUFFIXES[1000][3]</kbd>  <span class="u">⑤</span></a>
+<samp class="pp">'TB'</samp></pre>
+<ol>
+<li>Funkce <code>len()</code>, podobně jako u <a href="#lists">seznamů</a> a <a href="#sets">množin</a>, vrací počet klíčů ve slovníku. <li>A stejně jako u seznamů a množin můžeme použít operátor <code>in</code> k testování, zda je zadaný klíč ve slovníku definován. <li>Číslo <code>1000</code> <em>je</em> klíčem ve slovníku <code>SUFFIXES</code>. Jeho hodnotou je seznam osmi položek (osmi řetězců, abychom byli přesní). <li>A podobně i číslo <code>1024</code> je klíčem ve slovníku <code>SUFFIXES</code>. Jeho hodnotou je také seznam s osmi položkami. <li>A protože <code>SUFFIXES[1000]</code> obsahuje seznam, můžeme jeho jednotlivé prvky zpřístupňovat prostřednictvím indexu (od nuly).
+</ol>
+<h3 id=dictionaries-in-a-boolean-context>Slovníky v booleovském kontextu</h3>
+<aside>Prázdné slovníky se vyhodnocují jako false, všechny ostatní slovníky jako true.</aside>
+<p>Slovník můžeme použít <a href="#booleans">v booleovském
+kontextu</a>, jako například v příkazu <code>if</code>. <pre
+class=screen>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">def is_it_true(anything):</kbd>
+<samp class="p">... </samp><kbd class="pp">  if anything:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("yes, it's true")</kbd>
+<samp class="p">... </samp><kbd class="pp">  else:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("no, it's false")</kbd>
+<samp class="p">...</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true({})</kbd>             <span class="u">①</span></a>
+<samp>no, it's false</samp>
+<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true({'a': 1})</kbd>       <span class="u">②</span></a>
+<samp>yes, it's true</samp></pre>
+<ol>
+<li>Prázdný slovník se v booleovském kontextu vyhodnocuje jako false. <li>Slovník s alespoň jednou dvojicí klíč-hodnota se vyhodnocuje jako true.
+</ol>
+<p class=a>⁂ <h2 id=none><code>None</code></h2>
+<p><code><dfn>None</dfn></code> [nan] je speciální pythonovskou
+konstantou. Vyjadřuje <dfn>žádnou</dfn> hodnotu. Ale <code>None</code>
+není totéž co <code>False</code>. <code>None</code> není nula.
+<code>None</code> není prázdný řetězec. Pokud porovnáme
+<code>None</code> s čímkoliv jiným než s <code>None</code>, vždycky
+dostaneme <code>False</code>. <p><code>None</code> je jedinou „žádnou“
+hodnotou. Má svůj vlastní datový typ (<code>NoneType</code>). Hodnotu
+<code>None</code> můžeme přiřadit do libovolné proměnné, ale nemůžeme
+vytvořit jiný objekt typu <code>NoneType</code>. Všechny proměnné,
+jejichž hodnota je <code>None</code>, jsou vzájemně shodné. <pre
+class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(None)</kbd>
+<samp class="pp">&lt;class 'NoneType'&gt;</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">None == False</kbd>
+<samp class="pp">False</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">None == 0</kbd>
+<samp class="pp">False</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">None == ''</kbd>
+<samp class="pp">False</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">None == None</kbd>
+<samp class="pp">True</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">x = None</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">x == None</kbd>
+<samp class="pp">True</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">y = None</kbd>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">x == y</kbd>
+<samp class="pp">True</samp>
+</pre>
+<h3 id=none-in-a-boolean-context><code>None</code> v booleovském kontextu</h3>
+<p>V <a href="#booleans">booleovském kontextu</a> se <code>None</code>
+vyhodnocuje jako false a <code>not None</code> jako true. <pre
+class='nd screen'>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">def is_it_true(anything):</kbd>
+<samp class="p">... </samp><kbd class="pp">  if anything:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("yes, it's true")</kbd>
+<samp class="p">... </samp><kbd class="pp">  else:</kbd>
+<samp class="p">... </samp><kbd class="pp">    print("no, it's false")</kbd>
+<samp class="p">...</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(None)</kbd>
+<samp>no, it's false</samp>
+<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(not None)</kbd>
+<samp>yes, it's true</samp></pre>
+<p class=a>⁂ <h2 id=furtherreading>Přečtěte si</h2>
+<ul>
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#boolean-operations-and-or-not">Boolean operations</a> (booleovské operace)
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#numeric-types-int-float-long-complex">Numeric types</a> (číselné typy)
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#sequence-types-str-unicode-list-tuple-buffer-xrange">Sequence types</a> (typy posloupností)
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#set-types-set-frozenset">Set types</a> (množinové typy)
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#mapping-types-dict">Mapping types</a> (mapovací typy, vyhledávací tabulky)
+<li><a href="http://docs.python.org/3.1/library/fractions.html">modul <code>fractions</code></a> (zlomky)
+<li><a href="http://docs.python.org/3.1/library/math.html">modul <code>math</code></a> (matematický)
+<li><a href="http://www.python.org/dev/peps/pep-0237" /><abbr>PEP</abbr> 237: Unifying Long Integers and Integers</a> (sjednocení velkých celých čísel a celých čísel)
+<li><a href="http://www.python.org/dev/peps/pep-0238" /><abbr>PEP</abbr> 238: Changing the Division Operator</a> (změna operátoru dělení)
+</ul>
+<p class=v><a href="your-first-python-program.html" rel="prev"
+title="zpět na „Váš první pythonovský program“"><span
+class="u">☜</span></a> <a href="comprehensions.html" rel="next"
+title="dopředu na „Generátorová notace“"><span class="u">☞</span></a>
+<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<script src=j/jquery.js></script>
+<script src=j/prettify.js></script>
+<script src=j/dip3.js></script> 
