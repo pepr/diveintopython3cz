@@ -1,4 +1,5 @@
-<!DOCTYPE html> <meta charset=utf-8>
+<!DOCTYPE html>
+<meta charset=utf-8>
 <title>Iterátory pro pokročilé – Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
@@ -10,27 +11,17 @@ mark{display:inline}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
-<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">‣</span> <a
-href="table-of-contents.html#advanced-iterators">Ponořme se do Pythonu
-3</a> <span class="u">‣</span>
-<p id=level>Úroveň obtížnosti: <span class="u" title="pro
-pokročilé">♦♦♦♦♢</span>
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span class="u">&#8227;</span> <a href="table-of-contents.html#advanced-iterators">Ponořme se do Pythonu 3</a> <span class="u">&#8227;</span>
+<p id=level>Úroveň obtížnosti: <span class="u" title="pro pokročilé">&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
 <h1>Iterátory pro pokročilé</h1>
 <blockquote class=q>
-<p><span class="u">❝</span> Great fleas have little fleas upon their
-backs to bite ’em,<br />And little fleas have lesser fleas, and so ad
-infinitum. <span class="u">❞</span><br />(Veliké blechy maj malé své
-blechy, aby je kousaly do jejich zad,<br />Hle, malé si nesou své o
-něco menší; konce to nemá — podivný řád.)<br />— Augustus De Morgan
+<p><span class=u>&#x275D;</span> Great fleas have little fleas upon their backs to bite &#8217;em,<br>And little fleas have lesser fleas, and so ad infinitum. <span class=u>&#x275E;</span><br />(Veliké blechy maj malé své blechy, aby je kousaly do jejich zad,<br />Hle, malé si nesou své o něco menší; konce to nemá &mdash; podivný řád.)<br />&mdash; Augustus De Morgan
 </blockquote>
-<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
-<p class=f>Jestliže přirovnáme <a
-href="regular-expressions.html">regulární výrazy</a> ke steroidům pro
-<a href="strings.html">řetězce</a>, pak modul <code>itertools</code>
-představuje steroidy pro <a href="iterators.html">iterátory</a>. Ale
-nejdříve si ukážeme jednu klasickou hádanku. <pre
-class=nd><code>HAWAII + IDAHO + IOWA + OHIO == STATES
+<p id=toc>&nbsp;
+<h2 id=divingin>Ponořme se</h2>
+<p class=f>Jestliže přirovnáme <a href="regular-expressions.html">regulární výrazy</a> ke steroidům pro <a href="strings.html">řetězce</a>, pak modul <code>itertools</code> představuje steroidy pro <a href="iterators.html">iterátory</a>. Ale nejdříve si ukážeme jednu klasickou hádanku.
+
+<pre class=nd><code>HAWAII + IDAHO + IOWA + OHIO == STATES
 510199 + 98153 + 9301 + 3593 == 621246
 
 H = 5
@@ -43,20 +34,15 @@ S = 6
 T = 2
 E = 4</code></pre>
 
-<p>Pro hádanky tohoto typu se používají anglické názvy
-<i>cryptarithms</i> nebo <i>alphametics</i>. Písmena jsou složena do
-skutečných slov, ale pokud každé z nich nahradíte číslicí
-<code>0–9</code>, pak tvoří aritmetickou rovnici. Úkol spočívá v
-nalezení dvojic písmeno/číslice. Všechny výskyty stejného písmene se
-musí dát nahradit stejnou číslicí. Žádná číslice se nesmí opakovat a
-žádné „slovo“ nesmí začínat číslicí 0. <aside>Nejznámější alfametickou
-hádankou je <code>SEND + MORE = MONEY</code>.</aside>
+<p>Hádankám tohoto typu se říká <i>algebrogramy</i> (anglicky <i>cryptarithms</i> nebo <i>alphametics</i>). Písmena jsou složena do skutečných slov, ale pokud každé z nich nahradíte číslicí <code>0–9</code>, pak tvoří aritmetickou rovnici. Úkol spočívá v nalezení dvojic písmeno/číslice. Všechny výskyty stejného písmene se musí dát nahradit stejnou číslicí. Žádná číslice se nesmí opakovat a žádné „slovo“ nesmí začínat číslicí 0.
 
-<p>V této kapitole se ponoříme do neuvěřitelného pythonovského
-programu, který původně napsal Raymond Hettinger. Program řeší
-alfametické hádanky <em>na pouhých 14 řádcích kódu</em>. <p
-class=d>[<a href="examples/alphametics.py">stáhnout
-<code>alphametics.py</code></a>] <pre class=pp><code>import re
+<aside>Nejznámějším algebrogramem je <code>SEND + MORE = MONEY</code>.</aside>
+
+<p>V této kapitole se ponoříme do neuvěřitelného pythonovského programu, který původně napsal Raymond Hettinger. Program řeší algebrogramy <em>na pouhých 14 řádcích kódu</em>.
+
+<p class=d>[<a href="examples/alphametics.py">stáhnout <code>alphametics.py</code></a>]
+
+<pre class=pp><code>import re
 import itertools
 
 def solve(puzzle):
@@ -84,10 +70,9 @@ if __name__ == '__main__':
         if solution:
             print(solution)</code></pre>
 
-<p>Program můžeme spustit z příkazového řádku. Pod Linuxem to bude
-vypadat nějak takto. (V závislosti na rychlosti vašeho počítače to
-může zabrat nějaký čas a není zde žádný indikátor průběhu výpočtu.
-Buďte trpěliví.) <pre class='nd screen cmdline'>
+<p>Program můžeme spustit z příkazového řádku. Pod Linuxem to bude vypadat nějak takto. (V závislosti na rychlosti vašeho počítače to může zabrat nějaký čas a není zde žádný indikátor průběhu výpočtu. Buďte trpěliví.)
+
+<pre class='nd screen cmdline'>
 <samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 alphametics.py "HAWAII + IDAHO + IOWA + OHIO == STATES"</kbd>
 <samp>HAWAII + IDAHO + IOWA + OHIO = STATES
 510199 + 98153 + 9301 + 3593 == 621246</samp>
@@ -98,30 +83,34 @@ Buďte trpěliví.) <pre class='nd screen cmdline'>
 <samp>SEND + MORE == MONEY
 9567 + 1085 == 10652</samp></pre>
 
-<p class=a>⁂ <h2 id=re-findall>Nalezení všech výskytů vzorku</h2>
+<p class=a>&#x2042;
 
-<p>Program pro řešení alfametiky ze všeho nejdřív hledá v hádance
-písmena (A–Z). <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import re</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.findall('[0-9]+', '16 2-by-4s in rows of 8')</kbd>  <span class="u">①</span></a>
-<samp class="pp">['16', '2', '4', '8']</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.findall('[A-Z]+', 'SEND + MORE == MONEY')</kbd>     <span class="u">②</span></a>
-<samp class="pp">['SEND', 'MORE', 'MONEY']</samp></pre>
+<h2 id=re-findall>Nalezení všech výskytů vzorku</h2>
+
+<p>Program pro řešení algebrogramu v něm ze všeho nejdřív hledá písmena (A&ndash;Z).
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>import re</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>re.findall('[0-9]+', '16 2-by-4s in rows of 8')</kbd>  <span class=u>&#x2460;</span></a>
+<samp class=pp>['16', '2', '4', '8']</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>re.findall('[A-Z]+', 'SEND + MORE == MONEY')</kbd>     <span class=u>&#x2461;</span></a>
+<samp class=pp>['SEND', 'MORE', 'MONEY']</samp></pre>
 <ol>
-<li>Modul <code>re</code> implementuje v Pythonu <a href="regular-expressions.html">regulární výrazy</a>. Najdeme v něm i šikovnou funkci nazvanou <code>findall()</code>, které zadáváme vzorek pro regulární výraz a řetězec. Funkce v zadaném řetězci nalezne všechny výskyty vzorku. V tomto případě vzorek pasuje na posloupnosti číslic. Funkce <code>findall()</code> vrací seznam všech podřetězců, které vzorku vyhovují. <li>Zde regulární výraz popisuje posloupnosti písmen. Návratovou hodnotou je opět seznam, jehož prvky jsou řetězce, které pasovaly k regulárnímu výrazu.
+<li>Modul <code>re</code> implementuje v Pythonu <a href="regular-expressions.html">regulární výrazy</a>. Najdeme v něm i šikovnou funkci nazvanou <code>findall()</code>, které zadáváme vzorek pro regulární výraz a řetězec. Funkce v zadaném řetězci nalezne všechny výskyty vzorku. V tomto případě vzorek pasuje na posloupnosti číslic. Funkce <code>findall()</code> vrací seznam všech podřetězců, které vzorku vyhovují.
+<li>Zde regulární výraz popisuje posloupnosti písmen. Návratovou hodnotou je opět seznam, jehož prvky jsou řetězce, které pasovaly k regulárnímu výrazu.
 </ol>
 
-<p>Následuje další příklad, který vám trochu procvičí mozek. <pre
-class='nd screen'>
+<p>Následuje další příklad, který vám trochu procvičí mozek.
+
+<pre class='nd screen'>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.findall(' s.*? s', "The sixth sick sheikh's sixth sheep's sick.")</kbd>
 <samp class="pp">[' sixth s', " sheikh's s", " sheep's s"]</samp></pre>
 
 <aside>Tohle je <a href="http://en.wikipedia.org/wiki/Tongue-twister">nejtěžší jazykolam</a>, který v anglickém jazyce najdete.</aside>
 
-<p>Překvapeni? Regulární výraz hledá mezeru, znak <code>s</code>, pak
-nejkratší možnou posloupnost libovolných znaků (<code>.*?</code>), pak
-mezeru a další <code>s</code>. Když se tak dívám na vstupní řetězec,
-vidím pět pasujících podřetězců: <ol>
+<p>Překvapeni? Regulární výraz hledá mezeru, znak <code>s</code>, pak nejkratší možnou posloupnost libovolných znaků (<code>.*?</code>), pak mezeru a další <code>s</code>. Když se tak dívám na vstupní řetězec, vidím pět pasujících podřetězců:
+
+<ol>
 <li><code>The<mark> sixth s</mark>ick sheikh's sixth sheep's sick.</code>
 <li><code>The sixth<mark> sick s</mark>heikh's sixth sheep's sick.</code>
 <li><code>The sixth sick<mark> sheikh's s</mark>ixth sheep's sick.</code>
@@ -135,8 +124,12 @@ Konkrétně vrátila jen první, třetí a pátou. Proč jen tři? Protože
 překrývá s druhou, takže první se vrací a druhá se přeskakuje. Pak se
 třetí shoda překrývá se čtvrtou, takže třetí se vrací a čtvrtá se
 přeskakuje. A nakonec je tu pátá shoda, která se vrací. Najdou se tedy
-tři výskyty a ne pět. <p>Tahle poznámka neměla s řešením alfametiky
-nic společného. Prostě mi to připadlo zajímavé. <p class=a>⁂ <h2
+tři výskyty a ne pět.
+
+<p>Tahle poznámka neměla s řešením algebrogramu
+nic společného. Prostě mi to připadlo zajímavé.
+
+<p class=a>⁂ <h2
 id=unique-items>Nalezení jedinečných prvků posloupnosti</h2>
 
 <p>Jedinečné hodnoty z posloupnosti můžeme snadno najít pomocí <a
@@ -156,8 +149,10 @@ href="native-datatypes.html#sets">množin</a> (set). <pre class=screen>
 <li>Pokud máme seznam s několika řetězci, pak nám z něj funkce <code>set()</code> vytvoří množinu jedinečných řetězců. Dá se to snadno pochopit, když si to představíte jako cyklus <code>for</code>. Vezmeme první položku ze seznamu a vložíme ji do množiny. Pak druhou. A třetí. Čtvrtou. Pátou... Počkat! Ta už v množině je, takže se bude vypisovat jen jednou, protože množiny v Pythonu neumožňují existenci duplicit. A šestou. Sedmou&nbsp;—&nbsp;a znovu duplicita, takže se pak objeví jen jednou. A jaký je konečný výsledek? Z původního seznamu zbyly jen jedinečné položky bez duplicit. Původní seznam ani nemusíme předem seřadit. <li>Stejná technika funguje i pro řetězce, protože řetězce jsou posloupnostmi znaků. <li>Pokud máme seznam řetězců, pak <code>''.join(<var>a_list</var>)</code> spojí všechny řetězce do jednoho. <li>Takže pokud máme seznam řetězců, tento řádek kódu vrátí jedinečné znaky nacházející se ve všech řetězcích. Bez duplicit.
 </ol>
 
-<p>Program pro řešení alfametik tuto techniku používá pro vytvoření
-množiny všech jedinečných znaků v zadání. <pre class='nd
+<p>Program pro řešení algebrogramů tuto techniku používá pro vytvoření
+množiny všech jedinečných znaků v zadání.
+
+<pre class='nd
 pp'><code>unique_characters = set(''.join(words))</code></pre>
 
 <p>Program postupně prochází všemi možnými řešeními a tuto množinu
@@ -187,7 +182,7 @@ len(unique_characters) &lt;= 10, 'Too many letters'</code></pre>
 len(unique_characters) &gt; 10:
     raise AssertionError('Too many letters')</code></pre>
 
-<p>Program řešící alfametiku používá přesně takový příkaz
+<p>Program řešící algebrogram používá přesně takový příkaz
 <code>assert</code> k předčasnému ukončení činnosti v případě, kdy
 hádanka obsahuje víc než deset jedinečných znaků. Protože každému
 písmenu přiřazujeme jedinečnou číslici a číslic máme jen deset,
@@ -307,8 +302,8 @@ StopIteration</samp>
 <pre class=screen>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import itertools</kbd>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(itertools.product('ABC', '123'))</kbd>   <span class="u">①</span></a>
-<samp class="pp">[('A', '1'), ('A', '2'), ('A', '3'), 
- ('B', '1'), ('B', '2'), ('B', '3'), 
+<samp class="pp">[('A', '1'), ('A', '2'), ('A', '3'),
+ ('B', '1'), ('B', '2'), ('B', '3'),
  ('C', '1'), ('C', '2'), ('C', '3')]</samp>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(itertools.combinations('ABC', 2))</kbd>  <span class="u">②</span></a>
 <samp class="pp">[('A', 'B'), ('A', 'C'), ('B', 'C')]</samp></pre>
@@ -399,7 +394,7 @@ seskupili podle funkce <code>len()</code>. Fungovalo to jen díky tomu,
 </ol>
 
 <p id=dict-zip>No dobrá, tohle všechno je sice velmi zajímavé, ale jak
-se to vztahuje k programu na řešení alfametik? Takto: <pre
+se to vztahuje k programu na řešení algebrogramů? Takto: <pre
 class=screen>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">characters = ('S', 'M', 'E', 'D', 'O', 'N', 'R', 'Y')</kbd>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">guess = ('1', '2', '0', '3', '4', '5', '6', '7')</kbd>
@@ -413,7 +408,7 @@ class=screen>
 <li>Máme-li dán seznam písmen a seznam číslic (každá z nich je v něm reprezentována jako jednoznakový řetězec), pak nám funkce <code>zip</code> spáruje písmena a číslice v uvedeném pořadí. <li>A proč by to mělo být nějak zvlášť výhodné? Protože shodou okolností je taková datová struktura přesně tou správnou datovou strukturou, kterou můžeme předat funkci <code>dict()</code>, aby vytvořila slovník, který používá písmena jako klíče a k nim přidružené číslice jako hodnoty. (Není to, samozřejmě, jediný způsob, jak toho můžeme dosáhnout. Slovník bychom mohli vytvořit přímo, pomocí <a href="comprehensions.html#dictionarycomprehension">generátorové notace</a>.) Ačkoliv textová reprezentace obsahu slovníku zobrazuje dvojice v jiném pořadí (slovníky samy o sobě nedefinují „pořadí“), vidíme, že každé písmeno má k sobě číslici přidruženou na základě původních posloupností <var>characters</var> a <var>guess</var>.
 </ol>
 
-<p id=guess>Program pro řešení alfametik tuto techniku používá pro
+<p id=guess>Program pro řešení algebrogramů tuto techniku používá pro
 vytvoření slovníku, který převádí písmena z hádanky na čísla v řešení
 — pro každé možné řešení. <pre class='nd pp'><code>characters =
 tuple(ord(c) for c in sorted_characters)
@@ -443,7 +438,7 @@ Teď si představíme mocnou, ale málo známou techniku pro manipulaci s
 
 <aside>Teď se dostáváme k <em>opravdu</em> zábavné části.</aside>
 
-<p>Ale co to má společného s řešením alfametických hádanek? Jak se
+<p>Ale co to má společného s řešením algebrogramů? Jak se
 ukáže za chvílli, všechno. <pre class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">characters = tuple(ord(c) for c in 'SMEDONRY')</kbd>       <span class="u">①</span></a>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">characters</kbd>
@@ -531,7 +526,7 @@ výrazů pocházejících z nedůvěryhodných zdrojů. Funkci
 <code>eval()</code> byste měli používat výhradně pro vstup z
 důvěryhodných zdrojů. Problém je v tom, jak určit, co je „důvěryhodný“
 zdroj. Ale něco vím určitě. Určitě byste <b>NEMĚLI</b> vzít tento
-program pro řešení alfametik a zveřejnit jej na internetu v podobě
+program pro řešení algebrogramů a zveřejnit jej na internetu v podobě
 malé webovské služby. A nemyslete si: „Vždyť ta funkce dělá tolik
 řetězcových operací, než se vůbec dostane k vyhodnocení. <em>Nedovedu
 si představit</em>, jak by toho někdo mohl zneužít.“ Někdo
@@ -561,7 +556,9 @@ NameError: name 'math' is not defined</samp></pre>
 </ol>
 
 <p>Tý jo. Tak to bylo jednoduché. Teď si udělám webovskou službu pro
-řešení alfametik! <pre class=screen>
+řešení algebrogramů!
+
+<pre class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("pow(5, 2)", {}, {})</kbd>                   <span class="u">①</span></a>
 <samp class="pp">25</samp>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">eval("__import__('math').sqrt(5)", {}, {})</kbd>  <span class="u">②</span></a>
@@ -613,7 +610,7 @@ důvěryhodný vstup. Cokoliv jiného znamená, že si koledujete o malér.
 <p class=a>⁂ <h2 id=alphametics-finale>Spojme to všechno
 dohromady</h2>
 
-<p>Rekapitulace: Tento program řeší alfametické hádanky hrubou silou,
+<p>Rekapitulace: Tento program řeší algebrogramy hrubou silou,
 tj. vyčerpávajícím hledáním všech možných řešení. Program za tím
 účelem... <ol>
 <li><a href="#re-findall">Nalezne v zadání všechna písmena</a> voláním funkce <code>re.findall()</code>. <li><a href="#unique-items">Nalezne všechna <em>jedinečná</em> písmena hádanky s využitím množiny a funkce <code>set()</code>. <li><a href="#assert">Zkontroluje příkazem <code>assert</code>, zda se v zadání nevyskytuje více než 10 jedinečných znaků</a> (což by znamenalo, že hádanka je neřešitelná). <li><a href="#generator-objects">Převede znaky na jejich ASCII hodnoty</a> použitím objektu generátoru. <li><a href="#permutations">Počítá všechna možná řešení</a> pomocí funkce <code>itertools.permutations()</code>. <li><a href="#string-translate">Převádí každé možné řešení na pythonovský výraz</a> pomocí metody řetězcového objektu <code>translate()</code>. <li><a href="#eval">Testuje každé možné řešení vyhodnocením pythonovského výrazu</a> voláním funkce <code>eval()</code>. <li>Vrací první řešení, které se vyhodnotí jako <code>True</code>.
@@ -639,4 +636,4 @@ Testing“"><span class="u">☞</span></a>
 <p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
-<script src=j/dip3.js></script> 
+<script src=j/dip3.js></script>
