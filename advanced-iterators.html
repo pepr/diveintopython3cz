@@ -41,7 +41,6 @@ E = 4</code></pre>
 <p>V této kapitole se ponoříme do neuvěřitelného pythonovského programu, který původně napsal Raymond Hettinger. Program řeší algebrogramy <em>na pouhých 14 řádcích kódu</em>.
 
 <p class=d>[<a href="examples/alphametics.py">stáhnout <code>alphametics.py</code></a>]
-
 <pre class=pp><code>import re
 import itertools
 
@@ -141,7 +140,8 @@ if __name__ == '__main__':
 <a><samp class=p>>>> </samp><kbd class=pp>set(''.join(words))</kbd>              <span class=u>&#x2463;</span></a>
 <samp class=pp>{'E', 'D', 'M', 'O', 'N', 'S', 'R', 'Y'}</samp></pre>
 <ol>
-<li>Pokud máme seznam s několika řetězci, pak nám z něj funkce <code>set()</code> vytvoří množinu jedinečných řetězců. Dá se to snadno pochopit, když si to představíte jako cyklus <code>for</code>. Vezmeme první položku ze seznamu a vložíme ji do množiny. Pak druhou. A třetí. Čtvrtou. Pátou... Počkat! Ta už v množině je, takže se bude vypisovat jen jednou, protože množiny v Pythonu neumožňují existenci duplicit. A šestou. Sedmou&nbsp;&mdash;&nbsp;a znovu duplicita, takže se pak objeví jen jednou. A jaký je konečný výsledek? Z původního seznamu zbyly jen jedinečné položky bez duplicit. Původní seznam ani nemusíme předem seřadit. <li>Stejná technika funguje i pro řetězce, protože řetězce jsou posloupnostmi znaků.
+<li>Pokud máme seznam s několika řetězci, pak nám z něj funkce <code>set()</code> vytvoří množinu jedinečných řetězců. Dá se to snadno pochopit, když si to představíte jako cyklus <code>for</code>. Vezmeme první položku ze seznamu a vložíme ji do množiny. Pak druhou. A třetí. Čtvrtou. Pátou... Počkat! Ta už v množině je, takže se bude vypisovat jen jednou, protože množiny v Pythonu neumožňují existenci duplicit. A šestou. Sedmou&nbsp;&mdash;&nbsp;a znovu duplicita, takže se pak objeví jen jednou. A jaký je konečný výsledek? Z původního seznamu zbyly jen jedinečné položky bez duplicit. Původní seznam ani nemusíme předem seřadit.
+<li>Stejná technika funguje i pro řetězce, protože řetězce jsou posloupnostmi znaků.
 <li>Pokud máme seznam řetězců, pak <code>''.join(<var>a_list</var>)</code> spojí všechny řetězce do jednoho.
 <li>Takže pokud máme seznam řetězců, tento řádek kódu vrátí jedinečné znaky nacházející se ve všech řetězcích. Bez duplicit.
 </ol>
@@ -170,7 +170,8 @@ AssertionError</samp>
 AssertionError: Only for very large values of 2</samp></pre>
 <ol>
 <li>Za příkaz <code>assert</code> uvedeme libovolný platný pythonovský výraz. V tomto případě se výraz <code>1 + 1 == 2</code> vyhodnotí jako <code>True</code>, takže příkaz <code>assert</code> nedělá nic.
-<li>Pokud se ale pythonovský výraz vyhodnotí jako <code>False</code>, vyvolá příkaz <code>assert</code> výjimku <code>AssertionError</code>. <li>Za výraz můžeme uvést také lidsky čitelnou zprávu, která se v případě vyvolání výjimky <code>AssertionError</code> zobrazí.
+<li>Pokud se ale pythonovský výraz vyhodnotí jako <code>False</code>, vyvolá příkaz <code>assert</code> výjimku <code>AssertionError</code>.
+<li>Za výraz můžeme uvést také lidsky čitelnou zprávu, která se v případě vyvolání výjimky <code>AssertionError</code> zobrazí.
 </ol>
 
 <p>Takže následující řádek kódu:
