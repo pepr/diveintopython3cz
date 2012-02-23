@@ -1,4 +1,5 @@
-<!DOCTYPE html> <meta charset=utf-8>
+<!DOCTYPE html>
+<meta charset=utf-8>
 <title>Soubory &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
@@ -10,317 +11,248 @@ mark{display:inline}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
-<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">&#8227;</span> <a href="table-of-contents.html#files">Ponořme se
-do Pythonu 3</a> <span class="u">&#8227;</span>
-<p id=level>Úroveň obtížnosti: <span class="u" title="mírně
-pokročilí">&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span class="u">&#8227;</span> <a href="table-of-contents.html#files">Ponořme se do Pythonu 3</a> <span class="u">&#8227;</span>
+<p id=level>Úroveň obtížnosti: <span class="u" title="mírně pokročilí">&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
 <h1>Soubory</h1>
 <blockquote class=q>
-<p><span class="u">&#x275D;</span> A nine mile walk is no joke, especially in
-the rain. <span class="u">&#x275E;</span><br>(Jít devět mil není žádná
-legrace, zvlášť v dešti. [<a
-href="http://www.youtube.com/watch?v=9qQKYBzLgaM">krátký film</a>])<br
-/>&mdash; Harry Kemelman, <cite>The Nine Mile Walk</cite>
+<p><span class="u">&#x275D;</span> A nine mile walk is no joke, especially in the rain. <span class="u">&#x275E;</span><br>(Jít devět mil není žádná legrace, zvlášť v dešti. [<a href="http://www.youtube.com/watch?v=9qQKYBzLgaM">krátký film</a>])<br>&mdash; Harry Kemelman, <cite>The Nine Mile Walk</cite>
 </blockquote>
-<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
-<p class=f>Než jsem začal instalovat první aplikaci, obsahovaly
-Windows na mém laptopu 38 493 souborů. Po instalaci Pythonu 3 k nim
-přibylo téměř 3000 dalších. Každý významnější operační systém považuje
-soubory za základ ukládání dat. Koncepce souborů je tak zakořeněná, že
-by <a
-href="http://en.wikipedia.org/wiki/Computer_file#History">představa
-jiné možnosti</a> dělala většině lidí problémy. Obrazně řečeno, váš
-počítač se topí v souborech. <h2 id=reading>Čtení z textových
-souborů</h2>
+<p id=toc>&nbsp;
+<h2 id=divingin>Ponořme se</h2>
+<p class=f>Než jsem začal instalovat první aplikaci, obsahovaly Windows na mém laptopu 38 493 souborů. Po instalaci Pythonu 3 k nim přibylo téměř 3000 dalších. Každý významnější operační systém považuje soubory za základ ukládání dat. Koncepce souborů je tak zakořeněná, že by <a href="http://en.wikipedia.org/wiki/Computer_file#History">představa jiné možnosti</a> dělala většině lidí problémy. Obrazně řečeno, váš počítač se topí v souborech.
 
-<p>Než můžeme ze souboru číst, musíme jej otevřít. Otvírání souborů v
-Pythonu už nemohlo být jednodušší. <pre class='nd pp'><code>a_file =
-open('examples/chinese.txt', encoding='utf-8')</code></pre>
+<h2 id=reading>Čtení z textových souborů</h2>
 
-<p>V Pythonu najdeme zabudovanou funkci <code>open()</code>, která
-přebírá jméno souboru jako argument. Jménem souboru je zde <code
-class="pp">'examples/chinese.txt'</code>. Na uvedeném jméně souboru
-najdeme pět zajímavostí: <ol>
-<li>Není to pouhé jméno souboru. Je to kombinace adresářové cesty a jména souboru. Hypotetická funkce pro otvírání souboru by mohla požadovat dva argumenty&nbsp;&mdash;&nbsp;adresářovou cestu a jméno souboru. Ale funkce <code>open()</code> požaduje jen jeden. Kdykoliv se po vás v Pythonu požaduje „jméno souboru“, můžete do něj zahrnout také celou adresářovou cestu nebo její část. <li>Uvedená adresářová cesta používá normální lomítko, ale neupřesnil jsem, jaký operační systém používám. Windows používají pro oddělování podadresářů zpětná lomítka, zatímco Mac OS X a Linux používají obyčejná lomítka. Ale v Pythonu fungují obyčejná lomítka i pod Windows. <li>Uvedená adresářová cesta nezačíná lomítkem nebo písmenem disku, takže ji nazýváme <i>relativní cesta</i>. Mohli byste se zeptat &mdash; relativní k čemu? Zachovejte klid. <li>Je to řetězec. Všechny moderní operační systémy (dokonce i Windows!) ukládají jména souborů a adresářů v Unicode. Python 3 plně podporuje jména cest, která nemusí být výhradně v <abbr>ASCII</abbr>. <li>A nemusí vést jen na váš lokální disk. Můžete mít připojený síťový disk. Daný „soubor“ může být fiktivní součástí <a href="http://cs.wikipedia.org/wiki/Filesystem_in_Userspace">zcela virtuálního souborového systému</a>. Pokud jej váš počítač považuje za soubor a může k němu jako k souboru přistupovat, může jej Python otevřít také.
+<p>Než můžeme ze souboru číst, musíme jej otevřít. Otvírání souborů v Pythonu už nemohlo být jednodušší.
+
+<pre class='nd pp'><code>a_file = open('examples/chinese.txt', encoding='utf-8')</code></pre>
+
+<p>V Pythonu najdeme zabudovanou funkci <code>open()</code>, která přebírá jméno souboru jako argument. Jménem souboru je zde <code class="pp">'examples/chinese.txt'</code>. Na uvedeném jméně souboru najdeme pět zajímavostí:
+
+<ol>
+<li>Není to pouhé jméno souboru. Je to kombinace adresářové cesty a jména souboru. Hypotetická funkce pro otvírání souboru by mohla požadovat dva argumenty&nbsp;&mdash;&nbsp;adresářovou cestu a jméno souboru. Ale funkce <code>open()</code> požaduje jen jeden. Kdykoliv se po vás v Pythonu požaduje „jméno souboru“, můžete do něj zahrnout také celou adresářovou cestu nebo její část.
+<li>Uvedená adresářová cesta používá normální lomítko, ale neupřesnil jsem, jaký operační systém používám. Windows používají pro oddělování podadresářů zpětná lomítka, zatímco Mac OS X a Linux používají obyčejná lomítka. Ale v Pythonu fungují obyčejná lomítka i pod Windows.
+<li>Uvedená adresářová cesta nezačíná lomítkem nebo písmenem disku, takže ji nazýváme <i>relativní cesta</i>. Mohli byste se zeptat &mdash; relativní k čemu? Zachovejte klid.
+<li>Je to řetězec. Všechny moderní operační systémy (dokonce i Windows!) ukládají jména souborů a adresářů v Unicode. Python 3 plně podporuje jména cest, která nemusí být výhradně v <abbr>ASCII</abbr>.
+<li>A nemusí vést jen na váš lokální disk. Můžete mít připojený síťový disk. Daný „soubor“ může být fiktivní součástí <a href="http://cs.wikipedia.org/wiki/Filesystem_in_Userspace">zcela virtuálního souborového systému</a>. Pokud jej váš počítač považuje za soubor a může k němu jako k souboru přistupovat, může jej Python otevřít také.
 </ol>
 
-<p>Ale volání funkce <code>open()</code> nekončí zadáním jména
-souboru. Máme zde další argument nazvaný <code>encoding</code>
-(kódování). No nazdar. To zní <a
-href="strings.html#boring-stuff">příšerně povědomě</a>. <h3
-id=encoding>Kódování znaků vystrkuje svou ošklivou hlavu.</h3>
+<p>Ale volání funkce <code>open()</code> nekončí zadáním jména souboru. Máme zde další argument nazvaný <code>encoding</code> (kódování). No nazdar. To zní <a href="strings.html#boring-stuff">příšerně povědomě</a>.
 
-<p>Bajty jsou bajty, <a href="strings.html#byte-arrays">znaky jsou
-abstrakce</a>. Řetězec je posloupností znaků v Unicode. Ale soubor na
-disku není posloupností Unicode znaků. Soubor na disku je posloupností
-bajtů. Takže jak Python převádí posloupnost bajtů na posloupnost
-znaků, když čteme „textový soubor“ z disku? Dekóduje bajty podle
-určitého algoritmu pro kódování znaků a vrací posloupnost znaků v
-Unicode (známou také jako řetězec). <pre>
+<h3 id=encoding>Kódování znaků vystrkuje svou ošklivou hlavu.</h3>
+
+<p>Bajty jsou bajty, <a href="strings.html#byte-arrays">znaky jsou abstrakce</a>. Řetězec je posloupností znaků v Unicode. Ale soubor na disku není posloupností Unicode znaků. Soubor na disku je posloupností bajtů. Takže jak Python převádí posloupnost bajtů na posloupnost znaků, když čteme „textový soubor“ z disku? Dekóduje bajty podle určitého algoritmu pro kódování znaků a vrací posloupnost znaků v Unicode (známou také jako řetězec).
+
+<pre>
 # Tento příklad byl vytvořen pod Windows. Z důvodů popsaných
 # níže se na ostatních platformách může chovat jinak.
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">file = open('examples/chinese.txt')</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_string = file.read()</kbd>
-<samp class="traceback">Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+<samp class=p>>>> </samp><kbd class=pp>file = open('examples/chinese.txt')</kbd>
+<samp class=p>>>> </samp><kbd class=pp>a_string = file.read()</kbd>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
   File "C:\Python31\lib\encodings\cp1252.py", line 23, in decode
     return codecs.charmap_decode(input,self.errors,decoding_table)[0]
-UnicodeDecodeError: 'charmap' codec can't decode byte 0x8f in position 28: character maps to &lt;undefined&gt;</samp>
-<samp class="p">&gt;&gt;&gt; </samp></pre>
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x8f in position 28: character maps to &lt;undefined></samp>
+<samp class=p>>>> </samp></pre>
 
 <aside>Výchozí kódování je závislé na platformě.</aside>
 
-<p>Co se to vlastně stalo? Neurčili jsme znakové kódování, takže
-Python byl donucen použít výchozí kódování. Co to je výchozí kódování?
-Pokud se pořádně podíváme na trasovací výpis, vidíme, že skončil
-uvnitř <code>cp1252.py</code>. To znamená, že Python použil jako
-výchozí kódování CP-1252. (CP-1252 je běžné kódování, které se používá
-na počítačích s Microsoft Windows. To se týká západní Evropy. Čeština
-a slovenština používají kódování CP-1250.) Znaková sada CP-1252
-nepodporuje znaky, které se v souboru nacházejí, takže čtení selhává s
-nepěknou chybou <code>UnicodeDecodeError</code>. <p>Ale počkejte. Ono
-je to ještě horší! Výchozí kódování je <em>závislé na platformě</em>,
-takže stejný kód by na vašem počítači fungovat <em>mohl</em> (pokud by
-vaším výchozím kódováním bylo <abbr>UTF-8</abbr>). Ale pokud program
-přenesete k někomu jinému (kdo používá jiné výchozí kódování, jako
-třeba CP-1252), dojde k selhání. <blockquote class=note>
-<p><span class="u">&#x261E;</span>Pokud potřebujete zjistit výchozí znakové
-kódování, importujte modul <code>locale</code> a zavolejte
-<code>locale.getpreferredencoding()</code>. Na mém laptopu s Windows
-funkce vrací <code>'cp1252'</code>, ale na mém linuxovém stroji v
-horním pokoji se vrací <code>'UTF8'</code>. Nejsem schopen udržet
-shodu dokonce ani ve svém vlastním domě! Ve vašem případě mohou být
-výsledky jiné (dokonce i pod Windows) v závislosti na verzi operačního
-systému, který jste nainstalovali, a na konfiguraci regionálních a
-jazykových nastavení. To je důvod, proč je tak důležité uvádět
-kódování pokaždé, když otvíráme soubor.
+<p>Co se to vlastně stalo? Neurčili jsme znakové kódování, takže Python byl donucen použít výchozí kódování. Co to je výchozí kódování? Pokud se pořádně podíváme na trasovací výpis, vidíme, že skončil uvnitř <code>cp1252.py</code>. To znamená, že Python použil jako výchozí kódování CP-1252. (CP-1252 je běžné kódování, které se používá na počítačích s Microsoft Windows. To se týká západní Evropy. Čeština a slovenština používají kódování CP-1250.) Znaková sada CP-1252 nepodporuje znaky, které se v souboru nacházejí, takže čtení selhává s nepěknou chybou <code>UnicodeDecodeError</code>.
+
+<p>Ale počkejte. Ono je to ještě horší! Výchozí kódování je <em>závislé na platformě</em>, takže stejný kód by na vašem počítači fungovat <em>mohl</em> (pokud by vaším výchozím kódováním bylo <abbr>UTF-8</abbr>). Ale pokud program přenesete k někomu jinému (kdo používá jiné výchozí kódování, jako třeba CP-1252), dojde k selhání.
+
+<blockquote class=note>
+<p><span class="u">&#x261E;</span>Pokud potřebujete zjistit výchozí znakové kódování, importujte modul <code>locale</code> a zavolejte <code>locale.getpreferredencoding()</code>. Na mém laptopu s Windows funkce vrací <code>'cp1252'</code>, ale na mém linuxovém stroji v horním pokoji se vrací <code>'UTF8'</code>. Nejsem schopen udržet shodu dokonce ani ve svém vlastním domě! Ve vašem případě mohou být výsledky jiné (dokonce i pod Windows) v závislosti na verzi operačního systému, který jste nainstalovali, a na konfiguraci regionálních a jazykových nastavení. To je důvod, proč je tak důležité uvádět kódování pokaždé, když otvíráme soubor.
 
 </blockquote>
 
 <h3 id=file-objects>Objekty typu stream</h3>
 
-<p>Zatím víme jen to, že Python má zabudovanou funkci zvanou
-<code>open()</code>. Funkce <code>open()</code> vrací <i>objekt typu
-stream</i> (čti [strím], proud dat), který poskytuje metody a atributy
-pro získávání informací o proudu znaků a pro manipulaci s ním. <pre
-class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file = open('examples/chinese.txt', encoding='utf-8')</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.name</kbd>                                              <span class="u">①</span></a>
-<samp class="pp">'examples/chinese.txt'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.encoding</kbd>                                          <span class="u">②</span></a>
-<samp class="pp">'utf-8'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.mode</kbd>                                              <span class="u">③</span></a>
-<samp class="pp">'r'</samp></pre>
+<p>Zatím víme jen to, že Python má zabudovanou funkci zvanou <code>open()</code>. Funkce <code>open()</code> vrací <i>objekt typu stream</i> (čti [strím], proud dat), který poskytuje metody a atributy pro získávání informací o proudu znaků a pro manipulaci s ním.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>a_file = open('examples/chinese.txt', encoding='utf-8')</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.name</kbd>                                              <span class=u>&#x2460;</span></a>
+<samp class=pp>'examples/chinese.txt'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.encoding</kbd>                                          <span class=u>&#x2461;</span></a>
+<samp class=pp>'utf-8'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.mode</kbd>                                              <span class=u>&#x2462;</span></a>
+<samp class=pp>'r'</samp></pre>
 <ol>
-<li>Atribut <code>name</code> zachycuje jméno, které jsme při otvírání souboru předali funkci <code>open()</code>. Není upraveno do podoby absolutní cesty. <li>Podobně atribut <code>encoding</code> zachycuje kódování, které jsme při otvírání souboru předali funkci <code>open()</code>. Pokud byste při otvírání souboru kódování neuvedli (nepořádný vývojář!), pak by atribut <code>encoding</code> odpovídal výsledku <code>locale.getpreferredencoding()</code>. <li>Z atributu <code>mode</code> poznáme, v jakém režimu byl soubor otevřen. Funkci <code>open()</code> můžeme předat nepovinný parametr <var>mode</var> (režim). Při otvírání tohoto souboru jsme režim neurčili, takže Python použije výchozí hodnotu <code>'r'</code>, která má význam „otevřít jen pro čtení, v textovém režimu“. Jak uvidíme v této kapitole později, plní režim otevření souboru několik účelů. Různé režimy nám umožní do souboru zapisovat, připojovat na konec souboru nebo otvírat soubor v binárním režimu (ve kterém místo s řetězci pracujeme s bajty).
+<li>Atribut <code>name</code> zachycuje jméno, které jsme při otvírání souboru předali funkci <code>open()</code>. Není upraveno do podoby absolutní cesty.
+<li>Podobně atribut <code>encoding</code> zachycuje kódování, které jsme při otvírání souboru předali funkci <code>open()</code>. Pokud byste při otvírání souboru kódování neuvedli (nepořádný vývojář!), pak by atribut <code>encoding</code> odpovídal výsledku <code>locale.getpreferredencoding()</code>.
+<li>Z atributu <code>mode</code> poznáme, v jakém režimu byl soubor otevřen. Funkci <code>open()</code> můžeme předat nepovinný parametr <var>mode</var> (režim). Při otvírání tohoto souboru jsme režim neurčili, takže Python použije výchozí hodnotu <code>'r'</code>, která má význam „otevřít jen pro čtení, v textovém režimu“. Jak uvidíme v této kapitole později, plní režim otevření souboru několik účelů. Různé režimy nám umožní do souboru zapisovat, připojovat na konec souboru nebo otvírat soubor v binárním režimu (ve kterém místo s řetězci pracujeme s bajty).
 </ol>
 
 <blockquote class=note>
-<p><span class="u">&#x261E;</span>Seznam všech možných režimů najdete <a
-href="http://docs.python.org/3.1/library/io.html#module-interface">v
-dokumentaci pro funkci <code>open()</code></a>.
+<p><span class="u">&#x261E;</span>Seznam všech možných režimů najdete <a href="http://docs.python.org/3.1/library/io.html#module-interface">v dokumentaci pro funkci <code>open()</code></a>.
 </blockquote>
 
 <h3 id=read>Čtení dat z textového souboru</h3>
 
-<p>Po otevření souboru pro čtení z něj pravděpodobně v určitém místě
-budete chtít číst. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file = open('examples/chinese.txt', encoding='utf-8')</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read()</kbd>                                            <span class="u">①</span></a>
-<samp class="pp">'Dive Into Python 是为有经验的程序员编写的一本 Python 书。\n'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read()</kbd>                                            <span class="u">②</span></a>
-<samp class="pp">''</samp></pre>
+<p>Po otevření souboru pro čtení z něj pravděpodobně v určitém místě budete chtít číst.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>a_file = open('examples/chinese.txt', encoding='utf-8')</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.read()</kbd>                                            <span class=u>&#x2460;</span></a>
+<samp class=pp>'Dive Into Python 是为有经验的程序员编写的一本 Python 书。\n'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.read()</kbd>                                            <span class=u>&#x2461;</span></a>
+<samp class=pp>''</samp></pre>
 <ol>
-<li>Jakmile soubor otevřeme (při zadání správného kódování), spočívá čtení z něj v prostém volání metody <code>read()</code> objektu typu stream. Výsledkem je řetězec. <li>Trochu překvapující je možná to, že další čtení ze souboru nevyvolá výjimku. Python nepovažuje čtení za koncem souboru za chybu. Vrátí se jednoduše prázdný řetězec.
+<li>Jakmile soubor otevřeme (při zadání správného kódování), spočívá čtení z něj v prostém volání metody <code>read()</code> objektu typu stream. Výsledkem je řetězec.
+<li>Trochu překvapující je možná to, že další čtení ze souboru nevyvolá výjimku. Python nepovažuje čtení za koncem souboru za chybu. Vrátí se jednoduše prázdný řetězec.
 </ol>
 
 <aside>Při otvírání souboru vždy uvádějte parametr <code>encoding</code>.</aside>
 
-<p>A co kdybychom chtěli soubor číst znovu? <pre class=screen>
+<p>A co kdybychom chtěli soubor číst znovu?
+
+<pre class=screen>
 # pokračování předchozího příkladu
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read()</kbd>                      <span class="u">①</span></a>
-<samp class="pp">''</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.seek(0)</kbd>                     <span class="u">②</span></a>
-<samp class="pp">0</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read(16)</kbd>                    <span class="u">③</span></a>
-<samp class="pp">'Dive Into Python'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read(1)</kbd>                     <span class="u">④</span></a>
-<samp class="pp">' '</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read(1)</kbd>
-<samp class="pp">'是'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.tell()</kbd>                      <span class="u">⑤</span></a>
-<samp class="pp">20</samp></pre>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.read()</kbd>                      <span class=u>&#x2460;</span></a>
+<samp class=pp>''</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.seek(0)</kbd>                     <span class=u>&#x2461;</span></a>
+<samp class=pp>0</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.read(16)</kbd>                    <span class=u>&#x2462;</span></a>
+<samp class=pp>'Dive Into Python'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.read(1)</kbd>                     <span class=u>&#x2463;</span></a>
+<samp class=pp>' '</samp>
+<samp class=p>>>> </samp><kbd class=pp>a_file.read(1)</kbd>
+<samp class=pp>'是'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.tell()</kbd>                      <span class=u>&#x2464;</span></a>
+<samp class=pp>20</samp></pre>
 <ol>
-<li>Protože jsme ještě pořád na konci souboru, další volání metody <code>read()</code> vrací prázdný řetězec. <li>Metoda <code>seek()</code> zajistí přesun v souboru na určenou bajtovou pozici. <li>Metodě <code>read()</code> můžeme zadat nepovinný parametr, který určuje počet znaků, které se mají načíst. <li>Pokud budeme chtít, můžeme číst klidně i po jednom znaku. <li>16 + 1 + 1 = &hellip; 20?
+<li>Protože jsme ještě pořád na konci souboru, další volání metody <code>read()</code> vrací prázdný řetězec.
+<li>Metoda <code>seek()</code> zajistí přesun v souboru na určenou bajtovou pozici.
+<li>Metodě <code>read()</code> můžeme zadat nepovinný parametr, který určuje počet znaků, které se mají načíst.
+<li>Pokud budeme chtít, můžeme číst klidně i po jednom znaku.
+<li>16 + 1 + 1 = &hellip; 20?
 </ol>
 
-<p>Zkusme to znovu. <pre class=screen>
+<p>Zkusme to znovu.
+
+<pre class=screen>
 # pokračování předchozího příkladu
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.seek(17)</kbd>                    <span class="u">①</span></a>
-<samp class="pp">17</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read(1)</kbd>                     <span class="u">②</span></a>
-<samp class="pp">'是'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.tell()</kbd>                      <span class="u">③</span></a>
-<samp class="pp">20</samp></pre>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.seek(17)</kbd>                    <span class=u>&#x2460;</span></a>
+<samp class=pp>17</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.read(1)</kbd>                     <span class=u>&#x2461;</span></a>
+<samp class=pp>'是'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.tell()</kbd>                      <span class=u>&#x2462;</span></a>
+<samp class=pp>20</samp></pre>
 <ol>
-<li>Přesuneme se na 17. bajt. <li>Přečteme jeden znak. <li>A najednou jsme na 20. bajtu.
+<li>Přesuneme se na 17. bajt.
+<li>Přečteme jeden znak.
+<li>A najednou jsme na 20. bajtu.
 </ol>
 
-<p>Už jste na to přišli? Metody <code>seek()</code> a
-<code>tell()</code> počítají vždy po <em>bajtech</em>, ale protože
-jsme soubor otevřeli v textovém režimu, čte metoda <code>read()</code>
-po <em>znacích</em>. Pro zakódování čínských znaků <a
-href="strings.html#boring-stuff">v <abbr>UTF-8</abbr> potřebujeme více
-bajtů</a>. Pro každý anglický znak potřebujeme v souboru jen jeden
-bajt, takže by vás to mohlo svést k mylnému závěru, že metody
-<code>seek()</code> a <code>read()</code> počítají stejné jednotky. To
-ale platí jen pro některé znaky. <p>Ale moment, začíná to být ještě
-horší! <pre class=screen>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.seek(18)</kbd>                         <span class="u">①</span></a>
-<samp class="pp">18</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read(1)</kbd>                          <span class="u">②</span></a>
-<samp class="traceback">Traceback (most recent call last):
-  File "&lt;pyshell#12&gt;", line 1, in &lt;module&gt;
+<p>Už jste na to přišli? Metody <code>seek()</code> a <code>tell()</code> počítají vždy po <em>bajtech</em>, ale protože jsme soubor otevřeli v textovém režimu, čte metoda <code>read()</code> po <em>znacích</em>. Pro zakódování čínských znaků <a href="strings.html#boring-stuff">v <abbr>UTF-8</abbr> potřebujeme více bajtů</a>. Pro každý anglický znak potřebujeme v souboru jen jeden bajt, takže by vás to mohlo svést k mylnému závěru, že metody <code>seek()</code> a <code>read()</code> počítají stejné jednotky. To ale platí jen pro některé znaky.
+
+<p>Ale moment, začíná to být ještě horší!
+
+<pre class=screen>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.seek(18)</kbd>                         <span class=u>&#x2460;</span></a>
+<samp class=pp>18</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.read(1)</kbd>                          <span class=u>&#x2461;</span></a>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;pyshell#12>", line 1, in &lt;module>
     a_file.read(1)
   File "C:\Python31\lib\codecs.py", line 300, in decode
     (result, consumed) = self._buffer_decode(data, self.errors, final)
 UnicodeDecodeError: 'utf8' codec can't decode byte 0x98 in position 0: unexpected code byte</samp></pre>
 <ol>
-<li>Přesuneme se na 18. bajt a zkusíme přečíst jeden znak. <li>Proč to selhalo? Protože na 18. bajtu není znak. Nejbližší znak začíná na 17. bajtu (a zabírá tři bajty). Pokus o čtení znaku od středu jeho kódované posloupnosti vede k chybě <code>UnicodeDecodeError</code>.
+<li>Přesuneme se na 18. bajt a zkusíme přečíst jeden znak.
+<li>Proč to selhalo? Protože na 18. bajtu není znak. Nejbližší znak začíná na 17. bajtu (a zabírá tři bajty). Pokus o čtení znaku od středu jeho kódované posloupnosti vede k chybě <code>UnicodeDecodeError</code>.
 </ol>
 
 <h3 id=close>Zavírání souborů</h3>
 
-<p>Otevřené soubory zabírají systémové prostředky a v závislosti na
-režimu otevření souboru k nim některé programy nemusí být schopny
-přistupovat. Proto je důležité, abychom soubory zavírali hned poté, co
-s nimi přestaneme pracovat. <pre class='nd screen'>
-# pokračování předchozího příkladu
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.close()</kbd></pre>
+<p>Otevřené soubory zabírají systémové prostředky a v závislosti na režimu otevření souboru k nim některé programy nemusí být schopny přistupovat. Proto je důležité, abychom soubory zavírali hned poté, co s nimi přestaneme pracovat.
 
-<p>Tak <em>tohle</em> bylo zklamání. <p>Objekt <var>a_file</var> typu
-stream pořád existuje. Volání jeho metody <code>close()</code> nevede
-k jeho zrušení. Ale už není nějak zvlášť užitečný. <pre class=screen>
+<pre class='nd screen'>
 # pokračování předchozího příkladu
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read()</kbd>                           <span class="u">①</span></a>
-<samp class="traceback">Traceback (most recent call last):
-  File "&lt;pyshell#24&gt;", line 1, in &lt;module&gt;
+<samp class=p>>>> </samp><kbd class=pp>a_file.close()</kbd></pre>
+
+<p>Tak <em>tohle</em> bylo zklamání.
+
+<p>Objekt <var>a_file</var> typu stream pořád existuje. Volání jeho metody <code>close()</code> nevede k jeho zrušení. Ale už není nějak zvlášť užitečný.
+
+<pre class=screen>
+# pokračování předchozího příkladu
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.read()</kbd>                           <span class=u>&#x2460;</span></a>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;pyshell#24>", line 1, in &lt;module>
     a_file.read()
 ValueError: I/O operation on closed file.</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.seek(0)</kbd>                          <span class="u">②</span></a>
-<samp class="traceback">Traceback (most recent call last):
-  File "&lt;pyshell#25&gt;", line 1, in &lt;module&gt;
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.seek(0)</kbd>                          <span class=u>&#x2461;</span></a>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;pyshell#25>", line 1, in &lt;module>
     a_file.seek(0)
 ValueError: I/O operation on closed file.</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.tell()</kbd>                           <span class="u">③</span></a>
-<samp class="traceback">Traceback (most recent call last):
-  File "&lt;pyshell#26&gt;", line 1, in &lt;module&gt;
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.tell()</kbd>                           <span class=u>&#x2462;</span></a>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;pyshell#26>", line 1, in &lt;module>
     a_file.tell()
 ValueError: I/O operation on closed file.</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.close()</kbd>                          <span class="u">④</span></a>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.closed</kbd>                           <span class="u">⑤</span></a>
-<samp class="pp">True</samp></pre>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.close()</kbd>                          <span class=u>&#x2463;</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.closed</kbd>                           <span class=u>&#x2464;</span></a>
+<samp class=pp>True</samp></pre>
 <ol>
-<li>Ze zavřeného objektu nemůžeme číst. Vyvolá se tím výjimka <code>IOError</code>. <li>V zavřeném souboru nemůžeme ani přesunovat pozici (seek). <li>U zavřeného souboru neexistuje žádná aktuální pozice, takže metoda <code>tell()</code> také selže. <li>Překvapením možná je, že volání metody <code>close()</code> pro objekt typu stream, jehož soubor byl už zavřený, <em>nevyvolá</em> výjimku. Jde o prázdnou operaci. <li>Zavřený objekt typu stream má přece jen jeden užitečný atribut. Atribut <code>closed</code> potvrzuje, že soubor byl uzavřen.
+<li>Ze zavřeného objektu nemůžeme číst. Vyvolá se tím výjimka <code>IOError</code>.
+<li>V zavřeném souboru nemůžeme ani přesunovat pozici (seek).
+<li>U zavřeného souboru neexistuje žádná aktuální pozice, takže metoda <code>tell()</code> také selže.
+<li>Překvapením možná je, že volání metody <code>close()</code> pro objekt typu stream, jehož soubor byl už zavřený, <em>nevyvolá</em> výjimku. Jde o prázdnou operaci.
+<li>Zavřený objekt typu stream má přece jen jeden užitečný atribut. Atribut <code>closed</code> potvrzuje, že soubor byl uzavřen.
 </ol>
 
 <h3 id=with>Automatické zavírání souborů</h3>
 
 <aside>Konstrukce <code>try..finally</code> je dobrá. <code>with</code> je lepší.</aside>
 
-<p>Objekty typu stream mají explicitní metodu <code>close()</code>,
-ale co se stane, když je ve vašem programu chyba a zhavaruje předtím,
-než zavoláte <code>close()</code>? Soubor by teoreticky mohl zůstat
-otevřený mnohem déle, než bychom potřebovali. Pokud zrovna něco ladíte
-na svém lokálním počítači, není to takový problém. Ale na používaném
-serveru už možná ano. <p>Python 2 pro tento případ nabízel řešení v
-podobě bloku <code>try..finally</code>. V Pythonu 3 tento obrat stále
-funguje. Proto se s ním můžete setkat v kódu některých programátorů
-nebo ve starším kódu, který byl <a
-href="case-study-porting-chardet-to-python-3.html">převeden pro Python
-3</a>. Ale Python 2.6 zavedl čistší řešení, které se v Pythonu 3 stalo
-preferovaným. Jde o příkaz <code>with</code>. <pre class='nd
-pp'><code>with open('examples/chinese.txt', encoding='utf-8') as
-a_file:
+<p>Objekty typu stream mají explicitní metodu <code>close()</code>, ale co se stane, když je ve vašem programu chyba a zhavaruje předtím, než zavoláte <code>close()</code>? Soubor by teoreticky mohl zůstat otevřený mnohem déle, než bychom potřebovali. Pokud zrovna něco ladíte na svém lokálním počítači, není to takový problém. Ale na používaném serveru už možná ano.
+
+<p>Python 2 pro tento případ nabízel řešení v podobě bloku <code>try..finally</code>. V Pythonu 3 tento obrat stále funguje. Proto se s ním můžete setkat v kódu některých programátorů nebo ve starším kódu, který byl <a href="case-study-porting-chardet-to-python-3.html">převeden pro Python 3</a>. Ale Python 2.6 zavedl čistší řešení, které se v Pythonu 3 stalo preferovaným. Jde o příkaz <code>with</code>.
+
+<pre class='nd pp'><code>with open('examples/chinese.txt', encoding='utf-8') as a_file:
     a_file.seek(17)
     a_character = a_file.read(1)
     print(a_character)</code></pre>
 
-<p>V tomto kódu se volá <code>open()</code>, ale nikde se v něm nevolá
-<code>a_file.close()</code>. Příkaz <code>with</code> zahajuje blok
-kódu podobně, jako je tomu u příkazu <code>if</code> nebo u cyklu
-<code>for</code>. Uvnitř bloku kódu můžeme používat proměnnou
-<var>a_file</var>, kterou objekt typu stream vrátil jako výsledek
-volání <code>open()</code>. K dispozici máme všechny obvyklé metody
-objektu typu stream, jako jsou <code>seek()</code>,
-<code>read()</code> a všechny ostatní. Když blok <code>with</code>
-skončí, <em>Python automaticky zavolá
-<code>a_file.close()</code></em>. <p>Když to shrneme, Python soubor
-uzavře nezávisle na tom, jak a kdy blok <code>with</code> skončí... i
-kdyby „skončil“ v důsledku neošetřené výjimky. Tak to opravdu je. I v
-případě, kdy kód vyvolá výjimku a celý váš program se skřípěním
-zastaví, dotčený soubor bude uzavřen. Je to zaručeno. <blockquote
-class=note>
-<p><span class="u">&#x261E;</span>Z technického pohledu příkaz
-<code>with</code> vytváří <dfn>operační kontext</dfn> (runtime
-context). Objekt typu stream je v těchto příkladech využit jako
-<dfn>správce kontextu</dfn> (context manager). Python vytvoří objekt
-<var>a_file</var> typu stream a řekne mu, že vstupuje do operačního
-kontextu. Jakmile blok příkazu <code>with</code> skončí, Python sdělí
-objektu typu stream, že opouští operační kontext a objekt zavolá svou
-vlastní metodu <code>close()</code>. Detaily hledejte <a
-href="special-method-names.html#context-managers">v příloze B, „Třídy,
-které mohou být použity v bloku <code>with</code>“</a>.
+<p>V tomto kódu se volá <code>open()</code>, ale nikde se v něm nevolá <code>a_file.close()</code>. Příkaz <code>with</code> zahajuje blok kódu podobně, jako je tomu u příkazu <code>if</code> nebo u cyklu <code>for</code>. Uvnitř bloku kódu můžeme používat proměnnou <var>a_file</var>, kterou objekt typu stream vrátil jako výsledek volání <code>open()</code>. K dispozici máme všechny obvyklé metody objektu typu stream, jako jsou <code>seek()</code>, <code>read()</code> a všechny ostatní. Když blok <code>with</code> skončí, <em>Python automaticky zavolá <code>a_file.close()</code></em>.
+
+<p>Když to shrneme, Python soubor uzavře nezávisle na tom, jak a kdy blok <code>with</code> skončí&hellip; i kdyby „skončil“ v důsledku neošetřené výjimky. Tak to opravdu je. I v případě, kdy kód vyvolá výjimku a celý váš program se skřípěním zastaví, dotčený soubor bude uzavřen. Je to zaručeno.
+
+<blockquote class=note>
+<p><span class="u">&#x261E;</span>Z technického pohledu příkaz <code>with</code> vytváří <dfn>operační kontext</dfn> (runtime context). Objekt typu stream je v těchto příkladech využit jako <dfn>správce kontextu</dfn> (context manager). Python vytvoří objekt <var>a_file</var> typu stream a řekne mu, že vstupuje do operačního kontextu. Jakmile blok příkazu <code>with</code> skončí, Python sdělí objektu typu stream, že opouští operační kontext a objekt zavolá svou vlastní metodu <code>close()</code>. Detaily hledejte <a href="special-method-names.html#context-managers">v příloze B, „Třídy, které mohou být použity v bloku <code>with</code>“</a>.
 </blockquote>
 
-<p>Příkaz <code>with</code> není nijak zvlášť zaměřen na soubory. Je
-to prostě obecný rámec pro vytvoření operačního kontextu. Objekt se
-dozví, že vstupuje do operačního kontextu nebo že z něj vystupuje.
-Pokud je dotčený objekt typu stream, pak provede užitečné „souborové“
-věci (jako je například automatické uzavření souboru). Ale toto
-chování je definováno uvnitř objektu typu stream a ne v příkazu
-<code>with</code>. Správce kontextu může být použit mnoha jinými
-způsoby, které nemají se soubory nic společného. Můžete si dokonce
-vytvořit svého vlastního správce kontextu. Ukážeme si to o něco
-později, ale ještě v této kapitole. <h3 id=for>Čtení dat po
-řádcích</h3>
+<p>Příkaz <code>with</code> není nijak zvlášť zaměřen na soubory. Je to prostě obecný rámec pro vytvoření operačního kontextu. Objekt se dozví, že vstupuje do operačního kontextu nebo že z něj vystupuje. Pokud je dotčený objekt typu stream, pak provede užitečné „souborové“ věci (jako je například automatické uzavření souboru). Ale toto chování je definováno uvnitř objektu typu stream a ne v příkazu <code>with</code>. Správce kontextu může být použit mnoha jinými způsoby, které nemají se soubory nic společného. Můžete si dokonce vytvořit svého vlastního správce kontextu. Ukážeme si to o něco později, ale ještě v této kapitole.
 
-<p>„Řádek“ textového souboru je to, co si myslíte, že by to mělo
-být&nbsp;&mdash;&nbsp;napíšete pár slov, stisknete <kbd>ENTER</kbd> a
-najednou jste na novém řádku. Řádek textu je posloupnost znaků
-oddělená... čím vlastně? Ono je to komplikované, protože textové
-soubory mohou pro označení konce řádků použít několik různých znaků.
-Každý operační systém má svou vlastní konvenci. Některé používají znak
-návratu vozíku (carriage return), jiné používají znak přechodu na nový
-řádek (line feed) a některé používají na konci každého řádku oba
-zmíněné znaky. <p>Teď si můžete s úlevou oddechnout, protože
-<em>Python zpracovává konce řádků automaticky</em>. Pokud řeknete
-„chci přečíst tento textový soubor řádek po řádku“, Python zjistí,
-který typ konců řádků se v textovém souboru používá, a zařídí, že to
-prostě bude fungovat. <blockquote class=note>
-<p><span class="u">&#x261E;</span>Pokud potřebujete získat detailní kontrolu
-nad tím, co se považuje za konec řádku, můžete funkci
-<code>open()</code> předat nepovinný parametr <code>newline</code>.
-Detaily najdete <a
-href="http://docs.python.org/3.1/library/io.html#module-interface">v
-dokumentaci funkce <code>open()</code></a>.
+<h3 id=for>Čtení dat po řádcích</h3>
+
+<p>„Řádek“ textového souboru je to, co si myslíte, že by to mělo být&nbsp;&mdash;&nbsp;napíšete pár slov, stisknete <kbd>ENTER</kbd> a najednou jste na novém řádku. Řádek textu je posloupnost znaků oddělená&hellip; čím vlastně? Ono je to komplikované, protože textové soubory mohou pro označení konce řádků použít několik různých znaků. Každý operační systém má svou vlastní konvenci. Některé používají znak návratu vozíku (carriage return), jiné používají znak přechodu na nový řádek (line feed) a některé používají na konci každého řádku oba zmíněné znaky.
+
+<p>Teď si můžete s úlevou oddechnout, protože <em>Python zpracovává konce řádků automaticky</em>. Pokud řeknete „chci přečíst tento textový soubor řádek po řádku“, Python zjistí, který typ konců řádků se v textovém souboru používá, a zařídí, že to prostě bude fungovat.
+
+<blockquote class=note>
+<p><span class="u">&#x261E;</span>Pokud potřebujete získat detailní kontrolu nad tím, co se považuje za konec řádku, můžete funkci <code>open()</code> předat nepovinný parametr <code>newline</code>. Detaily najdete <a href="http://docs.python.org/3.1/library/io.html#module-interface">v dokumentaci funkce <code>open()</code></a>.
 </blockquote>
 
-<p>Takže jak se to vlastně dělá? Čtěte ze souboru po řádcích. Je to
-tak jednoduché. V jednoduchosti je krása. <p class=d>[<a
-href="examples/oneline.py">stáhnnout <code>oneline.py</code></a>] <pre
-class=pp><code>line_number = 0
-<a>with open('examples/favorite-people.txt', encoding='utf-8') as a_file:  <span class="u">①</span></a>
-<a>    for a_line in a_file:                                               <span class="u">②</span></a>
+<p>Takže jak se to vlastně dělá? Čtěte ze souboru po řádcích. Je to tak jednoduché. V jednoduchosti je krása.
+
+<p class=d>[<a href="examples/oneline.py">stáhnnout <code>oneline.py</code></a>]
+<pre class=pp><code>line_number = 0
+<a>with open('examples/favorite-people.txt', encoding='utf-8') as a_file:  <span class=u>&#x2460;</span></a>
+<a>    for a_line in a_file:                                               <span class=u>&#x2461;</span></a>
         line_number += 1
-<a>        print('{:&gt;4} {}'.format(line_number, a_line.rstrip()))          <span class="u">③</span></a></code></pre>
+<a>        print('{:>4} {}'.format(line_number, a_line.rstrip()))          <span class=u>&#x2462;</span></a></code></pre>
 <ol>
-<li>Použitím <a href="#with">vzoru <code>with</code></a> dosáhneme bezpečného otevření souboru a necháme Python, aby ho zavřel za nás. <li>Pro čtení souboru po řádcích využijeme cyklus <code>for</code>. To je vše. Objekty typu stream podporují metody jako <code>read()</code>, ale kromě toho <em>je objekt typu stream také <a href="iterators.html">iterátorem</a></em>, který vrátí jeden řádek pokaždé, když jej požádáte o další hodnotu. <li>Číslo řádku a řádek samotný můžeme zobrazit s využitím <a href="strings.html#formatting-strings">řetězcové metody <code>format()</code> </a>. Specifikátor formátu <code>{:&gt;4}</code> říká „vytiskni tento argument zarovnaný doprava na šířku čtyř pozic“. Proměnná <var>a_line</var> obsahuje celý řádek, včetně znaků ukončujících řádek. Řetězcová metoda <code>rstrip()</code> odstraní všechny koncové bílé znaky (whitespace) včetně znaků ukončujících řádek.
+<li>Použitím <a href="#with">vzoru <code>with</code></a> dosáhneme bezpečného otevření souboru a necháme Python, aby ho zavřel za nás.
+<li>Pro čtení souboru po řádcích využijeme cyklus <code>for</code>. To je vše. Objekty typu stream podporují metody jako <code>read()</code>, ale kromě toho <em>je objekt typu stream také <a href="iterators.html">iterátorem</a></em>, který vrátí jeden řádek pokaždé, když jej požádáte o další hodnotu.
+<li>Číslo řádku a řádek samotný můžeme zobrazit s využitím <a href="strings.html#formatting-strings">řetězcové metody <code>format()</code> </a>. Specifikátor formátu <code>{:&gt;4}</code> říká „vytiskni tento argument zarovnaný doprava na šířku čtyř pozic“. Proměnná <var>a_line</var> obsahuje celý řádek, včetně znaků ukončujících řádek. Řetězcová metoda <code>rstrip()</code> odstraní všechny koncové bílé znaky (whitespace) včetně znaků ukončujících řádek.
 </ol>
 
 <pre class='screen cmdline'>
-<samp class="p">you@localhost:~/diveintopython3$ </samp><kbd class="pp">python3 examples/oneline.py</kbd>
+<samp class=p>you@localhost:~/diveintopython3$ </samp><kbd class=pp>python3 examples/oneline.py</kbd>
 <samp>   1 Dora
    2 Ethan
    3 Wesley
@@ -333,284 +265,237 @@ class=pp><code>line_number = 0
   10 Lizzie</samp></pre>
 
 <blockquote class=pf>
-<p>Setkali jste se s následující chybou? <pre class='nd screen'>
-<samp class="p">you@localhost:~/diveintopython3$ </samp><kbd class="pp">python3 examples/oneline.py</kbd>
-<samp class="traceback">Traceback (most recent call last):
-  File "examples/oneline.py", line 4, in &lt;module&gt;
-    print('{:&gt;4} {}'.format(line_number, a_line.rstrip()))
+<p>Setkali jste se s následující chybou?
+<pre class='nd screen'>
+<samp class=p>you@localhost:~/diveintopython3$ </samp><kbd class=pp>python3 examples/oneline.py</kbd>
+<samp class=traceback>Traceback (most recent call last):
+  File "examples/oneline.py", line 4, in &lt;module>
+    print('{:>4} {}'.format(line_number, a_line.rstrip()))
 ValueError: zero length field name in format</samp></pre>
-<p>Pokud ano, pravděpodobně používáte Python 3.0. Měli byste provést
-aktualizaci na Python 3.1. <p>Python 3.0 sice podporuje nový způsob
-formátování řetězců, ale vyžaduje <a
-href="strings.html#formatting-strings">explicitní formátování
-specifikátorů formátu</a>. Python 3.1 vám umožní ve specifikátorech
-formátu indexy argumentů vynechávat. Verze kompatibilní s Pythonem 3.0
-je pro porovnání zde: <pre class='pp
-nd'><code>print('{<mark>0</mark>:&gt;4}
-{<mark>1</mark>}'.format(line_number, a_line.rstrip()))</code></pre>
+<p>Pokud ano, pravděpodobně používáte Python 3.0. Měli byste provést aktualizaci na Python 3.1.
+<p>Python 3.0 sice podporuje nový způsob formátování řetězců, ale vyžaduje <a href="strings.html#formatting-strings">explicitní formátování specifikátorů formátu</a>. Python 3.1 vám umožní ve specifikátorech formátu indexy argumentů vynechávat. Verze kompatibilní s Pythonem 3.0 je pro porovnání zde:
+<pre class='pp nd'><code>print('{<mark>0</mark>:>4} {<mark>1</mark>}'.format(line_number, a_line.rstrip()))</code></pre>
 </blockquote>
 
-<p class=a>&#x2042; <h2 id=writing>Zápis do textových souborů</h2>
+<p class=a>&#x2042;
+
+<h2 id=writing>Zápis do textových souborů</h2>
 
 <aside>Soubor prostě otevřete a začněte zapisovat.</aside>
 
-<p>Do souborů můžeme zapisovat velmi podobným způsobem, jakým z nich
-čteme. Soubor nejdříve otevřeme a získáme objekt typu stream. Pro
-zápis do souboru použijeme jeho metody. Nakonec soubor zavřeme. <p>Při
-otvírání souboru pro zápis použijeme funkci <code>open()</code> a
-předepíšeme režim zápisu. U souborů můžeme použít dva režimy zápisu:
+<p>Do souborů můžeme zapisovat velmi podobným způsobem, jakým z nich čteme. Soubor nejdříve otevřeme a získáme objekt typu stream. Pro zápis do souboru použijeme jeho metody. Nakonec soubor zavřeme.
+
+<p>Při otvírání souboru pro zápis použijeme funkci <code>open()</code> a předepíšeme režim zápisu. U souborů můžeme použít dva režimy zápisu:
+
 <ul>
-<li>Režim „write“ (zápis) vede k přepsání obsahu souboru. Funkci <code>open()</code> předáme <code>mode='w'</code>. <li>Režim „append“ přidává data na konec souboru. Funkci <code>open()</code> předáme <code>mode='a'</code>.
+<li>Režim „write“ (zápis) vede k přepsání obsahu souboru. Funkci <code>open()</code> předáme <code>mode='w'</code>.
+<li>Režim „append“ přidává data na konec souboru. Funkci <code>open()</code> předáme <code>mode='a'</code>.
 </ul>
 
-<p>Pokud soubor dosud neexistuje, bude při obou uvedených režimech
-vytvořen automaticky. To znamená, že se nikdy nemusíme piplat s
-funkčností jako „pokud soubor ještě neexistuje, vytvoř nový, prázdný
-soubor, abychom jej mohli poprvé otevřít“. Prostě soubor otevřeme a
-začneme zapisovat. <p>Jakmile zápis do souboru dokončíme, měli bychom
-jej vždy zavřít, aby došlo k uvolnění deskriptoru souboru (file
-handle) a abychom zajistili, že došlo ke skutečnému zápisu dat na
-disk. Stejně jako v případě čtení dat můžeme soubor zavřít voláním
-metody <code>close()</code> objektu typu stream nebo můžeme použít
-příkaz <code>with</code> a předat starost o zavření souboru Pythonu.
-Vsadím se, že uhodnete, kterou techniku doporučuji. <pre class=screen>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('test.log', mode='w', encoding='utf-8') as a_file:</kbd>  <span class="u">①</span></a>
-<a><samp class="p">... </samp><kbd class="pp">    a_file.write('test succeeded')</kbd>                            <span class="u">②</span></a>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('test.log', encoding='utf-8') as a_file:</kbd>
-<samp class="p">... </samp><kbd class="pp">    print(a_file.read())</kbd>                              
-<samp class="pp">test succeeded</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('test.log', mode='a', encoding='utf-8') as a_file:</kbd>  <span class="u">③</span></a>
-<samp class="p">... </samp><kbd class="pp">    a_file.write('and again')</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('test.log', encoding='utf-8') as a_file:</kbd>
-<samp class="p">... </samp><kbd class="pp">    print(a_file.read())</kbd>                              
-<a><samp class="pp">test succeededand again</samp>                                           <span class="u">④</span></a></pre>
+<p>Pokud soubor dosud neexistuje, bude při obou uvedených režimech vytvořen automaticky. To znamená, že se nikdy nemusíme piplat s funkčností jako „pokud soubor ještě neexistuje, vytvoř nový, prázdný soubor, abychom jej mohli poprvé otevřít“. Prostě soubor otevřeme a začneme zapisovat.
+
+<p>Jakmile zápis do souboru dokončíme, měli bychom jej vždy zavřít, aby došlo k uvolnění deskriptoru souboru (file handle) a abychom zajistili, že došlo ke skutečnému zápisu dat na disk. Stejně jako v případě čtení dat můžeme soubor zavřít voláním metody <code>close()</code> objektu typu stream nebo můžeme použít příkaz <code>with</code> a předat starost o zavření souboru Pythonu. Vsadím se, že uhodnete, kterou techniku doporučuji.
+
+<pre class=screen>
+<a><samp class=p>>>> </samp><kbd class=pp>with open('test.log', mode='w', encoding='utf-8') as a_file:</kbd>  <span class=u>&#x2460;</span></a>
+<a><samp class=p>&hellip; </samp><kbd class=pp>    a_file.write('test succeeded')</kbd>                            <span class=u>&#x2461;</span></a>
+<samp class=p>>>> </samp><kbd class=pp>with open('test.log', encoding='utf-8') as a_file:</kbd>
+<samp class=p>&hellip; </samp><kbd class=pp>    print(a_file.read())</kbd>
+<samp class=pp>test succeeded</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>with open('test.log', mode='a', encoding='utf-8') as a_file:</kbd>  <span class=u>&#x2462;</span></a>
+<samp class=p>&hellip; </samp><kbd class=pp>    a_file.write('and again')</kbd>
+<samp class=p>>>> </samp><kbd class=pp>with open('test.log', encoding='utf-8') as a_file:</kbd>
+<samp class=p>&hellip; </samp><kbd class=pp>    print(a_file.read())</kbd>
+<a><samp class=pp>test succeededand again</samp>                                           <span class=u>&#x2463;</span></a></pre>
 <ol>
-<li>Začali jsme odvážně vytvořením nového souboru <code>test.log</code> (nebo přepsáním existujícího souboru) a jeho otevřením pro zápis. Parametr <code>mode='w'</code> znamená „otevři soubor pro zápis“. Ano, je to opravdu tak nebezpečné, jak to zní. Doufám, že vám na dřívějším obsahu tohoto souboru nezáleželo (pokud existoval), protože jeho obsah právě zmizel. <li>Do nově otevřeného souboru můžeme data přidávat metodou <code>write()</code> objektu, který vrátila funkce <code>open()</code>. Jakmile blok <code>with</code> skončí, Python soubor automaticky uzavře. <li>To bylo zábavné. Zkusme to znovu. Ale tentokrát použijeme <code>mode='a'</code>, abychom místo přepsání souboru připojili data na jeho konec. Připsání na konec (append) <em>nikdy</em> nezničí existující obsah souboru. <li>Jak původně zapsaný řádek, tak druhý řádek, který jsme připojili teď, se nacházejí v souboru <code>test.log</code>. Všimněte si také, že nepřibyly žádné znaky pro návrat vozíku nebo pro odřádkování. Soubor je neobsahuje, protože jsme je do něj ani při jedné příležitosti explicitně nezapsali. Znak pro návrat vozíku (carriage return) můžeme zapsat jako <code>'\r'</code>, znak pro odřádkování (line feed) můžeme zapsat <code>'\n'</code>. Protože jsme nic z toho neudělali, skončilo vše, co jsme zapsali do souboru, na jediném řádku.
+<li>Začali jsme odvážně vytvořením nového souboru <code>test.log</code> (nebo přepsáním existujícího souboru) a jeho otevřením pro zápis. Parametr <code>mode='w'</code> znamená „otevři soubor pro zápis“. Ano, je to opravdu tak nebezpečné, jak to zní. Doufám, že vám na dřívějším obsahu tohoto souboru nezáleželo (pokud existoval), protože jeho obsah právě zmizel.
+<li>Do nově otevřeného souboru můžeme data přidávat metodou <code>write()</code> objektu, který vrátila funkce <code>open()</code>. Jakmile blok <code>with</code> skončí, Python soubor automaticky uzavře.
+<li>To bylo zábavné. Zkusme to znovu. Ale tentokrát použijeme <code>mode='a'</code>, abychom místo přepsání souboru připojili data na jeho konec. Připsání na konec (append) <em>nikdy</em> nezničí existující obsah souboru.
+<li>Jak původně zapsaný řádek, tak druhý řádek, který jsme připojili teď, se nacházejí v souboru <code>test.log</code>. Všimněte si také, že nepřibyly žádné znaky pro návrat vozíku nebo pro odřádkování. Soubor je neobsahuje, protože jsme je do něj ani při jedné příležitosti explicitně nezapsali. Znak pro návrat vozíku (carriage return) můžeme zapsat jako <code>'\r'</code>, znak pro odřádkování (line feed) můžeme zapsat <code>'\n'</code>. Protože jsme nic z toho neudělali, skončilo vše, co jsme zapsali do souboru, na jediném řádku.
 </ol>
 
 <h3 id=encoding-again>A znovu kódování znaků</h3>
 
-<p>Všimli jste si parametru <code>encoding</code>, který jsme při <a
-href="#writing">otvírání souboru pro zápis</a> předávali funkci
-<code>open()</code>? Je důležitý. Nikdy ho nevynechávejte! Jak jsme si
-ukázali na začátku kapitoly, soubory neobsahují <i>řetězce</i>.
-Soubory obsahují <i>bajty</i>. Z textového souboru můžeme číst
-„řetězce“ jen díky tomu, že jsme Pythonu řekli, jaké má při převodu
-proudu bajtů na řetězec použít kódování. Zápis textu do souboru
-představuje stejný problém, jen z opačné strany. Do souboru nemůžeme
-zapisovat znaky, protože <a href="strings.html#byte-arrays">znaky jsou
-abstraktní</a>. Při zápisu do souboru musí Python vědět, jak má
-řetězce převádět na posloupnost bajtů. Jediný způsob, jak se ujistit,
-že se provede správný převod, spočívá v uvedení parametru
-<code>encoding</code> při otvírání souboru pro zápis. <p class=a>&#x2042; <h2
-id=binary>Binární soubory</h2>
+<p>Všimli jste si parametru <code>encoding</code>, který jsme při <a href="#writing">otvírání souboru pro zápis</a> předávali funkci <code>open()</code>? Je důležitý. Nikdy ho nevynechávejte! Jak jsme si ukázali na začátku kapitoly, soubory neobsahují <i>řetězce</i>. Soubory obsahují <i>bajty</i>. Z textového souboru můžeme číst „řetězce“ jen díky tomu, že jsme Pythonu řekli, jaké má při převodu proudu bajtů na řetězec použít kódování. Zápis textu do souboru představuje stejný problém, jen z opačné strany. Do souboru nemůžeme zapisovat znaky, protože <a href="strings.html#byte-arrays">znaky jsou abstraktní</a>. Při zápisu do souboru musí Python vědět, jak má řetězce převádět na posloupnost bajtů. Jediný způsob, jak se ujistit, že se provede správný převod, spočívá v uvedení parametru <code>encoding</code> při otvírání souboru pro zápis.
 
-<p class=ss><img src="examples/beauregard.jpg" alt="Můj pes
-Beauregard." width="100" height="100" />
+<p class=a>&#x2042;
 
-<p>Všechny soubory neobsahují text. Některé mohou obsahovat obrázky
-mého psa. <pre class=screen>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">an_image = open('examples/beauregard.jpg', mode='rb')</kbd>                <span class="u">①</span></a>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">an_image.mode</kbd>                                                        <span class="u">②</span></a>
-<samp class="pp">'rb'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">an_image.name</kbd>                                                        <span class="u">③</span></a>
-<samp class="pp">'examples/beauregard.jpg'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">an_image.encoding</kbd>                                                    <span class="u">④</span></a>
-<samp class="traceback">Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+<h2 id=binary>Binární soubory</h2>
+
+<p class=ss><img src="examples/beauregard.jpg" alt="Můj pes Beauregard." width="100" height="100" />
+
+<p>Všechny soubory neobsahují text. Některé mohou obsahovat obrázky mého psa.
+
+<pre class=screen>
+<a><samp class=p>>>> </samp><kbd class=pp>an_image = open('examples/beauregard.jpg', mode='rb')</kbd>                <span class=u>&#x2460;</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>an_image.mode</kbd>                                                        <span class=u>&#x2461;</span></a>
+<samp class=pp>'rb'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>an_image.name</kbd>                                                        <span class=u>&#x2462;</span></a>
+<samp class=pp>'examples/beauregard.jpg'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>an_image.encoding</kbd>                                                    <span class=u>&#x2463;</span></a>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
 AttributeError: '_io.BufferedReader' object has no attribute 'encoding'</samp></pre>
 <ol>
-<li>Otevření souboru v binárním režimu je jednoduché, ale záludné. Ve srovnání s otvíráním v textovém režimu spočívá jediný rozdíl v tom, že parametr <code>mode</code> obsahuje znak<code>'b'</code>. <li>Objekt typu stream, který získáme otevřením souboru v binárním režimu, má mnoho stejných atributů, včetně atributu <code>mode</code>, který odpovídá stejnojmennému parametru předanému funkci <code>open()</code>. <li>Binární objekty typu stream mají také atribut <code>name</code> &mdash; stejně jako textové objekty typu stream. <li>Ale jeden rozdíl tady přesto je. Binární objekty typu stream nemají atribut <code>encoding</code>. Dává to smysl, že? Čteme (nebo zapisujeme) bajty a ne řetězce. Python tedy nemusí dělat žádný převod. Z binárního souboru dostaneme přesně to, co jsme do něj vložili. Žádná konverze není nutná.
+<li>Otevření souboru v binárním režimu je jednoduché, ale záludné. Ve srovnání s otvíráním v textovém režimu spočívá jediný rozdíl v tom, že parametr <code>mode</code> obsahuje znak<code>'b'</code>.
+<li>Objekt typu stream, který získáme otevřením souboru v binárním režimu, má mnoho stejných atributů, včetně atributu <code>mode</code>, který odpovídá stejnojmennému parametru předanému funkci <code>open()</code>.
+<li>Binární objekty typu stream mají také atribut <code>name</code> &mdash; stejně jako textové objekty typu stream.
+<li>Ale jeden rozdíl tady přesto je. Binární objekty typu stream nemají atribut <code>encoding</code>. Dává to smysl, že? Čteme (nebo zapisujeme) bajty a ne řetězce. Python tedy nemusí dělat žádný převod. Z binárního souboru dostaneme přesně to, co jsme do něj vložili. Žádná konverze není nutná.
 </ol>
 
-<p>Už jsem řekl, že čteme bajty? Ano, je to tak. <pre class=screen>
+<p>Už jsem řekl, že čteme bajty? Ano, je to tak.
+
+<pre class=screen>
 # pokračování předchozího příkladu
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">an_image.tell()</kbd>
-<samp class="pp">0</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">data = an_image.read(3)</kbd>  <span class="u">①</span></a>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">data</kbd>
-<samp class="pp">b'\xff\xd8\xff'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(data)</kbd>               <span class="u">②</span></a>
-<samp class="pp">&lt;class 'bytes'&gt;</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">an_image.tell()</kbd>          <span class="u">③</span></a>
-<samp class="pp">3</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">an_image.seek(0)</kbd>
-<samp class="pp">0</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">data = an_image.read()</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">len(data)</kbd>
-<samp class="pp">3150</samp></pre>
+<samp class=p>>>> </samp><kbd class=pp>an_image.tell()</kbd>
+<samp class=pp>0</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>data = an_image.read(3)</kbd>  <span class=u>&#x2460;</span></a>
+<samp class=p>>>> </samp><kbd class=pp>data</kbd>
+<samp class=pp>b'\xff\xd8\xff'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>type(data)</kbd>               <span class=u>&#x2461;</span></a>
+<samp class=pp>&lt;class 'bytes'></samp>
+<a><samp class=p>>>> </samp><kbd class=pp>an_image.tell()</kbd>          <span class=u>&#x2462;</span></a>
+<samp class=pp>3</samp>
+<samp class=p>>>> </samp><kbd class=pp>an_image.seek(0)</kbd>
+<samp class=pp>0</samp>
+<samp class=p>>>> </samp><kbd class=pp>data = an_image.read()</kbd>
+<samp class=p>>>> </samp><kbd class=pp>len(data)</kbd>
+<samp class=pp>3150</samp></pre>
 <ol>
-<li>Stejně jako v případě textových souborů také z binárních souborů můžeme číst po kouscích. Ale je tu jeden zásadní rozdíl... <li>... čteme bajty, ne řetězce. Protože jsme soubor otevřeli v binárním režimu, přebírá metoda <code>read()</code> jako argument počet <em>bajtů</em>, které se mají načíst, a ne počet znaků. <li>To znamená, že zde nikdy nedojde <a href="#read">k neočekávanému nesouladu</a> mezi číslem, které jsme předali metodě <code>read()</code>, a pozičním indexem, který nám vrací metoda <code>tell()</code>. Metoda <code>read()</code> čte bajty a metody <code>seek()</code> a <code>tell()</code> sledují počet přečtených bajtů. U binárních souborů budou vždy v souladu.
+<li>Stejně jako v případě textových souborů také z binárních souborů můžeme číst po kouscích. Ale je tu jeden zásadní rozdíl&hellip;
+<li>&hellip; čteme bajty, ne řetězce. Protože jsme soubor otevřeli v binárním režimu, přebírá metoda <code>read()</code> jako argument počet <em>bajtů</em>, které se mají načíst, a ne počet znaků.
+<li>To znamená, že zde nikdy nedojde <a href="#read">k neočekávanému nesouladu</a> mezi číslem, které jsme předali metodě <code>read()</code>, a pozičním indexem, který nám vrací metoda <code>tell()</code>. Metoda <code>read()</code> čte bajty a metody <code>seek()</code> a <code>tell()</code> sledují počet přečtených bajtů. U binárních souborů budou vždy v souladu.
 </ol>
 
-<p class=a>&#x2042; <h2 id=file-like-objects>Objekty typu stream z
-nesouborových zdrojů</h2>
+<p class=a>&#x2042;
+
+<h2 id=file-like-objects>Objekty typu stream z nesouborových zdrojů</h2>
 
 <aside>Z předstíraného souboru čteme jednoduše voláním <code>read()</code>.</aside>
 
-<p>Představte si, že píšete knihovnu a jedna z vašich knihovních
-funkcí má číst data ze souboru. Funkce by mohla jednoduše převzít
-jméno souboru v řetězcové podobě, otevřít soubor pro čtení, přečíst
-jeho obsah a před skončením funkce jej uzavřít. Ale takhle byste to
-dělat neměli. Místo toho by rozhraní vaší funkce (API) mělo přebírat
-<abbr>libovolný objekt typu stream</abbr>. <p>V nejjednodušším případě
-je objektem typu stream cokoliv, co má metodu <code>read()</code>,
-která přebírá nepovinný parametr <var>size</var> (velikost) a vrací
-řetězec. Pokud je metoda <code>read()</code> zavolána bez uvedení
-parametru <var>size</var>, měla by ze zdroje informací přečíst všechna
-zbývající data a vrátit je jako jednu hodnotu. Pokud je metoda
-zavolána s parametrem <var>size</var>, přečte ze zdroje požadované
-množství dat a vrátí je. Pokud je zavolána znovu, pokračuje od místa,
-kde se čtením přestala, a vrací další část dat. <p>Vypadá to, jako
-kdybychom používali objekt typu stream vzniklý otevřením skutečného
-souboru. Rozdíl je v tom, že se <em>neomezujeme na skutečné
-soubory</em>. Zdrojem informací, ze kterého „čteme“, může být cokoliv:
-webová stránka, řetězec v paměti nebo dokonce výstup z jiného
-programu. Pokud vaše funkce přebírá objekt typu stream a jednoduše
-volá jeho metodu <code>read()</code>, můžete zpracovávat libovolný
-zdroj informací, který se tváří jako soubor, aniž byste museli pro
-každý druh vstupu psát různý kód. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_string = 'PapayaWhip is the new black.'</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import io</kbd>                                  <span class="u">①</span></a>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file = io.StringIO(a_string)</kbd>             <span class="u">②</span></a>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read()</kbd>                              <span class="u">③</span></a>
-<samp class="pp">'PapayaWhip is the new black.'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read()</kbd>                              <span class="u">④</span></a>
-<samp class="pp">''</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.seek(0)</kbd>                             <span class="u">⑤</span></a>
-<samp class="pp">0</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read(10)</kbd>                            <span class="u">⑥</span></a>
-<samp class="pp">'PapayaWhip'</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.tell()</kbd>                       
-<samp class="pp">10</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.seek(18)</kbd>
-<samp class="pp">18</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read()</kbd>
-<samp class="pp">'new black.'</samp></pre>
+<p>Představte si, že píšete knihovnu a jedna z vašich knihovních funkcí má číst data ze souboru. Funkce by mohla jednoduše převzít jméno souboru v řetězcové podobě, otevřít soubor pro čtení, přečíst jeho obsah a před skončením funkce jej uzavřít. Ale takhle byste to dělat neměli. Místo toho by rozhraní vaší funkce (API) mělo přebírat <abbr>libovolný objekt typu stream</abbr>.
+
+<p>V nejjednodušším případě je objektem typu stream cokoliv, co má metodu <code>read()</code>, která přebírá nepovinný parametr <var>size</var> (velikost) a vrací řetězec. Pokud je metoda <code>read()</code> zavolána bez uvedení parametru <var>size</var>, měla by ze zdroje informací přečíst všechna zbývající data a vrátit je jako jednu hodnotu. Pokud je metoda zavolána s parametrem <var>size</var>, přečte ze zdroje požadované množství dat a vrátí je. Pokud je zavolána znovu, pokračuje od místa, kde se čtením přestala, a vrací další část dat.
+
+<p>Vypadá to, jako kdybychom používali objekt typu stream vzniklý otevřením skutečného souboru. Rozdíl je v tom, že se <em>neomezujeme na skutečné soubory</em>. Zdrojem informací, ze kterého „čteme“, může být cokoliv: webová stránka, řetězec v paměti nebo dokonce výstup z jiného programu. Pokud vaše funkce přebírá objekt typu stream a jednoduše volá jeho metodu <code>read()</code>, můžete zpracovávat libovolný zdroj informací, který se tváří jako soubor, aniž byste museli pro každý druh vstupu psát různý kód.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>a_string = 'PapayaWhip is the new black.'</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>import io</kbd>                                  <span class=u>&#x2460;</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file = io.StringIO(a_string)</kbd>             <span class=u>&#x2461;</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.read()</kbd>                              <span class=u>&#x2462;</span></a>
+<samp class=pp>'PapayaWhip is the new black.'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.read()</kbd>                              <span class=u>&#x2463;</span></a>
+<samp class=pp>''</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.seek(0)</kbd>                             <span class=u>&#x2464;</span></a>
+<samp class=pp>0</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>a_file.read(10)</kbd>                            <span class=u>&#x2465;</span></a>
+<samp class=pp>'PapayaWhip'</samp>
+<samp class=p>>>> </samp><kbd class=pp>a_file.tell()</kbd>
+<samp class=pp>10</samp>
+<samp class=p>>>> </samp><kbd class=pp>a_file.seek(18)</kbd>
+<samp class=pp>18</samp>
+<samp class=p>>>> </samp><kbd class=pp>a_file.read()</kbd>
+<samp class=pp>'new black.'</samp></pre>
 <ol>
-<li>Modul <code>io</code> definuje třídu <code>StringIO</code>, kterou můžeme dosáhnout toho, aby se řetězec v paměti choval jako soubor. <li>Když chceme z řetězce vytvořit objekt typu stream, vytvoříme instanci třídy <code>io.StringIO()</code> a předáme jí řetězec, který chceme použít jako zdroj „souborových“ dat. Teď máme k dispozici objekt typu stream a můžeme s ním dělat všechny možné odpovídající věci. <li>Voláním metody <code>read()</code> „přečteme“ celý „soubor“. V takovém případě objekt třídy <code>StringIO</code> jednoduše vrátí původní řetězec. <li>Opakované volání metody <code>read()</code> vrací prázdný řetězec &mdash; stejně jako u opravdového souboru. <li>Použitím metody <code>seek()</code> objektu třídy <code>StringIO</code> se můžeme explicitně nastavit na začátek řetězce &mdash; stejně jako při volání téže metody u opravdového souboru. <li>Pokud metodě <code>read()</code> předáme parametr <var>size</var>, můžeme číst po větších kouscích i z řetězce.
+<li>Modul <code>io</code> definuje třídu <code>StringIO</code>, kterou můžeme dosáhnout toho, aby se řetězec v paměti choval jako soubor.
+<li>Když chceme z řetězce vytvořit objekt typu stream, vytvoříme instanci třídy <code>io.StringIO()</code> a předáme jí řetězec, který chceme použít jako zdroj „souborových“ dat. Teď máme k dispozici objekt typu stream a můžeme s ním dělat všechny možné odpovídající věci.
+<li>Voláním metody <code>read()</code> „přečteme“ celý „soubor“. V takovém případě objekt třídy <code>StringIO</code> jednoduše vrátí původní řetězec.
+<li>Opakované volání metody <code>read()</code> vrací prázdný řetězec &mdash; stejně jako u opravdového souboru.
+<li>Použitím metody <code>seek()</code> objektu třídy <code>StringIO</code> se můžeme explicitně nastavit na začátek řetězce &mdash; stejně jako při volání téže metody u opravdového souboru.
+<li>Pokud metodě <code>read()</code> předáme parametr <var>size</var>, můžeme číst po větších kouscích i z řetězce.
 </ol>
 
 <blockquote class=note>
-<p><span class="u">&#x261E;</span>Třída <code>io.StringIO</code> vám umožní
-chovat se k řetězci jako k textovému souboru. Existuje také třída
-<code>io.BytesIO</code>, která vám umožní chovat se k poli bajtů jako
-k binárnímu souboru.
+<p><span class="u">&#x261E;</span>Třída <code>io.StringIO</code> vám umožní chovat se k řetězci jako k textovému souboru. Existuje také třída <code>io.BytesIO</code>, která vám umožní chovat se k poli bajtů jako k binárnímu souboru.
 </blockquote>
 
 <h3 id=gzip>Práce s komprimovanými soubory</h3>
 
-<p>Pythonovská standardní knihovna obsahuje moduly, které podporují
-čtení a zápis komprimovaných souborů. Různých komprimačních schémat
-existuje celá řada. Mezi newindowsovskými systémy patří mezi dva
-nejpopulárnější <a
-href="http://docs.python.org/3.1/library/gzip.html">gzip</a> a <a
-href="http://docs.python.org/3.1/library/bz2.html">bzip2</a>. (Mohli
-jste se setkat také <a
-href="http://docs.python.org/3.1/library/zipfile.html">s archivy
-PKZIP</a> a <a
-href="http://docs.python.org/3.1/library/tarfile.html">s archivy GNU
-Tar</a>. V Pythonu najdete moduly i pro tyto dva.) <p>Modul
-<code>gzip</code> nám umožní vytvořit objekt typu stream pro čtení a
-zápis souborů komprimovaných algoritmem gzip. Příslušný objekt
-podporuje metodu <code>read()</code> (pokud jsme jej otevřeli pro
-čtení) nebo metodu <code>write()</code> (pokud jsme jej otevřeli pro
-zápis). To znamená, že <em>k přímému zápisu nebo čtení souborů
-komprimovaných algoritmem gzip</em> můžeme použít metody, které jsme
-se už naučili používat s normálními soubory. Nemusíme vytvářet pomocné
-soubory k ukládání dekomprimovaných dat. <p>Jako bonus navíc podporuje
-modul <code>gzip</code> i příkaz <code>with</code>, takže uzavření
-komprimovaného souboru můžete ponechat na Pythonu. <pre class='nd
-screen cmdline'>
-<samp class="p">you@localhost:~$ </samp><kbd>python3</kbd>
+<p>Pythonovská standardní knihovna obsahuje moduly, které podporují čtení a zápis komprimovaných souborů. Různých komprimačních schémat existuje celá řada. Mezi newindowsovskými systémy patří mezi dva nejpopulárnější <a href="http://docs.python.org/3.1/library/gzip.html">gzip</a> a <a href="http://docs.python.org/3.1/library/bz2.html">bzip2</a>. (Mohli jste se setkat také <a href="http://docs.python.org/3.1/library/zipfile.html">s archivy PKZIP</a> a <a href="http://docs.python.org/3.1/library/tarfile.html">s archivy GNU Tar</a>. V Pythonu najdete moduly i pro tyto dva.)
 
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import gzip</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with gzip.open('out.log.gz', mode='wb') as z_file:</kbd>                                      <span class="u">①</span></a>
-<samp class="p">... </samp><kbd class="pp">  z_file.write('A nine mile walk is no joke, especially in the rain.'.encode('utf-8'))</kbd>
-<samp class="p">... </samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">exit()</kbd>
+<p>Modul <code>gzip</code> nám umožní vytvořit objekt typu stream pro čtení a zápis souborů komprimovaných algoritmem gzip. Příslušný objekt podporuje metodu <code>read()</code> (pokud jsme jej otevřeli pro čtení) nebo metodu <code>write()</code> (pokud jsme jej otevřeli pro zápis). To znamená, že <em>k přímému zápisu nebo čtení souborů komprimovaných algoritmem gzip</em> můžeme použít metody, které jsme se už naučili používat s normálními soubory. Nemusíme vytvářet pomocné soubory k ukládání dekomprimovaných dat.
 
-<a><samp class="p">you@localhost:~$ </samp><kbd>ls -l out.log.gz</kbd>                                                           <span class="u">②</span></a>
+<p>Jako bonus navíc podporuje modul <code>gzip</code> i příkaz <code>with</code>, takže uzavření komprimovaného souboru můžete ponechat na Pythonu.
+
+<pre class='nd screen cmdline'>
+<samp class=p>you@localhost:~$ </samp><kbd>python3</kbd>
+
+<samp class=p>>>> </samp><kbd class=pp>import gzip</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>with gzip.open('out.log.gz', mode='wb') as z_file:</kbd>                                      <span class=u>&#x2460;</span></a>
+<samp class=p>... </samp><kbd class=pp>  z_file.write('A nine mile walk is no joke, especially in the rain.'.encode('utf-8'))</kbd>
+<samp class=p>... </samp>
+<samp class=p>>>> </samp><kbd class=pp>exit()</kbd>
+
+<a><samp class=p>you@localhost:~$ </samp><kbd>ls -l out.log.gz</kbd>                                                           <span class=u>&#x2461;</span></a>
 <samp>-rw-r--r--  1 mark mark    79 2009-07-19 14:29 out.log.gz</samp>
-<a><samp class="p">you@localhost:~$ </samp><kbd>gunzip out.log.gz</kbd>                                                          <span class="u">③</span></a>
-<a><samp class="p">you@localhost:~$ </samp><kbd>cat out.log</kbd>                                                                <span class="u">④</span></a>
+<a><samp class=p>you@localhost:~$ </samp><kbd>gunzip out.log.gz</kbd>                                                          <span class=u>&#x2462;</span></a>
+<a><samp class=p>you@localhost:~$ </samp><kbd>cat out.log</kbd>                                                                <span class=u>&#x2463;</span></a>
 <samp>A nine mile walk is no joke, especially in the rain.</samp></pre>
 <ol>
-<li>Soubory zabalené gzip bychom měli vždy otvírat v binárním režimu. (Všimněte si znaku <code>'b'</code> v argumentu <code>mode</code>.) <li>Tento příklad jsem vytvořil na Linuxu. Pokud vám tento příkazový řádek nic neříká, zobrazuje výpis položky souboru „v dlouhém formátu“ (v pracovním adresáři). Soubor jsme právě vytvořili v pythonovském shellu s využitím komprese gzip. Tento soubor ukazuje, že soubor existuje (fajn) a že má velikost 79 bajtů. Ve skutečnosti je větší než řetězec, se kterým jsme začali! Soubor ve formátu gzip zahrnuje hlavičku pevné délky, která obsahuje nějaké informace o souboru. Pro velmi malé soubory je to tedy neefektivní. <li>Příkaz <code>gunzip</code> (vyslovuje se „dží anzip“) dekomprimuje daný soubor a ukládá jeho obsah do nového souboru se stejným jménem, ale bez přípony <code>.gz</code>. <li>Příkaz <code>cat</code> zobrazuje obsah souboru. Soubor obsahuje řetězec, který jsme původně zapsali v pythonovském shellu přímo do komprimovaného souboru <code>out.log.gz</code>.
+<li>Soubory zabalené gzip bychom měli vždy otvírat v binárním režimu. (Všimněte si znaku <code>'b'</code> v argumentu <code>mode</code>.)
+<li>Tento příklad jsem vytvořil na Linuxu. Pokud vám tento příkazový řádek nic neříká, zobrazuje výpis položky souboru „v dlouhém formátu“ (v pracovním adresáři). Soubor jsme právě vytvořili v pythonovském shellu s využitím komprese gzip. Tento soubor ukazuje, že soubor existuje (fajn) a že má velikost 79 bajtů. Ve skutečnosti je větší než řetězec, se kterým jsme začali! Soubor ve formátu gzip zahrnuje hlavičku pevné délky, která obsahuje nějaké informace o souboru. Pro velmi malé soubory je to tedy neefektivní.
+<li>Příkaz <code>gunzip</code> (vyslovuje se „dží anzip“) dekomprimuje daný soubor a ukládá jeho obsah do nového souboru se stejným jménem, ale bez přípony <code>.gz</code>.
+<li>Příkaz <code>cat</code> zobrazuje obsah souboru. Soubor obsahuje řetězec, který jsme původně zapsali v pythonovském shellu přímo do komprimovaného souboru <code>out.log.gz</code>.
 </ol>
 
 <blockquote class=pf>
-<p>Setkali jste se s následující chybou? <pre class='nd screen'>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with gzip.open('out.log.gz', mode='wb') as z_file:</kbd>
-<samp class="p">... </samp><kbd class="pp">        z_file.write('A nine mile walk is no joke, especially in the rain.'.encode('utf-8'))</kbd>
-<samp class="p">... </samp>
-<samp class="traceback">Traceback (most recent call last):
- File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+<p>Setkali jste se s následující chybou?
+<pre class='nd screen'>
+<samp class=p>>>> </samp><kbd class=pp>with gzip.open('out.log.gz', mode='wb') as z_file:</kbd>
+<samp class=p>... </samp><kbd class=pp>        z_file.write('A nine mile walk is no joke, especially in the rain.'.encode('utf-8'))</kbd>
+<samp class=p>... </samp>
+<samp class=traceback>Traceback (most recent call last):
+ File "&lt;stdin>", line 1, in &lt;module>
 AttributeError: 'GzipFile' object has no attribute '__exit__'</samp></pre>
-<p>Pokud ano, pravděpodobně používáte Python 3.0. Měli byste provést
-aktualizaci na Python 3.1. <p>V Pythonu 3.0 se sice modul
-<code>gzip</code> nacházel, ale nepodporoval použití objektů
-komprimovaných souborů jako správců kontextu. V Pythonu 3.1 byla
-přidána možnost používat objekty gzip souborů i v příkazu
-<code>with</code>.
+<p>Pokud ano, pravděpodobně používáte Python 3.0. Měli byste provést aktualizaci na Python 3.1.
+<p>V Pythonu 3.0 se sice modul <code>gzip</code> nacházel, ale nepodporoval použití objektů komprimovaných souborů jako správců kontextu. V Pythonu 3.1 byla přidána možnost používat objekty gzip souborů i v příkazu <code>with</code>.
 </blockquote>
 
-<p class=a>&#x2042; <h2 id=stdio>Standardní vstup, výstup a chybový
-výstup</h2>
+<p class=a>&#x2042;
+
+<h2 id=stdio>Standardní vstup, výstup a chybový výstup</h2>
 
 <aside><code>sys.stdin</code>, <code>sys.stdout</code>, <code>sys.stderr</code>.</aside>
 
-<p>Machři na práci přes příkazový řádek už koncept standardního
-vstupu, standardního výstupu a standardního chybového výstupu znají.
-Tato podkapitola je určena těm ostatním. <p>Standardní výstup a
-standardní chybový výstup (běžně se zkracují jako <code>stdout</code>
-a <code>stderr</code>) jsou roury (pipe), které jsou zabudovány do
-každého systému, který je odvozen od <abbr>UNIX</abbr>u. Platí to i
-pro Mac OS X a pro Linux. Pokud voláte funkci <code>print()</code>,
-tištěný obsah je odeslán do roury <code>stdout</code>. Pokud váš
-program zhavaruje a tiskne trasovací výpis, posílá jej do roury
-<code>stderr</code>. Ve výchozím stavu jsou obě uvedené roury napojeny
-na terminálové okno, ve kterém pracujete. Když váš program něco
-tiskne, zobrazuje se jeho výstup ve vašem terminálovém okně. Když
-program zhavaruje, vidíte trasovací výpis také ve svém terminálovém
-okně. V grafickém pythonovském shellu jsou roury <code>stdout</code>
-and <code>stderr</code> přesměrovány do vašeho „interaktivního okna“.
+<p>Machři na práci přes příkazový řádek už koncept standardního vstupu, standardního výstupu a standardního chybového výstupu znají. Tato podkapitola je určena těm ostatním.
+
+<p>Standardní výstup a standardní chybový výstup (běžně se zkracují jako <code>stdout</code> a <code>stderr</code>) jsou roury (pipe), které jsou zabudovány do každého systému, který je odvozen od <abbr>UNIX</abbr>u. Platí to i pro Mac OS X a pro Linux. Pokud voláte funkci <code>print()</code>, tištěný obsah je odeslán do roury <code>stdout</code>. Pokud váš program zhavaruje a tiskne trasovací výpis, posílá jej do roury <code>stderr</code>. Ve výchozím stavu jsou obě uvedené roury napojeny na terminálové okno, ve kterém pracujete. Když váš program něco tiskne, zobrazuje se jeho výstup ve vašem terminálovém okně. Když program zhavaruje, vidíte trasovací výpis také ve svém terminálovém okně. V grafickém pythonovském shellu jsou roury <code>stdout</code> and <code>stderr</code> přesměrovány do vašeho „interaktivního okna“.
+
 <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">for i in range(3):</kbd>
-<a><samp class="p">... </samp><kbd class="pp">    print('PapayaWhip')</kbd>        <span class="u">①</span></a>
+<samp class=p>>>> </samp><kbd class=pp>for i in range(3):</kbd>
+<a><samp class=p>... </samp><kbd class=pp>    print('PapayaWhip')</kbd>        <span class=u>&#x2460;</span></a>
 <samp>PapayaWhip
 PapayaWhip
 PapayaWhip</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import sys</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">for i in range(3):</kbd>
-<a><samp class="p">... </samp><kbd class="pp">sys.stdout.write('is the')</kbd>     <span class="u">②</span></a>
+<samp class=p>>>> </samp><kbd class=pp>import sys</kbd>
+<samp class=p>>>> </samp><kbd class=pp>for i in range(3):</kbd>
+<a><samp class=p>... </samp><kbd class=pp>sys.stdout.write('is the')</kbd>     <span class=u>&#x2461;</span></a>
 <samp>is theis theis the</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">for i in range(3):</kbd>
-<a><samp class="p">... </samp><kbd class="pp">sys.stderr.write('new black')</kbd>  <span class="u">③</span></a>
+<samp class=p>>>> </samp><kbd class=pp>for i in range(3):</kbd>
+<a><samp class=p>... </samp><kbd class=pp>sys.stderr.write('new black')</kbd>  <span class=u>&#x2462;</span></a>
 <samp>new blacknew blacknew black</samp></pre>
 <ol>
-<li>Funkce <code>print()</code> volaná v cyklu. Tady nic překvapujícího nenajdeme. <li><code>stdout</code> je definován v modulu <code>sys</code> a jde <a href="#file-like-objects">o objekt typu stream</a>. Když zavoláme jeho metodu <code>write()</code>, vytiskne každý řetězec, který jí předáme. Funkce <code>print</code> ve skutečnosti dělá právě tohle. Na konec každého tištěného řetězce přidá znak ukončující řádek a pak volá <code>sys.stdout.write</code>. <li>V nejjednodušším případě posílají <code>sys.stdout</code> a <code>sys.stderr</code> výstup do stejného místa: do pythonovského integrovaného vývojového prostředí (<abbr>IDE</abbr>, pokud v něm pracujeme) nebo do terminálového okna (pokud Python spouštíme z příkazového řádku). Standardní chybový výstup (stejně jako standardní výstup) přechod na nový řádek nepřidávají. Pokud chceme přejít na nový řádek, musíme zapsat příslušné znaky pro přechod na nový řádek.
+<li>Funkce <code>print()</code> volaná v cyklu. Tady nic překvapujícího nenajdeme.
+<li><code>stdout</code> je definován v modulu <code>sys</code> a jde <a href="#file-like-objects">o objekt typu stream</a>. Když zavoláme jeho metodu <code>write()</code>, vytiskne každý řetězec, který jí předáme. Funkce <code>print</code> ve skutečnosti dělá právě tohle. Na konec každého tištěného řetězce přidá znak ukončující řádek a pak volá <code>sys.stdout.write</code>.
+<li>V nejjednodušším případě posílají <code>sys.stdout</code> a <code>sys.stderr</code> výstup do stejného místa: do pythonovského integrovaného vývojového prostředí (<abbr>IDE</abbr>, pokud v něm pracujeme) nebo do terminálového okna (pokud Python spouštíme z příkazového řádku). Standardní chybový výstup (stejně jako standardní výstup) přechod na nový řádek nepřidávají. Pokud chceme přejít na nový řádek, musíme zapsat příslušné znaky pro přechod na nový řádek.
 </ol>
 
-<p><code>sys.stdout</code> a <code>sys.stderr</code> jsou objekty typu
-stream, ale dá se do nich pouze zapisovat. Pokus o volání jejich
-metody <code>read()</code> vždy vyvolá výjimku <code>IOError</code>.
+<p><code>sys.stdout</code> a <code>sys.stderr</code> jsou objekty typu stream, ale dá se do nich pouze zapisovat. Pokus o volání jejich metody <code>read()</code> vždy vyvolá výjimku <code>IOError</code>.
+
 <pre class='nd screen'>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import sys</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">sys.stdout.read()</kbd>
-<samp class="traceback">Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+<samp class=p>>>> </samp><kbd class=pp>import sys</kbd>
+<samp class=p>>>> </samp><kbd class=pp>sys.stdout.read()</kbd>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
 IOError: not readable</samp></pre>
 
 <h3 id=redirect>Přesměrování standardního výstupu</h3>
 
-<p><code>sys.stdout</code> a <code>sys.stderr</code> jsou objekty typu
-stream, i když podporují pouze zápis. Ale nejsou konstantní. Jde o
-proměnné. To znamená, že do nich můžeme přiřadit novou
-hodnotu&nbsp;&mdash;&nbsp;nějaký jiný objekt typu stream&nbsp;&mdash;&nbsp;a
-přesměrovat jejich výstup. <p class=d>[<a
-href="examples/stdout.py">stáhnout <code>stdout.py</code></a>] <pre
-class=pp><code>import sys
+<p><code>sys.stdout</code> a <code>sys.stderr</code> jsou objekty typu stream, i když podporují pouze zápis. Ale nejsou konstantní. Jde o proměnné. To znamená, že do nich můžeme přiřadit novou hodnotu&nbsp;&mdash;&nbsp;nějaký jiný objekt typu stream&nbsp;&mdash;&nbsp;a přesměrovat jejich výstup.
+
+<p class=d>[<a href="examples/stdout.py">stáhnout <code>stdout.py</code></a>]
+<pre class=pp><code>import sys
 
 class RedirectStdoutTo:
     def __init__(self, out_new):
@@ -628,101 +513,95 @@ with open('out.log', mode='w', encoding='utf-8') as a_file, RedirectStdoutTo(a_f
     print('B')
 print('C')</code></pre>
 
-<p>Podívejte se na tohle: <pre class='nd screen cmdline'>
-<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 stdout.py</kbd>
+<p>Podívejte se na tohle:
+
+<pre class='nd screen cmdline'>
+<samp class=p>you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 stdout.py</kbd>
 <samp>A
 C</samp>
-<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>cat out.log</kbd>
+<samp class=p>you@localhost:~/diveintopython3/examples$ </samp><kbd>cat out.log</kbd>
 <samp>B</samp></pre>
 
 <blockquote class=pf>
-<p>Setkali jste se s následující chybou? <pre class='nd screen'>
-<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd class="pp">python3 stdout.py</kbd>
-<samp class="traceback">  File "stdout.py", line 15
+<p>Setkali jste se s následující chybou?
+<pre class='nd screen'>
+<samp class=p>you@localhost:~/diveintopython3/examples$ </samp><kbd class=pp>python3 stdout.py</kbd>
+<samp class=traceback>  File "stdout.py", line 15
     with open('out.log', mode='w', encoding='utf-8') as a_file, RedirectStdoutTo(a_file):
                                                               ^
 SyntaxError: invalid syntax</samp></pre>
-<p>Pokud ano, pravděpodobně používáte Python 3.0. Měli byste provést
-aktualizaci na Python 3.1. <p>Python 3.0 podporoval příkaz
-<code>with</code>, ale každý příkaz mohl používat jen jednoho správce
-kontextu. Python 3.1 umožňuje použít v jednom příkazu
-<code>with</code> více správců kontextu.
+<p>Pokud ano, pravděpodobně používáte Python 3.0. Měli byste provést aktualizaci na Python 3.1.
+<p>Python 3.0 podporoval příkaz <code>with</code>, ale každý příkaz mohl používat jen jednoho správce kontextu. Python 3.1 umožňuje použít v jednom příkazu <code>with</code> více správců kontextu.
 </blockquote>
 
-<p>Podívejme se nejdříve na poslední část. <pre
-class=pp><code>print('A')
+<p>Podívejme se nejdříve na poslední část.
+
+<pre class=pp><code>print('A')
 with open('out.log', mode='w', encoding='utf-8') as a_file, RedirectStdoutTo(a_file):
     print('B')
 print('C')</code></pre>
 
-<p>Tenhle příkaz <code>with</code> je docela komplikovaný. Přepíšu ho
-do trochu srozumitelnější podoby. <pre class=pp><code>with
-open('out.log', mode='w', encoding='utf-8') as a_file:
+<p>Tenhle příkaz <code>with</code> je docela komplikovaný. Přepíšu ho do trochu srozumitelnější podoby.
+
+<pre class=pp><code>with open('out.log', mode='w', encoding='utf-8') as a_file:
     with RedirectStdoutTo(a_file):
         print('B')</code></pre>
 
-<p>Z přepisu je vidět, že ve skutečnosti jde o <em>dva</em> příkazy
-<code>with</code>, z nichž jeden je zanořen do druhého. „Vnější“
-příkaz <code>with</code> by nám měl být povědomý. Otvírá textový
-soubor zakódovaný v <abbr>UTF-8</abbr> a pojmenovaný
-<code>out.log</code> pro zápis a přiřazuje objekt typu stream do
-proměnné pojmenované <var>a_file</var>. Ale je tu ještě jedna
-zvláštnost. <pre class='nd pp'><code>with
-RedirectStdoutTo(a_file):</code></pre>
+<p>Z přepisu je vidět, že ve skutečnosti jde o <em>dva</em> příkazy <code>with</code>, z nichž jeden je zanořen do druhého. „Vnější“ příkaz <code>with</code> by nám měl být povědomý. Otvírá textový soubor zakódovaný v <abbr>UTF-8</abbr> a pojmenovaný <code>out.log</code> pro zápis a přiřazuje objekt typu stream do proměnné pojmenované <var>a_file</var>. Ale je tu ještě jedna zvláštnost.
+<pre class='nd pp'><code>with RedirectStdoutTo(a_file):</code></pre>
 
-<p>Kdepak je část <code>as</code>? Příkaz <code>with</code> ji ve
-skutečnosti nevyžaduje. Podobně, jako když voláte funkci a ignorujete
-její návratovou hodnotu, můžete použít i příkaz <code>with</code>,
-který nepřiřazuje kontext příkazu <code>with</code> do nějaké
-proměnné. V tomto případě nás zajímají pouze vedlejší efekty kontextu
-<code>RedirectStdoutTo</code>. <p>A jaké jsou ty vedlejší efekty?
-Nahlédněme do třídy <code>RedirectStdoutTo</code>. Tato třída je
-uživatelsky definovaným <a
-href="special-method-names.html#context-managers">správcem
-kontextu</a>. Roli správce kontextu může hrát každá funkce, která
-definuje <a href="iterators.html#a-fibonacci-iterator">speciální
-metody</a> <code>__enter__()</code> a <code>__exit__()</code>. <pre
-class=pp><code>class RedirectStdoutTo:
-<a>    def __init__(self, out_new):    <span class="u">①</span></a>
+<p>Kdepak je část <code>as</code>? Příkaz <code>with</code> ji ve skutečnosti nevyžaduje. Podobně, jako když voláte funkci a ignorujete její návratovou hodnotu, můžete použít i příkaz <code>with</code>, který nepřiřazuje kontext příkazu <code>with</code> do nějaké proměnné. V tomto případě nás zajímají pouze vedlejší efekty kontextu <code>RedirectStdoutTo</code>.
+
+<p>A jaké jsou ty vedlejší efekty? Nahlédněme do třídy <code>RedirectStdoutTo</code>. Tato třída je uživatelsky definovaným <a href="special-method-names.html#context-managers">správcem kontextu</a>. Roli správce kontextu může hrát každá funkce, která definuje <a href="iterators.html#a-fibonacci-iterator">speciální metody</a> <code>__enter__()</code> a <code>__exit__()</code>.
+
+<pre class=pp><code>class RedirectStdoutTo:
+<a>    def __init__(self, out_new):    <span class=u>&#x2460;</span></a>
         self.out_new = out_new
 
-<a>    def __enter__(self):            <span class="u">②</span></a>
+<a>    def __enter__(self):            <span class=u>&#x2461;</span></a>
         self.out_old = sys.stdout
         sys.stdout = self.out_new
 
-<a>    def __exit__(self, *args):      <span class="u">③</span></a>
+<a>    def __exit__(self, *args):      <span class=u>&#x2462;</span></a>
         sys.stdout = self.out_old</code></pre>
 <ol>
-<li>Metoda <code>__init__()</code> se volá bezprostředně po vytvoření instance. Přebírá jeden parametr &mdash; objekt typu stream, který chceme po dobu životnosti kontextu používat jako standardní výstup. Metoda uloží odkaz na objekt typu stream do instanční proměnné, aby jej mohly později používat ostatní metody. <li>Metoda <code>__enter__()</code> patří mezi <a href="iterators.html#a-fibonacci-iterator">speciální metody třídy</a>. Python ji volá v okamžiku vstupu do kontextu (tj. na začátku příkazu <code>with</code>). Metoda ukládá aktuální hodnotu <code>sys.stdout</code> do <var>self.out_old</var> a poté přesměruje standardní výstup přiřazením <var>self.out_new</var> do <var>sys.stdout</var>. <li>Metoda <code>__exit__()</code> je další speciální metodou třídy. Python ji volá při opouštění kontextu (tj. na konci příkazu <code>with</code>). Metoda obnoví původní nasměrování standardního výstupu přiřazením uložené hodnoty <var>self.out_old</var> do <var>sys.stdout</var>.
+<li>Metoda <code>__init__()</code> se volá bezprostředně po vytvoření instance. Přebírá jeden parametr &mdash; objekt typu stream, který chceme po dobu životnosti kontextu používat jako standardní výstup. Metoda uloží odkaz na objekt typu stream do instanční proměnné, aby jej mohly později používat ostatní metody.
+<li>Metoda <code>__enter__()</code> patří mezi <a href="iterators.html#a-fibonacci-iterator">speciální metody třídy</a>. Python ji volá v okamžiku vstupu do kontextu (tj. na začátku příkazu <code>with</code>). Metoda ukládá aktuální hodnotu <code>sys.stdout</code> do <var>self.out_old</var> a poté přesměruje standardní výstup přiřazením <var>self.out_new</var> do <var>sys.stdout</var>.
+<li>Metoda <code>__exit__()</code> je další speciální metodou třídy. Python ji volá při opouštění kontextu (tj. na konci příkazu <code>with</code>). Metoda obnoví původní nasměrování standardního výstupu přiřazením uložené hodnoty <var>self.out_old</var> do <var>sys.stdout</var>.
 </ol>
 
-<p>Spojme to všechno dohromady: <pre class=pp><code>
-<a>print('A')                                                                             <span class="u">①</span></a>
-<a>with open('out.log', mode='w', encoding='utf-8') as a_file, RedirectStdoutTo(a_file):  <span class="u">②</span></a>
-<a>    print('B')                                                                         <span class="u">③</span></a>
-<a>print('C')                                                                             <span class="u">④</span></a></code></pre>
+<p>Spojme to všechno dohromady:
+
+<pre class=pp><code>
+<a>print('A')                                                                             <span class=u>&#x2460;</span></a>
+<a>with open('out.log', mode='w', encoding='utf-8') as a_file, RedirectStdoutTo(a_file):  <span class=u>&#x2461;</span></a>
+<a>    print('B')                                                                         <span class=u>&#x2462;</span></a>
+<a>print('C')                                                                             <span class=u>&#x2463;</span></a></code></pre>
 <ol>
-<li>Výsledek se vytiskne v „interaktivním okně“ <abbr>IDE</abbr> (nebo v terminálovém okně, pokud skript spouštíme z příkazového řádku). <li>Tento <a href="#with">příkaz <code>with</code></a> přebírá <em>čárkou oddělený seznam kontextů</em>. Uvedený seznam se chová jako posloupnost vnořených bloků <code>with</code>. První kontext v seznamu je chápán jako „vnější“ blok, poslední jako „vnitřní“ blok. První kontext otvírá soubor, druhý kontext přesměrovává <code>sys.stdout</code> do objektu typu stream, který byl vytvořen v prvním kontextu. <li>Funkce <code>print()</code> je provedena v kontextu vytvořeném příkazem <code>with</code>, a proto nebude tisknout na obrazovku. Místo toho provede zápis do souboru <code>out.log</code>. <li>Blok kódu v příkazu <code>with</code> skončil. Python každému správci kontextu oznámil, že má udělat to, co se má udělat při opouštění kontextu. Správci kontextu jsou uloženi v zásobníku (LIFO). Druhý kontext při ukončování změnil obsah <code>sys.stdout</code> zpět na původní hodnotu a potom první kontext uzavřel soubor pojmenovaný <code>out.log</code>. A protože bylo přesměrování standardního výstupu obnoveno na původní hodnotu, bude funkce <code>print()</code> tisknout zase na obrazovku.
+<li>Výsledek se vytiskne v „interaktivním okně“ <abbr>IDE</abbr> (nebo v terminálovém okně, pokud skript spouštíme z příkazového řádku).
+<li>Tento <a href="#with">příkaz <code>with</code></a> přebírá <em>čárkou oddělený seznam kontextů</em>. Uvedený seznam se chová jako posloupnost vnořených bloků <code>with</code>. První kontext v seznamu je chápán jako „vnější“ blok, poslední jako „vnitřní“ blok. První kontext otvírá soubor, druhý kontext přesměrovává <code>sys.stdout</code> do objektu typu stream, který byl vytvořen v prvním kontextu.
+<li>Funkce <code>print()</code> je provedena v kontextu vytvořeném příkazem <code>with</code>, a proto nebude tisknout na obrazovku. Místo toho provede zápis do souboru <code>out.log</code>.
+<li>Blok kódu v příkazu <code>with</code> skončil. Python každému správci kontextu oznámil, že má udělat to, co se má udělat při opouštění kontextu. Správci kontextu jsou uloženi v zásobníku (LIFO). Druhý kontext při ukončování změnil obsah <code>sys.stdout</code> zpět na původní hodnotu a potom první kontext uzavřel soubor pojmenovaný <code>out.log</code>. A protože bylo přesměrování standardního výstupu obnoveno na původní hodnotu, bude funkce <code>print()</code> tisknout zase na obrazovku.
 </ol>
 
-<p>Přesměrování standardního chybového výstupu funguje naprosto
-stejně. Jen se místo <code>sys.stdout</code> použije
-<code>sys.stderr</code>. <p class=a>&#x2042; <h2 id=furtherreading>Přečtěte
-si (vše anglicky)</h2>
+<p>Přesměrování standardního chybového výstupu funguje naprosto stejně. Jen se místo <code>sys.stdout</code> použije <code>sys.stderr</code>.
+
+<p class=a>&#x2042;
+
+<h2 id=furtherreading>Přečtěte si (vše anglicky)</h2>
 
 <ul>
-<li><a href="http://docs.python.org/py3k/tutorial/inputoutput.html#reading-and-writing-files">Reading and writing files</a> v oficiální učebnici Python.org <li><a href="http://docs.python.org/3.1/library/io.html"><code>io</code> module</a> &mdash; standardní dokumentace
+<li><a href="http://docs.python.org/py3k/tutorial/inputoutput.html#reading-and-writing-files">Reading and writing files</a> v oficiální učebnici Python.org
+<li><a href="http://docs.python.org/3.1/library/io.html"><code>io</code> module</a> &mdash; standardní dokumentace
 <li><a href="http://docs.python.org/3.1/library/stdtypes.html#file-objects">Stream objects</a> &mdash; standardní dokumentace
 <li><a href="http://docs.python.org/3.1/library/stdtypes.html#context-manager-types">Context manager types</a> &mdash; standardní dokumentace
 <li><a href="http://docs.python.org/3.1/library/sys.html#sys.stdout"><code>sys.stdout</code> and <code>sys.stderr</code></a> &mdash; standardní dokumentace
 <li><a href="http://en.wikipedia.org/wiki/Filesystem_in_Userspace"><abbr>FUSE</abbr> na Wikipedii</a> (anglicky; lze přepnout na odpovídající české heslo)
 </ul>
 
-<p class=v><a href="refactoring.html" rel="prev" title="zpět na
-„Refaktorizace“"><span class="u">&#x261C;</span></a> <a href="xml.html"
-rel="next" title="dopředu na „XML“"><span class="u">&#x261E;</span></a>
+<p class=v><a href="refactoring.html" rel="prev" title="zpět na „Refaktorizace“"><span class="u">&#x261C;</span></a> <a href="xml.html" rel="next" title="dopředu na „XML“"><span class="u">&#x261E;</span></a>
 
 <p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
-<script src=j/dip3.js></script> 
+<script src=j/dip3.js></script>
