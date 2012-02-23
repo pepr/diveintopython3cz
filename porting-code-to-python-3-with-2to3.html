@@ -1,5 +1,5 @@
 <!DOCTYPE html> <meta charset=utf-8>
-<title>Přepis kódu do Pythonu 3 s využitím 2to3 – Ponořme se do Pythonu 3</title>
+<title>Přepis kódu do Pythonu 3 s využitím 2to3 &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
 <style>
@@ -10,18 +10,18 @@
 <body id=appa>
 <!-- <form action=http://www.google.com/cse><div><input name=cx type=hidden value=014021643941856155761:l5eihuescdw><input name=ie type=hidden value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input name="sa" type="submit" value="Hledej"></div></form> -->
 <p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">‣</span> <a
+class="u">&#8227;</span> <a
 href="table-of-contents.html#porting-code-to-python-3-with-2to3">Ponořme
-se do Pythonu 3</a> <span class="u">‣</span>
+se do Pythonu 3</a> <span class="u">&#8227;</span>
 <p id=level>Úroveň obtížnosti: <span class="u"
-title="expert">♦♦♦♦♦</span>
+title="expert">&#x2666;&#x2666;&#x2666;&#x2666;&#x2666;</span>
 <h1>Přepis kódu do Pythonu 3 s využitím <code>2to3</code></h1>
 
 <blockquote class=q>
-<p><span class="u">❝</span> Life is pleasant. Death is peaceful. It’s
-the transition that’s troublesome. <span class="u">❞</span><br
+<p><span class="u">&#x275D;</span> Life is pleasant. Death is peaceful. It’s
+the transition that’s troublesome. <span class="u">&#x275E;</span><br
 />(Život je zábavný. Smrt je klidná. Nepříjemný je ten přechod.)<br
-/>— Isaac Asimov (připsáno)
+/>&mdash; Isaac Asimov (připsáno)
 </blockquote>
 
 <p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
@@ -58,7 +58,7 @@ funkcí</a>. Pokud chceme cokoliv vytisknout, předáme to funkci
 </table>
 
 <ol>
-<li>Prázdný řádek vytiskneme voláním <code>print()</code> bez zadání argumentů. <li>Jednu hodnotu vytiskneme voláním <code>print()</code> s jedním argumentem. <li>Dvě hodnoty oddělené mezerou vytiskneme voláním <code>print()</code> s dvěma argumenty. <li>V tomhle je malá finta. Pokud jsme v Pythonu 2 ukončili příkaz <code>print</code> čárkou, vytiskly se hodnoty oddělené mezerou, pak se vytiskla ještě jedna koncová mezera a tisk skončil bez generování přechodu na nový řádek. (Z technického hlediska je to o něco komplikovanější. Příkaz <code>print</code> v Pythonu 2 používal nyní již nežádoucí (deprecated) atribut zvaný <var>softspace</var>. Místo skutečného tisku mezery nastavil Python 2 <code>sys.stdout.softspace</code> na 1. Znak mezery ve skutečnosti nebyl vytištěn, dokud se nemělo na stejný řádek tisknout něco dalšího. Pokud další příkaz <code>print</code> tiskl přechod na nový řádek, byl atribut <code>sys.stdout.softspace</code> nastaven na 0 a mezera se nikdy nevytiskla. Tohoto rozdílu byste si pravděpodobně nikdy nevšimli, pokud by vaše aplikace nebyla citlivá na přítomnost nebo nepřítomnost koncových bílých znaků ve výstupu, který byl vygenerován příkazem <code>print</code>.) V Pythonu 3 dosáhneme stejného efektu tím, že funkci <code>print()</code> předáme pojmenovaný argument s hodnotou <code>end=' '</code>. Výchozí hodnotou argumentu <code>end</code> je <code>'\n'</code> (přechod na nový řádek), takže po vytisknutí ostatních argumentů jeho přepsáním potlačíme přechod na nový řádek. <li>V Pythonu 2 jsme mohli výstup přesměrovat do roury (pipe)&nbsp;—&nbsp;například na <code>sys.stderr</code>&nbsp;—&nbsp;uvedením zápisu <code>&gt;&gt;jméno_roury</code>. V Pythonu 3 dosáhneme stejného efektu předáním odkazu na rouru pojmenovaným argumentem <code>file</code>. Výchozí hodnotou argumentu <code>file</code> je <code>sys.stdout</code> (standardní výstup), takže přepsáním této hodnoty dosáhneme přesměrování do jiné roury.
+<li>Prázdný řádek vytiskneme voláním <code>print()</code> bez zadání argumentů. <li>Jednu hodnotu vytiskneme voláním <code>print()</code> s jedním argumentem. <li>Dvě hodnoty oddělené mezerou vytiskneme voláním <code>print()</code> s dvěma argumenty. <li>V tomhle je malá finta. Pokud jsme v Pythonu 2 ukončili příkaz <code>print</code> čárkou, vytiskly se hodnoty oddělené mezerou, pak se vytiskla ještě jedna koncová mezera a tisk skončil bez generování přechodu na nový řádek. (Z technického hlediska je to o něco komplikovanější. Příkaz <code>print</code> v Pythonu 2 používal nyní již nežádoucí (deprecated) atribut zvaný <var>softspace</var>. Místo skutečného tisku mezery nastavil Python 2 <code>sys.stdout.softspace</code> na 1. Znak mezery ve skutečnosti nebyl vytištěn, dokud se nemělo na stejný řádek tisknout něco dalšího. Pokud další příkaz <code>print</code> tiskl přechod na nový řádek, byl atribut <code>sys.stdout.softspace</code> nastaven na 0 a mezera se nikdy nevytiskla. Tohoto rozdílu byste si pravděpodobně nikdy nevšimli, pokud by vaše aplikace nebyla citlivá na přítomnost nebo nepřítomnost koncových bílých znaků ve výstupu, který byl vygenerován příkazem <code>print</code>.) V Pythonu 3 dosáhneme stejného efektu tím, že funkci <code>print()</code> předáme pojmenovaný argument s hodnotou <code>end=' '</code>. Výchozí hodnotou argumentu <code>end</code> je <code>'\n'</code> (přechod na nový řádek), takže po vytisknutí ostatních argumentů jeho přepsáním potlačíme přechod na nový řádek. <li>V Pythonu 2 jsme mohli výstup přesměrovat do roury (pipe)&nbsp;&mdash;&nbsp;například na <code>sys.stderr</code>&nbsp;&mdash;&nbsp;uvedením zápisu <code>&gt;&gt;jméno_roury</code>. V Pythonu 3 dosáhneme stejného efektu předáním odkazu na rouru pojmenovaným argumentem <code>file</code>. Výchozí hodnotou argumentu <code>file</code> je <code>sys.stdout</code> (standardní výstup), takže přepsáním této hodnoty dosáhneme přesměrování do jiné roury.
 </ol>
 
 <h2 id=unicodeliteral>Literály Unicode-řetězců</h2>
@@ -158,7 +158,7 @@ href="native-datatypes.html#mixed-value-dictionaries">operátor
 </table>
 
 <ol>
-<li>Nejjednodušší forma. <li>Operátor <code>in</code> má vyšší prioritu než operátor <code>or</code>, takže podvýrazy <code>x in a_dictionary</code> a <code>y in a_dictionary</code> nemusíme uzavírat do závorek. <li>Ale na druhou stranu zde ze stejného důvodu <em>musíme</em> uzavřít do závorek <code>x or y</code>&nbsp;—&nbsp;<code>in</code> má vyšší prioritu než <code>or</code>. (Poznámka: Tento kód se od předchozího řádku zcela liší. Python interpretuje nejdříve <code>x or y</code>. Výsledkem je buď <var>x</var> (pokud se <var>x</var> interpretuje <a href="native-datatypes.html#booleans">v booleovském kontextu jako true</a>), nebo <var>y</var>. Potom pro výslednou hodnotu kontroluje, zda se ve slovníku <var>a_dictionary</var> vyskytuje jako klíč.) <li>Operátor <code>+</code> má vyšší prioritu než operátor <code>in</code>. Z technického hlediska by tento zápis nemusel používat závorky kolem <code>x + y</code>, ale <code>2to3</code> je stejně přidává. <li>U tohoto zápisu musí být kolem <code>y in a_dictionary</code> závorky určitě uvedeny, protože operátor <code>+</code> má vyšší prioritu než operátor <code>in</code>.
+<li>Nejjednodušší forma. <li>Operátor <code>in</code> má vyšší prioritu než operátor <code>or</code>, takže podvýrazy <code>x in a_dictionary</code> a <code>y in a_dictionary</code> nemusíme uzavírat do závorek. <li>Ale na druhou stranu zde ze stejného důvodu <em>musíme</em> uzavřít do závorek <code>x or y</code>&nbsp;&mdash;&nbsp;<code>in</code> má vyšší prioritu než <code>or</code>. (Poznámka: Tento kód se od předchozího řádku zcela liší. Python interpretuje nejdříve <code>x or y</code>. Výsledkem je buď <var>x</var> (pokud se <var>x</var> interpretuje <a href="native-datatypes.html#booleans">v booleovském kontextu jako true</a>), nebo <var>y</var>. Potom pro výslednou hodnotu kontroluje, zda se ve slovníku <var>a_dictionary</var> vyskytuje jako klíč.) <li>Operátor <code>+</code> má vyšší prioritu než operátor <code>in</code>. Z technického hlediska by tento zápis nemusel používat závorky kolem <code>x + y</code>, ale <code>2to3</code> je stejně přidává. <li>U tohoto zápisu musí být kolem <code>y in a_dictionary</code> závorky určitě uvedeny, protože operátor <code>+</code> má vyšší prioritu než operátor <code>in</code>.
 </ol>
 
 <h2 id=dict>Slovníkové metody, které vracejí seznamy</h2>
@@ -187,7 +187,7 @@ zpřístupňování prvku přes index). <table>
 </table>
 
 <ol>
-<li>Skript <code>2to3</code> se přiklání k bezpečnému řešení. Voláním funkce <code>list()</code> převádí hodnotu vracenou metodou <code>keys()</code> na statický seznam. Bude to fungovat vždycky, ale někdy to bude méně efektivní než použití pohledu (view). Převedený kód byste si měli prohlédnout a zvážit, zda je statický seznam nezbytně nutný, nebo zda by nestačil pohled. <li>Další konverze pohledu na seznam — tentokrát u metody <code>items()</code>. Stejnou věc provede <code>2to3</code> s metodou <code>values()</code>. <li>Python 3 už nepodporuje metodu <code>iterkeys()</code>. Použijte <code>keys()</code>, a pokud je to nezbytné, udělejte z pohledu iterátor voláním funkce <code>iter()</code>. <li><code>2to3</code> pozná, když je metoda <code>iterkeys()</code> použita uvnitř generátorové notace seznamu. Převede ji na metodu <code>keys()</code> (neobaluje ji ještě jedním voláním <code>iter()</code>). Funguje to, protože přes pohledy (view) lze iterovat. <li><code>2to3</code> pozná případ, kdy je metoda <code>keys()</code> předána funkci, která iteruje celou posloupností. V takovém případě se návratová hodnota nemusí konvertovat na seznam. Funkce <code>min()</code> bude vesele iterovat i přes pohled. Týká se to funkcí <code>min()</code>, <code>max()</code>, <code>sum()</code>, <code>list()</code>, <code>tuple()</code>, <code>set()</code>, <code>sorted()</code>, <code>any()</code> a <code>all()</code>.
+<li>Skript <code>2to3</code> se přiklání k bezpečnému řešení. Voláním funkce <code>list()</code> převádí hodnotu vracenou metodou <code>keys()</code> na statický seznam. Bude to fungovat vždycky, ale někdy to bude méně efektivní než použití pohledu (view). Převedený kód byste si měli prohlédnout a zvážit, zda je statický seznam nezbytně nutný, nebo zda by nestačil pohled. <li>Další konverze pohledu na seznam &mdash; tentokrát u metody <code>items()</code>. Stejnou věc provede <code>2to3</code> s metodou <code>values()</code>. <li>Python 3 už nepodporuje metodu <code>iterkeys()</code>. Použijte <code>keys()</code>, a pokud je to nezbytné, udělejte z pohledu iterátor voláním funkce <code>iter()</code>. <li><code>2to3</code> pozná, když je metoda <code>iterkeys()</code> použita uvnitř generátorové notace seznamu. Převede ji na metodu <code>keys()</code> (neobaluje ji ještě jedním voláním <code>iter()</code>). Funguje to, protože přes pohledy (view) lze iterovat. <li><code>2to3</code> pozná případ, kdy je metoda <code>keys()</code> předána funkci, která iteruje celou posloupností. V takovém případě se návratová hodnota nemusí konvertovat na seznam. Funkce <code>min()</code> bude vesele iterovat i přes pohled. Týká se to funkcí <code>min()</code>, <code>max()</code>, <code>sum()</code>, <code>list()</code>, <code>tuple()</code>, <code>set()</code>, <code>sorted()</code>, <code>any()</code> a <code>all()</code>.
 </ol>
 
 <h2 id=imports>Moduly, které byly přejmenovány nebo reorganizovány</h2>
@@ -240,7 +240,7 @@ from urllib.error import HTTPError</code></pre>
 </table>
 
 <ol>
-<li>Starý modul <code>urllib</code> v Pythonu 2 obsahoval řadu funkcí včetně <code>urlopen()</code> pro načítání dat a <code>splittype()</code>, <code>splithost()</code> a <code>splituser()</code> pro rozklad <abbr>URL</abbr> na podstatné části. Uvnitř nového balíku <code>urllib</code> byly tyto funkce logičtěji přeorganizovány. Skript <code>2to3</code> také změní všechna volání těchto funkcí, aby zohlednil nové schéma pojmenování. <li>Původní modul <code>urllib2</code> z Pythonu 2 byl v Pythonu 3 vložen do balíčku <code>urllib</code>. Všechny oblíbené věci z <code>urllib2</code>&nbsp;—&nbsp;metoda <code>build_opener()</code>, třídy <code>Request</code> a <code>HTTPBasicAuthHandler</code> a související věci&nbsp;—&nbsp;jsou stále k dispozici. <li>Modul <code>urllib.parse</code> z Pythonu 3 obsahuje všechny funkce z původního modulu <code>urlparse</code> z Pythonu 2. <li>Modul <code>urllib.robotparser</code> zpracovává <a href="http://www.robotstxt.org" />soubory <code>robots.txt</code></a>. <li>Třída <code>FancyURLopener</code>, která obsluhuje <abbr>HTTP</abbr> přesměrování a další stavové kódy, je v novém modulu <code>urllib.request</code> stále k dispozici. Funkce <code>urlencode()</code> se přesunula do <code>urllib.parse</code>. <li>Třída <code>Request</code> je v <code>urllib.request</code> stále k dispozici, ale konstanty jako <code>HTTPError</code> byly přesunuty do <code>urllib.error</code>.
+<li>Starý modul <code>urllib</code> v Pythonu 2 obsahoval řadu funkcí včetně <code>urlopen()</code> pro načítání dat a <code>splittype()</code>, <code>splithost()</code> a <code>splituser()</code> pro rozklad <abbr>URL</abbr> na podstatné části. Uvnitř nového balíku <code>urllib</code> byly tyto funkce logičtěji přeorganizovány. Skript <code>2to3</code> také změní všechna volání těchto funkcí, aby zohlednil nové schéma pojmenování. <li>Původní modul <code>urllib2</code> z Pythonu 2 byl v Pythonu 3 vložen do balíčku <code>urllib</code>. Všechny oblíbené věci z <code>urllib2</code>&nbsp;&mdash;&nbsp;metoda <code>build_opener()</code>, třídy <code>Request</code> a <code>HTTPBasicAuthHandler</code> a související věci&nbsp;&mdash;&nbsp;jsou stále k dispozici. <li>Modul <code>urllib.parse</code> z Pythonu 3 obsahuje všechny funkce z původního modulu <code>urlparse</code> z Pythonu 2. <li>Modul <code>urllib.robotparser</code> zpracovává <a href="http://www.robotstxt.org" />soubory <code>robots.txt</code></a>. <li>Třída <code>FancyURLopener</code>, která obsluhuje <abbr>HTTP</abbr> přesměrování a další stavové kódy, je v novém modulu <code>urllib.request</code> stále k dispozici. Funkce <code>urlencode()</code> se přesunula do <code>urllib.parse</code>. <li>Třída <code>Request</code> je v <code>urllib.request</code> stále k dispozici, ale konstanty jako <code>HTTPError</code> byly přesunuty do <code>urllib.error</code>.
 </ol>
 
 <p>Zmínil jsem se o tom, že <code>2to3</code> přepíše také volání
@@ -496,7 +496,7 @@ byl nějaký příkaz nebo výraz. Funkce <code>exec()</code> se podobá <a
 href="advanced-iterators.html#eval"><code>eval()</code></a>, ale je
 ještě mocnější a zlověstnější. Funkce <code>eval()</code> může
 vyhodnocovat jediný výraz, ale funkce <code>exec()</code> může provést
-více příkazů, importů, deklarací funkcí&nbsp;—&nbsp;v podstatě celý
+více příkazů, importů, deklarací funkcí&nbsp;&mdash;&nbsp;v podstatě celý
 pythonovský program, předaný jako řetězec. <table>
 <tr><th>Poznámky <th>Python 2 <th>Python 3 <tr><th>① <td><code class="pp">exec codeString</code>
 <td><code class="pp">exec(codeString)</code>
@@ -542,7 +542,7 @@ použitím zpětných apostrofů. Místo nich musíme použít globální funkci
 </table>
 
 <ol>
-<li>Připomeňme si, že <var>x</var> může být cokoliv&nbsp;—&nbsp;třída, funkce, modul, primitivní datový typ atd. Funkce <code>repr()</code> funguje na všechno. <li>V Pythonu 2 mohly být zpětné apostrofy zanořeny, což vedlo k tomuto druhu matoucích (ale platných) výrazů. Skript <code>2to3</code> je dost chytrý na to, aby zápis převedl na zanořené volání <code>repr()</code>.
+<li>Připomeňme si, že <var>x</var> může být cokoliv&nbsp;&mdash;&nbsp;třída, funkce, modul, primitivní datový typ atd. Funkce <code>repr()</code> funguje na všechno. <li>V Pythonu 2 mohly být zpětné apostrofy zanořeny, což vedlo k tomuto druhu matoucích (ale platných) výrazů. Skript <code>2to3</code> je dost chytrý na to, aby zápis převedl na zanořené volání <code>repr()</code>.
 </ol>
 
 <h2 id=except>Příkaz <code>try...except</code></h2>
@@ -857,7 +857,7 @@ vrací funkce <code>zip()</code> místo seznamu iterátor. <table>
 <h2 id=standarderror>Výjimka <code>StandardError</code></h2>
 
 <p>V Pythonu 2 byla <code><dfn>StandardError</dfn></code> bázovou
-třídou všech zabudovaných výjimek — až na <code>StopIteration</code>,
+třídou všech zabudovaných výjimek &mdash; až na <code>StopIteration</code>,
 <code>GeneratorExit</code>, <code>KeyboardInterrupt</code> a
 <code>SystemExit</code>. V Pythonu 3 byla třída
 <code>StandardError</code> zrušena. Místo ní se používá třída
@@ -1077,7 +1077,7 @@ zájem na tom, aby byl pythonovský kód tak jednotný, jak je to jen
 možné. Z tohoto pohledu existuje oficiální <a
 href="http://www.python.org/dev/peps/pep-0008" />Python style
 guide</a> (Průvodce stylem jazyka Python), který
-popisuje&nbsp;—&nbsp;až do nesnesitelnosti&nbsp;—&nbsp;všechny možné
+popisuje&nbsp;&mdash;&nbsp;až do nesnesitelnosti&nbsp;&mdash;&nbsp;všechny možné
 detaily, které vás téměř určitě nezajímají. A když už
 <code>2to3</code> vytváří tak mohutnou infrastrukturu pro konverzi
 pythonovského kódu z jedné podoby do druhé, vzali si autoři za své
@@ -1197,7 +1197,7 @@ do_stuff(a_list)</code></pre>
 pythonovských knihoven“"><span class="u">☜</span></a> <a
 href="special-method-names.html" rel="next" title="Dopředu na „Jména
 speciálních metod“"><span class="u">☞</span></a>
-<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script> 

@@ -1,5 +1,5 @@
 <!DOCTYPE html> <meta charset=utf-8>
-<title>Řetězce – Ponořme se do Pythonu 3</title>
+<title>Řetězce &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
 <style>
@@ -10,16 +10,16 @@ body{counter-reset:h1 4}
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
 <p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">‣</span> <a href="table-of-contents.html#strings">Ponořme se
-do Pythonu 3</a> <span class="u">‣</span>
+class="u">&#8227;</span> <a href="table-of-contents.html#strings">Ponořme se
+do Pythonu 3</a> <span class="u">&#8227;</span>
 <p id=level>Úroveň obtížnosti: <span class="u" title="mírně
-pokročilí">♦♦♦♢♢</span>
+pokročilí">&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
 <h1>Řetězce</h1>
 <blockquote class=q>
-<p><span class="u">❝</span> I’m telling you this ’cause you’re one of
-my friends.<br /> My alphabet starts where your alphabet ends! <span
-class="u">❞</span><br />(Protože jedním z mých přátel jsi, tak říkám
-ti:<br />Má abeceda začíná tam, kde tvá končí!)<br />— Dr. Seuss, On
+<p><span class="u">&#x275D;</span> I’m telling you this ’cause you’re one of
+my friends.<br> My alphabet starts where your alphabet ends! <span
+class="u">&#x275E;</span><br>(Protože jedním z mých přátel jsi, tak říkám
+ti:<br>Má abeceda začíná tam, kde tvá končí!)<br>&mdash; Dr. Seuss, On
 Beyond Zebra!
 </blockquote>
 <p id=toc>&nbsp; <h2 id=boring-stuff>Pár nudných věcí, kterým musíte
@@ -32,8 +32,8 @@ href="http://en.wikipedia.org/wiki/Rotokas_alphabet">abeceda
 Rotokas</a> se skládá z pouhých 12 písmen: A, E, G, I, K, O, P, R, S,
 T, U a V. Na opačném konci spektra najdeme jazyky, jako jsou čínština,
 japonština a korejština, které používají tisíce znaků. Angličtina
-používá 26 písmen&nbsp;—&nbsp;nebo 52, pokud počítáte zvlášť malá a
-velká písmena&nbsp;—&nbsp;a k tomu pár interpunkčních znaků, jako jsou
+používá 26 písmen&nbsp;&mdash;&nbsp;nebo 52, pokud počítáte zvlášť malá a
+velká písmena&nbsp;&mdash;&nbsp;a k tomu pár interpunkčních znaků, jako jsou
 <i class="baa">!@#$%&amp;</i>. <p>Pokud v souvislosti s počítači
 mluvíte o „textu“, pak pravděpodobně myslíte „znaky a symboly na
 počítačové obrazovce“. Ale počítače nepracují se znaky a symboly.
@@ -49,7 +49,7 @@ znaků je společná pro více různých kódování, ale každé kódování m�
 pro jejich uložení v paměti nebo na disku používat jinou posloupnost
 bajtů. Takže o znakovém kódování můžete uvažovat jako o dešifrovacím
 klíči. Kdykoliv vám někdo poskytne posloupnost
-bajtů&nbsp;—&nbsp;soubor, webovou stránku, cokoliv&nbsp;—&nbsp;a bude
+bajtů&nbsp;&mdash;&nbsp;soubor, webovou stránku, cokoliv&nbsp;&mdash;&nbsp;a bude
 tvrdit, že to je „text“, budete k úspěšnému dekódování bajtů na znaky
 chtít vědět také to, jaké kódování znaků bylo použito. Pokud vám někdo
 poskytne špatný klíč nebo vám dokonce nedá žádný, postaví vás před
@@ -67,7 +67,7 @@ definováno své znakové kódování. Každé kódování znaků bylo kvůli
 rozdílům v jazycích optimalizováno pro konkrétní jazyk, protože
 paměťový a diskový prostor byly v minulosti velmi drahé. Mám tím na
 mysli to, že pro reprezentaci znaků jazyka používalo každé kódování
-stejný interval čísel (0–255). Pravděpodobně znáte například kódování
+stejný interval čísel (0&ndash;255). Pravděpodobně znáte například kódování
 <abbr>ASCII</abbr>, které ukládá anglické znaky jako čísla z intervalu
 0 až 127. (65 je velké „A“, 97 je malé „a“ atd.) Angličtina má velmi
 jednoduchou abecedu, která může být úplně vyjádřena méně než 128
@@ -78,14 +78,14 @@ angličtina. Přesněji řečeno, najdete v nich písmena kombinovaná s
 různými diakritickými značkami, jako například u znaku <code>ñ</code>
 používaného ve španělštině. Nejběžnějším kódováním je u těchto jazyků
 CP-1252. Označuje se také „windows-1252“, protože se široce používá v
-Microsoft Windows. Kódování CP-1252 sdílí znaky v intervalu 0–127 s
-<abbr>ASCII</abbr>, ale rozpíná se i do intervalu 128–255. Nalezneme v
+Microsoft Windows. Kódování CP-1252 sdílí znaky v intervalu 0&ndash;127 s
+<abbr>ASCII</abbr>, ale rozpíná se i do intervalu 128&ndash;255. Nalezneme v
 něm takové znaky jako n-s-vlnkou (241), u-s-přehláskou (252) atd.
 Pořád ale jde o jednobajtové kódování. Největší možné číslo (255) se
 pořád vejde do jednoho bajtu. <p>Pak tu ale máme jazyky, jako je
 čínština, japonština a korejština, které používají takové množství
 znaků, že vyžadují vícebajtové znakové sady. Každý jejich „znak“ je
-vyjádřen dvoubajtovým číslem v intervalu 0–65535. Ale u různých
+vyjádřen dvoubajtovým číslem v intervalu 0&ndash;65535. Ale u různých
 vícebajtových kódování se pořád setkáváme se stejným problémem, jako u
 různých jednobajtových kódování. Každé z nich používá stejná čísla pro
 vyjádření různých věcí. Používají jen širší interval čísel, protože
@@ -99,7 +99,7 @@ ukládaly také informaci o znakovém kódování. Lidé tyto dokumenty četli
 prostřednictvím stejných textových procesorů, jaké použil původní
 autor, takže všechno víceméně fungovalo. <p>Teď si představte vzestup
 globálních sítí s elektronickou poštou a s webem. Spousty „prostých
-textů“ létají kolem zeměkoule — byly napsány na jednom počítači,
+textů“ létají kolem zeměkoule &mdash; byly napsány na jednom počítači,
 přeneseny přes druhý a zobrazovány na třetím počítači. Počítače vidí
 jen čísla. Ale čísla mohou znamenat různé věci. Ach ne! Co budeme
 dělat? Takže systém musel být navržen tak, aby si každý „prostý text“
@@ -121,7 +121,7 @@ teď jste v ruském režimu koi8-r, takže 241 znamená Я; bum, teď jste
 řeckém režimu pro Mac, takže 241 znamená ώ.) I <em>v takových</em>
 dokumentech byste samozřejmě chtěli umět vyhledávat. <p>Tak a teď
 plačte, protože vše, co jste si mysleli, že o řetězcích víte, je vám k
-ničemu. Nic takového jako „prostý text“ neexistuje. <p class=a>⁂ <h2
+ničemu. Nic takového jako „prostý text“ neexistuje. <p class=a>&#x2042; <h2
 id=one-ring-to-rule-them-all>Unicode</h2>
 
 <p><i>Vstupte do světa <dfn>Unicode</dfn>.</i>
@@ -132,7 +132,7 @@ nebo ideogram se v Unicode vyjadřují jako 4bajtové číslo. Každé číslo
 vyjadřuje jedinečný znak, který se používá alespoň v jednom jazyce
 našeho světa. (Ne všechna čísla jsou využita, ale těch použitých je
 více než 65535. To znamená, že dva bajty nestačí.) Znaky, které se
-používají ve více jazycích, mají obvykle stejné číslo — pokud
+používají ve více jazycích, mají obvykle stejné číslo &mdash; pokud
 neexistuje dobrý etymologický důvod, aby tomu tak nebylo. Bez ohledu
 na další okolnosti je ale pro každý znak vyhrazeno jedno číslo a pro
 každé číslo jen jeden znak. Jedno číslo vždy znamená jedinou věc.
@@ -159,7 +159,7 @@ nejzjevnější je, že na každý podělaný znak potřebujeme čtyři bajty.
 <p>Znaků je v Unicode velmi mnoho, ale ukazuje se, že většina lidí
 nepoužije nikdy žádný, který by ležel mimo prvních 65535. Takže tu
 máme další kódování Unicode. Nazývá se UTF-16 (protože 16 bitů jsou 2
-bajty). V UTF-16 se každý znak s číslem z intervalu 0–65535 kóduje do
+bajty). V UTF-16 se každý znak s číslem z intervalu 0&ndash;65535 kóduje do
 dvou bajtů. Pokud opravdu potřebujeme vyjádřit zřídka používané
 Unicode znaky z „astrální roviny“ (přesahující 65535), používá UTF-16
 jisté špinavé triky. Nejzjevnější výhoda: UTF-16 je prostorově dvakrát
@@ -176,7 +176,7 @@ Závisí to na tom, zda systém používá přístup big-endian (na menší
 adrese významnější bajt) nebo little-endian (na menší adrese méně
 významný bajt). (Pro UTF-32 existují dokonce ještě další možnosti
 uspořádání bajtů.) Pokud váš dokument nikdy neopustí váš počítač, je
-to v suchu&nbsp;—&nbsp;různé aplikace budou na stejném počítači
+to v suchu&nbsp;&mdash;&nbsp;různé aplikace budou na stejném počítači
 používat stejné pořadí bajtů. Ale v okamžiku, kdy budete chtít
 dokument přenášet mezi systémy, třeba prostřednictvím webu nebo něčeho
 takového, budeme potřebovat způsob, jak vyjádřit námi používané pořadí
@@ -194,20 +194,20 @@ FF</code>, pak víte, že pořadí bajtů je obrácené. <p>Přesto UTF-16
 není zcela ideální. Platí to zvláště v případech, kdy používáte velké
 množství <abbr>ASCII</abbr> znaků. Když o tom popřemýšlíte, dokonce i
 čínské webové stránky budou obsahovat velké množství
-<abbr>ASCII</abbr> znaků&nbsp;—&nbsp;všechny ty značky a atributy,
+<abbr>ASCII</abbr> znaků&nbsp;&mdash;&nbsp;všechny ty značky a atributy,
 které obklopují tisknutelné čínské znaky. Pokud umíme najít
 <var>N-tý</var> znak v konstantním čase, je to fajn. Ale pořád tu máme
 nepříjemný problém s těmi znaky z astrální roviny. To znamená, že
 nemůžete <em>zaručit</em>, že každý znak je uložen přesně na dvou
 bajtech. Takže <em>ve skutečnosti</em> nemůžete <var>N-tý</var> znak
-najít v konstantním čase — pokud si ovšem neudržujete oddělený index.
+najít v konstantním čase &mdash; pokud si ovšem neudržujete oddělený index.
 A mezi námi, ve světě se nachází ohromné množství <abbr>ASCII</abbr>
 textů... <p>Těmito otázkami se už zabývali jiní a přišli s řešením: <p
 class=xxxl>UTF-8 <p><abbr>UTF-8</abbr> je kódovací systém s
 <em>proměnnou délkou</em>. To znamená, že různé Unicode znaky zabírají
 různý počet bajtů. Pro <abbr>ASCII</abbr> znaky (A-Z atd.) používá
 <abbr>UTF-8</abbr> jen jeden bajt na znak. Ve skutečnosti používá
-přesně tentýž bajt. Prvních 128 znaků (0–127) se v <abbr>UTF-8</abbr>
+přesně tentýž bajt. Prvních 128 znaků (0&ndash;127) se v <abbr>UTF-8</abbr>
 nedá rozlišit od <abbr>ASCII</abbr>. Znaky z „rozšířené latinky“, jako
 jsou ñ a ö, budou zabírat dva bajty. (Bajty zde nevyjadřují kód z
 Unicode tak jednoduchým způsobem, jako je tomu u UTF-16. Je do toho
@@ -224,13 +224,13 @@ UTF-16. Pro čínské znaky je lepší než UTF-32. A díky jednoznačnému
 způsobu manipulace s bity zde neexistují žádné problémy s pořadím
 bajtů. (To mi musíte věřit, protože to tady nebudu matematicky
 zdůvodňovat.) Dokument kódovaný v <abbr>UTF-8</abbr> používá na každém
-počítači přesně stejnou posloupnost bajtů. <p class=a>⁂ <h2
+počítači přesně stejnou posloupnost bajtů. <p class=a>&#x2042; <h2
 id=divingin>Ponořme se</h2>
 
 <p>V Pythonu 3 jsou všechny řetězce posloupnostmi znaků v Unicode.
 Nenajdeme zde nic takového jako pythonovský řetězec kódovaný v
 <abbr>UTF-8</abbr> nebo pythonovský řetězec kódovaný v CP-1252. „Je
-tento řetězec v <abbr>UTF-8</abbr>?“ — toto je nesmyslná otázka.
+tento řetězec v <abbr>UTF-8</abbr>?“ &mdash; toto je nesmyslná otázka.
 <abbr>UTF-8</abbr> představuje způsob kódování znaků do posloupnosti
 bajtů. Pokud chcete vzít řetězec a přeměnit jej na posloupnost bajtů v
 určitém znakovém kódování, může vám v tom Python 3 pomoci. Pokud
@@ -250,7 +250,7 @@ class=screen>
 <li>Zabudovaná funkce <code><dfn>len</dfn>()</code> vrací délku řetězce, tj. počet znaků. Je to stejná funkce, jakou používáme pro <a href="native-datatypes.html#extendinglists">nalezení délky seznamu, n-tice, množiny nebo slovníku</a>. Řetězec připomíná n-tici znaků. <li>S využitím indexové notace můžeme získat jednotlivé znaky řetězce, podobně jako u seznamu. <li>Operátor <code>+</code> provádí <dfn>konkatenaci</dfn> řetězců (zřetězení, spojení), stejně jako u seznamů.
 </ol>
 
-<p class=a>⁂ <h2 id=formatting-strings>Formátovací řetězce</h2>
+<p class=a>&#x2042; <h2 id=formatting-strings>Formátovací řetězce</h2>
 
 <aside>Řetězce definujeme uzavřením do apostrofů nebo do uvozovek.</aside>
 <p>Podívejme se znovu na <a
@@ -283,7 +283,7 @@ def approximate_size(size, a_kilobyte_is_1024_bytes=True):
 
     raise ValueError('number too large')</code></pre>
 <ol>
-<li><code>'KB'</code>, <code>'MB'</code>, <code>'GB'</code>… to všechno jsou řetězce. <li>Dokumentační řetězce funkcí jsou řetězce. Tento dokumentační řetězec se rozprostírá přes několik řádků. Proto je použita trojice apostrofů na začátku i na konci řetězce. <li>Tato trojice apostrofů ukončuje dokumentační řetězec. <li>Zde máme další řetězec, který předáváme objektu výjimky jako lidsky čitelnou podobu chybového hlášení. <li>A tady máme… hej, co je sakra tohle?
+<li><code>'KB'</code>, <code>'MB'</code>, <code>'GB'</code>&hellip; to všechno jsou řetězce. <li>Dokumentační řetězce funkcí jsou řetězce. Tento dokumentační řetězec se rozprostírá přes několik řádků. Proto je použita trojice apostrofů na začátku i na konci řetězce. <li>Tato trojice apostrofů ukončuje dokumentační řetězec. <li>Zde máme další řetězec, který předáváme objektu výjimky jako lidsky čitelnou podobu chybového hlášení. <li>A tady máme&hellip; hej, co je sakra tohle?
 </ol>
 
 <p>Python 3 podporuje <dfn>formátování</dfn> hodnot do řetězců. Možné
@@ -317,7 +317,7 @@ ještě mnohem mocnější. <pre class=screen>
 <samp class="pp">'1000KB = 1MB'</samp>
 </pre>
 <ol>
-<li>Místo volání funkce z modulu <code>humansize</code> si půjčíme jednu z datových struktur, která je v něm definována: seznam přípon jednotek „SI“ (mocniny čísla 1000). <li>Vypadá to složitě, ale není to složité. <code>{0}</code> se odkazuje na první argument předaný metodě <code>format()</code>, tedy na <var>si_suffixes</var>. Ale <var>si_suffixes</var> má podobu seznamu. Takže <code>{0[0]}</code> odkazuje na první položku seznamu, který je prvním argumentem předaným metodě <code>format()</code>: <code>'KB'</code>. Podobně <code>{0[1]}</code> odkazuje na druhou položku stejného seznamu: <code>'MB'</code>. Všechno vně složených závorek&nbsp;—&nbsp;včetně <code>1000</code>, rovnítka a mezer&nbsp;—&nbsp;zůstává nedotčeno. Konečným výsledkem je řetězec <code>'1000KB = 1MB'</code>.
+<li>Místo volání funkce z modulu <code>humansize</code> si půjčíme jednu z datových struktur, která je v něm definována: seznam přípon jednotek „SI“ (mocniny čísla 1000). <li>Vypadá to složitě, ale není to složité. <code>{0}</code> se odkazuje na první argument předaný metodě <code>format()</code>, tedy na <var>si_suffixes</var>. Ale <var>si_suffixes</var> má podobu seznamu. Takže <code>{0[0]}</code> odkazuje na první položku seznamu, který je prvním argumentem předaným metodě <code>format()</code>: <code>'KB'</code>. Podobně <code>{0[1]}</code> odkazuje na druhou položku stejného seznamu: <code>'MB'</code>. Všechno vně složených závorek&nbsp;&mdash;&nbsp;včetně <code>1000</code>, rovnítka a mezer&nbsp;&mdash;&nbsp;zůstává nedotčeno. Konečným výsledkem je řetězec <code>'1000KB = 1MB'</code>.
 </ol>
 
 <aside>{0} je nahrazena prvním argumentem metody format(). {1} je nahrazena druhým argumentem.</aside>
@@ -355,7 +355,7 @@ to, co následuje) definuje <i>specifikátor formátu</i> (format
 specifier), který upřesňuje, jak má být dosazovaná hodnota
 formátována. <blockquote class='note compare clang'>
 <p><span class="u">☞</span>Specifikátory formátu vám dovolí upravit
-výsledný text do řady užitečných podob — podobně jako funkce
+výsledný text do řady užitečných podob &mdash; podobně jako funkce
 <code><dfn>printf</dfn>()</code> v jazyce C. Můžete přidat vycpávku z
 nul nebo z mezer, zarovnat řetězce, řídit počet desetinných míst a
 dokonce konvertovat čísla do šestnáctkové soustavy.
@@ -378,7 +378,7 @@ na jedno desetinné místo a hodnota <var>suffix</var> bude připojena za
 <p>Detaily kolem specifikátorů formátů naleznete v oficiální
 pythonovské dokumentaci, v části <a
 href="http://docs.python.org/3.1/library/string.html#format-specification-mini-language">Format
-Specification Mini-Language</a>. <p class=a>⁂ <h2
+Specification Mini-Language</a>. <p class=a>&#x2042; <h2
 id=common-string-methods>Další běžné metody řetězců</h2>
 
 <p>S řetězci můžeme, kromě formátování, provádět řadu dalších
@@ -453,14 +453,14 @@ Ono to dává smysl, protože řetězce jsou prosté posloupnosti znaků.
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_string[18:]</kbd>            <span class="u">⑤</span></a>
 <samp class="pp">' where your alphabet ends.'</samp></pre>
 <ol>
-<li>Část řetězce, výřez (slice), můžeme získat zadáním dvou indexů. Návratovou hodnotou je nový řetězec, který obsahuje všechny znaky (při zachování pořadí) počínaje prvním indexem výřezu a konče znakem před druhým indexem. <li>Při vykrajování z řetězců můžeme rovněž použít záporné indexy výřezu, stejně jako u seznamu. <li>Řetězce se indexují od nuly, takže zápis <code>a_string[0:2]</code> vrací první dva znaky řetězce počínaje znakem <code>a_string[0]</code> až po <code>a_string[2]</code> vyjma (ten už ve výsledku nebude). <li>Pokud je levý index výřezu roven nule, můžeme nulu vynechat. Bude dosazena implicitně. Takže zápis <code>a_string[:18]</code> je stejný jako <code>a_string[0:18]</code>. Počáteční nula se dosadí jako implicitní hodnota. <li>Podobně, pokud by pravý index výřezu měl mít hodnotu rovnou délce řetězce, můžeme jej vynechat. Takže <code>a_string[18:]</code> je totéž jako <code>a_string[18:44]</code>, protože v tomto řetězci se nachází 44 znaků. A najdeme zde opět potěšitelnou symetrii. Pro tento 44znakový řetězec vrací zápis <code>a_string[:18]</code> prvních 18 znaků a <code>a_string[18:]</code> vrací vše kromě prvních 18 znaků. Obecně platí, že <code>a_string[:<var>n</var>]</code> vždy vrátí prvních <var>n</var> znaků a <code>a_string[<var>n</var>:]</code> vrátí zbytek — nezávisle na délce řetězce.
+<li>Část řetězce, výřez (slice), můžeme získat zadáním dvou indexů. Návratovou hodnotou je nový řetězec, který obsahuje všechny znaky (při zachování pořadí) počínaje prvním indexem výřezu a konče znakem před druhým indexem. <li>Při vykrajování z řetězců můžeme rovněž použít záporné indexy výřezu, stejně jako u seznamu. <li>Řetězce se indexují od nuly, takže zápis <code>a_string[0:2]</code> vrací první dva znaky řetězce počínaje znakem <code>a_string[0]</code> až po <code>a_string[2]</code> vyjma (ten už ve výsledku nebude). <li>Pokud je levý index výřezu roven nule, můžeme nulu vynechat. Bude dosazena implicitně. Takže zápis <code>a_string[:18]</code> je stejný jako <code>a_string[0:18]</code>. Počáteční nula se dosadí jako implicitní hodnota. <li>Podobně, pokud by pravý index výřezu měl mít hodnotu rovnou délce řetězce, můžeme jej vynechat. Takže <code>a_string[18:]</code> je totéž jako <code>a_string[18:44]</code>, protože v tomto řetězci se nachází 44 znaků. A najdeme zde opět potěšitelnou symetrii. Pro tento 44znakový řetězec vrací zápis <code>a_string[:18]</code> prvních 18 znaků a <code>a_string[18:]</code> vrací vše kromě prvních 18 znaků. Obecně platí, že <code>a_string[:<var>n</var>]</code> vždy vrátí prvních <var>n</var> znaků a <code>a_string[<var>n</var>:]</code> vrátí zbytek &mdash; nezávisle na délce řetězce.
 </ol>
 
-<p class=a>⁂ <h2 id=byte-arrays>Řetězce vs. bajty</h2>
+<p class=a>&#x2042; <h2 id=byte-arrays>Řetězce vs. bajty</h2>
 
 <p><dfn>Bajty</dfn> jsou bajty, znaky jsou abstrakce. Neměnitelná
 posloupnost Unicode znaků se nazývá <i>řetězec</i>. Neměnitelná
-posloupnost čísel z intervalu 0–255 se nazývá objekt typu
+posloupnost čísel z intervalu 0&ndash;255 se nazývá objekt typu
 <i>bytes</i>. <pre class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">by = b'abcd\x65'</kbd>  <span class="u">①</span></a>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">by</kbd>
@@ -481,7 +481,7 @@ posloupnost čísel z intervalu 0–255 se nazývá objekt typu
   File "&lt;stdin&gt;", line 1, in &lt;module&gt;
 TypeError: 'bytes' object does not support item assignment</samp></pre>
 <ol>
-<li>Objekt typu <code>bytes</code> definujeme použitím <code>b''</code>, tedy syntaxe pro „<dfn>bajtový literál</dfn>“ . Každý bajt uvnitř bajtového literálu může být buď <abbr>ASCII</abbr> znak, nebo zakódované šestnáctkové číslo od <code>\x00</code> do <code>\xff</code> (0–255). <li>Bajtový objekt je typu <code>bytes</code>. <li>Délku obsahu objektu typu <code>bytes</code> můžeme získat zabudovanou funkcí <code>len()</code>, tedy stejně jako u seznamů a řetězců. <li>A stejně jako u seznamů a řetězců, pro konkatenaci (zřetězení, spojení) objektů typu <code>bytes</code> můžeme použít operátor <code>+</code>. Výsledkem je nový objekt typu <code>bytes</code>. <li>Zřetězením 5bajtového objektu a jednobajtového objektu typu <code>bytes</code> vznikne 6bajtový objekt typu <code>bytes</code>. <li>Stejně jako u seznamů a řetězců můžeme jednotlivé bajty z objektu typu <code>bytes</code> zpřístupnit indexovou notací. Položkami řetězců jsou znaky, položkami objektu typu <code>bytes</code> jsou čísla. Konkrétně jsou to celá čísla z intervalu 0–255. <li>Objekt typu <code>bytes</code> je neměnitelný (immutable). Jednotlivým bajtům nemůžeme nic přiřadit. Pokud potřebujete měnit jednotlivé bajty, můžete buď použít <a href="#slicingstrings">výřezy (slicing)</a> a operátor konkatenace (fungují stejně jako u řetězců), nebo můžete objekt typu <code>bytes</code> konvertovat na objekt typu <code>bytearray</code>.
+<li>Objekt typu <code>bytes</code> definujeme použitím <code>b''</code>, tedy syntaxe pro „<dfn>bajtový literál</dfn>“ . Každý bajt uvnitř bajtového literálu může být buď <abbr>ASCII</abbr> znak, nebo zakódované šestnáctkové číslo od <code>\x00</code> do <code>\xff</code> (0&ndash;255). <li>Bajtový objekt je typu <code>bytes</code>. <li>Délku obsahu objektu typu <code>bytes</code> můžeme získat zabudovanou funkcí <code>len()</code>, tedy stejně jako u seznamů a řetězců. <li>A stejně jako u seznamů a řetězců, pro konkatenaci (zřetězení, spojení) objektů typu <code>bytes</code> můžeme použít operátor <code>+</code>. Výsledkem je nový objekt typu <code>bytes</code>. <li>Zřetězením 5bajtového objektu a jednobajtového objektu typu <code>bytes</code> vznikne 6bajtový objekt typu <code>bytes</code>. <li>Stejně jako u seznamů a řetězců můžeme jednotlivé bajty z objektu typu <code>bytes</code> zpřístupnit indexovou notací. Položkami řetězců jsou znaky, položkami objektu typu <code>bytes</code> jsou čísla. Konkrétně jsou to celá čísla z intervalu 0&ndash;255. <li>Objekt typu <code>bytes</code> je neměnitelný (immutable). Jednotlivým bajtům nemůžeme nic přiřadit. Pokud potřebujete měnit jednotlivé bajty, můžete buď použít <a href="#slicingstrings">výřezy (slicing)</a> a operátor konkatenace (fungují stejně jako u řetězců), nebo můžete objekt typu <code>bytes</code> konvertovat na objekt typu <code>bytearray</code>.
 </ol>
 
 <pre class=screen>
@@ -495,7 +495,7 @@ TypeError: 'bytes' object does not support item assignment</samp></pre>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">barr</kbd>
 <samp class="pp">bytearray(b'fbcde')</samp></pre>
 <ol>
-<li>Pro konverzi objektu typu <code>bytes</code> na objekt měnitelného typu <code>bytearray</code> použijte zabudovanou funkci <code>bytearray()</code>. <li>Všechny metody a operace, které můžete provádět s objektem typu <code>bytes</code>, můžete provádět i s objektem typu <code>bytearray</code>. <li>Jedním z rozdílů je to, že objektu typu <code>bytearray</code> můžete při využití indexové notace přiřazovat hodnoty jednotlivým bajtům. Přiřazovaná hodnota musí být celé číslo v intervalu 0–255.
+<li>Pro konverzi objektu typu <code>bytes</code> na objekt měnitelného typu <code>bytearray</code> použijte zabudovanou funkci <code>bytearray()</code>. <li>Všechny metody a operace, které můžete provádět s objektem typu <code>bytes</code>, můžete provádět i s objektem typu <code>bytearray</code>. <li>Jedním z rozdílů je to, že objektu typu <code>bytearray</code> můžete při využití indexové notace přiřazovat hodnoty jednotlivým bajtům. Přiřazovaná hodnota musí být celé číslo v intervalu 0&ndash;255.
 </ol>
 
 <p>Jednou z věcí, které <em>nikdy nemůžete udělat</em>, je míchání
@@ -521,7 +521,7 @@ TypeError: Can't convert 'bytes' object to str implicitly</samp>
 přebírá znakové kódování a vrací řetězec. A řetězce zase mají metodu
 <code><dfn>encode</dfn>()</code>, která přebírá znakové kódování a
 vrací objekt typu <code>bytes</code>. V předchozím případě bylo
-dekódování poměrně přímočaré&nbsp;—&nbsp;co se týká konverze
+dekódování poměrně přímočaré&nbsp;&mdash;&nbsp;co se týká konverze
 posloupnosti bajtů v kódování <abbr>ASCII</abbr> na řetězec znaků. Ale
 stejný postup funguje pro libovolné kódování, které odpovídá znakům
 řetězce. Platí to dokonce i pro historická (ne Unicode) kódování. <pre
@@ -553,11 +553,11 @@ class=screen>
 <li>Toto je řetězec. Má devět znaků. <li>Toto je objekt typu <code>bytes</code>. Obsahuje 13 bajtů. Posloupnost bajtů vznikla zakódováním řetězce <var>a_string</var> do <abbr>UTF-8</abbr>. <li>Tento objekt typu <code>bytes</code> obsahuje 11 bajtů. Vznikl zakódováním řetězce <var>a_string</var> v kódování <a href="http://en.wikipedia.org/wiki/GB_18030">GB18030</a>. <li>Toto je objekt typu <code>bytes</code>. Má 11 bajtů. Jde o <em>zcela jinou posloupnost bajtů</em>, která vznikla zakódováním řetězce <var>a_string</var> v kódování <a href="http://en.wikipedia.org/wiki/Big5">Big5</a>. <li>Toto je řetězec. Má devět znaků. Jde o posloupnost znaků, kterou jsme získali, když jsme objekt <var>by</var> dekódovali algoritmem Big5. Shoduje se s původním řetězcem.
 </ol>
 
-<p class=a>⁂ <h2 id=py-encoding>Závěrečná poznámka: Kódování znaků v
+<p class=a>&#x2042; <h2 id=py-encoding>Závěrečná poznámka: Kódování znaků v
 pythonovském zdrojovém textu</h2>
 
-<p>Python 3 předpokládá, že váš zdrojový kód&nbsp;—&nbsp;tj. každý
-soubor s příponou <code>.py</code>&nbsp;—&nbsp;je uložen v kódování
+<p>Python 3 předpokládá, že váš zdrojový kód&nbsp;&mdash;&nbsp;tj. každý
+soubor s příponou <code>.py</code>&nbsp;&mdash;&nbsp;je uložen v kódování
 <abbr>UTF-8</abbr>. <blockquote class='note compare python2'>
 <p><span class="u">☞</span>V Pythonu 2 bylo u souborů s příponou
 <code>.py</code> <dfn>výchozím</dfn> kódováním <abbr>ASCII</abbr>. V
@@ -579,7 +579,7 @@ na druhý řádek. Na prvním řádku se může vyskytovat
 
 <p>Více informací naleznete v <a
 href="http://www.python.org/dev/peps/pep-0263" /><abbr>PEP</abbr> 263:
-Defining Python Source Code Encodings</a>. <p class=a>⁂ <h2
+Defining Python Source Code Encodings</a>. <p class=a>&#x2042; <h2
 id=furtherreading>Přečtěte si</h2>
 
 <p>O Unicode v jazyce Python: <ul>
@@ -601,7 +601,7 @@ id=furtherreading>Přečtěte si</h2>
 </ul>
 
 <p>O řetězcích a jejich formátování: <ul>
-<li><a href="http://docs.python.org/3.1/library/string.html"><code>string</code>&nbsp;—&nbsp;Common string operations</a>
+<li><a href="http://docs.python.org/3.1/library/string.html"><code>string</code>&nbsp;&mdash;&nbsp;Common string operations</a>
 <li><a href="http://docs.python.org/3.1/library/string.html#formatstrings">Format String Syntax</a>
 <li><a href="http://docs.python.org/3.1/library/string.html#format-specification-mini-language">Format Specification Mini-Language</a>
 <li><a href="http://www.python.org/dev/peps/pep-3101" /><abbr>PEP</abbr> 3101: Advanced String Formatting</a>
@@ -612,7 +612,7 @@ id=furtherreading>Přečtěte si</h2>
 href="regular-expressions.html" rel="next" title="dále na „Regulární
 výrazy“"><span class="u">☞</span></a>
 
-<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script> 

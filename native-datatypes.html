@@ -1,5 +1,5 @@
 <!DOCTYPE html> <meta charset=utf-8>
-<title>Přirozené datové typy – Ponořme se do Pythonu 3</title>
+<title>Přirozené datové typy &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
 <style>
@@ -10,17 +10,17 @@ body{counter-reset:h1 2}
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
 <p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">‣</span> <a
+class="u">&#8227;</span> <a
 href="table-of-contents.html#native-datatypes">Ponořme se do Pythonu
-3</a> <span class="u">‣</span>
+3</a> <span class="u">&#8227;</span>
 <p id=level>Úroveň obtížnosti: <span class="u"
-title="začátečník">♦♦♢♢♢</span>
+title="začátečník">&#x2666;&#x2666;&#x2662;&#x2662;&#x2662;</span>
 <h1>Přirozené datové typy</h1>
 <blockquote class=q>
-<p><span class="u">❝</span> Wonder is the foundation of all
+<p><span class="u">&#x275D;</span> Wonder is the foundation of all
 philosophy, inquiry its progress, ignorance its end. <span
-class="u">❞</span><br />(Zvědavost je základem celé filozofie, hledání
-odpovědí na otázky ji žene vpřed, ignorance ji zabíjí.)<br />— Michel
+class="u">&#x275E;</span><br>(Zvědavost je základem celé filozofie, hledání
+odpovědí na otázky ji žene vpřed, ignorance ji zabíjí.)<br>&mdash; Michel
 de Montaigne
 </blockquote>
 <p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
@@ -45,9 +45,9 @@ jména</a>, <a href="your-first-python-program.html#docstrings">funkce
 mají <code>docstring</code></a> atd. O třídách se dozvíte v kapitole
 <a href="iterators.html">Třídy a iterátory</a>, o souborech v kapitole
 <a href="files.html">Soubory</a>. <p>Řetězce a bajty jsou důležité do
-té míry&nbsp;—&nbsp;a jsou také dost komplikované&nbsp;—, že jim je
+té míry&nbsp;&mdash;&nbsp;a jsou také dost komplikované&nbsp;&mdash;, že jim je
 věnována <a href="strings.html">samostatná kapitola</a>. Nejdříve se
-podívejme na ty zbývající. <p class=a>⁂ <h2 id=booleans>Booleovský
+podívejme na ty zbývající. <p class=a>&#x2042; <h2 id=booleans>Booleovský
 typ</h2>
 <aside>V booleovském kontextu můžete použít téměř libovolný výraz.</aside>
 <p>Objekt booleovského typu nabývá buď hodnoty true (pravda) nebo
@@ -94,7 +94,7 @@ hodnotami může zacházet jako s čísly. <code>True</code> je
   File "&lt;stdin&gt;", line 1, in &lt;module&gt;
 ZeroDivisionError: int division or modulo by zero</samp></pre>
 <p>Ajajaj! Takové věci nedělejte. Zapomeňte, že jsem se o tom vůbec
-zmínil. <p class=a>⁂ <h2 id=numbers>Čísla</h2>
+zmínil. <p class=a>&#x2042; <h2 id=numbers>Čísla</h2>
 <p>Čísla jsou obdivuhodná. Můžete si je vybrat z tak ohromného
 množství. Python podporuje jak <dfn>celá čísla</dfn> (integer), tak
 čísla <dfn>reálná</dfn> (floating point). Nerozlišují se deklarací
@@ -130,7 +130,7 @@ převodu je můžete donutit taky vy sami. <pre class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(1000000000000000)</kbd>  <span class="u">⑥</span></a>
 <samp class="pp">&lt;class 'int'&gt;</samp></pre>
 <ol>
-<li>Voláním funkce <code>float()</code> můžeme explicitně vynutit převod <code>int</code> (typ pro celé číslo) na <code>float</code> (typ pro reálné číslo). <li>A nebude asi moc překvapivé, že voláním <code>int()</code> můžeme vynutit převod <code>float</code> na <code>int</code>. <li>Funkce <code>int()</code> nezaokrouhluje, ale odsekává. <li>Funkce <code>int()</code> odsekává desetinnou část u záporných čísel směrem k nule. Jde o funkci opravdového odsekávání, ne o funkci <code>floor</code> (tj. u záporných čísel dojde ke zvětšení čísla, protože například <code>–2.5</code> se změní na <code>–2</code>). <li>Čísla typu <code>float</code> jsou uložena s přesností na 15 desetinných míst. <li>Celá čísla mohou být libovolně velká.
+<li>Voláním funkce <code>float()</code> můžeme explicitně vynutit převod <code>int</code> (typ pro celé číslo) na <code>float</code> (typ pro reálné číslo). <li>A nebude asi moc překvapivé, že voláním <code>int()</code> můžeme vynutit převod <code>float</code> na <code>int</code>. <li>Funkce <code>int()</code> nezaokrouhluje, ale odsekává. <li>Funkce <code>int()</code> odsekává desetinnou část u záporných čísel směrem k nule. Jde o funkci opravdového odsekávání, ne o funkci <code>floor</code> (tj. u záporných čísel dojde ke zvětšení čísla, protože například <code>&ndash;2.5</code> se změní na <code>&ndash;2</code>). <li>Čísla typu <code>float</code> jsou uložena s přesností na 15 desetinných míst. <li>Celá čísla mohou být libovolně velká.
 </ol>
 <blockquote class='note compare python2'>
 <p><span class="u">☞</span>Python 2 měl oddělené typy <code>int</code>
@@ -207,7 +207,7 @@ ZeroDivisionError: Fraction(0, 0)</samp></pre>
 <h3 id=numbers-in-a-boolean-context>Čísla v booleovském kontextu</h3>
 <aside>Nulová hodnota se interpretuje jako false, nenulová jako true.</aside>
 <p>Čísla můžete použít <a href="#booleans">v booleovském kontextu</a>
-— například v příkazu <code>if</code>. Nulové hodnoty se interpretují
+&mdash; například v příkazu <code>if</code>. Nulové hodnoty se interpretují
 jako false, nenulové jako true. <pre class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">def is_it_true(anything):</kbd>             <span class="u">①</span></a>
 <samp class="p">... </samp><kbd class="pp">  if anything:</kbd>
@@ -233,7 +233,7 @@ jako false, nenulové jako true. <pre class=screen>
 <ol>
 <li>A to víte, že své vlastní funkce můžete definovat i v pythonovském interaktivním shellu? Stačí zmáčknout <kbd>ENTER</kbd> na konci každého řádku a vše ukončit stiskem <kbd>ENTER</kbd> na prázdném řádku. <li>V booleovském kontextu se nenulová celá čísla chápou jako true a nula jako false. <li>Nenulová reálná čísla se chápou jako true, <code>0.0</code> se chápe jako false. Ale bacha na tu poslední hodnotu! Pokud dojde k sebemenší zaokrouhlovací chybě (což není nemožné, jak jste si mohli všimnout v předchozí podkapitole), pak bude Python testovat místo nuly například <code>0.0000000000001</code> a vrátí hodnotu <code>True</code>. <li>Zlomky můžeme také použít v booleovském kontextu. Hodnota <code>Fraction(0, n)</code> se pro všechny hodnoty <var>n</var> vyhodnotí jako false. Všechny ostatní zlomky se vyhodnotí jako true.
 </ol>
-<p class=a>⁂ <h2 id=lists>Seznamy</h2>
+<p class=a>&#x2042; <h2 id=lists>Seznamy</h2>
 <p>Seznamy jsou v Pythonu nejpoužívanějšími datovými typy. Když řeknu
 „<dfn>seznam</dfn>“ (anglicky list [list]), může vás napadnout „pole,
 jehož velikost musím předem deklarovat, které může obsahovat jen prvky
@@ -272,8 +272,8 @@ hranatých závorek. <pre class=screen>
 <aside>a_list[0] je vždy první položkou seznamu a_list.</aside>
 <p>Jakmile máme vytvořen seznam, můžeme získat jakoukoliv jeho část.
 Anglicky se tomu říká „<i>slicing</i> the list“, což můžeme přeložit
-jako „<i>vykrajování</i> ze seznamu“ nebo „výřez ze seznamu“ nebo — z
-pohledu abstraktního záměru — vytváření podseznamu. <pre class=screen>
+jako „<i>vykrajování</i> ze seznamu“ nebo „výřez ze seznamu“ nebo &mdash; z
+pohledu abstraktního záměru &mdash; vytváření podseznamu. <pre class=screen>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
 <samp class="pp">['a', 'b', 'mpilgrim', 'z', 'example']</samp>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[1:3]</kbd>            <span class="u">①</span></a>
@@ -289,7 +289,7 @@ pohledu abstraktního záměru — vytváření podseznamu. <pre class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list[:]</kbd>              <span class="u">⑥</span></a>
 <samp class="pp">['a', 'b', 'mpilgrim', 'z', 'example']</samp></pre>
 <ol>
-<li>Část seznamu, výřez (slice), můžeme získat zadáním dvou indexů. Návratovou hodnotou je nový seznam, který obsahuje položky od prvního indexu výřezu (v tomto případě <code>a_list[1]</code>) až po položku (ale vyjma) s druhým indexem výřezu (v našem případě <code>a_list[3]</code>). <li>Výřez funguje i v případě, kdy je hodnota jednoho nebo obou indexů výřezu záporná. Můžete si pomoci následujícím způsobem uvažování. Když se na seznam díváme zleva doprava, pak první index výřezu určuje první položku, kterou chceme, a druhý index výřezu určuje první položku, kterou nechceme. Vrací se vše mezi tím. <li>Seznamy se indexují od nuly, takže zápis <code>a_list[0:3]</code> vrací první tři položky seznamu počínaje položkou <code>a_list[0]</code> až po <code>a_list[3]</code> vyjma (ta už se nevrací). <li>Pokud je levý index výřezu roven nule, můžeme nulu vynechat a Python si ji tam dosadí. Takže zápis <code>a_list[:3]</code> vede ke stejnému výsledku jako <code>a_list[0:3]</code>, protože počáteční nula se dosadí jako implicitní hodnota. <li>Podobně, pokud by pravý index výřezu měl mít hodnotu rovnou délce seznamu, můžeme jej vynechat. Protože náš seznam má pět položek, vede zápis <code>a_list[3:]</code> ke stejnému výsledku jako <code>a_list[3:5]</code>. A najdeme zde potěšitelnou symetrii. V našem pětiprvkovém seznamu vrací zápis <code>a_list[:3]</code> první tři položky a <code>a_list[3:]</code> vrací zbývající dvě. Obecně platí, že <code>a_list[:<var>n</var>]</code> vždy vrátí prvních <var>n</var> položek a <code>a_list[<var>n</var>:]</code> vrátí zbytek — nezávisle na délce seznamu. <li>Pokud vynecháme oba indexy výřezu, jsou ve výsledku zahrnuty všechny položky původního seznamu. Ale není to totéž jako původní proměnná <var>a_list</var>. Jde o nový seznam, který má shodou okolností stejné položky. Zápis <code>a_list[:]</code> je tedy zkratkou pro získání úplné kopie seznamu.
+<li>Část seznamu, výřez (slice), můžeme získat zadáním dvou indexů. Návratovou hodnotou je nový seznam, který obsahuje položky od prvního indexu výřezu (v tomto případě <code>a_list[1]</code>) až po položku (ale vyjma) s druhým indexem výřezu (v našem případě <code>a_list[3]</code>). <li>Výřez funguje i v případě, kdy je hodnota jednoho nebo obou indexů výřezu záporná. Můžete si pomoci následujícím způsobem uvažování. Když se na seznam díváme zleva doprava, pak první index výřezu určuje první položku, kterou chceme, a druhý index výřezu určuje první položku, kterou nechceme. Vrací se vše mezi tím. <li>Seznamy se indexují od nuly, takže zápis <code>a_list[0:3]</code> vrací první tři položky seznamu počínaje položkou <code>a_list[0]</code> až po <code>a_list[3]</code> vyjma (ta už se nevrací). <li>Pokud je levý index výřezu roven nule, můžeme nulu vynechat a Python si ji tam dosadí. Takže zápis <code>a_list[:3]</code> vede ke stejnému výsledku jako <code>a_list[0:3]</code>, protože počáteční nula se dosadí jako implicitní hodnota. <li>Podobně, pokud by pravý index výřezu měl mít hodnotu rovnou délce seznamu, můžeme jej vynechat. Protože náš seznam má pět položek, vede zápis <code>a_list[3:]</code> ke stejnému výsledku jako <code>a_list[3:5]</code>. A najdeme zde potěšitelnou symetrii. V našem pětiprvkovém seznamu vrací zápis <code>a_list[:3]</code> první tři položky a <code>a_list[3:]</code> vrací zbývající dvě. Obecně platí, že <code>a_list[:<var>n</var>]</code> vždy vrátí prvních <var>n</var> položek a <code>a_list[<var>n</var>:]</code> vrátí zbytek &mdash; nezávisle na délce seznamu. <li>Pokud vynecháme oba indexy výřezu, jsou ve výsledku zahrnuty všechny položky původního seznamu. Ale není to totéž jako původní proměnná <var>a_list</var>. Jde o nový seznam, který má shodou okolností stejné položky. Zápis <code>a_list[:]</code> je tedy zkratkou pro získání úplné kopie seznamu.
 </ol>
 <h3 id=extendinglists>Přidávání položek do seznamu</h3>
 <p>Položku můžeme do seznamu přidat čtyřmi způsoby. <pre class=screen>
@@ -307,7 +307,7 @@ pohledu abstraktního záměru — vytváření podseznamu. <pre class=screen>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_list</kbd>
 <samp class="pp">['Ω', 'a', 2.0, 3, True, 'four', 'Ω']</samp></pre>
 <ol>
-<li>Operátor <code>+</code> spojí seznamy a vytvoří nový seznam. Seznam může obsahovat libovolný počet položek. Neexistuje zde žádný limit (pouze velikost dostupné paměti). Ale co se týká paměti, měli bychom si dát pozor na to, že spojením seznamů vzniká v paměti další seznam. V našem případě je nový seznam ihned přiřazen do existující proměnné <var>a_list</var>. Takže tento řádek kódu ve skutečnosti představuje dvoufázový proces&nbsp;—&nbsp;spojení (konkatenace) a přiřazení&nbsp;—, který může u rozsáhlých seznamů (dočasně) spotřebovat velké množství paměti. <li>Seznam může obsahovat položky libovolného datového typu a v jednom seznamu nemusí být všechny položky stejného typu. V našem případě máme seznam obsahující řetězec, reálné číslo a celé číslo. <li>Metoda <code>append()</code> přidává jednu položku na konec seznamu. (Teď už máme v seznamu položky se <em>čtyřmi</em> rozdílnými datovými typy!) <li>Seznamy jsou implementovány formou třídy. „Vytvoření“ seznamu tedy znamená vytvoření instance třídy. V tomto smyslu mají seznamy metody, které nad nimi pracují. Metoda <code>extend()</code> přebírá jeden argument, kterým je seznam. Každý jeho prvek připojí na konec původního seznamu (append). <li>Metoda <code>insert()</code> vloží do seznamu jednu položku. Prvním argumentem je index první položky seznamu, která bude z této pozice odsunuta. Položky seznamu nemusí být jedinečné. Například v našem případě teď seznam obsahuje dvě samostatné položky s hodnotou <code>'Ω'</code>: první položku (<code>a_list[0]</code>) a poslední položku (<code>a_list[6]</code>).
+<li>Operátor <code>+</code> spojí seznamy a vytvoří nový seznam. Seznam může obsahovat libovolný počet položek. Neexistuje zde žádný limit (pouze velikost dostupné paměti). Ale co se týká paměti, měli bychom si dát pozor na to, že spojením seznamů vzniká v paměti další seznam. V našem případě je nový seznam ihned přiřazen do existující proměnné <var>a_list</var>. Takže tento řádek kódu ve skutečnosti představuje dvoufázový proces&nbsp;&mdash;&nbsp;spojení (konkatenace) a přiřazení&nbsp;&mdash;, který může u rozsáhlých seznamů (dočasně) spotřebovat velké množství paměti. <li>Seznam může obsahovat položky libovolného datového typu a v jednom seznamu nemusí být všechny položky stejného typu. V našem případě máme seznam obsahující řetězec, reálné číslo a celé číslo. <li>Metoda <code>append()</code> přidává jednu položku na konec seznamu. (Teď už máme v seznamu položky se <em>čtyřmi</em> rozdílnými datovými typy!) <li>Seznamy jsou implementovány formou třídy. „Vytvoření“ seznamu tedy znamená vytvoření instance třídy. V tomto smyslu mají seznamy metody, které nad nimi pracují. Metoda <code>extend()</code> přebírá jeden argument, kterým je seznam. Každý jeho prvek připojí na konec původního seznamu (append). <li>Metoda <code>insert()</code> vloží do seznamu jednu položku. Prvním argumentem je index první položky seznamu, která bude z této pozice odsunuta. Položky seznamu nemusí být jedinečné. Například v našem případě teď seznam obsahuje dvě samostatné položky s hodnotou <code>'Ω'</code>: první položku (<code>a_list[0]</code>) a poslední položku (<code>a_list[6]</code>).
 </ol>
 
 <blockquote class='note compare perl'>
@@ -462,7 +462,7 @@ class=screen>
 <li>Prázdný seznam se v booleovském kontextu vyhodnocuje jako false. <li>Libovolný seznam, který obsahuje aspoň jednu položku, se vyhodnocuje jako true. <li>Libovolný neprázdný seznam se vyhodnocuje jako true. Hodnota položek je nepodstatná.
 </ol>
 
-<p class=a>⁂ <h2 id=tuples>N-tice</h2>
+<p class=a>&#x2042; <h2 id=tuples>N-tice</h2>
 
 <p><dfn>N-tice</dfn> (anglicky <dfn>tuple</dfn>) se chová jako
 neměnitelný seznam. Jakmile je n-tice jednou vytvořena, nedá se nijak
@@ -587,7 +587,7 @@ výsledku můžeme chovat jako k jedné n-tici, nebo jej můžeme přiřadit
 do více jednotlivých proměnných. Tento obrat používá řada standardních
 pythonovských knihoven, včetně modulu <code>os</code>. O něm si něco
 řekneme <a href="comprehensions.html#os">v následující kapitole</a>.
-<p class=a>⁂ <h2 id=sets>Množiny</h2>
+<p class=a>&#x2042; <h2 id=sets>Množiny</h2>
 
 <p><dfn>Množina</dfn> (set) je neuspořádanou kolekcí jedinečných
 hodnot. Jedna množina může obsahovat hodnoty libovolného neměnitelného
@@ -773,7 +773,7 @@ množinových operací. <pre class=screen>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">b_set.issuperset(a_set)</kbd>
 <samp class="pp">False</samp></pre>
 <ol>
-<li>Množina <var>a_set</var> je <dfn>podmnožinou</dfn> množiny <var>b_set</var>&nbsp;—&nbsp;všechny prvky množiny <var>a_set</var> jsou současně prvky množiny <var>b_set</var>. <li>Stejnou otázku můžeme položit obráceně. Množina <var>b_set</var> je <dfn>nadmnožinou</dfn> množiny <var>a_set</var>, protože všechny prvky množiny <var>a_set</var> jsou současně prvky množiny <var>b_set</var>. <li>Jakmile do množiny <var>a_set</var> přidáme hodnotu, která se v množině <var>b_set</var> nenachází, oba testy vrátí hodnotu <code>False</code>.
+<li>Množina <var>a_set</var> je <dfn>podmnožinou</dfn> množiny <var>b_set</var>&nbsp;&mdash;&nbsp;všechny prvky množiny <var>a_set</var> jsou současně prvky množiny <var>b_set</var>. <li>Stejnou otázku můžeme položit obráceně. Množina <var>b_set</var> je <dfn>nadmnožinou</dfn> množiny <var>a_set</var>, protože všechny prvky množiny <var>a_set</var> jsou současně prvky množiny <var>b_set</var>. <li>Jakmile do množiny <var>a_set</var> přidáme hodnotu, která se v množině <var>b_set</var> nenachází, oba testy vrátí hodnotu <code>False</code>.
 </ol>
 
 <h3 id=sets-in-a-boolean-context>Množiny v booleovském kontextu</h3>
@@ -796,7 +796,7 @@ kontextu</a>, například v příkazu <code>if</code>. <pre class=screen>
 <li>Prázdná množina se v booleovském kontextu vyhodnocuje jako false. <li>Libovolná množina s alespoň jedním prvkem se vyhodnocuje jako true. <li>Libovolná množina s alespoň jedním prvkem se vyhodnocuje jako true. Hodnota prvků je nepodstatná.
 </ol>
 
-<p class=a>⁂ <h2 id=dictionaries>Slovníky</h2>
+<p class=a>&#x2042; <h2 id=dictionaries>Slovníky</h2>
 
 <p><dfn>Slovník</dfn> (dictionary) je neuspořádaná kolekce dvojic
 klíč-hodnota. Když do slovníku přidáme klíč, musíme do něj současně
@@ -898,7 +898,7 @@ class=screen>
 <ol>
 <li>Prázdný slovník se v booleovském kontextu vyhodnocuje jako false. <li>Slovník s alespoň jednou dvojicí klíč-hodnota se vyhodnocuje jako true.
 </ol>
-<p class=a>⁂ <h2 id=none><code>None</code></h2>
+<p class=a>&#x2042; <h2 id=none><code>None</code></h2>
 <p><code><dfn>None</dfn></code> [nan] je speciální pythonovskou
 konstantou. Vyjadřuje <dfn>žádnou</dfn> hodnotu. Ale <code>None</code>
 není totéž co <code>False</code>. <code>None</code> není nula.
@@ -941,7 +941,7 @@ class='nd screen'>
 <samp>no, it's false</samp>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">is_it_true(not None)</kbd>
 <samp>yes, it's true</samp></pre>
-<p class=a>⁂ <h2 id=furtherreading>Přečtěte si</h2>
+<p class=a>&#x2042; <h2 id=furtherreading>Přečtěte si</h2>
 <ul>
 <li><a href="http://docs.python.org/3.1/library/stdtypes.html#boolean-operations-and-or-not">Boolean operations</a> (booleovské operace)
 <li><a href="http://docs.python.org/3.1/library/stdtypes.html#numeric-types-int-float-long-complex">Numeric types</a> (číselné typy)
@@ -957,7 +957,7 @@ class='nd screen'>
 title="zpět na „Váš první pythonovský program“"><span
 class="u">☜</span></a> <a href="comprehensions.html" rel="next"
 title="dopředu na „Generátorová notace“"><span class="u">☞</span></a>
-<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script> 

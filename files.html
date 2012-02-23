@@ -1,5 +1,5 @@
 <!DOCTYPE html> <meta charset=utf-8>
-<title>Soubory – Ponořme se do Pythonu 3</title>
+<title>Soubory &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
 <style>
@@ -11,17 +11,17 @@ mark{display:inline}
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
 <p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">‣</span> <a href="table-of-contents.html#files">Ponořme se
-do Pythonu 3</a> <span class="u">‣</span>
+class="u">&#8227;</span> <a href="table-of-contents.html#files">Ponořme se
+do Pythonu 3</a> <span class="u">&#8227;</span>
 <p id=level>Úroveň obtížnosti: <span class="u" title="mírně
-pokročilí">♦♦♦♢♢</span>
+pokročilí">&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
 <h1>Soubory</h1>
 <blockquote class=q>
-<p><span class="u">❝</span> A nine mile walk is no joke, especially in
-the rain. <span class="u">❞</span><br />(Jít devět mil není žádná
+<p><span class="u">&#x275D;</span> A nine mile walk is no joke, especially in
+the rain. <span class="u">&#x275E;</span><br>(Jít devět mil není žádná
 legrace, zvlášť v dešti. [<a
 href="http://www.youtube.com/watch?v=9qQKYBzLgaM">krátký film</a>])<br
-/>— Harry Kemelman, <cite>The Nine Mile Walk</cite>
+/>&mdash; Harry Kemelman, <cite>The Nine Mile Walk</cite>
 </blockquote>
 <p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
 <p class=f>Než jsem začal instalovat první aplikaci, obsahovaly
@@ -42,7 +42,7 @@ open('examples/chinese.txt', encoding='utf-8')</code></pre>
 přebírá jméno souboru jako argument. Jménem souboru je zde <code
 class="pp">'examples/chinese.txt'</code>. Na uvedeném jméně souboru
 najdeme pět zajímavostí: <ol>
-<li>Není to pouhé jméno souboru. Je to kombinace adresářové cesty a jména souboru. Hypotetická funkce pro otvírání souboru by mohla požadovat dva argumenty&nbsp;—&nbsp;adresářovou cestu a jméno souboru. Ale funkce <code>open()</code> požaduje jen jeden. Kdykoliv se po vás v Pythonu požaduje „jméno souboru“, můžete do něj zahrnout také celou adresářovou cestu nebo její část. <li>Uvedená adresářová cesta používá normální lomítko, ale neupřesnil jsem, jaký operační systém používám. Windows používají pro oddělování podadresářů zpětná lomítka, zatímco Mac OS X a Linux používají obyčejná lomítka. Ale v Pythonu fungují obyčejná lomítka i pod Windows. <li>Uvedená adresářová cesta nezačíná lomítkem nebo písmenem disku, takže ji nazýváme <i>relativní cesta</i>. Mohli byste se zeptat — relativní k čemu? Zachovejte klid. <li>Je to řetězec. Všechny moderní operační systémy (dokonce i Windows!) ukládají jména souborů a adresářů v Unicode. Python 3 plně podporuje jména cest, která nemusí být výhradně v <abbr>ASCII</abbr>. <li>A nemusí vést jen na váš lokální disk. Můžete mít připojený síťový disk. Daný „soubor“ může být fiktivní součástí <a href="http://cs.wikipedia.org/wiki/Filesystem_in_Userspace">zcela virtuálního souborového systému</a>. Pokud jej váš počítač považuje za soubor a může k němu jako k souboru přistupovat, může jej Python otevřít také.
+<li>Není to pouhé jméno souboru. Je to kombinace adresářové cesty a jména souboru. Hypotetická funkce pro otvírání souboru by mohla požadovat dva argumenty&nbsp;&mdash;&nbsp;adresářovou cestu a jméno souboru. Ale funkce <code>open()</code> požaduje jen jeden. Kdykoliv se po vás v Pythonu požaduje „jméno souboru“, můžete do něj zahrnout také celou adresářovou cestu nebo její část. <li>Uvedená adresářová cesta používá normální lomítko, ale neupřesnil jsem, jaký operační systém používám. Windows používají pro oddělování podadresářů zpětná lomítka, zatímco Mac OS X a Linux používají obyčejná lomítka. Ale v Pythonu fungují obyčejná lomítka i pod Windows. <li>Uvedená adresářová cesta nezačíná lomítkem nebo písmenem disku, takže ji nazýváme <i>relativní cesta</i>. Mohli byste se zeptat &mdash; relativní k čemu? Zachovejte klid. <li>Je to řetězec. Všechny moderní operační systémy (dokonce i Windows!) ukládají jména souborů a adresářů v Unicode. Python 3 plně podporuje jména cest, která nemusí být výhradně v <abbr>ASCII</abbr>. <li>A nemusí vést jen na váš lokální disk. Můžete mít připojený síťový disk. Daný „soubor“ může být fiktivní součástí <a href="http://cs.wikipedia.org/wiki/Filesystem_in_Userspace">zcela virtuálního souborového systému</a>. Pokud jej váš počítač považuje za soubor a může k němu jako k souboru přistupovat, může jej Python otevřít také.
 </ol>
 
 <p>Ale volání funkce <code>open()</code> nekončí zadáním jména
@@ -152,7 +152,7 @@ budete chtít číst. <pre class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.tell()</kbd>                      <span class="u">⑤</span></a>
 <samp class="pp">20</samp></pre>
 <ol>
-<li>Protože jsme ještě pořád na konci souboru, další volání metody <code>read()</code> vrací prázdný řetězec. <li>Metoda <code>seek()</code> zajistí přesun v souboru na určenou bajtovou pozici. <li>Metodě <code>read()</code> můžeme zadat nepovinný parametr, který určuje počet znaků, které se mají načíst. <li>Pokud budeme chtít, můžeme číst klidně i po jednom znaku. <li>16 + 1 + 1 = … 20?
+<li>Protože jsme ještě pořád na konci souboru, další volání metody <code>read()</code> vrací prázdný řetězec. <li>Metoda <code>seek()</code> zajistí přesun v souboru na určenou bajtovou pozici. <li>Metodě <code>read()</code> můžeme zadat nepovinný parametr, který určuje počet znaků, které se mají načíst. <li>Pokud budeme chtít, můžeme číst klidně i po jednom znaku. <li>16 + 1 + 1 = &hellip; 20?
 </ol>
 
 <p>Zkusme to znovu. <pre class=screen>
@@ -287,7 +287,7 @@ později, ale ještě v této kapitole. <h3 id=for>Čtení dat po
 řádcích</h3>
 
 <p>„Řádek“ textového souboru je to, co si myslíte, že by to mělo
-být&nbsp;—&nbsp;napíšete pár slov, stisknete <kbd>ENTER</kbd> a
+být&nbsp;&mdash;&nbsp;napíšete pár slov, stisknete <kbd>ENTER</kbd> a
 najednou jste na novém řádku. Řádek textu je posloupnost znaků
 oddělená... čím vlastně? Ono je to komplikované, protože textové
 soubory mohou pro označení konce řádků použít několik různých znaků.
@@ -350,7 +350,7 @@ nd'><code>print('{<mark>0</mark>:&gt;4}
 {<mark>1</mark>}'.format(line_number, a_line.rstrip()))</code></pre>
 </blockquote>
 
-<p class=a>⁂ <h2 id=writing>Zápis do textových souborů</h2>
+<p class=a>&#x2042; <h2 id=writing>Zápis do textových souborů</h2>
 
 <aside>Soubor prostě otevřete a začněte zapisovat.</aside>
 
@@ -402,7 +402,7 @@ zapisovat znaky, protože <a href="strings.html#byte-arrays">znaky jsou
 abstraktní</a>. Při zápisu do souboru musí Python vědět, jak má
 řetězce převádět na posloupnost bajtů. Jediný způsob, jak se ujistit,
 že se provede správný převod, spočívá v uvedení parametru
-<code>encoding</code> při otvírání souboru pro zápis. <p class=a>⁂ <h2
+<code>encoding</code> při otvírání souboru pro zápis. <p class=a>&#x2042; <h2
 id=binary>Binární soubory</h2>
 
 <p class=ss><img src="examples/beauregard.jpg" alt="Můj pes
@@ -420,7 +420,7 @@ mého psa. <pre class=screen>
   File "&lt;stdin&gt;", line 1, in &lt;module&gt;
 AttributeError: '_io.BufferedReader' object has no attribute 'encoding'</samp></pre>
 <ol>
-<li>Otevření souboru v binárním režimu je jednoduché, ale záludné. Ve srovnání s otvíráním v textovém režimu spočívá jediný rozdíl v tom, že parametr <code>mode</code> obsahuje znak<code>'b'</code>. <li>Objekt typu stream, který získáme otevřením souboru v binárním režimu, má mnoho stejných atributů, včetně atributu <code>mode</code>, který odpovídá stejnojmennému parametru předanému funkci <code>open()</code>. <li>Binární objekty typu stream mají také atribut <code>name</code> — stejně jako textové objekty typu stream. <li>Ale jeden rozdíl tady přesto je. Binární objekty typu stream nemají atribut <code>encoding</code>. Dává to smysl, že? Čteme (nebo zapisujeme) bajty a ne řetězce. Python tedy nemusí dělat žádný převod. Z binárního souboru dostaneme přesně to, co jsme do něj vložili. Žádná konverze není nutná.
+<li>Otevření souboru v binárním režimu je jednoduché, ale záludné. Ve srovnání s otvíráním v textovém režimu spočívá jediný rozdíl v tom, že parametr <code>mode</code> obsahuje znak<code>'b'</code>. <li>Objekt typu stream, který získáme otevřením souboru v binárním režimu, má mnoho stejných atributů, včetně atributu <code>mode</code>, který odpovídá stejnojmennému parametru předanému funkci <code>open()</code>. <li>Binární objekty typu stream mají také atribut <code>name</code> &mdash; stejně jako textové objekty typu stream. <li>Ale jeden rozdíl tady přesto je. Binární objekty typu stream nemají atribut <code>encoding</code>. Dává to smysl, že? Čteme (nebo zapisujeme) bajty a ne řetězce. Python tedy nemusí dělat žádný převod. Z binárního souboru dostaneme přesně to, co jsme do něj vložili. Žádná konverze není nutná.
 </ol>
 
 <p>Už jsem řekl, že čteme bajty? Ano, je to tak. <pre class=screen>
@@ -443,7 +443,7 @@ AttributeError: '_io.BufferedReader' object has no attribute 'encoding'</samp></
 <li>Stejně jako v případě textových souborů také z binárních souborů můžeme číst po kouscích. Ale je tu jeden zásadní rozdíl... <li>... čteme bajty, ne řetězce. Protože jsme soubor otevřeli v binárním režimu, přebírá metoda <code>read()</code> jako argument počet <em>bajtů</em>, které se mají načíst, a ne počet znaků. <li>To znamená, že zde nikdy nedojde <a href="#read">k neočekávanému nesouladu</a> mezi číslem, které jsme předali metodě <code>read()</code>, a pozičním indexem, který nám vrací metoda <code>tell()</code>. Metoda <code>read()</code> čte bajty a metody <code>seek()</code> a <code>tell()</code> sledují počet přečtených bajtů. U binárních souborů budou vždy v souladu.
 </ol>
 
-<p class=a>⁂ <h2 id=file-like-objects>Objekty typu stream z
+<p class=a>&#x2042; <h2 id=file-like-objects>Objekty typu stream z
 nesouborových zdrojů</h2>
 
 <aside>Z předstíraného souboru čteme jednoduše voláním <code>read()</code>.</aside>
@@ -488,7 +488,7 @@ každý druh vstupu psát různý kód. <pre class=screen>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">a_file.read()</kbd>
 <samp class="pp">'new black.'</samp></pre>
 <ol>
-<li>Modul <code>io</code> definuje třídu <code>StringIO</code>, kterou můžeme dosáhnout toho, aby se řetězec v paměti choval jako soubor. <li>Když chceme z řetězce vytvořit objekt typu stream, vytvoříme instanci třídy <code>io.StringIO()</code> a předáme jí řetězec, který chceme použít jako zdroj „souborových“ dat. Teď máme k dispozici objekt typu stream a můžeme s ním dělat všechny možné odpovídající věci. <li>Voláním metody <code>read()</code> „přečteme“ celý „soubor“. V takovém případě objekt třídy <code>StringIO</code> jednoduše vrátí původní řetězec. <li>Opakované volání metody <code>read()</code> vrací prázdný řetězec — stejně jako u opravdového souboru. <li>Použitím metody <code>seek()</code> objektu třídy <code>StringIO</code> se můžeme explicitně nastavit na začátek řetězce — stejně jako při volání téže metody u opravdového souboru. <li>Pokud metodě <code>read()</code> předáme parametr <var>size</var>, můžeme číst po větších kouscích i z řetězce.
+<li>Modul <code>io</code> definuje třídu <code>StringIO</code>, kterou můžeme dosáhnout toho, aby se řetězec v paměti choval jako soubor. <li>Když chceme z řetězce vytvořit objekt typu stream, vytvoříme instanci třídy <code>io.StringIO()</code> a předáme jí řetězec, který chceme použít jako zdroj „souborových“ dat. Teď máme k dispozici objekt typu stream a můžeme s ním dělat všechny možné odpovídající věci. <li>Voláním metody <code>read()</code> „přečteme“ celý „soubor“. V takovém případě objekt třídy <code>StringIO</code> jednoduše vrátí původní řetězec. <li>Opakované volání metody <code>read()</code> vrací prázdný řetězec &mdash; stejně jako u opravdového souboru. <li>Použitím metody <code>seek()</code> objektu třídy <code>StringIO</code> se můžeme explicitně nastavit na začátek řetězce &mdash; stejně jako při volání téže metody u opravdového souboru. <li>Pokud metodě <code>read()</code> předáme parametr <var>size</var>, můžeme číst po větších kouscích i z řetězce.
 </ol>
 
 <blockquote class=note>
@@ -555,7 +555,7 @@ přidána možnost používat objekty gzip souborů i v příkazu
 <code>with</code>.
 </blockquote>
 
-<p class=a>⁂ <h2 id=stdio>Standardní vstup, výstup a chybový
+<p class=a>&#x2042; <h2 id=stdio>Standardní vstup, výstup a chybový
 výstup</h2>
 
 <aside><code>sys.stdin</code>, <code>sys.stdout</code>, <code>sys.stderr</code>.</aside>
@@ -607,7 +607,7 @@ IOError: not readable</samp></pre>
 <p><code>sys.stdout</code> a <code>sys.stderr</code> jsou objekty typu
 stream, i když podporují pouze zápis. Ale nejsou konstantní. Jde o
 proměnné. To znamená, že do nich můžeme přiřadit novou
-hodnotu&nbsp;—&nbsp;nějaký jiný objekt typu stream&nbsp;—&nbsp;a
+hodnotu&nbsp;&mdash;&nbsp;nějaký jiný objekt typu stream&nbsp;&mdash;&nbsp;a
 přesměrovat jejich výstup. <p class=d>[<a
 href="examples/stdout.py">stáhnout <code>stdout.py</code></a>] <pre
 class=pp><code>import sys
@@ -693,7 +693,7 @@ class=pp><code>class RedirectStdoutTo:
 <a>    def __exit__(self, *args):      <span class="u">③</span></a>
         sys.stdout = self.out_old</code></pre>
 <ol>
-<li>Metoda <code>__init__()</code> se volá bezprostředně po vytvoření instance. Přebírá jeden parametr — objekt typu stream, který chceme po dobu životnosti kontextu používat jako standardní výstup. Metoda uloží odkaz na objekt typu stream do instanční proměnné, aby jej mohly později používat ostatní metody. <li>Metoda <code>__enter__()</code> patří mezi <a href="iterators.html#a-fibonacci-iterator">speciální metody třídy</a>. Python ji volá v okamžiku vstupu do kontextu (tj. na začátku příkazu <code>with</code>). Metoda ukládá aktuální hodnotu <code>sys.stdout</code> do <var>self.out_old</var> a poté přesměruje standardní výstup přiřazením <var>self.out_new</var> do <var>sys.stdout</var>. <li>Metoda <code>__exit__()</code> je další speciální metodou třídy. Python ji volá při opouštění kontextu (tj. na konci příkazu <code>with</code>). Metoda obnoví původní nasměrování standardního výstupu přiřazením uložené hodnoty <var>self.out_old</var> do <var>sys.stdout</var>.
+<li>Metoda <code>__init__()</code> se volá bezprostředně po vytvoření instance. Přebírá jeden parametr &mdash; objekt typu stream, který chceme po dobu životnosti kontextu používat jako standardní výstup. Metoda uloží odkaz na objekt typu stream do instanční proměnné, aby jej mohly později používat ostatní metody. <li>Metoda <code>__enter__()</code> patří mezi <a href="iterators.html#a-fibonacci-iterator">speciální metody třídy</a>. Python ji volá v okamžiku vstupu do kontextu (tj. na začátku příkazu <code>with</code>). Metoda ukládá aktuální hodnotu <code>sys.stdout</code> do <var>self.out_old</var> a poté přesměruje standardní výstup přiřazením <var>self.out_new</var> do <var>sys.stdout</var>. <li>Metoda <code>__exit__()</code> je další speciální metodou třídy. Python ji volá při opouštění kontextu (tj. na konci příkazu <code>with</code>). Metoda obnoví původní nasměrování standardního výstupu přiřazením uložené hodnoty <var>self.out_old</var> do <var>sys.stdout</var>.
 </ol>
 
 <p>Spojme to všechno dohromady: <pre class=pp><code>
@@ -707,14 +707,14 @@ class=pp><code>class RedirectStdoutTo:
 
 <p>Přesměrování standardního chybového výstupu funguje naprosto
 stejně. Jen se místo <code>sys.stdout</code> použije
-<code>sys.stderr</code>. <p class=a>⁂ <h2 id=furtherreading>Přečtěte
+<code>sys.stderr</code>. <p class=a>&#x2042; <h2 id=furtherreading>Přečtěte
 si (vše anglicky)</h2>
 
 <ul>
-<li><a href="http://docs.python.org/py3k/tutorial/inputoutput.html#reading-and-writing-files">Reading and writing files</a> v oficiální učebnici Python.org <li><a href="http://docs.python.org/3.1/library/io.html"><code>io</code> module</a> — standardní dokumentace
-<li><a href="http://docs.python.org/3.1/library/stdtypes.html#file-objects">Stream objects</a> — standardní dokumentace
-<li><a href="http://docs.python.org/3.1/library/stdtypes.html#context-manager-types">Context manager types</a> — standardní dokumentace
-<li><a href="http://docs.python.org/3.1/library/sys.html#sys.stdout"><code>sys.stdout</code> and <code>sys.stderr</code></a> — standardní dokumentace
+<li><a href="http://docs.python.org/py3k/tutorial/inputoutput.html#reading-and-writing-files">Reading and writing files</a> v oficiální učebnici Python.org <li><a href="http://docs.python.org/3.1/library/io.html"><code>io</code> module</a> &mdash; standardní dokumentace
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#file-objects">Stream objects</a> &mdash; standardní dokumentace
+<li><a href="http://docs.python.org/3.1/library/stdtypes.html#context-manager-types">Context manager types</a> &mdash; standardní dokumentace
+<li><a href="http://docs.python.org/3.1/library/sys.html#sys.stdout"><code>sys.stdout</code> and <code>sys.stderr</code></a> &mdash; standardní dokumentace
 <li><a href="http://en.wikipedia.org/wiki/Filesystem_in_Userspace"><abbr>FUSE</abbr> na Wikipedii</a> (anglicky; lze přepnout na odpovídající české heslo)
 </ul>
 
@@ -722,7 +722,7 @@ si (vše anglicky)</h2>
 „Refaktorizace“"><span class="u">☜</span></a> <a href="xml.html"
 rel="next" title="dopředu na „XML“"><span class="u">☞</span></a>
 
-<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script> 

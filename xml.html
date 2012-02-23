@@ -1,5 +1,5 @@
 <!DOCTYPE html> <meta charset=utf-8>
-<title>XML – Ponořme se do Pythonu 3</title>
+<title>XML &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
 <style>
@@ -11,15 +11,15 @@ mark{display:inline}
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
 <p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">‣</span> <a href="table-of-contents.html#xml">Ponořme se do
-Pythonu 3</a> <span class="u">‣</span>
+class="u">&#8227;</span> <a href="table-of-contents.html#xml">Ponořme se do
+Pythonu 3</a> <span class="u">&#8227;</span>
 <p id=level>Úroveň obtížnosti: <span class="u" title="pro
-pokročilé">♦♦♦♦♢</span>
+pokročilé">&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
 <h1>XML</h1>
 <blockquote class=q>
-<p><span class="u">❝</span> In the archonship of Aristaechmus, Draco
-enacted his ordinances. <span class="u">❞</span><br />(Za vlády
-Aristaechma uzákonil Drakon svá pravidla.)<br />— <a
+<p><span class="u">&#x275D;</span> In the archonship of Aristaechmus, Draco
+enacted his ordinances. <span class="u">&#x275E;</span><br>(Za vlády
+Aristaechma uzákonil Drakon svá pravidla.)<br>&mdash; <a
 href="http://www.perseus.tufts.edu/cgi-bin/ptext?doc=Perseus:text:1999.01.0046;query=chapter%3D%235;layout=;loc=3.1">Aristoteles</a>
 </blockquote>
 <p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
@@ -37,7 +37,7 @@ href="http://en.wikipedia.org/wiki/List_of_feed_aggregators">nástroj
 pro sdružování obsahu (feed aggregator)</a>“, jako je například <a
 href="http://www.google.com/reader/">Google Reader</a>. <p>V této
 kapitole budeme pracovat s následujícími <abbr>XML</abbr> daty. Jde o
-publikovaný obsah (feed)&nbsp;—&nbsp;konkrétně o <a
+publikovaný obsah (feed)&nbsp;&mdash;&nbsp;konkrétně o <a
 href="http://atompub.org/rfc4287.html">Atom syndication feed</a>. <p
 class=d>[<a href="examples/feed.xml">stáhnout
 <code>feed.xml</code></a>] <pre class=pp><code>&lt;?xml version='1.0'
@@ -106,7 +106,7 @@ encoding='utf-8'?&gt;
   &lt;/entry&gt;
 &lt;/feed&gt;</code></pre>
  
-<p class=a>⁂ <h2 id=xml-intro>Pětiminutový rychlokurz XML</h2>
+<p class=a>&#x2042; <h2 id=xml-intro>Pětiminutový rychlokurz XML</h2>
 
 <p>Pokud už o <abbr>XML</abbr> něco víte, můžete tuto podkapitolu
 přeskočit. <p><abbr>XML</abbr> představuje zobecněný způsob popisu
@@ -151,7 +151,7 @@ pp'><code><a>&lt;foo <mark>lang='en'</mark>&gt;
 
 <p>Pokud je v jednom elementu uvedeno víc atributů, pak jejich pořadí
 není významné. Atributy elementu tvoří neuspořádanou množinu dvojic
-klíčů a hodnot — jako pythonovský slovník. Počet atributů, které
+klíčů a hodnot &mdash; jako pythonovský slovník. Počet atributů, které
 můžeme u každého elementu definovat, není nijak omezen. <p>Elementy
 mohou <i>obsahovat text</i>. <pre class='nd pp'><code>&lt;foo
 lang='en'&gt;
@@ -217,7 +217,7 @@ pp'><code>&lt;?xml version='1.0'
 <mark>encoding='utf-8'</mark>?&gt;</code></pre>
 
 <p>Tak a teď už o <abbr>XML</abbr> víte dost na to, abyste mohli být
-nebezpeční! <p class=a>⁂ <h2 id=xml-structure>Struktura Atom Feed</h2>
+nebezpeční! <p class=a>&#x2042; <h2 id=xml-structure>Struktura Atom Feed</h2>
 
 <p>Vezměme si nějaký weblog nebo v podstatě libovolný webový server s
 často aktualizovaným obsahem, jako je například <a
@@ -234,7 +234,7 @@ standardním tvaru. Můj weblog a CNN.com se sice velmi liší v návrhu,
 rozsahu a v návštěvnosti, ale oba mají stejnou základní strukturu.
 CNN.com má nadpis, můj blog má nadpis. CNN.com zveřejňuje články, já
 zveřejňuji články. <p>Na nejvyšší úrovni se nachází <i>kořenový
-element</i>, který používají všechny „Atom feed“ — element
+element</i>, který používají všechny „Atom feed“ &mdash; element
 <code>feed</code> v prostoru jmen
 <code>http://www.w3.org/2005/Atom</code>. <pre
 class=pp><code><a>&lt;feed xmlns='http://www.w3.org/2005/Atom'  <span
@@ -288,10 +288,10 @@ class=pp><code>&lt;entry&gt;
     On dialup.&lt;/summary&gt;
 <a>&lt;/entry&gt;                                                                   <span class="u">⑧</span></a></code></pre>
 <ol>
-<li>Element <code>author</code> říká, kdo článek napsal: nějaký maník jménem Mark, který se poflakuje někde na <code>http://diveintomark.org/</code>. (Je to stejná hodnota, jako alternativní odkaz v metadatech k feed, ale nemusí tomu tak být. Mnoho weblogů využívá více autorů najednou a každý z nich mívá jiný osobní webový server.) <li>Element <code>title</code> nese název článku — „Dive into history, 2009 edition“. <li>Element <code>link</code> obsahuje adresu <abbr>HTML</abbr> verze tohoto článku, podobně jako v případě alternativního odkazu na úrovni celého obsahu (feed). <li>Položky (<code>entry</code>), stejně jako celý obsah (feed), potřebují jednoznačný identifikátor. <li>Položky nesou dvě data: datum prvního zveřejnění (<code>published</code>) a datum poslední modifikace (<code>updated</code>). <li>Položky mohou nést libovolný počet kategorií (<code>category</code>). Tento článek je zařazen pod <code>diveintopython</code>, <code>docbook</code> a <code>html</code>. <li>Element <code>summary</code> nese stručné shrnutí obsahu článku. (Existuje i element <code>content</code> — tj. obsah —, který zde není použit. Je určen pro vložení celého textu článku.) Tento element <code>summary</code> nese atribut <code>type='html'</code>, který je specifický pro Atom. Říká, že uvedené shrnutí není prostý text, ale úryvek ve formátu <abbr>HTML</abbr>. Ta informace je důležitá, protože se v něm nacházejí věci specifické pro <abbr>HTML</abbr> (<code>&amp;mdash;</code> a <code>&amp;hellip;</code>), které se nemají zviditelňovat jako text, ale jako „—“ a „…“. <li>A na závěr je tu koncová značka elementu <code>entry</code>, která signalizuje konec metadat pro tento článek.
+<li>Element <code>author</code> říká, kdo článek napsal: nějaký maník jménem Mark, který se poflakuje někde na <code>http://diveintomark.org/</code>. (Je to stejná hodnota, jako alternativní odkaz v metadatech k feed, ale nemusí tomu tak být. Mnoho weblogů využívá více autorů najednou a každý z nich mívá jiný osobní webový server.) <li>Element <code>title</code> nese název článku &mdash; „Dive into history, 2009 edition“. <li>Element <code>link</code> obsahuje adresu <abbr>HTML</abbr> verze tohoto článku, podobně jako v případě alternativního odkazu na úrovni celého obsahu (feed). <li>Položky (<code>entry</code>), stejně jako celý obsah (feed), potřebují jednoznačný identifikátor. <li>Položky nesou dvě data: datum prvního zveřejnění (<code>published</code>) a datum poslední modifikace (<code>updated</code>). <li>Položky mohou nést libovolný počet kategorií (<code>category</code>). Tento článek je zařazen pod <code>diveintopython</code>, <code>docbook</code> a <code>html</code>. <li>Element <code>summary</code> nese stručné shrnutí obsahu článku. (Existuje i element <code>content</code> &mdash; tj. obsah &mdash;, který zde není použit. Je určen pro vložení celého textu článku.) Tento element <code>summary</code> nese atribut <code>type='html'</code>, který je specifický pro Atom. Říká, že uvedené shrnutí není prostý text, ale úryvek ve formátu <abbr>HTML</abbr>. Ta informace je důležitá, protože se v něm nacházejí věci specifické pro <abbr>HTML</abbr> (<code>&amp;mdash;</code> a <code>&amp;hellip;</code>), které se nemají zviditelňovat jako text, ale jako „&mdash;“ a „&hellip;“. <li>A na závěr je tu koncová značka elementu <code>entry</code>, která signalizuje konec metadat pro tento článek.
 </ol>
 
-<p class=a>⁂ <h2 id=xml-parse>Analýza XML</h2>
+<p class=a>&#x2042; <h2 id=xml-parse>Analýza XML</h2>
 
 <p>Python dovede analyzovat <abbr>XML</abbr> dokumenty několika
 způsoby. Najdeme zde tradiční syntaktické analyzátory (také parsery)
@@ -370,10 +370,10 @@ class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root[3].attrib</kbd>                        <span class="u">⑤</span></a>
 <samp class="pp">{}</samp></pre>
 <ol>
-<li>Vlastnost <code>attrib</code> je slovníkem atributů elementu. Původní značka vypadala takto: <code>&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;</code>. Prefix <code>xml:</code> se vztahuje k zabudovanému prostoru jmen, který můžeme používat v každém <abbr>XML</abbr> dokumentu, aniž bychom jej museli deklarovat. <li>Pátým potomkem&nbsp;—&nbsp;<code>[4]</code> odpovídá indexování seznamu od nuly&nbsp;—&nbsp; je element <code>link</code>. <li>Element <code>link</code> má tři atributy: <code>href</code>, <code>type</code> a <code>rel</code>. <li>Čtvrtým potomkem&nbsp;—&nbsp;<code>[3]</code> odpovídá indexování seznamu od nuly&nbsp;—&nbsp; je element <code>updated</code>. <li>Element <code>updated</code> nemá žádné atributy, takže jeho vlastnost <code>.attrib</code> je prostě prázdný slovník.
+<li>Vlastnost <code>attrib</code> je slovníkem atributů elementu. Původní značka vypadala takto: <code>&lt;feed xmlns='http://www.w3.org/2005/Atom' xml:lang='en'&gt;</code>. Prefix <code>xml:</code> se vztahuje k zabudovanému prostoru jmen, který můžeme používat v každém <abbr>XML</abbr> dokumentu, aniž bychom jej museli deklarovat. <li>Pátým potomkem&nbsp;&mdash;&nbsp;<code>[4]</code> odpovídá indexování seznamu od nuly&nbsp;&mdash;&nbsp; je element <code>link</code>. <li>Element <code>link</code> má tři atributy: <code>href</code>, <code>type</code> a <code>rel</code>. <li>Čtvrtým potomkem&nbsp;&mdash;&nbsp;<code>[3]</code> odpovídá indexování seznamu od nuly&nbsp;&mdash;&nbsp; je element <code>updated</code>. <li>Element <code>updated</code> nemá žádné atributy, takže jeho vlastnost <code>.attrib</code> je prostě prázdný slovník.
 </ol>
 
-<p class=a>⁂ <h2 id=xml-find>Vyhledávání uzlů v XML dokumentu</h2>
+<p class=a>&#x2042; <h2 id=xml-find>Vyhledávání uzlů v XML dokumentu</h2>
 
 <p>Zatím jsme s uvedeným <abbr>XML</abbr> dokumentem pracovali „shora
 dolů“. Začali jsme u kořenového elementu, zpřístupnili jsme si
@@ -394,7 +394,7 @@ Etree to umí také. <pre class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">root.findall('{http://www.w3.org/2005/Atom}author')</kbd>   <span class="u">③</span></a>
 <samp class="pp">[]</samp></pre>
 <ol>
-<li>Metoda <code>findall()</code> najde všechny dětské elementy, které odpovídají určitému dotazu. (O formátu dotazu si řekneme za minutku.) <li>Každý element&nbsp;—&nbsp;včetně kořenového elementu, ale také dětských elementů&nbsp;—&nbsp;má metodu <code>findall()</code>. Ta mezi potomky najde všechny odpovídající elementy. Ale proč tu nejsou žádné výsledky? Ačkoliv to nemusí být úplně zřejmé, tento dotaz prohledává jen elementy potomků. A protože kořenový element <code>feed</code> nemá žádného potomka jménem <code>feed</code>, vrací dotaz prázdný seznam. <li>Tento výsledek vás možná také překvapí. V tomto dokumentu <a href="#divingin">se nachází element <code>author</code></a>. Ve skutečnosti jsou v něm tři (jeden v každém elementu <code>entry</code>). Ale elementy <code>author</code> nejsou <em>přímými potomky</em> kořenového elementu. Jsou to jeho „vnuci“ (doslova potomci potomků). Pokud hledáte elementy <code>author</code> na libovolné úrovni zanoření, je to možné provést, ale formát dotazu se mírně liší.
+<li>Metoda <code>findall()</code> najde všechny dětské elementy, které odpovídají určitému dotazu. (O formátu dotazu si řekneme za minutku.) <li>Každý element&nbsp;&mdash;&nbsp;včetně kořenového elementu, ale také dětských elementů&nbsp;&mdash;&nbsp;má metodu <code>findall()</code>. Ta mezi potomky najde všechny odpovídající elementy. Ale proč tu nejsou žádné výsledky? Ačkoliv to nemusí být úplně zřejmé, tento dotaz prohledává jen elementy potomků. A protože kořenový element <code>feed</code> nemá žádného potomka jménem <code>feed</code>, vrací dotaz prázdný seznam. <li>Tento výsledek vás možná také překvapí. V tomto dokumentu <a href="#divingin">se nachází element <code>author</code></a>. Ve skutečnosti jsou v něm tři (jeden v každém elementu <code>entry</code>). Ale elementy <code>author</code> nejsou <em>přímými potomky</em> kořenového elementu. Jsou to jeho „vnuci“ (doslova potomci potomků). Pokud hledáte elementy <code>author</code> na libovolné úrovni zanoření, je to možné provést, ale formát dotazu se mírně liší.
 </ol>
 
 <pre class=screen>
@@ -467,7 +467,7 @@ libovolné úrovni zanoření. <pre class=screen>
  'type': 'text/html',
  'rel': 'alternate'}</samp></pre>
 <ol>
-<li>Tento dotaz&nbsp;—&nbsp;<code>//{http://www.w3.org/2005/Atom}link</code>&nbsp;—&nbsp;je těm z předchozích příkladů velmi podobný. Jedinou odlišností jsou dvě lomítka na začátku dotazu. Tato dvě lomítka znamenají: „Nedívej se jen na přímé potomky. Chci najít <em>jakékoliv</em> elementy, nezávisle na úrovni zanoření.“ Takže výsledkem je seznam čtyř elementů <code>link</code> a nejen jednoho. <li>První výsledek <em>je</em> přímým potomkem kořenového elementu. Jak vidíme z jeho atributů, jde o alternativní odkaz z úrovně celého obsahu (feed). Odkazuje na <abbr>HTML</abbr> verzi webového místa, které zveřejňovaný obsah popisuje. <li>Ostatní tři výsledky jsou alternativní odkazy z každého elementu <code>entry</code>. Každý element <code>entry</code> obsahuje jeden dětský element <code>link</code>. A protože je na začátku dotazu uvedena dvojice lomítek, najde dotaz všechny.
+<li>Tento dotaz&nbsp;&mdash;&nbsp;<code>//{http://www.w3.org/2005/Atom}link</code>&nbsp;&mdash;&nbsp;je těm z předchozích příkladů velmi podobný. Jedinou odlišností jsou dvě lomítka na začátku dotazu. Tato dvě lomítka znamenají: „Nedívej se jen na přímé potomky. Chci najít <em>jakékoliv</em> elementy, nezávisle na úrovni zanoření.“ Takže výsledkem je seznam čtyř elementů <code>link</code> a nejen jednoho. <li>První výsledek <em>je</em> přímým potomkem kořenového elementu. Jak vidíme z jeho atributů, jde o alternativní odkaz z úrovně celého obsahu (feed). Odkazuje na <abbr>HTML</abbr> verzi webového místa, které zveřejňovaný obsah popisuje. <li>Ostatní tři výsledky jsou alternativní odkazy z každého elementu <code>entry</code>. Každý element <code>entry</code> obsahuje jeden dětský element <code>link</code>. A protože je na začátku dotazu uvedena dvojice lomítek, najde dotaz všechny.
 </ol>
 
 <!--
@@ -506,7 +506,7 @@ jazyk implementovaný třídou ElementTree se XPath podobá do té míry, že
 se hodí pro základní vyhledávání. Ale pokud už znáte XPath, mohou vás
 rozdíly rozčilovat. Teď se podíváme na <abbr>XML</abbr> knihovnu třetí
 strany, která rozšiřuje aplikační rozhraní ElementTree o plnou podporu
-XPath. <p class=a>⁂ <h2 id=xml-lxml>Lxml jde ještě dál</h2>
+XPath. <p class=a>&#x2042; <h2 id=xml-lxml>Lxml jde ještě dál</h2>
 
 <p><a href="http://codespeak.net/lxml" /><code>lxml</code></a> je open
 source knihovna třetí strany, která je vybudována nad populárním <a
@@ -528,7 +528,7 @@ nainstalovat ručně</a>. <pre class=screen>
  &lt;Element {http://www.w3.org/2005/Atom}entry at e2b510&gt;,
  &lt;Element {http://www.w3.org/2005/Atom}entry at e2b540&gt;]</samp></pre>
 <ol>
-<li>Jakmile <code>lxml</code> naimportujeme, máme k dispozici stejné aplikační rozhraní jako u zabudované knihovny ElementTree. <li>Funkce <code>parse()</code> — stejná jako u ElementTree. <li>Metoda <code>getroot()</code> — také stejná. <li>Metoda <code>findall()</code> — naprosto stejná.
+<li>Jakmile <code>lxml</code> naimportujeme, máme k dispozici stejné aplikační rozhraní jako u zabudované knihovny ElementTree. <li>Funkce <code>parse()</code> &mdash; stejná jako u ElementTree. <li>Metoda <code>getroot()</code> &mdash; také stejná. <li>Metoda <code>findall()</code> &mdash; naprosto stejná.
 </ol>
 
 <p>Pro velké <abbr>XML</abbr> dokumenty je <code>lxml</code> výrazně
@@ -558,7 +558,7 @@ komplikovanější výrazy. <pre class=screen>
 <samp>[&lt;Element {http://www.w3.org/2005/Atom}author at eeba80&gt;,
  &lt;Element {http://www.w3.org/2005/Atom}author at eebba0&gt;]</samp></pre>
 <ol>
-<li>V tomto příkladu provedeme <code>import lxml.etree</code>. Chceme zde zdůraznit, že jde o vlastnosti specifické pro <code>lxml</code> (takže nenapíšeme, dejme tomu, <code>from lxml import etree</code>). <li>Tento dotaz najde všechny elementy z prostoru jmen Atom, které mají atribut <code>href</code> — ať už se nacházejí v dokumentu kdekoliv. Dvě lomítka (<code>//</code>) na začátku dotazu znamenají „elementy nacházející se kdekoliv (ne jenom potomci nebo kořenový element)“. <code>{http://www.w3.org/2005/Atom}</code> znamená „jen elementy z prostoru jmen Atom“. <code>*</code> znamená „elementy s libovolným lokálním jménem“. A <code>[@href]</code> znamená, „které mají atribut <code>href</code>”. <li>Tento dotaz najde všechny elementy z Atom, které mají <code>href</code> s hodnotou <code>http://diveintomark.org/</code>. <li>S využitím jednoduchého <a href="strings.html#formatting-strings">formátovacího řetězce</a> (protože jinak by se tyto složené dotazy staly neúnosně dlouhé) získáme dotaz, který v prostoru Atom hledá elementy <code>author</code>, které mají mezi svými potomky element <code>uri</code>. Vrátí se jen dva elementy <code>author</code> — jen z prvního a druhého elementu <code>entry</code>. Element <code>author</code> v posledním <code>entry</code> obsahuje jen <code>name</code> — <code>uri</code> mu chybí.
+<li>V tomto příkladu provedeme <code>import lxml.etree</code>. Chceme zde zdůraznit, že jde o vlastnosti specifické pro <code>lxml</code> (takže nenapíšeme, dejme tomu, <code>from lxml import etree</code>). <li>Tento dotaz najde všechny elementy z prostoru jmen Atom, které mají atribut <code>href</code> &mdash; ať už se nacházejí v dokumentu kdekoliv. Dvě lomítka (<code>//</code>) na začátku dotazu znamenají „elementy nacházející se kdekoliv (ne jenom potomci nebo kořenový element)“. <code>{http://www.w3.org/2005/Atom}</code> znamená „jen elementy z prostoru jmen Atom“. <code>*</code> znamená „elementy s libovolným lokálním jménem“. A <code>[@href]</code> znamená, „které mají atribut <code>href</code>”. <li>Tento dotaz najde všechny elementy z Atom, které mají <code>href</code> s hodnotou <code>http://diveintomark.org/</code>. <li>S využitím jednoduchého <a href="strings.html#formatting-strings">formátovacího řetězce</a> (protože jinak by se tyto složené dotazy staly neúnosně dlouhé) získáme dotaz, který v prostoru Atom hledá elementy <code>author</code>, které mají mezi svými potomky element <code>uri</code>. Vrátí se jen dva elementy <code>author</code> &mdash; jen z prvního a druhého elementu <code>entry</code>. Element <code>author</code> v posledním <code>entry</code> obsahuje jen <code>name</code> &mdash; <code>uri</code> mu chybí.
 </ol>
 
 <p>Ještě toho nemáte dost? Do <code>lxml</code> je zahrnuta i podpora
@@ -580,7 +580,7 @@ class=screen>
 <li>Abychom mohli provádět dotazy XPath nad elementy z nějakého prostoru jmen, musíme definovat zobrazení prefixu na prostor jmen. Je to prostě pythonovský slovník. <li>Tady máme dotaz v XPath. Výraz v XPath hledá elementy <code>category</code> (z prostoru jmen Atom), které obsahují atribut <code>term</code> s hodnotou <code>accessibility</code>. To ale ještě není výsledkem dotazu. Podívejte se na úplný konec řetězce dotazu. Všimli jste si úseku <code>/..</code>? Ten znamená „a vrať k právě nalezenému elementu <code>category</code> jeho rodičovský element“. Takže tento jediný dotaz XPath najde všechny elementy potomky <code>&lt;category term='accessibility'&gt;</code>. <li>Funkce <code>xpath()</code> vrací seznam objektů třídy ElementTree. V tomto dokumentu se nachází jediný záznam obsahující <code>category</code>, jehož <code>term</code> má hodnotu <code>accessibility</code>. <li>XPath výraz nevrací vždycky seznam elementů. <abbr>DOM</abbr> (<a href="http://cs.wikipedia.org/wiki/Document_Object_Model">Document Object Model</a>; objektový model dokumentu), který vznikl na základě zpracování (parsing) <abbr>XML</abbr> dokumentu, neobsahuje z technického hlediska elementy, ale <i>uzly</i>. Uzly mohou (podle typu) reprezentovat elementy, atributy nebo dokonce textový obsah. Výsledkem XPath dotazu je seznam uzlů. Tento dotaz vrací seznam textových uzlů: textový obsah (<code>text()</code>) elementu <code>title</code> (<code>atom:title</code>), který je potomkem aktuálního elementu (<code>./</code>).
 </ol>
 
-<p class=a>⁂ <h2 id=xml-generate>Generování XML</h2>
+<p class=a>&#x2042; <h2 id=xml-generate>Generování XML</h2>
 
 <p>Podpora <abbr>XML</abbr> v Pythonu není omezena na analýzu
 (parsing) existujících dokumentů. Můžeme také vytvářet
@@ -591,7 +591,7 @@ class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">print(etree.tostring(new_feed))</kbd>                                   <span class="u">③</span></a>
 <samp class="pp">&lt;ns0:feed xmlns:ns0='http://www.w3.org/2005/Atom' xml:lang='en'/&gt;</samp></pre>
 <ol>
-<li>Nový element vznikne vytvořením instance třídy <code>Element</code>. Jako první argument předáváme jméno elementu (prostor jmen + lokální jméno). Tímto příkazem se vytvoří element <code>feed</code> v prostoru jmen Atom. To bude kořenový element našeho nového dokumentu. <li>Atributy k nově vytvořenému elementu přidáme předáním slovníku se jmény a hodnotami atributů argumentem <var>attrib</var>. Poznamenejme, že jména atributů musí být uvedena ve tvaru pro ElementTree — <code>{<var>prostor jmen</var>}<var>lokální jméno</var></code>. <li>Kterýkoliv element (a jeho potomky) můžeme kdykoliv převést na řetězec (serializovat) voláním funkce <code>tostring()</code> z ElementTree.
+<li>Nový element vznikne vytvořením instance třídy <code>Element</code>. Jako první argument předáváme jméno elementu (prostor jmen + lokální jméno). Tímto příkazem se vytvoří element <code>feed</code> v prostoru jmen Atom. To bude kořenový element našeho nového dokumentu. <li>Atributy k nově vytvořenému elementu přidáme předáním slovníku se jmény a hodnotami atributů argumentem <var>attrib</var>. Poznamenejme, že jména atributů musí být uvedena ve tvaru pro ElementTree &mdash; <code>{<var>prostor jmen</var>}<var>lokální jméno</var></code>. <li>Kterýkoliv element (a jeho potomky) můžeme kdykoliv převést na řetězec (serializovat) voláním funkce <code>tostring()</code> z ElementTree.
 </ol>
 
 <p>Jste výsledkem serializace překvapeni? Způsob, jakým ElementTree
@@ -601,7 +601,7 @@ technického hlediska přesný, ale není optimální. Vzorový
 <i>výchozí prostor jmen</i>
 (<code>xmlns='http://www.w3.org/2005/Atom'</code>). U dokumentů, kde
 se všechny elementy nacházejí ve stejném prostoru
-jmen&nbsp;—&nbsp;jako u Atom feeds&nbsp;—&nbsp;je definice výchozího
+jmen&nbsp;&mdash;&nbsp;jako u Atom feeds&nbsp;&mdash;&nbsp;je definice výchozího
 prostoru jmen užitečná, protože ji uvedeme jen jednou a elementy pak
 můžeme deklarovat jen jejich lokálním jménem
 (<code>&lt;feed&gt;</code>, <code>&lt;link&gt;</code>,
@@ -670,7 +670,7 @@ využívá <a href="special-method-names.html#context-managers">příkazu
 <code>with</code></a>.
 </blockquote>
 
-<p class=a>⁂ <h2 id=xml-custom-parser>Analýza porušeného XML</h2>
+<p class=a>&#x2042; <h2 id=xml-custom-parser>Analýza porušeného XML</h2>
 
 <p>Specifikace <abbr>XML</abbr> nařizuje, aby všechny <abbr>XML</abbr>
 parsery, které chtějí specifikaci vyhovět, používaly „drakonickou
@@ -693,7 +693,7 @@ okamžiku, kdy se narazí na první chybu.) <p>Někteří lidé věří (a já
 patřím mezi ně), že požadavek na drakonickou obsluhu chyb byl ze
 strany tvůrců <abbr>XML</abbr> nepřiměřený. Nechápejte mě špatně.
 Zjednodušení pravidel pro ošetření chyb má své kouzlo. Ale v praxi je
-koncepce „korektnosti formátu“ ošidnější, než to vypadá — zvlášť u
+koncepce „korektnosti formátu“ ošidnější, než to vypadá &mdash; zvlášť u
 <abbr>XML</abbr> (jako je Atom feeds), které jsou zveřejňovány na webu
 a zpřístupňovány protokolem <abbr>HTTP</abbr>. I přes vyzrálost
 formátu <abbr>XML</abbr>, který standardizoval drakonická pravidla pro
@@ -762,7 +762,7 @@ Možná. Je to „správnější“? Ne. Oba případy jsou stejně nesprávné.
 Správné chování (podle specifikace <abbr>XML</abbr>) spočívá v tom, že
 parser <a href="unit-testing.html#romantest2">„zastaví a začne
 hořet“</a>. Pokud jste se rozhodli, že to neuděláte, je to vaše věc.
-<p class=a>⁂ <h2 id=furtherreading>Přečtěte si</h2>
+<p class=a>&#x2042; <h2 id=furtherreading>Přečtěte si</h2>
 
 <ul>
 <li><a href="http://en.wikipedia.org/wiki/XML"><abbr>XML</abbr> na Wikipedia.org</a> (anglicky; <a href="http://cs.wikipedia.org/wiki/Extensible_Markup_Language">česky zde</a>)
@@ -780,7 +780,7 @@ hořet“</a>. Pokud jste se rozhodli, že to neuděláte, je to vaše věc.
 „Soubory“"><span class="u">☜</span></a> <a rel="next"
 href="serializing.html" title="dopředu na „Serializace pythonovských
 objektů“"><span class="u">☞</span></a>
-<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script> 

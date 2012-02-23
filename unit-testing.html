@@ -1,5 +1,5 @@
 <!DOCTYPE html> <meta charset=utf-8>
-<title>Unit Testing – Ponořme se do Pythonu 3</title>
+<title>Unit Testing &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
 <style>
@@ -10,17 +10,17 @@ body{counter-reset:h1 9}
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
 <p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">‣</span> <a
+class="u">&#8227;</span> <a
 href="table-of-contents.html#unit-testing">Ponořme se do Pythonu 3</a>
-<span class="u">‣</span>
+<span class="u">&#8227;</span>
 <p id=level>Úroveň obtížnosti: <span class="u"
-title="začátečník">♦♦♢♢♢</span>
+title="začátečník">&#x2666;&#x2666;&#x2662;&#x2662;&#x2662;</span>
 <h1>Unit Testing</h1>
 <blockquote class=q>
-<p><span class="u">❝</span> Certitude is not the test of certainty. We
+<p><span class="u">&#x275D;</span> Certitude is not the test of certainty. We
 have been cocksure of many things that were not so. <span
-class="u">❞</span><br />(Pocit jistoty není měřítkem jistoty. Byli
-jsme si skálopevně jisti mnoha věcmi, které takové nebyly.)<br />— <a
+class="u">&#x275E;</span><br>(Pocit jistoty není měřítkem jistoty. Byli
+jsme si skálopevně jisti mnoha věcmi, které takové nebyly.)<br>&mdash; <a
 href="http://en.wikiquote.org/wiki/Oliver_Wendell_Holmes,_Jr.">Oliver
 Wendell Holmes, Jr.</a>
 </blockquote>
@@ -58,8 +58,8 @@ chceme. Čtete dobře. Jdeme psát kód, který testuje jiný kód, který
 jsme ještě nenapsali. <p>Říká se tomu <i>vývoj řízený testy
 (test-driven development)</i> nebo <abbr>TDD</abbr>. (V anglické
 literatuře si potrpí na zavádění a používání zkratek.) Dvojice
-převodních funkcí&nbsp;—&nbsp;<code>to_roman()</code> a později
-<code>from_roman()</code>&nbsp;—&nbsp;může být napsána a testována
+převodních funkcí&nbsp;&mdash;&nbsp;<code>to_roman()</code> a později
+<code>from_roman()</code>&nbsp;&mdash;&nbsp;může být napsána a testována
 jako <em>jednotka</em> (unit), odděleně od jakéhokoliv většího
 programu, který funkce importuje. V Pythonu najdeme rámec (framework)
 pro unit testing (tedy testování jednotek), který má podobu příhodně
@@ -73,11 +73,11 @@ předvedeme. Ale testy jednotek mají své výhody nezávisle na tom, kdy
 je napíšete. <ul>
 <li>Napsání jednotkových testů (i takto se to dá překládat) ještě před napsáním kódu vás účelným způsobem donutí upřesnit své požadavky <li>Při vlastním psaní kódu vás pak jednotkové testy brzdí před psaním nadbytečných věcí. Jakmile všechny testy projdou, dosáhli jste úplné funkčnosti. <li>Při provádění refaktorizace kódu vám testy jednotek pomohou prokázat, že se nová verze chová stejným způsobem jako ta stará. <li>Při údržbě kódu vám existence testů pomůže krýt záda (v originále se mluví o té části těla, kde záda ztrácejí své slušné jméno) v situaci, kdy na vás někdo přiletí a řve, že vaše poslední změny pokazily jejich původní kód. („Ale <em>pane</em>, ale když jsem změny zveřejňoval, všechny unit testy prošly...“) <li>Pokud píšeme kód v týmu, pak existence společné sady testů dramaticky snižuje možnost, že by váš kód způsobil nefunkčnost kódu někoho jiného. Jejich testy jednotek totiž můžete spustit jako první. (Tenhle druh závodů v psaní kódu už jsem zažil. Tým si zadání rozdělí, každý si převezme specifikace svého úkolu, napíše pro něj jednotkové testy a pak je dá k dispozici ostatním členům týmu. Při takovém postupu nikdo nezabloudí tak daleko, že by jím vyvíjený kód nespolupracoval s výsledky ostatních.)
 </ul>
-<p class=a>⁂ <h2 id=romantest1>Jediná otázka</h2>
+<p class=a>&#x2042; <h2 id=romantest1>Jediná otázka</h2>
 <aside>Každý test je ostrov.</aside>
 <p>Testovací případ (test case) odpovídá na jedinou otázku, která se
 testovaného kódu týká. Testovací případ by měl být schopen... <ul>
-<li>...běžet zcela samostatně, bez jakéhokoliv lidského zásahu. Unit testing (testování jednotek) souvisí s automatizací. <li>...sám rozhodnout o tom, zda testovaná funkce prošla nebo selhala — bez nutnosti posuzování výsledků člověkem. <li>...běžet izolovaně, odděleně od jakýchkoliv jiných testovacích případů (dokonce i když testují stejnou funkci). Každý testovací případ je ostrov.
+<li>...běžet zcela samostatně, bez jakéhokoliv lidského zásahu. Unit testing (testování jednotek) souvisí s automatizací. <li>...sám rozhodnout o tom, zda testovaná funkce prošla nebo selhala &mdash; bez nutnosti posuzování výsledků člověkem. <li>...běžet izolovaně, odděleně od jakýchkoliv jiných testovacích případů (dokonce i když testují stejnou funkci). Každý testovací případ je ostrov.
 </ul>
 <p>S ohledem na uvedené předpoklady začněme budovat testovací případ
 pro první požadavek: <ol>
@@ -259,7 +259,7 @@ OK</samp></pre>
 <ol>
 <li>Hurá! Funkce <code>to_roman()</code> prošla testovacím případem nazvaným „známé hodnoty“. Není sice všeobsažný, ale prověřil schopnosti funkce celou škálou vstupů, včetně vstupů, které produkují každé jednoznakové římské číslo, největší možný vstup (<code>3999</code>), a vstupu, který produkuje nejdelší možné římské číslo (<code>3888</code>). V tomto okamžiku už můžeme docela důvěřovat tomu, že funkce pracuje pro libovolnou správnou vstupní hodnotu, kterou bychom mohli zadat.
 </ol>
-<p>„Správný“ vstup? Hmm. A co takhle chybný vstup? <p class=a>⁂ <h2
+<p>„Správný“ vstup? Hmm. A co takhle chybný vstup? <p class=a>&#x2042; <h2
 id=romantest2>„Zastav a začni hořet“</h2>
 <aside>Pythonovská signalizace typu „zastav a začni hořet“ spočívá ve vyvolání výjimky.</aside>
 <p>Ono ale nestačí, když funkce uspějí při zadání správného vstupu.
@@ -359,7 +359,7 @@ Ran 2 tests in 0.016s
 
 FAILED (failures=1)</samp></pre>
 <ol>
-<li>Nový test sice stále neprošel, ale už také nevrací chybu. Místo toho došlo k selhání testu. To je pokrok! To znamená, že volání metody <code>assertRaises()</code> tentokrát prošlo a rámec pro testování jednotek (unit test framework) skutečně testoval funkci <code>to_roman()</code>. <li>Funkce <code>to_roman()</code> zatím, samozřejmě, nevyvolává právě definovanou výjimku <code>OutOfRangeError</code>, protože jsme jí ještě neřekli, že to má dělat. To je ale výborná zpráva! Znamená to, že máme platný testovací případ&nbsp;—&nbsp;selhává (fails) před napsáním kódu, který zajistí, že projde.
+<li>Nový test sice stále neprošel, ale už také nevrací chybu. Místo toho došlo k selhání testu. To je pokrok! To znamená, že volání metody <code>assertRaises()</code> tentokrát prošlo a rámec pro testování jednotek (unit test framework) skutečně testoval funkci <code>to_roman()</code>. <li>Funkce <code>to_roman()</code> zatím, samozřejmě, nevyvolává právě definovanou výjimku <code>OutOfRangeError</code>, protože jsme jí ještě neřekli, že to má dělat. To je ale výborná zpráva! Znamená to, že máme platný testovací případ&nbsp;&mdash;&nbsp;selhává (fails) před napsáním kódu, který zajistí, že projde.
 </ol>
 <p>Teď napíšeme kód, který zajistí, aby funkce testem prošla. <p
 class=d>[<a href="examples/roman2.py">stáhnout
@@ -393,7 +393,7 @@ OK</samp></pre>
 <li>Hurá! Oba testy prošly. Protože jsme pracovali po krocích (přebíhali jsme mezi testováním a psaním kódu), můžeme si být jisti, že ty dva řádky kódu, které jsme právě napsali, byly příčinou toho, že se výsledek testu změnil z „fail“ (selhal) na „pass“ (prošel). Tento druh (sebe)důvěry sice nebyl zadarmo, ale během života našeho kódu se ještě vyplatí.
 </ol>
 
-<p class=a>⁂ <h2 id=romantest3>Více zastávek, více ohně</h2>
+<p class=a>&#x2042; <h2 id=romantest3>Více zastávek, více ohně</h2>
 
 <p>Spolu s testováním čísel, která jsou příliš velká, bychom měli
 testovat i čísla, která jsou příliš malá. Přesně jak jsme poznamenali
@@ -473,7 +473,7 @@ class=d>[<a href="examples/roman3.py">stáhnout
             n -= integer
     return result</code></pre>
 <ol>
-<li>Tohle je pěkná pythonovská zkratka — více porovnání najednou. Je to ekvivalentní zápisu <code>if not ((0 &lt; n) and (n &lt; 4000))</code>, ale je to mnohem čitelnější. Tento řádek kódu by měl zachytit vstupy, které jsou příliš velké, záporné nebo nulové. <li>Pokud podmínky změníte, nezapomeňte odpovídajícím způsobem upravit i lidsky čitelný řetězec. Rámci <code>unittest</code> je to jedno. Pokud by ale váš kód vyvolával nesprávně popsané výjimky, ztížilo by se tím ruční ladění.
+<li>Tohle je pěkná pythonovská zkratka &mdash; více porovnání najednou. Je to ekvivalentní zápisu <code>if not ((0 &lt; n) and (n &lt; 4000))</code>, ale je to mnohem čitelnější. Tento řádek kódu by měl zachytit vstupy, které jsou příliš velké, záporné nebo nulové. <li>Pokud podmínky změníte, nezapomeňte odpovídajícím způsobem upravit i lidsky čitelný řetězec. Rámci <code>unittest</code> je to jedno. Pokud by ale váš kód vyvolával nesprávně popsané výjimky, ztížilo by se tím ruční ladění.
 </ol>
 
 <p>Mohl bych vám ukázat celou sérii nesouvisejících příkladů, které
@@ -495,7 +495,7 @@ Ran 4 tests in 0.016s
 
 OK</samp></pre>
 
-<p class=a>⁂ <h2 id=romantest4>A ještě jedna věc…</h2>
+<p class=a>&#x2042; <h2 id=romantest4>A ještě jedna věc&hellip;</h2>
 
 <p>Mezi <a href="#divingin">požadavky na převod</a> na římská čísla
 byl ještě jeden, který se týkal neceločíselného vstupu. <pre
@@ -591,7 +591,7 @@ OK</samp></pre>
 
 <p>Funkce <code>to_roman()</code> prošla všemi testy a žádné další
 testy mě nenapadají. Takže nastal čas, abychom se přesunuli k
-<code>from_roman()</code>. <p class=a>⁂ <h2 id=romantest5>Symetrie,
+<code>from_roman()</code>. <p class=a>&#x2042; <h2 id=romantest5>Symetrie,
 která potěší</h2>
 
 <p>Převod řetězce vyjadřujícího římské číslo na číselnou hodnotu
@@ -751,7 +751,7 @@ Ran 7 tests in 0.060s
 OK</samp></pre>
 
 <p>Máme tady dvě vzrušující zprávy. Ta první je, že funkce
-<code>from_roman()</code> funguje pro správné vstupy — přinejmenším
+<code>from_roman()</code> funguje pro správné vstupy &mdash; přinejmenším
 pro všechny <a href="#romantest1">známé hodnoty</a>. Ta druhá zpráva
 je, že test „kruhovým voláním“ (round trip test) také prošel. Když to
 zkombinujeme dohromady, můžeme si být docela jistí tím, že jak funkce
@@ -764,16 +764,16 @@ chybu, která produkuje stejná, ale špatná čísla přesně pro tu množinu
 římských čísel, která funkce <code>to_roman()</code> vygenerovala
 nesprávně. V závislosti na vaší aplikaci a na požadavcích by vám to
 mohlo dělat starosti. Pokud tomu tak je, napište obsažnější testovací
-případy, které vaše starosti rozptýlí.) <p class=a>⁂ <h2
+případy, které vaše starosti rozptýlí.) <p class=a>&#x2042; <h2
 id=romantest6>Více špatných vstupů</h2>
 
 <p>Teď, když už funkce <code>from_roman()</code> pracuje správně pro
-korektní vstup, nastal čas k umístění posledního kousku skládanky —
+korektní vstup, nastal čas k umístění posledního kousku skládanky &mdash;
 zajištění správné funkce pro špatné vstupy. To znamená, že musíme
 najít způsob, jak se podívat na řetězec a určit, zda je platným
 římským číslem. To už je ze své podstaty obtížnější než <a
 href="#romantest3">ověřování správnosti číselného vstupu</a> ve funkci
-<code>to_roman()</code>. Ale máme k dispozici mocný nástroj —
+<code>to_roman()</code>. Ale máme k dispozici mocný nástroj &mdash;
 regulární výrazy. (Pokud regulární výrazy neznáte, pak je vhodná doba
 na to, abyste si přečetli <a href="regular-expressions.html">kapitolu
 o regulárních výrazech</a>.) <p>V podkapitole <a
@@ -889,7 +889,7 @@ def from_roman(s):
             index += len(numeral)
     return result</code></pre>
 
-<p>A znovu spustíme testy… <pre class='nd screen cmdline'>
+<p>A znovu spustíme testy&hellip; <pre class='nd screen cmdline'>
 <samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>python3 romantest7.py</kbd>
 <samp>..........
 ----------------------------------------------------------------------
@@ -897,13 +897,13 @@ Ran 10 tests in 0.066s
 
 OK</samp></pre>
 
-<p>A cenu za zklamání roku dostává… slovo „<code>OK</code>“, které
+<p>A cenu za zklamání roku dostává&hellip; slovo „<code>OK</code>“, které
 modul <code>unittest</code> zobrazí poté, co všechny testy prošly. <p
 class=v><a href="advanced-iterators.html" rel="prev" title="zpět na
 „Iterátory pro pokročilé“”"><span class="u">☜</span></a> <a
 href="refactoring.html" rel="next" title="dopředu na
 „Refaktorizace“"><span class="u">☞</span></a>
-<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script> 

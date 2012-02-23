@@ -1,5 +1,5 @@
 <!DOCTYPE html> <meta charset=utf-8>
-<title>Regulární výrazy – Ponořme se do Pythonu 3</title>
+<title>Regulární výrazy &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
 <style>
@@ -10,18 +10,18 @@ body{counter-reset:h1 5}
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
 <p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">‣</span> <a
+class="u">&#8227;</span> <a
 href="table-of-contents.html#regular-expressions">Ponořme se do
-Pythonu 3</a> <span class="u">‣</span>
+Pythonu 3</a> <span class="u">&#8227;</span>
 <p id=level>Úroveň obtížnosti: <span class="u" title="mírně
-pokročilí">♦♦♦♢♢</span>
+pokročilí">&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
 <h1>Regulární výrazy</h1>
 <blockquote class=q>
-<p><span class="u">❝</span> Some people, when confronted with a
+<p><span class="u">&#x275D;</span> Some people, when confronted with a
 problem, think “I know, I’ll use regular expressions.” Now they have
-two problems. <span class="u">❞</span><br />(Když se někteří lidé
+two problems. <span class="u">&#x275E;</span><br>(Když se někteří lidé
 setkají s problémem, pomyslí si: „Já vím! Použiji regulární výrazy.“ V
-tom okamžiku mají problémy dva.)<br />— <a
+tom okamžiku mají problémy dva.)<br>&mdash; <a
 href="http://www.jwz.org/hacks/marginal.html">Jamie Zawinski</a>
 </blockquote>
 <p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
@@ -61,7 +61,7 @@ dokumentaci <a
 href="http://docs.python.org/dev/library/re.html#module-contents">modulu
 <code>re</code></a>.
 </blockquote>
-<p class=a>⁂ <h2 id=streetaddresses>Případová studie: Adresa
+<p class=a>&#x2042; <h2 id=streetaddresses>Případová studie: Adresa
 ulice</h2>
 <p>Následující série příkladů byla inspirována problémem, který jsem
 před několika lety řešil v práci. Potřeboval jsem vyčistit a
@@ -107,7 +107,7 @@ bych potřeboval. <pre class=screen>
 <ol>
 <li>To, co jsem <em>opravdu</em> chtěl, bylo vyhledání podřetězce <code>'ROAD'</code>, který se nacházel na konci řetězce <em>a navíc tvořil samostatné slovo</em> (a ne část nějakého delšího slova). V regulárním výrazu to vyjádříme zápisem <code>\b</code>, který má význam „hranice slova se musí vyskytnout právě tady“ (b jako boundary). V Pythonu je to komplikované skutečností, že znak <code>'\'</code> musíme v řetězci vyjádřit zvláštním způsobem. (Tento znak se anglicky nazývá též „escape character“ a používá se pro zápis zvláštních posloupností. Má tedy zvláštní význam. Pokud jej chceme použít v prostém významu, musíme jej také zapsat jako „escape“ sekvenci. Prakticky to znamená, že jej musíme zdvojit.) Někdy se to označuje jako mor zpětných lomítek. Je to jeden z důvodů, proč se psaní regulárních výrazů v Perlu jeví snadnější než v jazyce Python. Negativní stránkou Perlu je míchání vlastních regulárních výrazů a odlišností při jejich zápisu. Takže pokud se někde projevuje chyba, dá se někdy obtížně odhadnout, zda je to chyba syntaxe nebo chyba ve vašem regulárním výrazu. <li>Mor zpětných lomítek můžeme obejít tím, že uvedením písmene <code>r</code> před uvozovacím znakem použijeme to, čemu se říká <i>surový řetězec</i> (ve smyslu přírodní, nezpracovaný; anglicky raw string). Tím Pythonu říkáme, že se v tomto řetězci nepoužívají speciální posloupnosti (escape sequence). Zápis <code>'\t'</code> vyjadřuje tabulační znak, ale <code>r'\t'</code> se opravdu chápe jako znak <code>\</code> následovaný písmenem <code>t</code>. Pokud budete pracovat s regulárními výrazy, doporučuji vám vždy používat surové řetězce. V opačném případě dospějete velmi rychle k velkým zmatkům. (Regulární výrazy jsou už i tak dost matoucí.) <li><em>Ach jo.</em> Naneštěstí jsem brzy našel případy, které odporovaly mému přístupu. V tomto případě obsahovala adresa slovo <code>'ROAD'</code> jako samostatné slovo, ale to se nenacházelo na konci. Za označením ulice se totiž nacházelo číslo bytu. A protože se <code>'ROAD'</code> nenacházelo na úplném konci řetězce, nepasovalo to s regulárním výrazem, takže celé volání <code>re.sub()</code> neprovedlo vůbec žádnou náhradu a vrátil se původní řetězec, což nebylo to, co jsem chtěl. <li>Abych tento problém vyřešil, odstranil jsem znak <code>$</code> a přidal jsem další <code>\b</code>. Teď už regulární výraz můžeme číst „vyhledej samostatné slovo <code>'ROAD'</code> kdekoliv v řetězci“, ať už je to na konci, na začátku nebo někde uprostřed.
 </ol>
-<p class=a>⁂ <h2 id=romannumerals>Případová studie: Římská čísla</h2>
+<p class=a>&#x2042; <h2 id=romannumerals>Případová studie: Římská čísla</h2>
 <p>Římská čísla už jste určitě viděli, i když jste je možná
 nerozpoznali. Mohli jste je vidět u starých filmů nebo televizních
 pořadů jako „Copyright <code>MCMXLVI</code>“ místo „Copyright
@@ -193,7 +193,7 @@ nechutnými? A to jsme zatím vyřešili části římských čísel jen pro
 tisíce a stovky. Ale pokud jste zatím vše sledovali, budou pro vás
 desítky a jednotky jednoduché, protože u nich použijeme naprosto
 stejný přístup. Ale podívejme se ještě na další možnost vyjádření
-vzorku. <p class=a>⁂ <h2 id=nmsyntax>Využití syntaxe
+vzorku. <p class=a>&#x2042; <h2 id=nmsyntax>Využití syntaxe
 <code>{n,m}</code></h2>
 <aside>Zápis {1,4} vyjadřuje 1 až 4 výskyty vzorku.</aside>
 <p>V předcházející podkapitole jsme pracovali se vzorkem, ve kterém se
@@ -262,7 +262,7 @@ detailů a ukážu vám jen konečný výsledek. <pre class='nd screen'>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.search(pattern, 'I')</kbd>                 <span class="u">④</span></a>
 <samp>&lt;_sre.SRE_Match object at 0x008EEB48&gt;</samp></pre>
 <ol>
-<li>Zde dochází ke shodě se začátkem řetězce, pak s jedním ze tří možných znaků <code>M</code> a následně s předpisem <code>D?C{0,3}</code>. U posledního podvýrazu dochází ke shodě s nepovinným <code>D</code> a s nulou ze tří možných znaků <code>C</code>. Posuňme se dál. Zde pasuje podvýraz <code>L?X{0,3}</code>, protože vyhoví nepovinné <code>L</code> a nula ze tří možných znaků <code>X</code>. Další kousek řetězce vyhovuje podvýrazu <code>V?I{0,3}</code>, protože je nalezeno nepovinné <code>V</code> a nula ze tří možných znaků <code>I</code>. A na závěr nastává očekávaný konec řetězce. <code>MDLV</code> je římské číslo vyjadřující hodnotu <code>1555</code>. <li>Zde dochází ke shodě se začátkem řetězce a pak s dvěma ze tří možných znaků <code>M</code>, pak s <code>D?C{0,3}</code> s jedním <code>D</code> a s jedním ze tří možných znaků <code>C</code>. Pokračujeme <code>L?X{0,3}</code> s jedním <code>L</code> a jedním ze tří možných znaků <code>X</code>. A dále tu máme <code>V?I{0,3}</code> s jedním <code>V</code> a jedním ze tří možných znaků <code>I</code>. Pasuje i očekávaný konec řetězce. <code>MMDCLXVI</code> je římské číslo vyjadřující hodnotu <code>2666</code>. <li>Zde dochází ke shodě se začátkem řetězce a pak s třemi ze tří možných znaků <code>M</code>, pak je tu <code>D?C{0,3}</code> s jedním <code>D</code> a s třemi ze tří možných znaků <code>C</code>. Pokračujeme <code>L?X{0,3}</code> s jedním <code>L</code> a s třemi ze tří možných znaků <code>X</code>. A dále se uplatní <code>V?I{0,3}</code> s jedním <code>V</code> a s třemi ze tří možných znaků <code>I</code>. A očekávaný konec řetězce. <code>MMMDCCCLXXXVIII</code> je římské číslo vyjadřující hodnotu <code>3888</code>. Současně je to největší římské číslo, které můžete napsat bez použití rozšířené syntaxe. <li>A teď se pozorně dívejte. (Připadám si jako kouzelník. „Děti, pozorně se dívejte. Teď ze svého klobouku vytáhnu králíka.“) Tady nám pasuje začátek řetězce, pak následuje nula ze tří možných znaků <code>M</code>, pak pasuje <code>D?C{0,3}</code> — přeskočení nepovinného <code>D</code> a absence znaku <code>C</code> (nula až tři možné výskyty). Pokračujeme shodou s podvýrazem <code>L?X{0,3}</code> přeskočením nepovinného <code>L</code> a přípustnou absencí znaku <code>X</code> (nula až tři možné výskyty). A dále se uplatní <code>V?I{0,3}</code> přeskočením nepovinného <code>V</code> a shodou jednoho ze tří možných znaků <code>I</code>. A pak je tu konec řetězce. No páni.
+<li>Zde dochází ke shodě se začátkem řetězce, pak s jedním ze tří možných znaků <code>M</code> a následně s předpisem <code>D?C{0,3}</code>. U posledního podvýrazu dochází ke shodě s nepovinným <code>D</code> a s nulou ze tří možných znaků <code>C</code>. Posuňme se dál. Zde pasuje podvýraz <code>L?X{0,3}</code>, protože vyhoví nepovinné <code>L</code> a nula ze tří možných znaků <code>X</code>. Další kousek řetězce vyhovuje podvýrazu <code>V?I{0,3}</code>, protože je nalezeno nepovinné <code>V</code> a nula ze tří možných znaků <code>I</code>. A na závěr nastává očekávaný konec řetězce. <code>MDLV</code> je římské číslo vyjadřující hodnotu <code>1555</code>. <li>Zde dochází ke shodě se začátkem řetězce a pak s dvěma ze tří možných znaků <code>M</code>, pak s <code>D?C{0,3}</code> s jedním <code>D</code> a s jedním ze tří možných znaků <code>C</code>. Pokračujeme <code>L?X{0,3}</code> s jedním <code>L</code> a jedním ze tří možných znaků <code>X</code>. A dále tu máme <code>V?I{0,3}</code> s jedním <code>V</code> a jedním ze tří možných znaků <code>I</code>. Pasuje i očekávaný konec řetězce. <code>MMDCLXVI</code> je římské číslo vyjadřující hodnotu <code>2666</code>. <li>Zde dochází ke shodě se začátkem řetězce a pak s třemi ze tří možných znaků <code>M</code>, pak je tu <code>D?C{0,3}</code> s jedním <code>D</code> a s třemi ze tří možných znaků <code>C</code>. Pokračujeme <code>L?X{0,3}</code> s jedním <code>L</code> a s třemi ze tří možných znaků <code>X</code>. A dále se uplatní <code>V?I{0,3}</code> s jedním <code>V</code> a s třemi ze tří možných znaků <code>I</code>. A očekávaný konec řetězce. <code>MMMDCCCLXXXVIII</code> je římské číslo vyjadřující hodnotu <code>3888</code>. Současně je to největší římské číslo, které můžete napsat bez použití rozšířené syntaxe. <li>A teď se pozorně dívejte. (Připadám si jako kouzelník. „Děti, pozorně se dívejte. Teď ze svého klobouku vytáhnu králíka.“) Tady nám pasuje začátek řetězce, pak následuje nula ze tří možných znaků <code>M</code>, pak pasuje <code>D?C{0,3}</code> &mdash; přeskočení nepovinného <code>D</code> a absence znaku <code>C</code> (nula až tři možné výskyty). Pokračujeme shodou s podvýrazem <code>L?X{0,3}</code> přeskočením nepovinného <code>L</code> a přípustnou absencí znaku <code>X</code> (nula až tři možné výskyty). A dále se uplatní <code>V?I{0,3}</code> přeskočením nepovinného <code>V</code> a shodou jednoho ze tří možných znaků <code>I</code>. A pak je tu konec řetězce. No páni.
 </ol>
 <p>Pokud jste to všechno stihli sledovat a rozuměli jste tomu
 napoprvé, jde vám to líp, než to šlo mně. Teď si představte, že se
@@ -271,7 +271,7 @@ se nachází uprostřed kritické funkce rozsáhlého programu. Nebo si
 představte, že se po několika měsících vracíte ke svému vlastnímu
 regulárnímu výrazu. Už se mi to stalo a není to pěkný pohled.
 <p>Podívejme se na alternativní syntaxi, která nám pomůže zapsat
-regulární výraz tak, aby se dal udržovat. <p class=a>⁂ <h2
+regulární výraz tak, aby se dal udržovat. <p class=a>&#x2042; <h2
 id=verbosere>Víceslovné regulární výrazy</h2>
 <p>Zatím jsme se zabývali tím, čemu budu říkat „kompaktní“ regulární
 výrazy. Jak jste sami viděli, obtížně se čtou. Dokonce i když přijdete
@@ -281,7 +281,7 @@ dokumentace připisovaná k danému místu. <p>V Pythonu toho lze
 dosáhnout u takzvaných <i>víceslovných regulárních výrazů</i> (verbose
 regular expressions). Víceslovný regulární výraz se od kompaktního
 regulárního výrazu liší ve dvou směrech: <ul>
-<li>Bílé znaky se ignorují. Mezery, tabulátory a přechody na nový řádek se nesnaží napasovat na mezery, tabulátory a přechody na nový řádek. Nepasují vůbec k ničemu. (Pokud chcete ve víceslovném regulárním výrazu předepsat shodu s mezerou, musíte před ni napsat zpětné lomítko — speciální znak (escape) uvozující sekvenci.) <li>Komentáře se ignorují. Komentáře uvnitř víceslovných regulárních výrazů mají podobu běžných pythonovských komentářů: začínají znakem <code>#</code> a pokračují do konce řádku. V tomto případě jde o komentář uvnitř víceřádkového řetězce a ne uvnitř zdrojového souboru. Ale funguje stejně.
+<li>Bílé znaky se ignorují. Mezery, tabulátory a přechody na nový řádek se nesnaží napasovat na mezery, tabulátory a přechody na nový řádek. Nepasují vůbec k ničemu. (Pokud chcete ve víceslovném regulárním výrazu předepsat shodu s mezerou, musíte před ni napsat zpětné lomítko &mdash; speciální znak (escape) uvozující sekvenci.) <li>Komentáře se ignorují. Komentáře uvnitř víceslovných regulárních výrazů mají podobu běžných pythonovských komentářů: začínají znakem <code>#</code> a pokračují do konce řádku. V tomto případě jde o komentář uvnitř víceřádkového řetězce a ne uvnitř zdrojového souboru. Ale funguje stejně.
 </ul>
 <p>Z dalšího příkladu to bude jasnější. Revidujme kompaktní regulární
 výraz, s kterým jsme pracovali před chvílí, a převeďme jej na
@@ -306,11 +306,11 @@ class=screen>
 <samp>&lt;_sre.SRE_Match object at 0x008EEB48&gt;</samp>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.search(pattern, 'M')</kbd>                             <span class="u">④</span></a></pre>
 <ol>
-<li>Nejdůležitější věcí při práci s víceslovnými regulárními výrazy je to, abychom nezapomněli předat jeden argument navíc: v modulu <code>re</code> je definována konstanta <code>re.VERBOSE</code>, kterou dáváme najevo, že vzorek se má brát jako víceslovný regulární výraz. Jak vidíte, v tomto vzorku se nachází docela hodně bílých znaků (všechny se ignorují) a několik komentářů (opět se všechny ignorují). Pokud budete ignorovat bílé znaky a komentáře, dostanete naprosto stejný regulární výraz, jaký jsme si ukázali v minulé podkapitole. Ale je mnohem čitelnější. <li>Zde dochází ke shodě se začátkem řetězce a pak s třemi <code>M</code>, pak s <code>CM</code>, následuje <code>L</code> a tři ze tří možných <code>X</code>, pak <code>IX</code> a konec řetězce. <li>Tady pasuje začátek řetězce, pak tři z možných tří <code>M</code>, následuje <code>D</code> a tři ze tří možných <code>C</code>, pak <code>L</code> a tři ze tří možných <code>X</code>, pak <code>V</code> a tři ze tří možných <code>I</code> a konec řetězce. <li>Shoda nebyla nalezena. Proč? Protože jsme neuvedli příznak <code>re.VERBOSE</code>. Takže funkce <code>re.search</code> považuje vzorek za kompaktní regulární výraz, ve kterém hrají roli všechny bílé znaky i znaky #. Python nemůže rozpoznávat automaticky, zda je regulární výraz víceslovný nebo ne. Python považuje každý regulární výraz za kompaktní — pokud explicitně neřekneme, že je víceslovný.
+<li>Nejdůležitější věcí při práci s víceslovnými regulárními výrazy je to, abychom nezapomněli předat jeden argument navíc: v modulu <code>re</code> je definována konstanta <code>re.VERBOSE</code>, kterou dáváme najevo, že vzorek se má brát jako víceslovný regulární výraz. Jak vidíte, v tomto vzorku se nachází docela hodně bílých znaků (všechny se ignorují) a několik komentářů (opět se všechny ignorují). Pokud budete ignorovat bílé znaky a komentáře, dostanete naprosto stejný regulární výraz, jaký jsme si ukázali v minulé podkapitole. Ale je mnohem čitelnější. <li>Zde dochází ke shodě se začátkem řetězce a pak s třemi <code>M</code>, pak s <code>CM</code>, následuje <code>L</code> a tři ze tří možných <code>X</code>, pak <code>IX</code> a konec řetězce. <li>Tady pasuje začátek řetězce, pak tři z možných tří <code>M</code>, následuje <code>D</code> a tři ze tří možných <code>C</code>, pak <code>L</code> a tři ze tří možných <code>X</code>, pak <code>V</code> a tři ze tří možných <code>I</code> a konec řetězce. <li>Shoda nebyla nalezena. Proč? Protože jsme neuvedli příznak <code>re.VERBOSE</code>. Takže funkce <code>re.search</code> považuje vzorek za kompaktní regulární výraz, ve kterém hrají roli všechny bílé znaky i znaky #. Python nemůže rozpoznávat automaticky, zda je regulární výraz víceslovný nebo ne. Python považuje každý regulární výraz za kompaktní &mdash; pokud explicitně neřekneme, že je víceslovný.
 </ol>
-<p class=a>⁂ <h2 id=phonenumbers>Případová studie: Analýza telefonních
+<p class=a>&#x2042; <h2 id=phonenumbers>Případová studie: Analýza telefonních
 čísel</h2>
-<aside>\d vyjadřuje libovolnou číslici (0–9). \D vyjadřuje vše kromě číslice.</aside>
+<aside>\d vyjadřuje libovolnou číslici (0&ndash;9). \D vyjadřuje vše kromě číslice.</aside>
 <p>Prozatím jsme se soustředili na shodu celých vzorků. Vzorek buď
 pasuje, nebo ne. Ale regulární výrazy jsou ještě mnohem mocnější.
 Pokud regulární výraz <em>pasuje</em>, můžeme z řetězce vybrat
@@ -401,7 +401,7 @@ class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">phonePattern.search('work 1-(800) 555.1212 #1234')</kbd>                      <span class="u">④</span></a>
 <samp class="p">&gt;&gt;&gt; </samp></pre>
 <ol>
-<li>Tady je to stejné jako v předchozím příkladu — s tou výjimkou, že před první pamatovanou skupinou znaků (před číslem oblasti) předepisuje <code>\D*</code> nula nebo více nenumerických znaků. Všimněte si, že si tyto nenumerické znaky nepamatujeme (předpis není uzavřen v závorkách). Pokud jsou nějaké nalezeny, jednoduše je přeskočíme a teprve pak si zapamatujeme nalezené číslo oblasti. <li>Telefonní číslo se nám podaří úspěšně rozložit i v případě, kdy je před číslem oblasti uvedena levá závorka. (Pravá závorka za číslem oblasti se už zpracovává. Bere se jako nenumerický oddělovač a napasuje se na předpis <code>\D*</code> nacházející se za první pamatovanou skupinou.) <li>Proveďme ještě test funkčnosti (sanity check), abychom se ujistili, že se nepokazilo nic, co dříve fungovalo. Úvodní znaky jsou zcela nepovinné, takže po začátku řetězce se našlo nula nenumerických znaků, pak pamatovaná skupina tří číslic (<code>800</code>), pak jeden nenumerický znak (pomlčka), zapamatovaná skupina tří číslic (<code>555</code>), pak jeden nenumerický znak (pomlčka), poté zapamatovaná skupina čtyř číslic (<code>1212</code>), pak nula nenumerických znaků, pak zapamatovaná skupina nula číslic a na závěr konec řetězce. <li>Tak toto je případ, kdy mám v souvislosti s regulárními výrazy chuť vydloubnout si oči tupým předmětem. Proč tohle telefonní číslo nepasuje? Protože se před kódem oblasti vyskytuje <code>1</code>, ale my jsme předpokládali, že všechny znaky před kódem oblasti budou nenumerické (<code>\D*</code>). Grrrrr.
+<li>Tady je to stejné jako v předchozím příkladu &mdash; s tou výjimkou, že před první pamatovanou skupinou znaků (před číslem oblasti) předepisuje <code>\D*</code> nula nebo více nenumerických znaků. Všimněte si, že si tyto nenumerické znaky nepamatujeme (předpis není uzavřen v závorkách). Pokud jsou nějaké nalezeny, jednoduše je přeskočíme a teprve pak si zapamatujeme nalezené číslo oblasti. <li>Telefonní číslo se nám podaří úspěšně rozložit i v případě, kdy je před číslem oblasti uvedena levá závorka. (Pravá závorka za číslem oblasti se už zpracovává. Bere se jako nenumerický oddělovač a napasuje se na předpis <code>\D*</code> nacházející se za první pamatovanou skupinou.) <li>Proveďme ještě test funkčnosti (sanity check), abychom se ujistili, že se nepokazilo nic, co dříve fungovalo. Úvodní znaky jsou zcela nepovinné, takže po začátku řetězce se našlo nula nenumerických znaků, pak pamatovaná skupina tří číslic (<code>800</code>), pak jeden nenumerický znak (pomlčka), zapamatovaná skupina tří číslic (<code>555</code>), pak jeden nenumerický znak (pomlčka), poté zapamatovaná skupina čtyř číslic (<code>1212</code>), pak nula nenumerických znaků, pak zapamatovaná skupina nula číslic a na závěr konec řetězce. <li>Tak toto je případ, kdy mám v souvislosti s regulárními výrazy chuť vydloubnout si oči tupým předmětem. Proč tohle telefonní číslo nepasuje? Protože se před kódem oblasti vyskytuje <code>1</code>, ale my jsme předpokládali, že všechny znaky před kódem oblasti budou nenumerické (<code>\D*</code>). Grrrrr.
 </ol>
 <p>Podívejme se na to znovu. Zatím se všechny regulární výrazy chytaly
 na začátek řetězce. Ale teď vidíme, že se na začátku řetězce může
@@ -445,7 +445,7 @@ právě takto. <pre class=screen>
 <ol>
 <li>Jediným rozdílem proti regulárnímu výrazu z minulého kroku je to, že je vše rozepsáno na více řádcích. Proto není žádným překvapením, že zpracovává vstupy stejným způsobem. <li>Konečný test funkčnosti (sanity check). Ano, tohle pořád funguje. Jsme hotovi.
 </ol>
-<p class=a>⁂ <h2 id=summary>Shrnutí</h2>
+<p class=a>&#x2042; <h2 id=summary>Shrnutí</h2>
 <p>Zatím jsme viděli pouhou špičku ledovce z toho, co regulární výrazy
 zvládnou. Jinými slovy, ačkoliv jimi můžete být momentálně zcela
 ohromeni, zatím jste neviděli nic. To mi věřte. <p>Následující věci už
@@ -459,7 +459,7 @@ a kdy naopak způsobí víc problémů, než vyřeší. <p class=v><a
 href="strings.html" rel="prev" title="zpět na „Řetězce“"><span
 class="u">☜</span></a> <a href="generators.html" rel="next"
 title="dopředu na „Uzávěry a generátory“"><span class="u">☞</span></a>
-<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script> 

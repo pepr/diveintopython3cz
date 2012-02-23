@@ -1,5 +1,5 @@
 <!DOCTYPE html> <meta charset=utf-8>
-<title>Refaktorizace – Ponořme se do Pythonu 3</title>
+<title>Refaktorizace &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
 <style>
@@ -10,18 +10,18 @@ body{counter-reset:h1 10}
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
 <p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">‣</span> <a
+class="u">&#8227;</span> <a
 href="table-of-contents.html#refactoring">Ponořme se do Pythonu 3</a>
-<span class="u">‣</span>
+<span class="u">&#8227;</span>
 <p id=level>Úroveň obtížnosti: <span class="u" title="pro
-pokročilé">♦♦♦♦♢</span>
+pokročilé">&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
 <h1>Refaktorizace</h1>
 <blockquote class=q>
-<p><span class="u">❝</span> After one has played a vast quantity of
+<p><span class="u">&#x275D;</span> After one has played a vast quantity of
 notes and more notes, it is simplicity that emerges as the crowning
-reward of art. <span class="u">❞</span><br />(Poté, co jste zahráli
+reward of art. <span class="u">&#x275E;</span><br>(Poté, co jste zahráli
 ohromné množství not a ještě více not, se jako vrcholná odměna umění
-objeví jednoduchost.)<br />— <a
+objeví jednoduchost.)<br>&mdash; <a
 href="http://en.wikiquote.org/wiki/Fr%C3%A9d%C3%A9ric_Chopin">Frédéric
 Chopin</a>
 </blockquote>
@@ -134,7 +134,7 @@ zvyšuje pravděpodobnost správné opravy chyb napoprvé. S vaším novým
 testem se také snadno opakovaně spouštějí <em>všechny</em> testy.
 Proto je málo pravděpodobné, že opravou nového kódu pokazíte původní
 kód. Dnešní test jednotky (unit test) je zítřejším regresním testem.
-<p class=a>⁂ <h2 id=changing-requirements>Zvládání měnících se
+<p class=a>&#x2042; <h2 id=changing-requirements>Zvládání měnících se
 požadavků</h2>
 <p>Navzdory vašemu nejlepšímu úsilí o připíchnutí zákazníka k zemi,
 poté co z něj při bolestivé proceduře zahrnující hrůzné odpornosti
@@ -191,7 +191,7 @@ class RoundtripCheck(unittest.TestCase):
             result = roman8.from_roman(numeral)
             self.assertEqual(integer, result)</code></pre>
 <ol>
-<li>Stávající známé hodnoty se nemění (pořád jde o rozumné testovací hodnoty), ale potřebujeme přidat pár dalších v rozsahu od <code>4000</code>. Přidali jsme <code>4000</code> (nejkratší), <code>4500</code> (druhé nejkratší), <code>4888</code> (nejdelší) a <code>4999</code> (největší). <li>Změnila se definice „velké vstupní hodnoty“. U tohoto testu se při volání <code>to_roman()</code> s hodnotou <code>4000</code> očekávala chyba. Teď se ale rozsah <code>4000–4999</code> považuje za správné hodnoty, proto musíme hranici zvýšit na <code>5000</code>. <li>Změnila se také definice „příliš mnoho opakujících se znaků“. U tohoto testu se při volání t<code>from_roman()</code> se vstupem <code>'MMMM'</code> očekávala chyba. Teď je <code>MMMM</code> považováno za platné římské číslo. Testovací hodnotu musíme zvětšit na <code>'MMMMM'</code>. <li>Test funkčnosti procházel v cyklu každým číslem z intervalu <code>1</code> až <code>3999</code>. Rozsah se teď rozšířil, takže cyklus <code>for</code> musíme upravit, aby se dostal až k <code>4999</code>.
+<li>Stávající známé hodnoty se nemění (pořád jde o rozumné testovací hodnoty), ale potřebujeme přidat pár dalších v rozsahu od <code>4000</code>. Přidali jsme <code>4000</code> (nejkratší), <code>4500</code> (druhé nejkratší), <code>4888</code> (nejdelší) a <code>4999</code> (největší). <li>Změnila se definice „velké vstupní hodnoty“. U tohoto testu se při volání <code>to_roman()</code> s hodnotou <code>4000</code> očekávala chyba. Teď se ale rozsah <code>4000&ndash;4999</code> považuje za správné hodnoty, proto musíme hranici zvýšit na <code>5000</code>. <li>Změnila se také definice „příliš mnoho opakujících se znaků“. U tohoto testu se při volání t<code>from_roman()</code> se vstupem <code>'MMMM'</code> očekávala chyba. Teď je <code>MMMM</code> považováno za platné římské číslo. Testovací hodnotu musíme zvětšit na <code>'MMMMM'</code>. <li>Test funkčnosti procházel v cyklu každým číslem z intervalu <code>1</code> až <code>3999</code>. Rozsah se teď rozšířil, takže cyklus <code>for</code> musíme upravit, aby se dostal až k <code>4999</code>.
 </ol>
 
 <p>Teď máme testovací případy upraveny ve shodě s novými požadavky,
@@ -318,7 +318,7 @@ Ran 12 tests in 0.203s
 </ol>
 
 <p>Při používání obsáhlých testů jednotek nemusíte spoléhat na
-programátora, který říká: „Věř mi.“ <p class=a>⁂ <h2
+programátora, který říká: „Věř mi.“ <p class=a>&#x2042; <h2
 id=refactoring>Refaktorizace</h2>
 
 <p>Na komplexním používání testů jednotek (unit testing) není nejlepší
@@ -350,8 +350,8 @@ všechna platná římská čísla. „Ověření platnosti“ se redukuje na je
 vyhledání ve slovníku. <p>A ze všeho nejlepší je, že už máme k
 dispozici úplnou sadu testů jednotek (unit test). V modulu můžeme
 vyměnit klidně polovinu kódu, ale testy jednotek zůstanou stejné. To
-znamená, že můžete dokázat&nbsp;—&nbsp;sami sobě a
-ostatním&nbsp;—,&nbsp;že nový kód funguje stejně dobře jako ten
+znamená, že můžete dokázat&nbsp;&mdash;&nbsp;sami sobě a
+ostatním&nbsp;&mdash;,&nbsp;že nový kód funguje stejně dobře jako ten
 původní. <p class=d>[<a href="examples/roman10.py">stáhnout
 <code>roman10.py</code></a>] <pre class=pp><code>class
 OutOfRangeError(ValueError): pass
@@ -468,7 +468,7 @@ def from_roman(s):
         raise InvalidRomanNumeralError('Invalid Roman numeral: {0}'.format(s))
 <a>    return from_roman_table[s]                                          <span class="u">②</span></a></code></pre>
 <ol>
-<li>Funkce <code>to_roman()</code> provede stejné kontroly hraničních případů (jako dříve) a potom jednoduše najde odpovídající hodnotu ve vyhledávací tabulce a vrátí ji. <li>Také funkce <code>from_roman()</code> je redukována na kontroly a jeden řádek kódu. Už žádné regulární výrazy. Už žádné cykly. Převod na a z římského čísla se složitostí O(1) — tj. v konstantním čase.
+<li>Funkce <code>to_roman()</code> provede stejné kontroly hraničních případů (jako dříve) a potom jednoduše najde odpovídající hodnotu ve vyhledávací tabulce a vrátí ji. <li>Také funkce <code>from_roman()</code> je redukována na kontroly a jeden řádek kódu. Už žádné regulární výrazy. Už žádné cykly. Převod na a z římského čísla se složitostí O(1) &mdash; tj. v konstantním čase.
 </ol>
 
 <p>Ale funguje to? Proč se ptáte? Jasně že funguje. A můžu to dokázat.
@@ -499,7 +499,7 @@ OK</samp></pre>
 <li>V jednoduchosti je síla. <li>Zvláště tehdy, když jsou do toho zapletené regulární výrazy. <li>Díky testům jednotek (unit test) získáte sebedůvěru a odvahu k provádění rozsáhlé refaktorizace.
 </ul>
 
-<p class=a>⁂ <h2 id=summary>Shrnutí</h2>
+<p class=a>&#x2042; <h2 id=summary>Shrnutí</h2>
 
 <p>Unit testing (testování jednotek) představuje mocný koncept, který
 při správné implementaci vede u dlouhodobých projektů jak k redukci
@@ -522,7 +522,7 @@ všechny vyžadují, abyste porozuměli týmž konceptům: <ul>
 <p class=v><a rel="prev" href="unit-testing.html" title="zpět na „Unit
 Testing“”"><span class="u">☜</span></a> <a href="files.html"
 rel="next" title="dopředu na „Soubory“"><span class="u">☞</span></a>
-<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script> 

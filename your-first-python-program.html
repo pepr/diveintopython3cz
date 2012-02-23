@@ -1,5 +1,5 @@
 <!DOCTYPE html> <meta charset=utf-8>
-<title>Váš první pythonovský program – Ponořme se do Pythonu 3</title>
+<title>Váš první pythonovský program &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
 <style>
@@ -14,17 +14,17 @@ mark{display:inline}
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
 <p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">‣</span> <a
+class="u">&#8227;</span> <a
 href="table-of-contents.html#your-first-python-program">Ponořme se do
-Pythonu 3</a> <span class="u">‣</span>
+Pythonu 3</a> <span class="u">&#8227;</span>
 <p id=level>Úroveň obtížnosti: <span class="u"
-title="nováček">♦♢♢♢♢</span>
+title="nováček">&#x2666;&#x2662;&#x2662;&#x2662;&#x2662;</span>
 <h1>Váš první pythonovský program</h1>
 <blockquote class=q>
-<p><span class="u">❝</span> Don’t bury your burden in saintly silence.
+<p><span class="u">&#x275D;</span> Don’t bury your burden in saintly silence.
 You have a problem? Great. Rejoice, dive in, and investigate. <span
-class="u">❞</span><br />(Neutápějte své břímě ve svatém mlčení. Máte
-problém? Paráda. Radujte se, ponořte se do něj, bádejte.)<br />— <a
+class="u">&#x275E;</span><br>(Neutápějte své břímě ve svatém mlčení. Máte
+problém? Paráda. Radujte se, ponořte se do něj, bádejte.)<br>&mdash; <a
 href="http://en.wikiquote.org/wiki/Buddhism">Ven. Henepola
 Gunaratana</a>
 </blockquote>
@@ -97,12 +97,12 @@ volání funkcí. Nejdříve se volá funkce <code>approximate_size()</code>
 a předávají se jí argumenty. Její návratová hodnota se předává přímo
 funkci <code>print()</code>. Funkce <code>print()</code> patří mezi
 zabudované (built-in). Její deklaraci nikdy neuvidíte. Můžete ji ale
-používat — kdykoliv a kdekoliv. (Zabudovaných funkcí existuje celá
+používat &mdash; kdykoliv a kdekoliv. (Zabudovaných funkcí existuje celá
 řada. A ještě mnohem více se jich nachází v různých <i>modulech</i>.
 Jen klid...) <p>Takže proč vlastně spuštěním skriptu z příkazového
 řádku získáme pokaždé stejný výstup? K tomu se ještě dostaneme.
 Nejdříve se podíváme na funkci <code>approximate_size()</code>. <p
-class=a>⁂ 
+class=a>&#x2042; 
 
 <h2 id=declaringfunctions>Deklarace funkcí</h2>
 <p>Python pracuje s funkcemi podobně jako většina dalších jazyků, ale
@@ -130,8 +130,8 @@ hodnotu (i když někdy je to <code>None</code>) a všechny funkce
 začínají slovem <code>def</code>.
 </blockquote>
 <p>Funkce <code>approximate_size()</code> přebírá dva
-argumenty&nbsp;—&nbsp;<var>size</var> a
-<var>a_kilobyte_is_1024_bytes</var>&nbsp;—, ale u žádného z nich není
+argumenty&nbsp;&mdash;&nbsp;<var>size</var> a
+<var>a_kilobyte_is_1024_bytes</var>&nbsp;&mdash;, ale u žádného z nich není
 určen datový typ. V jazyce Python nemají proměnné explicitně určen typ
 nikdy. Python zjistí, jakého typu proměnná je, a vnitřně si to
 eviduje. <blockquote class='note compare java'>
@@ -163,7 +163,7 @@ podívejte na konec skriptu:
 <a>    print(approximate_size(1000000000000))         <span class="u">②</span></a></code></pre>
 
 <ol>
-<li>Zde se funkce <code>approximate_size()</code> volá s dvěma argumenty. Protože jsme druhému argumentu explicitně předali hodnotu <code>False</code>, nabývá <var>a_kilobyte_is_1024_bytes</var> uvnitř funkce <code>approximate_size()</code> hodnotu <code>False</code>. <li>Zde se funkce <code>approximate_size()</code> volá pouze s jedním argumentem. Ale je to v pořádku, protože druhý argument je volitelný! A protože ho volající neurčil, nabývá druhý argument implicitní hodnoty <code>True</code> — přesně jak bylo určeno v deklaraci funkce.
+<li>Zde se funkce <code>approximate_size()</code> volá s dvěma argumenty. Protože jsme druhému argumentu explicitně předali hodnotu <code>False</code>, nabývá <var>a_kilobyte_is_1024_bytes</var> uvnitř funkce <code>approximate_size()</code> hodnotu <code>False</code>. <li>Zde se funkce <code>approximate_size()</code> volá pouze s jedním argumentem. Ale je to v pořádku, protože druhý argument je volitelný! A protože ho volající neurčil, nabývá druhý argument implicitní hodnoty <code>True</code> &mdash; přesně jak bylo určeno v deklaraci funkce.
 </ol>
 
 <p>Hodnotu argumentu můžeme do funkce předat také jako pojmenovanou.
@@ -182,14 +182,14 @@ SyntaxError: non-keyword arg after keyword arg</samp>
 <samp class="traceback">  File "&lt;stdin&gt;", line 1
 SyntaxError: non-keyword arg after keyword arg</samp></pre>
 <ol>
-<li>Zde se funkce <code>approximate_size()</code> volá s hodnotou prvního argumentu <code>4000</code> (<var>size</var>) a s hodnotou <code>False</code> pro pojmenovaný argument <var>a_kilobyte_is_1024_bytes</var>. (Shodou okolností je to druhý argument, ale na tom nezáleží — jak uvidíte o chvíli později.) <li>Zde se funkce <code>approximate_size()</code> volá s hodnotou <code>4000</code> pro pojmenovaný argument <var>size</var> a s hodnotou <code>False</code> pro pojmenovaný argument <var>a_kilobyte_is_1024_bytes</var>. (Pojmenované argumenty jsou zde shodou okolností uvedeny ve stejném pořadí, v jakém jsou uvedeny v deklaraci funkce, ale na tom rovněž nezáleží.) <li>Zde se funkce a<code>approximate_size()</code> volá s hodnotou <code>False</code> pro pojmenovaný argument <var>a_kilobyte_is_1024_bytes</var> a s hodnotou <code>4000</code> pro pojmenovaný argument <var>size</var>. (Vidíte? Já jsem vám říkal, že na pořadí nezáleží.) <li>Toto volání selhalo, protože jsme použili pojmenovaný argument a teprve po něm následoval nepojmenovaný (poziční) argument. Tohle nefunguje nikdy. Při čtení seznamu argumentů zleva doprava se po použití prvního pojmenovaného argumentu musí všechny následující argumenty uvést také jako pojmenované. <li>Toto volání rovněž selhává — ze stejného důvodu jako předchozí volání. Je to tak překvapivé? Když se to tak vezme, předáváme hodnotu <code>4000</code> pro pojmenovaný argument <code>size</code> a je „zřejmé“, že hodnota <code>False</code> byla myšlena jako hodnota argumentu <var>a_kilobyte_is_1024_bytes</var>. Ale Python tímto způsobem nefunguje. Jakmile použijeme pojmenovaný argument, všechny argumenty uvedené napravo od něj musí být také pojmenované.
+<li>Zde se funkce <code>approximate_size()</code> volá s hodnotou prvního argumentu <code>4000</code> (<var>size</var>) a s hodnotou <code>False</code> pro pojmenovaný argument <var>a_kilobyte_is_1024_bytes</var>. (Shodou okolností je to druhý argument, ale na tom nezáleží &mdash; jak uvidíte o chvíli později.) <li>Zde se funkce <code>approximate_size()</code> volá s hodnotou <code>4000</code> pro pojmenovaný argument <var>size</var> a s hodnotou <code>False</code> pro pojmenovaný argument <var>a_kilobyte_is_1024_bytes</var>. (Pojmenované argumenty jsou zde shodou okolností uvedeny ve stejném pořadí, v jakém jsou uvedeny v deklaraci funkce, ale na tom rovněž nezáleží.) <li>Zde se funkce a<code>approximate_size()</code> volá s hodnotou <code>False</code> pro pojmenovaný argument <var>a_kilobyte_is_1024_bytes</var> a s hodnotou <code>4000</code> pro pojmenovaný argument <var>size</var>. (Vidíte? Já jsem vám říkal, že na pořadí nezáleží.) <li>Toto volání selhalo, protože jsme použili pojmenovaný argument a teprve po něm následoval nepojmenovaný (poziční) argument. Tohle nefunguje nikdy. Při čtení seznamu argumentů zleva doprava se po použití prvního pojmenovaného argumentu musí všechny následující argumenty uvést také jako pojmenované. <li>Toto volání rovněž selhává &mdash; ze stejného důvodu jako předchozí volání. Je to tak překvapivé? Když se to tak vezme, předáváme hodnotu <code>4000</code> pro pojmenovaný argument <code>size</code> a je „zřejmé“, že hodnota <code>False</code> byla myšlena jako hodnota argumentu <var>a_kilobyte_is_1024_bytes</var>. Ale Python tímto způsobem nefunguje. Jakmile použijeme pojmenovaný argument, všechny argumenty uvedené napravo od něj musí být také pojmenované.
 </ol>
 
-<p class=a>⁂ <h2 id=readability>Psaní čitelného kódu</h2>
+<p class=a>&#x2042; <h2 id=readability>Psaní čitelného kódu</h2>
 <p>Nebudu vás zde nudit dlouhým proslovem o důležitosti dokumentování
 vašeho kódu. Jen si uvědomte, že kód se píše jednou, ale čte se
 mnohokrát. A nejdůležitějším čtenářem vašeho zdrojového textu budete
-vy sami — šest měsíců poté, co jste jej napsali (to znamená poté, co
+vy sami &mdash; šest měsíců poté, co jste jej napsali (to znamená poté, co
 už jste o něm všechno zapomněli a máte v něm něco opravit). V jazyce
 Python se čitelný kód píše snadno, takže toho využijte. Za šest měsíců
 mi poděkujete. <h3 id=docstrings>Dokumentační řetězce</h3>
@@ -238,7 +238,7 @@ informačního okénka zobrazovaného poblíž daného místa). Může to být
 velmi užitečné, ale bude to dobré jen tak, jak dobře napíšete
 dokumentační řetězce.
 </blockquote>
-<p class=a>⁂ <h2 id=importsearchpath>Vyhledávací cesta pro
+<p class=a>&#x2042; <h2 id=importsearchpath>Vyhledávací cesta pro
 <code>import</code></h2>
 <p>Než půjdeme dál, chtěl bych se stručně zmínit o vyhledávací cestě
 pro knihovny (library search path). Když se pokoušíte importovat
@@ -274,7 +274,7 @@ class=screen>
 <li>Importováním modulu <code>sys</code> zpřístupníme všechny jeho funkce a atributy. <li><code>sys.path</code> je seznam adresářů, které tvoří aktuální vyhledávací cestu. (U vás to bude vypadat jinak v závislosti na vašem operačním systému, na verzi Pythonu, který používáte, a na tom, kam byl nainstalován.) Pokud se pokoušíte o import, hledá Python soubor s daným jménem a příponou <code>.py</code> právě v těchto adresářích (v uvedeném pořadí). <li>No, ve skutečnosti jsem trochu zalhal. Pravda je o něco komplikovanější, protože ne všechny moduly jsou uloženy v podobě souborů s příponou <code>.py</code>. U některých jde o <i>zabudované (built-in)</i> moduly. Ve skutečnosti jsou součástí programu Python. Zabudované moduly se chovají úplně stejně jako běžné moduly, ale není k nim k dispozici pythonovský zdrojový kód, protože nejsou napsány v jazyce Python! Zabudované moduly jsou napsány v jazyce C, stejně jako samotný Python. <li>K pythonovské vyhledávací cestě můžete za běhu přidat nový adresář tím, že jeho jméno přidáte do <code>sys.path</code>. Kdykoliv se od toho okamžiku pokusíte importovat nějaký modul, Python bude prohledávat i tento adresář. Efekt trvá tak dlouho, dokud Python běží. <li>Použitím příkazu <code>sys.path.insert(0, <var>new_path</var>)</code> jsme vložili nový adresář jako první položku seznamu <code>sys.path</code>, což znamená, že se ocitla na začátku pythonovské vyhledávací cesty. Většinou potřebujeme právě tohle. V případě konfliktu jmen (například když se Python dodává s konkrétní knihovnou verze 2, ale my chceme použít tutéž knihovnu ve verzi 3) uvedeným obratem zajistíme, že námi požadované moduly budou nalezeny dříve než moduly dodané s Pythonem.
 </ol>
 
-<p class=a>⁂ <h2 id=everythingisanobject>Všechno je objekt</h2>
+<p class=a>&#x2042; <h2 id=everythingisanobject>Všechno je objekt</h2>
 <p>Pokud vám to náhodou uniklo, řekli jsme si, že pythonovské funkce
 mají atributy a tyto atributy jsou přístupné za běhu programu. Funkce,
 stejně jako všechno ostatní v Pythonu, je objektem. <p>Spusťme
@@ -294,7 +294,7 @@ interaktivní pythonovský shell a vyzkoušejme si: <pre class=screen>
 
 </samp></pre>
 <ol>
-<li>Na prvním řádku importujeme program <code>humansize</code> jako modul&nbsp;—&nbsp;kus kódu, který můžeme používat interaktivně nebo z většího pythonovského programu. Jakmile je import modulu proveden, můžeme se odkazovat na jeho veřejné funkce, třídy nebo atributy. Moduly mohou dělat totéž, čímž si zpřístupňují funkčnost z jiných modulů. A my to můžeme udělat v interaktivním pythonovském shellu také. Tato koncepce je důležitá a v knize se s ní potkáme ještě mnohokrát. <li>Pokud chceme použít funkce definované v importovaných modulech, musíme uvést i jméno modulu. Takže nestačí napsat jen <code>approximate_size</code>. Musíme uvést <code>humansize.approximate_size</code>. Pokud jste používali třídy v jazyce Java, mělo by vám to něco připomínat. <li>Zde se místo očekávaného volání funkce ptáme na jeden z jejích atributů, který je nazván <code>__doc__</code>.
+<li>Na prvním řádku importujeme program <code>humansize</code> jako modul&nbsp;&mdash;&nbsp;kus kódu, který můžeme používat interaktivně nebo z většího pythonovského programu. Jakmile je import modulu proveden, můžeme se odkazovat na jeho veřejné funkce, třídy nebo atributy. Moduly mohou dělat totéž, čímž si zpřístupňují funkčnost z jiných modulů. A my to můžeme udělat v interaktivním pythonovském shellu také. Tato koncepce je důležitá a v knize se s ní potkáme ještě mnohokrát. <li>Pokud chceme použít funkce definované v importovaných modulech, musíme uvést i jméno modulu. Takže nestačí napsat jen <code>approximate_size</code>. Musíme uvést <code>humansize.approximate_size</code>. Pokud jste používali třídy v jazyce Java, mělo by vám to něco připomínat. <li>Zde se místo očekávaného volání funkce ptáme na jeden z jejích atributů, který je nazván <code>__doc__</code>.
 </ol>
 <blockquote class='note compare perl5'>
 <p><span class="u">☞</span>Pythonovský příkaz <code>import</code> se
@@ -330,7 +330,7 @@ plnohodnotnými objekty. <p>To je velmi důležité, takže pro případ, že
 by vám to na začátku párkrát uteklo, zopakuji znovu: <em>V jazyce
 Python je všechno objektem</em>. Řetězce jsou objekty. Seznamy jsou
 objekty. Funkce jsou objekty. Třídy jsou objekty. Instance tříd jsou
-objekty. Dokonce moduly jsou objekty. <p class=a>⁂ <h2
+objekty. Dokonce moduly jsou objekty. <p class=a>&#x2042; <h2
 id=indentingcode>Odsazování kódu</h2>
 <p>V jazyce Python se pro označování míst, kde kód funkce začíná a kde
 končí, nepoužívají slova <code>begin</code> a <code>end</code> a ani
@@ -362,7 +362,7 @@ srozumitelnější. <blockquote class='note compare java'>
 <abbr>C++</abbr> a Java používají k oddělování příkazů středník a k
 oddělování bloku kódu složené závorky.
 </blockquote>
-<p class=a>⁂ <h2 id=exceptions>Výjimky</h2>
+<p class=a>&#x2042; <h2 id=exceptions>Výjimky</h2>
 
 <p>V jazyce Python najdete výjimky všude. Používá je prakticky každý
 modul standardní pythonovské knihovny a samotný Python je vyvolává při
@@ -385,7 +385,7 @@ předpokladu, že výjimku nic neobsloužilo, došlo ke skřípavému
 zastavení jeho běhu. Možná by vám to vyhovovalo, možná ne. <blockquote
 class='note compare java'>
 <p><span class="u">☞</span>V Pythonu nemusí funkce deklarovat, jaké
-výjimky mohou vyvolat — na rozdíl od jazyka Java. Rozhodnutí o tom,
+výjimky mohou vyvolat &mdash; na rozdíl od jazyka Java. Rozhodnutí o tom,
 jaké možné výjimky potřebujete odchytávat, záleží zcela na vás.
 </blockquote>
 
@@ -452,7 +452,7 @@ pp'><code><mark>try</mark>:
   chardet = None</code></pre>
 
 <p>Později můžete otestovat, zda je modul <code>chardet</code>
-přítomen — jednoduše, příkazem <code>if</code>: <pre class='nd
+přítomen &mdash; jednoduše, příkazem <code>if</code>: <pre class='nd
 pp'><code>if chardet:
   # do something
 else:
@@ -481,7 +481,7 @@ except ImportError:
 který modul se vlastně naimportoval. A protože se modul, který se
 <em>opravdu</em> naimportoval, vždy jmenuje <var>etree</var>, nemusí
 být zbytek vašeho kódu zaneřáděný příkazy <code>if</code>, ve kterých
-se volají různě pojmenované moduly. <p class=a>⁂ <h2
+se volají různě pojmenované moduly. <p class=a>&#x2042; <h2
 id=nameerror>Volné proměnné</h2>
 
 <p>Podívejme se znovu na následující řádek kódu funkce
@@ -502,7 +502,7 @@ NameError: name 'x' is not defined</samp>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">x</kbd>
 <samp class="pp">1</samp></pre>
 
-<p>Jednoho dne za to Pythonu poděkujete. <p class=a>⁂ <h2 id=case>Vše
+<p>Jednoho dne za to Pythonu poděkujete. <p class=a>&#x2042; <h2 id=case>Vše
 je citlivé na velikost písmen</h2>
 
 <p>V jazyce Python je zápis všech jmen citlivý na velikost písmen.
@@ -527,7 +527,7 @@ NameError: name 'An_Integer' is not defined</samp>
 NameError: name 'an_inteGer' is not defined</samp>
 </pre>
 
-<p>A tak dále. <p class=a>⁂ <h2 id=runningscripts>Spouštění
+<p>A tak dále. <p class=a>&#x2042; <h2 id=runningscripts>Spouštění
 skriptů</h2>
 <aside>V Pythonu je objektem všechno.</aside>
 <p>V Pythonu je objektem i modul a moduly definují několik užitečných
@@ -540,7 +540,7 @@ if __name__ == '__main__':
     print(approximate_size(1000000000000, False))
     print(approximate_size(1000000000000))</code></pre>
 <blockquote class='note compare clang'>
-<p><span class="u">☞</span>Python — stejně jako jazyk <abbr>C</abbr> —
+<p><span class="u">☞</span>Python &mdash; stejně jako jazyk <abbr>C</abbr> &mdash;
 používá <code>==</code> pro porovnání a <code>=</code> pro přiřazení.
 Na rozdíl od jazyka <abbr>C</abbr> ale Python nepodporuje přiřazovací
 výraz, takže odpadá možnost nechtěného přiřazení hodnoty v situaci,
@@ -564,16 +564,16 @@ hodnoty. <pre class='nd screen'>
 <samp class="p">c:\home\diveintopython3&gt; </samp><kbd>c:\python31\python.exe humansize.py</kbd>
 <samp>1.0 TB
 931.3 GiB</samp></pre>
-<p>A tohle všechno dělá váš první pythonovský program! <p class=a>⁂
+<p>A tohle všechno dělá váš první pythonovský program! <p class=a>&#x2042;
 <h2 id=furtherreading>Přečtěte si</h2>
 <ul>
-<li><a href="http://www.python.org/dev/peps/pep-0257" />PEP 257: Docstring Conventions</a>. Najdete zde vysvětlení, čím se liší dobrý <code>docstring</code> od vynikajícího <code>docstring</code>u. <li><a href="http://docs.python.org/3.1/tutorial/controlflow.html#documentation-strings">Python Tutorial: Documentation Strings</a> — dotýká se stejného tématu. <li><a href="http://www.python.org/dev/peps/pep-0008" />PEP 8: Style Guide for Python Code</a> pojednává o vhodných způsobech odsazování. <li><a href="http://docs.python.org/3.1/reference" /><cite>Python Reference Manual</cite></a> vysvětluje co to znamená, když se řekne, že <a href="http://docs.python.org/3.1/reference/datamodel.html#objects-values-and-types">vše v Pythonu je objekt</a>, protože někteří lidé jsou <a href="http://www.douglasadams.com/dna/pedants.html">puntičkáři</a> a rádi o takových věcech dlouze diskutují.
+<li><a href="http://www.python.org/dev/peps/pep-0257" />PEP 257: Docstring Conventions</a>. Najdete zde vysvětlení, čím se liší dobrý <code>docstring</code> od vynikajícího <code>docstring</code>u. <li><a href="http://docs.python.org/3.1/tutorial/controlflow.html#documentation-strings">Python Tutorial: Documentation Strings</a> &mdash; dotýká se stejného tématu. <li><a href="http://www.python.org/dev/peps/pep-0008" />PEP 8: Style Guide for Python Code</a> pojednává o vhodných způsobech odsazování. <li><a href="http://docs.python.org/3.1/reference" /><cite>Python Reference Manual</cite></a> vysvětluje co to znamená, když se řekne, že <a href="http://docs.python.org/3.1/reference/datamodel.html#objects-values-and-types">vše v Pythonu je objekt</a>, protože někteří lidé jsou <a href="http://www.douglasadams.com/dna/pedants.html">puntičkáři</a> a rádi o takových věcech dlouze diskutují.
 </ul>
 <p class=v><a rel="prev" href="installing-python.html" title="zpět na
 „Instalujeme Python“"><span class="u">☜</span></a> <a rel="next"
 href="native-datatypes.html" title="dále na „Přirozené datové
 typy“"><span class="u">☞</span></a>
-<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script> 

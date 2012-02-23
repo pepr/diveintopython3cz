@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset=utf-8>
-<title>Případová studie: Přepis chardet pro Python 3 – Ponořme se do Pythonu 3</title>
+<title>Případová studie: Přepis chardet pro Python 3 &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
 <style>
@@ -25,8 +25,7 @@ del{background:#f87}
 <p>Rád bych taky poníka.
 <p>Unicode poníka.
 <p>Kdyby to tak byl Uniponík.
-<p>Budu si muset osedlat
-autodetekci znakového kódování.
+<p>Budu si muset osedlat autodetekci znakového kódování.
 
 <p class=a>&#x2042;
 
@@ -44,14 +43,15 @@ autodetekci znakového kódování.
 
 <h2 id=divingin2>Úvod do modulu <code>chardet</code></h2>
 <p>Než se do přepisu kódu pustíme, bylo by dobré, kdybyste rozuměli, jak funguje! Toto je stručná příručka pro usnadnění orientace ve vlastním kódu. Knihovna <code>chardet</code> je příliš velká na to, abych její kód vložil do textu této knihy. Ale můžete si ji <a href="http://chardet.feedparser.org/download" />stáhnout z <code>chardet.feedparser.org</code></a>.
-<aside>Detekce kódování je ve
-skutečnosti v závěsu za detekcí jazyka.</aside>
-<p>Hlavním vstupním bodem detekčního algoritmu je <code>universaldetector.py</code>. Obsahuje jednu třídu, <code>UniversalDetector</code>. (Možná jste mysleli, že hlavním vstupním bodem je funkce <code>detect</code> z <code>chardet/__init__.py</code>. To je ale jen funkce pro zvýšení pohodlí, která vytvoří objekt třídy <code>UniversalDetector</code>, zavolá jej a vrátí jeho výsledek.) <p><code>UniversalDetector</code> zvládá pět kategorií kódování:
+<aside>Detekce kódování je ve skutečnosti v závěsu za detekcí jazyka.</aside>
+<p>Hlavním vstupním bodem detekčního algoritmu je <code>universaldetector.py</code>. Obsahuje jednu třídu, <code>UniversalDetector</code>. (Možná jste mysleli, že hlavním vstupním bodem je funkce <code>detect</code> z <code>chardet/__init__.py</code>. To je ale jen funkce pro zvýšení pohodlí, která vytvoří objekt třídy <code>UniversalDetector</code>, zavolá jej a vrátí jeho výsledek.)
+<p><code>UniversalDetector</code> zvládá pět kategorií kódování:
 <ol>
 <li><abbr>UTF-n</abbr> s Byte Order Mark (<abbr>BOM</abbr>; znak pro určení pořadí bajtů). Zahrnuje <abbr>UTF-8</abbr>, obě varianty <abbr>UTF-16</abbr> (Big-Endian a Little-Endian) a všechny 4 varianty pořadí bajtů <abbr>UTF-32</abbr>.
 <li>Kódování s únikovými znaky (escape encodings), která jsou zcela kompatibilní se 7bitovým <abbr>ASCII</abbr>. Znaky spadající mimo <abbr>ASCII</abbr> začínají únikovými sekvencemi (escape sequence). Příklady: <abbr>ISO-2022-JP</abbr> (japonština) a <abbr>HZ-GB-2312</abbr> (čínština).
 <li>Vícebajtová kódování, ve kterých je každý znak reprezentován proměnným počtem bajtů. Příklady: <abbr>Big5</abbr> (čínština), <abbr>SHIFT_JIS</abbr> (japonština), <abbr>EUC-KR</abbr> (korejština) a <abbr>UTF-8</abbr> bez <abbr>BOM</abbr>.
-<li>Jednobajtová kódování, ve kterých je každý znak reprezentován jedním bajtem. Příklady: <abbr>KOI8-R</abbr> (ruština), <abbr>windows-1255</abbr> (hebrejština) a <abbr>TIS-620</abbr> (thajština). <li><abbr>windows-1252</abbr>, která používají (zejména v Microsoft Windows) střední manažeři, kteří nerozpoznají znakové kódování od díry v zemi.
+<li>Jednobajtová kódování, ve kterých je každý znak reprezentován jedním bajtem. Příklady: <abbr>KOI8-R</abbr> (ruština), <abbr>windows-1255</abbr> (hebrejština) a <abbr>TIS-620</abbr> (thajština).
+<li><abbr>windows-1252</abbr>, která používají (zejména v Microsoft Windows) střední manažeři, kteří nerozpoznají znakové kódování od díry v zemi.
 </ol>
 <h3 id=how.bom><abbr>UTF-n</abbr> s <abbr>BOM</abbr></h3>
 <p>Pokud text začíná značkou <abbr>BOM</abbr>, můžeme rozumně předpokládat, že je zakódován v <abbr>UTF-8</abbr>, <abbr>UTF-16</abbr> nebo <abbr>UTF-32</abbr>. (Značka <abbr>BOM</abbr> nám přesně řekne, o které kódování jde. Byla pro tento účel navržena.) To se děje přímo v <code>UniversalDetector</code>u, který vrátí výsledek okamžitě, bez dalšího zpracovávání textu.
@@ -224,240 +224,130 @@ RefactoringTool: test.py</samp></pre>
 <li>Tady máme první stopu, která říká, že modul <code>chardet</code> je víc než jen obyčejným souborem: u slova „module“ se ve výpisu objevuje soubor <code>__init__.py</code> umístěný v adresáři <code>chardet/</code>.
 </ol>
 
-<p>Nahlédněme do souboru <code>__init__.py</code>. <pre
-class=pp><code><a>def detect(aBuf):                              <span
-class="u">①</span></a>
-<a>    from . import universaldetector            <span class="u">②</span></a>
+<p>Nahlédněme do souboru <code>__init__.py</code>.
+
+<pre class=pp><code><a>def detect(aBuf):                              <span class=u>&#x2460;</span></a>
+<a>    from . import universaldetector            <span class=u>&#x2461;</span></a>
     u = universaldetector.UniversalDetector()
     u.reset()
     u.feed(aBuf)
     u.close()
     return u.result</code></pre>
 <ol>
-<li>V souboru <code>__init__.py</code> je definována funkce <code>detect()</code>, která je hlavním bodem knihovny <code>chardet</code>. <li>Ale funkce <code>detect()</code> neobsahuje skoro žádný kód! Ve skutečnosti pouze importuje modul <code>universaldetector</code> a začíná jej používat. Ale kde je definován <code>universaldetector</code>?
+<li>V souboru <code>__init__.py</code> je definována funkce <code>detect()</code>, která je hlavním bodem knihovny <code>chardet</code>.
+<li>Ale funkce <code>detect()</code> neobsahuje skoro žádný kód! Ve skutečnosti pouze importuje modul <code>universaldetector</code> a začíná jej používat. Ale kde je definován <code>universaldetector</code>?
 </ol>
 
-<p>Odpověď je skryta v tomto divně vypadajícím příkazu
-<code>import</code>: <pre class='nd pp'><code>from . import
-universaldetector</code></pre>
+<p>Odpověď je skryta v tomto divně vypadajícím příkazu <code>import</code>:
 
-<p>V překladu do češtiny to znamená „importuj modul
-<code>universaldetector</code>, který je umístěn ve stejném adresáři,
-jako já“. Tím „já“ se myslí soubor <code>chardet/__init__.py</code>.
-Říká se tomu <i>relativní import</i>. Představuje způsob, jakým se
-mohou soubory ve vícesouborovém modulu na sebe vzájemně odkazovat,
-aniž by se musely starat o konflikty jmen s jinými moduly, které
-můžeme mít nainstalované v naší <a
-href="your-first-python-program.html#importsearchpath">vyhledávací
-cestě pro import</a>. Uvedený příkaz <code>import</code> bude modul
-<code>universaldetector</code> hledat <em>pouze</em> uvnitř adresáře
-<code>chardet/</code>. <p>Zmíněné dva
-koncepty&nbsp;&mdash;&nbsp;<code>__init__.py</code> a relativní
-importy&nbsp;&mdash;&nbsp;znamenají, že náš modul můžeme rozbít na tolik
-kousků, kolik si přejeme. Modul <code>chardet</code> se skládá z 36
-souborů s příponou <code>.py</code>&nbsp;&mdash;&nbsp;z 36! A přitom vše, co
-musíme udělat, když jej chceme začít používat, je <code>import
-chardet</code>. Pak můžeme zavolat hlavní funkci
-<code>chardet.detect()</code>. Aniž o tom náš kód ví, funkce
-<code>detect()</code> je ve skutečnosti definována v souboru
-<code>chardet/__init__.py</code>. A aniž o tom musíme vědět my, funkce
-<code>detect()</code> používá k odkazu na třídu definovanou uvnitř
-<code>chardet/universaldetector.py</code> mechanismus relativního
-importu, který zase používá relativní import pěti dalších souborů,
-které se rovněž nacházejí v adresáři <code>chardet/</code>.
+<pre class='nd pp'><code>from . import universaldetector</code></pre>
+
+<p>V překladu do češtiny to znamená „importuj modul <code>universaldetector</code>, který je umístěn ve stejném adresáři, jako já“. Tím „já“ se myslí soubor <code>chardet/__init__.py</code>. Říká se tomu <i>relativní import</i>. Představuje způsob, jakým se mohou soubory ve vícesouborovém modulu na sebe vzájemně odkazovat, aniž by se musely starat o konflikty jmen s jinými moduly, které můžeme mít nainstalované v naší <a href="your-first-python-program.html#importsearchpath">vyhledávací cestě pro import</a>. Uvedený příkaz <code>import</code> bude modul <code>universaldetector</code> hledat <em>pouze</em> uvnitř adresáře <code>chardet/</code>.
+
+<p>Zmíněné dva koncepty&nbsp;&mdash;&nbsp;<code>__init__.py</code> a relativní importy&nbsp;&mdash;&nbsp;znamenají, že náš modul můžeme rozbít na tolik kousků, kolik si přejeme. Modul <code>chardet</code> se skládá z 36 souborů s příponou <code>.py</code>&nbsp;&mdash;&nbsp;z 36! A přitom vše, co musíme udělat, když jej chceme začít používat, je <code>import chardet</code>. Pak můžeme zavolat hlavní funkci <code>chardet.detect()</code>. Aniž o tom náš kód ví, funkce <code>detect()</code> je ve skutečnosti definována v souboru <code>chardet/__init__.py</code>. A aniž o tom musíme vědět my, funkce <code>detect()</code> používá k odkazu na třídu definovanou uvnitř <code>chardet/universaldetector.py</code> mechanismus relativního importu, který zase používá relativní import pěti dalších souborů, které se rovněž nacházejí v adresáři <code>chardet/</code>.
+
 <blockquote class=note>
-<p><span class="u">&#x261E;</span>Kdykoliv se přistihnete, že v Pythonu
-píšete rozsáhlou knihovnu (nebo, což je pravděpodobnější, když
-zjistíte, že se vaše malá knihovna rozrostla ve velkou), udělejte si
-čas na refaktorizaci a změňte ji na vícesouborový modul. Je to jedna z
-mnoha věcí, ve kterých je Python dobrý. Takže té výhody využijte.
+<p><span class="u">&#x261E;</span>Kdykoliv se přistihnete, že v Pythonu píšete rozsáhlou knihovnu (nebo, což je pravděpodobnější, když zjistíte, že se vaše malá knihovna rozrostla ve velkou), udělejte si čas na refaktorizaci a změňte ji na vícesouborový modul. Je to jedna z mnoha věcí, ve kterých je Python dobrý. Takže té výhody využijte.
 </blockquote>
 
-<p class=a>⁂ <h2 id=manual>Opravme, co <code>2to3</code> neumí</h2>
+<p class=a>&#x2042;
+
+<h2 id=manual>Opravme, co <code>2to3</code> neumí</h2>
 <h3 id=falseisinvalidsyntax><code>False</code> je syntaktická chyba</h3>
 <aside>Píšete testy, že?</aside>
-<p>Teď zkusíme skutečný test. Spustíme testovací sadu (test suite) na
-zkušební skript (test harness). Protože je testovací sada navržena
-tak, aby pokryla všechny možné cesty, kudy se běh programu může kódem
-ubírat, jde o dobrý způsob, jak ověřit, že v našem přeneseném kódu
-někde nejsou skryté chyby. <pre class='nd screen'><samp
-class="p">C:\home\chardet> </samp><kbd>python test.py
-tests\*\*</kbd>
-<samp class="traceback">Traceback (most recent call last):
+<p>Teď zkusíme skutečný test. Spustíme testovací sadu (test suite) na zkušební skript (test harness). Protože je testovací sada navržena tak, aby pokryla všechny možné cesty, kudy se běh programu může kódem ubírat, jde o dobrý způsob, jak ověřit, že v našem přeneseném kódu někde nejsou skryté chyby.
+<pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
+<samp class=traceback>Traceback (most recent call last):
   File "test.py", line 1, in &lt;module>
     from chardet.universaldetector import UniversalDetector
   File "C:\home\chardet\chardet\universaldetector.py", line 51
     self.done = constants.False
                               ^
 SyntaxError: invalid syntax</samp></pre>
-<p>Hmm, to je jen drobnost. V Pythonu 3 je <code>False</code>
-vyhrazeným slovem, takže je nemůžeme použít jako jméno proměnné.
-Podíváme se do <code>constants.py</code> na to, kde je proměnná
-definována. Tady máme původní verzi z <code>constants.py</code>
-předtím, než ji skript <code>2to3</code> změnil: <pre class='nd
-pp'><code>import __builtin__
+<p>Hmm, to je jen drobnost. V Pythonu 3 je <code>False</code> vyhrazeným slovem, takže je nemůžeme použít jako jméno proměnné. Podíváme se do <code>constants.py</code> na to, kde je proměnná definována. Tady máme původní verzi z <code>constants.py</code> předtím, než ji skript <code>2to3</code> změnil:
+<pre class='nd pp'><code>import __builtin__
 if not hasattr(__builtin__, 'False'):
     False = 0
     True = 1
 else:
     False = __builtin__.False
     True = __builtin__.True</code></pre>
-<p>Tento kus kódu byl navržen, aby knihovna běžela ve starších verzích
-Pythonu 2. Před Pythonem 2.3 neexistoval zabudovaný typ
-<code>bool</code>. Uvedený kód detekuje nepřítomnost zabudovaných
-konstant <code>True</code> a <code>False</code> a v případě potřeby je
-definuje. <p>Ale v Pythonu 3 je typ <code>bool</code> přítomen vždy,
-takže je celý úryvek kódu zbytečný. Nejjednodušší řešení spočívá v
-nahrazení všech výskytů <code>constants.True</code> a
-<code>constants.False</code> hodnotami <code>True</code> a
-<code>False</code>. Pak z <code>constants.py</code> odstraníme onen
-mrtvý kód. <p>Takže následující řádek v
-<code>universaldetector.py</code> <pre class='nd pp'><code>self.done =
-constants.False</code></pre>
-<p>se změní na <pre class='nd pp'><code>self.done = False</code></pre>
-<p>Ách, nebylo to uspokojující? Kód je teď kratší a čitelnější. <h3
-id=nomodulenamedconstants>Nenalezen modul <code>constants</code></h3>
-<p>Nastal čas spustit znovu <code>test.py</code>. Uvidíme, jak daleko
-se dostaneme. <pre class='nd screen'><samp
-class="p">C:\home\chardet> </samp><kbd>python test.py
-tests\*\*</kbd>
-<samp class="traceback">Traceback (most recent call last):
+<p>Tento kus kódu byl navržen, aby knihovna běžela ve starších verzích Pythonu 2. Před Pythonem 2.3 neexistoval zabudovaný typ <code>bool</code>. Uvedený kód detekuje nepřítomnost zabudovaných konstant <code>True</code> a <code>False</code> a v případě potřeby je definuje.
+<p>Ale v Pythonu 3 je typ <code>bool</code> přítomen vždy, takže je celý úryvek kódu zbytečný. Nejjednodušší řešení spočívá v nahrazení všech výskytů <code>constants.True</code> a <code>constants.False</code> hodnotami <code>True</code> a <code>False</code>. Pak z <code>constants.py</code> odstraníme onen mrtvý kód.
+<p>Takže následující řádek v <code>universaldetector.py</code>
+<pre class='nd pp'><code>self.done = constants.False</code></pre>
+<p>se změní na
+<pre class='nd pp'><code>self.done = False</code></pre>
+<p>Ách, nebylo to uspokojující? Kód je teď kratší a čitelnější.
+<h3 id=nomodulenamedconstants>Nenalezen modul <code>constants</code></h3>
+<p>Nastal čas spustit znovu <code>test.py</code>. Uvidíme, jak daleko se dostaneme.
+<pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
+<samp class=traceback>Traceback (most recent call last):
   File "test.py", line 1, in &lt;module>
     from chardet.universaldetector import UniversalDetector
   File "C:\home\chardet\chardet\universaldetector.py", line 29, in &lt;module>
     import constants, sys
 ImportError: No module named constants</samp></pre>
-<p>Co to říká? Jaképak „No module named <code>constants</code>“
-(doslova „žádný modul jménem <code>constants</code>“)? Modul
-<code>constants</code> tam samozřejmě je! Je přímo tady v
-<code>chardet/constants.py</code>. <p>Vzpomínáte si, jak skript
-<code>2to3</code> opravil všechny ty příkazy import? Tato knihovna
-používá množství relativních importů&nbsp;&mdash;&nbsp;<a
-href="#multifile-modules">moduly, které importují jiné moduly
-nacházející se uvnitř stejné knihovny</a>&nbsp;&mdash;, ale <em>v Pythonu 3
-se změnila logika relativních importů</em>. V Pythonu 2 jsme mohli
-jednoduše provést <code>import constants</code> a Python by nejdříve
-prohledával adresář <code>chardet/</code>. V Pythonu 3 jsou <a
-href="http://www.python.org/dev/peps/pep-0328" />všechny příkazy
-import absolutní</a>. Pokud chceme v Pythonu 3 provést relativní
-import, musíme to říct explicitně: <pre class='nd pp'><code>from .
-import constants</code></pre>
-<p>No moment. Neměl se o tohle postarat skript <code>2to3</code> za
-nás? No, on to udělal. Ale tento konkrétní příkaz import kombinoval
-dva typy importu na jednom řádku: relativní import modulu
-<code>constants</code>, který se nachází uvnitř knihovny, a absolutní
-import modulu <code>sys</code>, který je předinstalován jako součást
-pythonovské standardní knihovny. V Pythonu 2 jsme je mohli zkombinovat
-do jednoho řádku příkazu import. V Pythonu 3 to nejde a skript
-<code>2to3</code> není dost chytrý na to, aby příkaz import rozdělil
-na dva. <p>Řešení spočívá v ručním rozdělení příkazu import. Takže
-tento import „dva v jednom“... <pre class='nd pp'><code>import
-constants, sys</code></pre>
-<p>... musíme změnit na dva oddělené importy: <pre class='nd
-pp'><code>from . import constants
+<p>Co to říká? Jaképak „No module named <code>constants</code>“ (doslova „žádný modul jménem <code>constants</code>“)? Modul <code>constants</code> tam samozřejmě je! Je přímo tady v <code>chardet/constants.py</code>.
+
+<p>Vzpomínáte si, jak skript <code>2to3</code> opravil všechny ty příkazy import? Tato knihovna používá množství relativních importů&nbsp;&mdash;&nbsp;<a href="#multifile-modules">moduly, které importují jiné moduly nacházející se uvnitř stejné knihovny</a>&nbsp;&mdash;, ale <em>v Pythonu 3 se změnila logika relativních importů</em>. V Pythonu 2 jsme mohli jednoduše provést <code>import constants</code> a Python by nejdříve prohledával adresář <code>chardet/</code>. V Pythonu 3 jsou <a href="http://www.python.org/dev/peps/pep-0328" />všechny příkazy import absolutní</a>. Pokud chceme v Pythonu 3 provést relativní import, musíme to říct explicitně:
+<pre class='nd pp'><code>from . import constants</code></pre>
+<p>No moment. Neměl se o tohle postarat skript <code>2to3</code> za nás? No, on to udělal. Ale tento konkrétní příkaz import kombinoval dva typy importu na jednom řádku: relativní import modulu <code>constants</code>, který se nachází uvnitř knihovny, a absolutní import modulu <code>sys</code>, který je předinstalován jako součást pythonovské standardní knihovny. V Pythonu 2 jsme je mohli zkombinovat do jednoho řádku příkazu import. V Pythonu 3 to nejde a skript <code>2to3</code> není dost chytrý na to, aby příkaz import rozdělil na dva.
+<p>Řešení spočívá v ručním rozdělení příkazu import. Takže tento import „dva v jednom“&hellip;
+<pre class='nd pp'><code>import constants, sys</code></pre>
+<p>&hellip; musíme změnit na dva oddělené importy:
+<pre class='nd pp'><code>from . import constants
 import sys</code></pre>
-<p>Variace tohoto problému jsou rozesety po celé knihovně
-<code>chardet</code>. Na některých místech je to „<code>import
-constants, sys</code>“, jinde je to „<code>import constants,
-re</code>“. Oprava je stejná. Ručně rozdělíme příkaz import na dva
-řádky. Na jednom uvedeme relativní import, na druhém absolutní import.
-<p>Kupředu! <h3 id=namefileisnotdefined>Jméno <var>'file'</var> není
-definováno</h3>
+<p>Variace tohoto problému jsou rozesety po celé knihovně <code>chardet</code>. Na některých místech je to „<code>import constants, sys</code>“, jinde je to „<code>import constants, re</code>“. Oprava je stejná. Ručně rozdělíme příkaz import na dva řádky. Na jednom uvedeme relativní import, na druhém absolutní import.
+<p>Kupředu!
+<h3 id=namefileisnotdefined>Jméno <var>'file'</var> není definováno</h3>
 <aside>open() je novým file(). <a href="http://en.wikipedia.org/wiki/Variations_of_orange#Papaya_whip">PapayaWhip</a> je nová černá.</aside>
-<p>A zase jdeme na to. Spouštíme <code>test.py</code>, abychom
-provedli naše testovací případy… <pre class='nd screen'><samp
-class="p">C:\home\chardet> </samp><kbd>python test.py
-tests\*\*</kbd>
+<p>A zase jdeme na to. Spouštíme <code>test.py</code>, abychom provedli naše testovací případy&hellip;
+<pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml</samp>
-<samp class="traceback">Traceback (most recent call last):
+<samp class=traceback>Traceback (most recent call last):
   File "test.py", line 9, in &lt;module>
     for line in file(f, 'rb'):
 NameError: name 'file' is not defined</samp></pre>
-<p>Tak tohle mě překvapilo, protože tento obrat jsem používal, co mi
-paměť sahá. V Pythonu 2 byla globální funkce <code>file()</code> jiným
-jménem (alias) pro funkci <code>open()</code>, která představovala
-standardní způsob <a href="files.html#reading">otvírání textových
-souborů pro čtení</a>. V Pythonu 3 už globální funkce
-<code>file()</code> neexistuje, ale funkce <code>open()</code> je tu
-nadále. <p>Takže nejjednodušší řešení problému chybějící funkce
-<code>file()</code> spočívá v jejím nahrazení voláním funkce
-<code>open()</code>: <pre class='nd pp'><code>for line in open(f,
-'rb'):</code></pre>
-<p>A to je vše, co o tom můžu říct. <h3
-id=cantuseastringpattern>Řetězcový vzorek nelze použít pro bajtové
-objekty</h3>
-<p>Teď se začnou dít zajímavé věci. Slůvkem „zajímavé“ rozumím
-„pekelně matoucí“. <pre class='nd screen'><samp
-class="p">C:\home\chardet> </samp><kbd>python test.py
-tests\*\*</kbd>
+<p>Tak tohle mě překvapilo, protože tento obrat jsem používal, co mi paměť sahá. V Pythonu 2 byla globální funkce <code>file()</code> jiným jménem (alias) pro funkci <code>open()</code>, která představovala standardní způsob <a href="files.html#reading">otvírání textových souborů pro čtení</a>. V Pythonu 3 už globální funkce <code>file()</code> neexistuje, ale funkce <code>open()</code> je tu nadále.
+<p>Takže nejjednodušší řešení problému chybějící funkce <code>file()</code> spočívá v jejím nahrazení voláním funkce <code>open()</code>:
+<pre class='nd pp'><code>for line in open(f, 'rb'):</code></pre>
+<p>A to je vše, co o tom můžu říct.
+<h3 id=cantuseastringpattern>Řetězcový vzorek nelze použít pro bajtové objekty</h3>
+<p>Teď se začnou dít zajímavé věci. Slůvkem „zajímavé“ rozumím „pekelně matoucí“.
+<pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml</samp>
-<samp class="traceback">Traceback (most recent call last):
+<samp class=traceback>Traceback (most recent call last):
   File "test.py", line 10, in &lt;module>
     u.feed(line)
   File "C:\home\chardet\chardet\universaldetector.py", line 98, in feed
     if self._highBitDetector.search(aBuf):
 TypeError: can't use a string pattern on a bytes-like object</samp></pre>
-<p>Abychom to odladili, podívejme se, co je
-<var>self._highBitDetector</var>. Je to definováno v metodě
-<var>__init__</var> třídy <var>UniversalDetector</var>: <pre class='nd
-pp'><code>class UniversalDetector:
+<p>Abychom to odladili, podívejme se, co je <var>self._highBitDetector</var>. Je to definováno v metodě <var>__init__</var> třídy <var>UniversalDetector</var>:
+<pre class='nd pp'><code>class UniversalDetector:
     def __init__(self):
         self._highBitDetector = re.compile(r'[\x80-\xFF]')</code></pre>
-<p>Jde o předkompilovaný regulární výraz, který má hledat znaky mimo
-<abbr>ASCII</abbr>, tj. v rozsahu 128–255 (0x80–0xFF). Počkat, tohle
-není úplně správně. Musíme použít přesnější terminologii. Tento vzorek
-je navržen pro hledání <em>bajtů</em> s hodnotou mimo
-<abbr>ASCII</abbr>, tedy v rozsahu 128–255. <p>A v tom je ten problém.
-<p>V Pythonu 2 byl řetězec polem bajtů. Jeho kódování znaků bylo
-zachyceno odděleně. Pokud jsme po Pythonu 2 chtěli, aby znakové
-kódování udržoval u řetězce, museli jsme použít Unicode řetězec
-(<code>u''</code>). Ale v Pythonu 3 je řetězec vždy tím, co Python 2
-nazýval Unicode řetězec&nbsp;&mdash;&nbsp;to znamená polem Unicode znaků
-(které mohou být vyjádřeny různým počtem bajtů). A protože je tento
-regulární výraz definován řetězcovým vzorkem, může být použit jen pro
-prohledávání řetězců, což je pole znaků. Ale my nechceme prohledávat
-řetězec. Prohledáváme pole bajtů. Pohledem na trasovací výpis
-zjistíme, že k chybě došlo v <code>universaldetector.py</code>: <pre
-class='nd pp'><code>def feed(self, aBuf):
+<p>Jde o předkompilovaný regulární výraz, který má hledat znaky mimo <abbr>ASCII</abbr>, tj. v rozsahu 128&ndash;255 (0x80&ndash;0xFF). Počkat, tohle není úplně správně. Musíme použít přesnější terminologii. Tento vzorek je navržen pro hledání <em>bajtů</em> s hodnotou mimo <abbr>ASCII</abbr>, tedy v rozsahu 128&ndash;255.
+<p>A v tom je ten problém.
+<p>V Pythonu 2 byl řetězec polem bajtů. Jeho kódování znaků bylo zachyceno odděleně. Pokud jsme po Pythonu 2 chtěli, aby znakové kódování udržoval u řetězce, museli jsme použít Unicode řetězec (<code>u''</code>). Ale v Pythonu 3 je řetězec vždy tím, co Python 2 nazýval Unicode řetězec&nbsp;&mdash;&nbsp;to znamená polem Unicode znaků (které mohou být vyjádřeny různým počtem bajtů). A protože je tento regulární výraz definován řetězcovým vzorkem, může být použit jen pro prohledávání řetězců, což je pole znaků. Ale my nechceme prohledávat řetězec. Prohledáváme pole bajtů. Pohledem na trasovací výpis zjistíme, že k chybě došlo v <code>universaldetector.py</code>:
+<pre class='nd pp'><code>def feed(self, aBuf):
     .
     .
     .
     if self._mInputState == ePureAscii:
         if self._highBitDetector.search(aBuf):</code></pre>
-<p>A co je to <var>aBuf</var>? Podívejme se ještě o kousek zpět, na
-místo, kde se volá <code>UniversalDetector.feed()</code>. Jedno z
-míst, kde se volá, se nachází v testovacím kódu (test harness)
-<code>test.py</code>. <pre class='nd pp'><code>u = UniversalDetector()
+<p>A co je to <var>aBuf</var>? Podívejme se ještě o kousek zpět, na místo, kde se volá <code>UniversalDetector.feed()</code>. Jedno z míst, kde se volá, se nachází v testovacím kódu (test harness) <code>test.py</code>.
+<pre class='nd pp'><code>u = UniversalDetector()
 .
 .
 .
 for line in open(f, 'rb'):
     u.feed(line)</code></pre>
 <aside>Není to pole znaků, ale pole bajtů.</aside>
-<p>A tady máme odpověď: <var>aBuf</var> je řádek načítaný v metodě
-<code>UniversalDetector.feed()</code> ze souboru na disku. Podívejte
-se pořádně na parametry, které se používají při otvírání souboru:
-<code>'rb'</code>. <code>'r'</code> znamená „read“ (čtení). No dobrá,
-to je toho. Čteme ze souboru. No jo! <a
-href="files.html#binary"><code>'b'</code> znamená „binárně“.</a> Bez
-příznaku <code>'b'</code> by cyklus <code>for</code> četl soubor po
-řádcích a každý řádek by převáděl na řetězec&nbsp;&mdash;&nbsp;tedy na pole
-Unicode znaků&nbsp;&mdash;&nbsp;s využitím systémového výchozího znakového
-kódování. Ale s příznakem <code>'b'</code> čte cyklus <code>for</code>
-ze souboru po řádcích a každý řádek ukládá do pole bajtů přesně v
-takovém tvaru, v jakém se nachází v souboru. Výsledné pole bajtů se
-předává do <code>UniversalDetector.feed()</code> a nakonec se dostane
-až k předkompilovanému regulárnímu výrazu
-<var>self._highBitDetector</var>, aby se našly osmibitové… znaky. Ale
-my nemáme znaky. My máme bajty. A do prčic. <p>Potřebujeme, aby tento
-regulární výraz nehledal v poli znaků, ale v poli bajtů. <p>Když už
-jsme na to přišli, bude náprava jednoduchá. Regulární výrazy
-definované řetězci mohou hledat v řetězcích. Regulární výrazy
-definované poli bajtů mohou hledat v polích bajtů. Abychom definovali
-vzorek polem bajtů, jednoduše změníme typ argumentu, který používáme
-pro definici regulárního výrazu, na pole bajtů. (Hned na následujícím
-řádku je další případ téhož problému.) <pre class='nd pp'><code>
-class UniversalDetector:
+<p>A tady máme odpověď: <var>aBuf</var> je řádek načítaný v metodě <code>UniversalDetector.feed()</code> ze souboru na disku. Podívejte se pořádně na parametry, které se používají při otvírání souboru: <code>'rb'</code>. <code>'r'</code> znamená „read“ (čtení). No dobrá, to je toho. Čteme ze souboru. No jo! <a href="files.html#binary"><code>'b'</code> znamená „binárně“.</a> Bez příznaku <code>'b'</code> by cyklus <code>for</code> četl soubor po řádcích a každý řádek by převáděl na řetězec&nbsp;&mdash;&nbsp;tedy na pole Unicode znaků&nbsp;&mdash;&nbsp;s využitím systémového výchozího znakového kódování. Ale s příznakem <code>'b'</code> čte cyklus <code>for</code> ze souboru po řádcích a každý řádek ukládá do pole bajtů přesně v takovém tvaru, v jakém se nachází v souboru. Výsledné pole bajtů se předává do <code>UniversalDetector.feed()</code> a nakonec se dostane až k předkompilovanému regulárnímu výrazu <var>self._highBitDetector</var>, aby se našly osmibitové&hellip; znaky. Ale my nemáme znaky. My máme bajty. A do prčic. 
+<p>Potřebujeme, aby tento regulární výraz nehledal v poli znaků, ale v poli bajtů. 
+<p>Když už jsme na to přišli, bude náprava jednoduchá. Regulární výrazy definované řetězci mohou hledat v řetězcích. Regulární výrazy definované poli bajtů mohou hledat v polích bajtů. Abychom definovali vzorek polem bajtů, jednoduše změníme typ argumentu, který používáme pro definici regulárního výrazu, na pole bajtů. (Hned na následujícím řádku je další případ téhož problému.) 
+<pre class='nd pp'><code>  class UniversalDetector:
       def __init__(self):
 <del>-         self._highBitDetector = re.compile(r'[\x80-\xFF]')</del>
 <del>-         self._escDetector = re.compile(r'(\033|~{)')</del>
@@ -466,13 +356,8 @@ class UniversalDetector:
           self._mEscCharSetProber = None
           self._mCharSetProbers = []
           self.reset()</code></pre>
-<p>Když necháme ve všech zdrojových textech vyhledat použití modulu
-<code>re</code>, objevíme další dva případy v
-<code>charsetprober.py</code>. Jde opět o případy, kdy jsou regulární
-výrazy definovány jako řetězce, ale používáme je pro <var>aBuf</var>,
-což je pole bajtů. Řešení je stejné: definujeme vzorky regulárních
-výrazů jako pole bajtů. <pre class='nd pp'><code>  class
-CharSetProber:
+<p>Když necháme ve všech zdrojových textech vyhledat použití modulu <code>re</code>, objevíme další dva případy v <code>charsetprober.py</code>. Jde opět o případy, kdy jsou regulární výrazy definovány jako řetězce, ale používáme je pro <var>aBuf</var>, což je pole bajtů. Řešení je stejné: definujeme vzorky regulárních výrazů jako pole bajtů. 
+<pre class='nd pp'><code>  class CharSetProber:
       .
       .
       .
@@ -480,14 +365,14 @@ CharSetProber:
 <del>-         aBuf = re.sub(r'([\x00-\x7F])+', ' ', aBuf)</del>
 <ins>+         aBuf = re.sub(b'([\x00-\x7F])+', b' ', aBuf)</ins>
           return aBuf
-
+    
       def filter_without_english_letters(self, aBuf):
 <del>-         aBuf = re.sub(r'([A-Za-z])+', ' ', aBuf)</del>
 <ins>+         aBuf = re.sub(b'([A-Za-z])+', b' ', aBuf)</ins>
           return aBuf</code></pre>
 
 <h3 id=cantconvertbytesobject>Objekt typu <code>'bytes'</code> nelze implicitně převést na <code>str</code></h3>
-<p>Divoucnější a divoucnější… <pre class='nd screen'><samp
+<p>Divoucnější a divoucnější&hellip; <pre class='nd screen'><samp
 class="p">C:\home\chardet> </samp><kbd>python test.py
 tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml</samp>
@@ -553,7 +438,7 @@ UniversalDetector:
 spojení) nelze provádět pro řetězec a pole bajtů&nbsp;&mdash;&nbsp;ani když
 jde o řetězec nulové délky. <p>No dobrá, ale k čemu je tedy
 <var>self._mLastChar</var>? V metodě <code>feed()</code>, jen pár
-řádků pod místem označeným v trasovacím výpisu, vidíme... <pre
+řádků pod místem označeným v trasovacím výpisu, vidíme&hellip; <pre
 class='nd pp'><code>if self._mInputState == ePureAscii:
     if self._highBitDetector.search(aBuf):
         self._mInputState = eHighbyte
@@ -604,7 +489,7 @@ MultiByteCharSetProber(CharSetProber):
 <ins>+         self._mLastChar = [0, 0]</ins></code></pre>
 <h3 id=unsupportedoperandtypeforplus>Nepodporované typy operandů pro +: <code>'int'</code> a <code>'bytes'</code></h3>
 <p>Mám jednu dobrou a jednu špatnou zprávu. Ta dobrá je, že děláme
-pokroky… <pre class='nd screen'><samp class="p">C:\home\chardet>
+pokroky&hellip; <pre class='nd screen'><samp class="p">C:\home\chardet>
 </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml</samp>
 <samp class="traceback">Traceback (most recent call last):
@@ -613,7 +498,7 @@ pokroky… <pre class='nd screen'><samp class="p">C:\home\chardet>
   File "C:\home\chardet\chardet\universaldetector.py", line 101, in feed
     self._escDetector.search(self._mLastChar + aBuf):
 TypeError: unsupported operand type(s) for +: 'int' and 'bytes'</samp></pre>
-<p>…Ta špatná je, že to někdy tak nevypadá. <p>Ale on to je pokrok!
+<p>&hellip;Ta špatná je, že to někdy tak nevypadá. <p>Ale on to je pokrok!
 Opravdu! I když trasovací výpis označuje stejný řádek kódu, je to jiná
 chyba, než se hlásila dříve. Pokrok! Takže kdepak máme problém teď?
 Když jsme to kontrolovali minule, nesnažil se tento řádek řetězit
@@ -672,7 +557,7 @@ self._escDetector.search(self._mLastChar + aBuf):
 <del>- self._mLastChar = aBuf[-1]</del>
 <ins>+ self._mLastChar = aBuf[-1:]</ins></code></pre>
 <h3 id=ordexpectedstring>funkce <code>ord()</code> očekávala řetězec o délce 1, ale byl nalezen <code>int</code></h3>
-<p>Jste už unaveni? Už to máme skoro hotové… <pre class='nd
+<p>Jste už unaveni? Už to máme skoro hotové&hellip; <pre class='nd
 screen'><samp class="p">C:\home\chardet> </samp><kbd>python test.py
 tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml                       ascii with confidence 1.0
@@ -715,7 +600,7 @@ class='nd pp'><code>  def next_state(self, c):
 <del>-     byteCls = self._mModel['classTable'][ord(c)]</del>
 <ins>+     byteCls = self._mModel['classTable'][c]</ins></code></pre>
 <p>Vyhledáním „<code>ord(c)</code>“ ve všech zdrojových textech
-odhalíme podobné problémy v <code>sbcharsetprober.py</code>… <pre
+odhalíme podobné problémy v <code>sbcharsetprober.py</code>&hellip; <pre
 class='nd pp'><code># sbcharsetprober.py
 def feed(self, aBuf):
     if not self._mModel['keepEnglishLetter']:
@@ -725,7 +610,7 @@ def feed(self, aBuf):
         return self.get_state()
     for c in aBuf:
 <mark>        order = self._mModel['charToOrderMap'][ord(c)]</mark></code></pre>
-<p>… a v <code>latin1prober.py</code>… <pre class='nd pp'><code>#
+<p>&hellip; a v <code>latin1prober.py</code>&hellip; <pre class='nd pp'><code>#
 latin1prober.py
 def feed(self, aBuf):
     aBuf = self.filter_with_english_letters(aBuf)
@@ -884,7 +769,7 @@ podobá změnám, které jsme provedli v třídách
 <code>EUCJPContextAnalysis</code> a <code>SJISContextAnalysis</code> v
 souboru <code>jpcntx.py</code>. <h3 id=reduceisnotdefined>Globální
 jméno <code>'reduce'</code> není definováno</h3>
-<p>Ještě jedna trhlina… <pre class='nd screen'><samp
+<p>Ještě jedna trhlina&hellip; <pre class='nd screen'><samp
 class="p">C:\home\chardet> </samp><kbd>python test.py
 tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml                       ascii with confidence 1.0
@@ -969,7 +854,7 @@ tests\EUC-JP\arclamp.jp.xml                                  EUC-JP with confide
 316 tests</samp></pre>
 <p>No to mě podrž, ono to funguje! <em><a
 href="http://www.hampsterdance.com" />/me si trošku zatancuju</a></em>
-<p class=a>⁂ <h2 id=summary>Shrnutí</h2>
+<p class=a>&#x2042; <h2 id=summary>Shrnutí</h2>
 <p>Co jsme se naučili? <ol>
 <li>Přepisování jakéhokoliv netriviálního kódu z Pythonu 2 do Pythonu 3 bude bolestivé. Nedá se to obejít. Je to obtížné. <li><a href="porting-code-to-python-3-with-2to3.html">Automatický nástroj <code>2to3</code></a> nám částečně pomůže, ale postará se jen o snadnější části&nbsp;&mdash;&nbsp;přejmenování funkcí, přejmenování modulů, úpravy syntaxe. Jde o impozantní kus inženýrské práce, ale koneckonců jde jen o inteligentního robota provádějícího vyhledávání a náhrady. <li>Problémem č. 1 při přepisování této knihovny byl rozdíl mezi řetězci a bajty. V tomto případě se to zdá být zřejmé, protože hlavním účelem knihovny <code>chardet</code> je převod proudu bajtů na řetězec. Ale „s proudem bajtů“ se setkáváme častěji, než byste si mysleli. Čtete soubor v „binárním“ režimu? Dostáváte proud bajtů. Získáváte obsah webovské stránky? Voláte webové aplikační rozhraní? Také se vrací proud bajtů. <li>Programu musíte rozumět <em>vy</em>. Skrz naskrz. Především protože jste ho napsali, ale musíte se vyrovnat se všemi jeho triky a zatuchlými kouty. Chyby jsou všude. <li>Testovací případy jsou nepostradatelné. Pokud je nemáte, nic nepřepisujte. <em>Jediný</em> důvod, proč věřím tomu, že <code>chardet</code> funguje v Pythonu 3, spočívá v tom, že jsem začal s testovací sadou, která prověřovala všechny hlavní cesty, kudy se kód ubírá. Pokud žádné testy nemáte, napište je dříve, než začnete přenos do Pythonu 3 realizovat. Pokud máte jen pár testů, napište jich víc. Pokud máte hodně testů, pak teprve může začít opravdová legrace.
 </ol>
@@ -978,7 +863,7 @@ href="http://www.hampsterdance.com" />/me si trošku zatancuju</a></em>
 „Webové služby nad HTTP“"><span class="u">☜</span></a> <a rel="next"
 href="packaging.html" title="dopředu na „Balení pythonovských
 knihoven“"><span class="u">&#x261E;</span></a>
-<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script>

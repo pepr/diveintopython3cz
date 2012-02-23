@@ -1,5 +1,5 @@
 <!DOCTYPE html> <meta charset=utf-8>
-<title>Jména speciálních metod – Ponořme se do Pythonu 3</title>
+<title>Jména speciálních metod &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
 <style>
@@ -10,22 +10,22 @@
 <body id=appb>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
 <p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">‣</span> <a
+class="u">&#8227;</span> <a
 href="table-of-contents.html#special-method-names">Ponořme se do
-Pythonu 3</a> <span class="u">‣</span>
+Pythonu 3</a> <span class="u">&#8227;</span>
 <p id=level>Úroveň obtížnosti: <span class="u"
-title="expert">♦♦♦♦♦</span>
+title="expert">&#x2666;&#x2666;&#x2666;&#x2666;&#x2666;</span>
 <h1>Jména speciálních metod</h1>
 <blockquote class=q>
-<p><span class="u">❝</span> My specialty is being right when other
-people are wrong. <span class="u">❞</span><br />(Mou specialitou je
-mít pravdu, když se ostatní lidé mýlí.)<br />— <a
+<p><span class="u">&#x275D;</span> My specialty is being right when other
+people are wrong. <span class="u">&#x275E;</span><br>(Mou specialitou je
+mít pravdu, když se ostatní lidé mýlí.)<br>&mdash; <a
 href="http://en.wikiquote.org/wiki/George_Bernard_Shaw">George Bernard
 Shaw</a>
 </blockquote>
 <p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
 <p class=f>V celé knize jsme se setkávali s příklady „speciálních
-metod“&nbsp;—&nbsp;v jistém smyslu „magických“ metod, které Python
+metod“&nbsp;&mdash;&nbsp;v jistém smyslu „magických“ metod, které Python
 vyvolává, když použijeme určitou syntaxi. Pokud vaše třídy použijí
 speciální metody, mohou se chovat jako množiny, jako slovníky, jako
 funkce, jako iterátory nebo dokonce jako čísla. Tato příloha slouží
@@ -39,7 +39,7 @@ metodou <code>__init__()</code>. Většina tříd, které píšeme, nakonec
 potřebuje nějakou inicializaci. Existuje několik dalších základních
 speciálních metod, které jsou zvlášť užitečné při ladění našich
 uživatelsky definovaných tříd. <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>① <td>inicializace instance <td><code class="pp">x = MyClass()</code>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>① <td>inicializace instance <td><code class="pp">x = MyClass()</code>
 <td><a href="http://docs.python.org/3.1/reference/datamodel.html#object.__init__"><code>x.<dfn>__init__</dfn>()</code></a>
 <tr><th>② <td>„oficiální“ řetězcová reprezentace <td><code class="pp"><dfn>repr</dfn>(x)</code>
 <td><a href="http://docs.python.org/3.1/reference/datamodel.html#object.__repr__"><code>x.<dfn>__repr__</dfn>()</code></a>
@@ -59,7 +59,7 @@ uživatelsky definovaných tříd. <table>
 <p><a href="iterators.html">V kapitole o iterátorech</a> jsme si
 ukázali, jak můžeme vytvořit iterátor od základů s využitím metod
 <code>__iter__()</code> a <code>__next__()</code>. <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>① <td>iterování přes posloupnost <td><code class="pp"><dfn>iter</dfn>(seq)</code>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>① <td>iterování přes posloupnost <td><code class="pp"><dfn>iter</dfn>(seq)</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__iter__"><code>seq.<dfn>__iter__</dfn>()</code></a>
 <tr><th>② <td>získání další hodnoty iterátoru <td><code class="pp"><dfn>next</dfn>(seq)</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__next__"><code>seq.<dfn>__next__</dfn>()</code></a>
@@ -83,7 +83,7 @@ výjimku <code>StopIteration</code>, cyklus <code>for</code> spořádaně
 skončí. <h2 id=computed-attributes>Vypočítávané atributy</h2>
 
 <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>① <td>získat vypočítaný atribut (nepodmíněně) <td><code class="pp">x.my_property</code>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>① <td>získat vypočítaný atribut (nepodmíněně) <td><code class="pp">x.my_property</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__getattribute__"><code>x.<dfn>__getattribute__</dfn>(<var>'my_property'</var>)</code></a>
 <tr><th>② <td>získat vypočítaný atribut (fallback) <td><code class="pp">x.my_property</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__getattr__"><code>x.<dfn>__getattr__</dfn>(<var>'my_property'</var>)</code></a>
@@ -115,7 +115,7 @@ ho na dvou příkladech: <pre class=screen>
 <a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">dyn.color</kbd>                      <span class="u">④</span></a>
 <samp class="pp">'LemonChiffon'</samp></pre>
 <ol>
-<li>Jméno atributu se předá metodě <code>__getattr__()</code> jako řetězec. Pokud je jméno rovno <code>'color'</code>, vrátí metoda hodnotu. (V tomto případě se jedná o pevně zadaný řetězec, ale normálně bychom zde provedli nějaký výpočet a vrátili bychom řetězec.) <li>Pokud jméno atributu neznáme, musí metoda <code>__getattr__()</code> vyvolat výjimku <code>AttributeError</code>. V opačném případě by náš kód při přístupu k nedefinovanému atributu potichu selhal. (Pokud metoda nevyvolá výjimku nebo explicitně nevrátí nějakou hodnotu, pak — z technického hlediska — vrací <code>None</code>, což je pythonovská hodnota null. To znamená, že by <em>všechny</em> atributy, které by nebyly explicitně definovány, nabývaly hodnoty <code>None</code>. To téměř určitě nechceme.) <li>Instance <var>dyn</var> nemá atribut jménem <var>color</var>, takže se zavolá metoda <code>__getattr__()</code>, která vrátí vypočítanou hodnotu. <li>Jakmile explicitně nastavíme <var>dyn.color</var>, přestane se metoda <code>__getattr__()</code> pro získání hodnoty <var>dyn.color</var> volat, protože atribut <var>dyn.color</var> už je v instanci definován.
+<li>Jméno atributu se předá metodě <code>__getattr__()</code> jako řetězec. Pokud je jméno rovno <code>'color'</code>, vrátí metoda hodnotu. (V tomto případě se jedná o pevně zadaný řetězec, ale normálně bychom zde provedli nějaký výpočet a vrátili bychom řetězec.) <li>Pokud jméno atributu neznáme, musí metoda <code>__getattr__()</code> vyvolat výjimku <code>AttributeError</code>. V opačném případě by náš kód při přístupu k nedefinovanému atributu potichu selhal. (Pokud metoda nevyvolá výjimku nebo explicitně nevrátí nějakou hodnotu, pak &mdash; z technického hlediska &mdash; vrací <code>None</code>, což je pythonovská hodnota null. To znamená, že by <em>všechny</em> atributy, které by nebyly explicitně definovány, nabývaly hodnoty <code>None</code>. To téměř určitě nechceme.) <li>Instance <var>dyn</var> nemá atribut jménem <var>color</var>, takže se zavolá metoda <code>__getattr__()</code>, která vrátí vypočítanou hodnotu. <li>Jakmile explicitně nastavíme <var>dyn.color</var>, přestane se metoda <code>__getattr__()</code> pro získání hodnoty <var>dyn.color</var> volat, protože atribut <var>dyn.color</var> už je v instanci definován.
 </ol>
 
 <p>Ve srovnání s tím je metoda <code>__getattribute__()</code>
@@ -169,7 +169,7 @@ AttributeError</samp></pre>
 
 <p>Pokud třída definuje metodu <code>__call__()</code>, můžeme
 instanci třídy volat (callable), jako kdyby to byla funkce. <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>
 <td>„volat“ instaci jako funkci <td><code class="pp">my_instance()</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__call__"><code>my_instance.<dfn>__call__</dfn>()</code></a>
 </table>
@@ -216,11 +216,11 @@ bytes = zef_file.read(12)
 <h2 id=acts-like-set>Třídy, které se chovají jako množiny</h2>
 
 <p>Pokud se naše třída chová jako kontejner pro množinu
-hodnot&nbsp;—&nbsp;tj. pokud má smysl ptát se, zda naše třída
-„obsahuje“ hodnotu&nbsp;—&nbsp;, pak by pravděpodobně měla definovat
+hodnot&nbsp;&mdash;&nbsp;tj. pokud má smysl ptát se, zda naše třída
+„obsahuje“ hodnotu&nbsp;&mdash;&nbsp;, pak by pravděpodobně měla definovat
 následující speciální metody, které způsobí, že se bude chovat jako
 množina. <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>
 <td>počet položek <td><code class="pp"><dfn>len</dfn>(s)</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__len__"><code>s.<dfn>__len__</dfn>()</code></a>
 <tr><th>
@@ -262,7 +262,7 @@ class FieldStorage:
 které nejenže reagují na operátor „<code>in</code>“ a na funkci
 <code>len()</code>, ale které se mohou chovat jako plnohodnotné
 slovníky vracející hodnoty vázané na klíče. <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>
 <td>získat hodnotu podle klíče <td><code class="pp">x[key]</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__getitem__"><code>x.<dfn>__getitem__</dfn>(<var>key</var>)</code></a>
 <tr><th>
@@ -315,7 +315,7 @@ class FieldStorage:
 vlastní třídy, které se chovají jako čísla. To znamená, že je můžeme
 sčítat, odčítat a provádět s nimi další matematické operace. Tímto
 způsobem jsou implementovány věci v modulu
-<dfn>fractions</dfn>&nbsp;—&nbsp;třída
+<dfn>fractions</dfn>&nbsp;&mdash;&nbsp;třída
 <code><dfn>Fraction</dfn></code> implementuje speciální metody, které
 nám umožňují provádět takovéto věci: <pre class=screen>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">from fractions import Fraction</kbd>
@@ -325,7 +325,7 @@ nám umožňují provádět takovéto věci: <pre class=screen>
 
 <p>Zde je úplný seznam speciálních metod, které musí implementovat
 třída chovající se jako číslo. <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>
 <td>sčítání <td><code class="pp">x + y</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__add__"><code>x.<dfn>__add__</dfn>(<var>y</var>)</code></a>
 <tr><th>
@@ -371,7 +371,7 @@ třída chovající se jako číslo. <table>
 
 <p>Pokud je <var>x</var> instancí třídy, která tyto metody
 implementuje, bude to fungovat bez problémů. Ale co když třída
-některou z těchto metod neimplementuje? Nebo ještě hůř — co když je
+některou z těchto metod neimplementuje? Nebo ještě hůř &mdash; co když je
 implementuje, ale neporadí si s některými druhy argumentů? Například:
 <pre class=screen>
 <samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">from fractions import Fraction</kbd>
@@ -395,10 +395,10 @@ operace vyžaduje dva operandy (například <code>x / y</code>), dá se to
 <p>Výše uvedená sada speciálních metod používá první přístup: pokud
 máme <code>x / y</code>, poskytují metody způsob, jak může
 <var>x</var> říci: „Já vím, jak vydělit sebe hodnotou <var>y</var>.“
-Následující sada speciálních metod se pouští do druhého přístupu —
+Následující sada speciálních metod se pouští do druhého přístupu &mdash;
 metody poskytují způsob, jakým může <var>y</var> vyjádřit: „Já vím,
 jak být dělitelem a podělit sebou hodnotu <var>x</var>.“ <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>
 <td>sčítání <td><code class="pp">x + y</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__radd__"><code>y.<dfn>__radd__</dfn>(<var>x</var>)</code></a>
 <tr><th>
@@ -446,7 +446,7 @@ jak být dělitelem a podělit sebou hodnotu <var>x</var>.“ <table>
 nad proměnnou“ (in-place, in situ, na místě samém), jako například
 <code>x/=3</code>, můžeme definovat ještě další speciální metody.
 <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>
 <td>sčítání nad proměnnou <td><code class="pp">x += y</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__iadd__"><code>x.<dfn>__iadd__</dfn>(<var>y</var>)</code></a>
 <tr><th>
@@ -491,7 +491,7 @@ nad proměnnou“ (in-place, in situ, na místě samém), jako například
 nevyžaduje. Pokud pro určitou operaci příslušnou „in situ“ metodu (tj.
 nad proměnnou) nedefinujeme, Python se ji pokusí nahradit. Například
 při provádění výrazu <code>x /= y</code> Python... <ol>
-<li>Vyzkouší zavolat <code>x.__itruediv__(<var>y</var>)</code>. Pokud je metoda definována a vrátila hodnotu jinou než <code>NotImplemented</code>, je to hotové. <li>Vyzkouší zavolat <code>x.__truediv__(<var>y</var>)</code>. Pokud je metoda definována a vrátila hodnotu jinou než <code>NotImplemented</code>, je původní hodnota <var>x</var> zahozena a je nahrazena výslednou hodnotou — jako kdybychom místo toho napsali <code> x = x / y</code>. <li>Vyzkouší zavolat <code>y.__rtruediv__(<var>x</var>)</code>. Pokud je metoda definována a vrátila hodnotu jinou než <code>NotImplemented</code>, je původní hodnota <var>x</var> zahozena a je nahrazena výslednou hodnotou.
+<li>Vyzkouší zavolat <code>x.__itruediv__(<var>y</var>)</code>. Pokud je metoda definována a vrátila hodnotu jinou než <code>NotImplemented</code>, je to hotové. <li>Vyzkouší zavolat <code>x.__truediv__(<var>y</var>)</code>. Pokud je metoda definována a vrátila hodnotu jinou než <code>NotImplemented</code>, je původní hodnota <var>x</var> zahozena a je nahrazena výslednou hodnotou &mdash; jako kdybychom místo toho napsali <code> x = x / y</code>. <li>Vyzkouší zavolat <code>y.__rtruediv__(<var>x</var>)</code>. Pokud je metoda definována a vrátila hodnotu jinou než <code>NotImplemented</code>, je původní hodnota <var>x</var> zahozena a je nahrazena výslednou hodnotou.
 </ol>
 
 <p>Takže „in situ“ metodu jako <code>__itruediv__()</code> definujeme
@@ -501,7 +501,7 @@ přeformuluje požadavek provedení operandu nad proměnnou na běžnou
 podobu operandu s přiřazením výsledku do proměnné. <p>Objekty, které
 se chovají jako číslo, mohou nad sebou provádět také pár „unárních“
 matematických operací. <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>
 <td>unární minus (záporné číslo) <td><code class="pp">-x</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__neg__"><code>x.<dfn>__neg__</dfn>()</code></a>
 <tr><th>
@@ -548,11 +548,11 @@ matematických operací. <table>
 
 <p>Tuto část jsem od předchozí oddělil, protože porovnání se neomezuje
 jen na čísla. Porovnávat se dají hodnoty mnoha datových
-typů&nbsp;—&nbsp;řetězce, seznamy a dokonce i slovníky. Pokud
+typů&nbsp;&mdash;&nbsp;řetězce, seznamy a dokonce i slovníky. Pokud
 vytváříme svou vlastní třídu a má smysl uvažovat o porovnávání našeho
 objektu s jinými objekty, můžeme porovnání implementovat následujícími
 speciálními metodami. <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>
 <td>rovnost <td><code class="pp">x == y</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__eq__"><code>x.<dfn>__eq__</dfn>(<var>y</var>)</code></a>
 <tr><th>
@@ -599,7 +599,7 @@ umět serializovat, přečtěte si něco o <a
 href="http://docs.python.org/3.1/library/pickle.html">pickle
 protokolu</a>, abyste věděli, kdy a jak se volají následující
 speciální metody. <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>
 <td>uživatelská kopie objektu <td><code class="pp">copy.copy(x)</code>
 <td><a href="http://docs.python.org/3.1/library/copy.html"><code>x.<dfn>__copy__</dfn>()</code></a>
 <tr><th>
@@ -633,7 +633,7 @@ href="http://www.python.org/doc/3.1/library/stdtypes.html#typecontextmanager">ru
 context</a>). „Vstupujeme“ do něj (enter) v okamžiku provádění příkazu
 <code>with</code> a „vystupujeme“ z něj (exit) po provedení posledního
 příkazu v jeho bloku. <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>
 <td>udělej něco speciálního při vstupu do bloku <code>with</code> <td><code class="pp">with x:</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__enter__"><code>x.<dfn>__enter__</dfn>()</code></a>
 <tr><th>
@@ -681,7 +681,7 @@ id=esoterica>Opravdu esoterické věci</h2>
 <p>Pokud víme, co děláme, můžeme získat téměř úplnou kontrolu nad tím,
 jak jsou třídy porovnávány, jak jsou definovány atributy a jaký druh
 tříd se považuje za podtřídy naší třídy. <table>
-<tr><th>Poznámky <th>To, co chceme… <th>Takže napíšeme… <th>A Python zavolá… <tr><th>
+<tr><th>Poznámky <th>To, co chceme&hellip; <th>Takže napíšeme&hellip; <th>A Python zavolá&hellip; <tr><th>
 <td>konstruktor třídy <td><code class="pp">x = MyClass()</code>
 <td><a href="http://www.python.org/doc/3.1/reference/datamodel.html#object.__new__"><code>x.<dfn>__new__</dfn>()</code></a>
 <tr><th>* <td>destruktor třídy <td><code class="pp">del x</code>
@@ -753,7 +753,7 @@ rel="prev" title="zpět na „Přepis kódu do Pythonu 3 s využitím
 2to3“"><span class="u">☜</span></a> <a rel="next"
 href="where-to-go-from-here.html" title="dopředu „Čím
 pokračovat“"><span class="u">☞</span></a>
-<p class=c>© 2001–10 <a href="about.html">Mark Pilgrim</a>
+<p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
 <script src=j/dip3.js></script> 
