@@ -344,9 +344,9 @@ TypeError: can't use a string pattern on a bytes-like object</samp></pre>
 for line in open(f, 'rb'):
     u.feed(line)</code></pre>
 <aside>Není to pole znaků, ale pole bajtů.</aside>
-<p>A tady máme odpověď: <var>aBuf</var> je řádek načítaný v metodě <code>UniversalDetector.feed()</code> ze souboru na disku. Podívejte se pořádně na parametry, které se používají při otvírání souboru: <code>'rb'</code>. <code>'r'</code> znamená „read“ (čtení). No dobrá, to je toho. Čteme ze souboru. No jo! <a href="files.html#binary"><code>'b'</code> znamená „binárně“.</a> Bez příznaku <code>'b'</code> by cyklus <code>for</code> četl soubor po řádcích a každý řádek by převáděl na řetězec&nbsp;&mdash;&nbsp;tedy na pole Unicode znaků&nbsp;&mdash;&nbsp;s využitím systémového výchozího znakového kódování. Ale s příznakem <code>'b'</code> čte cyklus <code>for</code> ze souboru po řádcích a každý řádek ukládá do pole bajtů přesně v takovém tvaru, v jakém se nachází v souboru. Výsledné pole bajtů se předává do <code>UniversalDetector.feed()</code> a nakonec se dostane až k předkompilovanému regulárnímu výrazu <var>self._highBitDetector</var>, aby se našly osmibitové&hellip; znaky. Ale my nemáme znaky. My máme bajty. A do prčic. 
-<p>Potřebujeme, aby tento regulární výraz nehledal v poli znaků, ale v poli bajtů. 
-<p>Když už jsme na to přišli, bude náprava jednoduchá. Regulární výrazy definované řetězci mohou hledat v řetězcích. Regulární výrazy definované poli bajtů mohou hledat v polích bajtů. Abychom definovali vzorek polem bajtů, jednoduše změníme typ argumentu, který používáme pro definici regulárního výrazu, na pole bajtů. (Hned na následujícím řádku je další případ téhož problému.) 
+<p>A tady máme odpověď: <var>aBuf</var> je řádek načítaný v metodě <code>UniversalDetector.feed()</code> ze souboru na disku. Podívejte se pořádně na parametry, které se používají při otvírání souboru: <code>'rb'</code>. <code>'r'</code> znamená „read“ (čtení). No dobrá, to je toho. Čteme ze souboru. No jo! <a href="files.html#binary"><code>'b'</code> znamená „binárně“.</a> Bez příznaku <code>'b'</code> by cyklus <code>for</code> četl soubor po řádcích a každý řádek by převáděl na řetězec&nbsp;&mdash;&nbsp;tedy na pole Unicode znaků&nbsp;&mdash;&nbsp;s využitím systémového výchozího znakového kódování. Ale s příznakem <code>'b'</code> čte cyklus <code>for</code> ze souboru po řádcích a každý řádek ukládá do pole bajtů přesně v takovém tvaru, v jakém se nachází v souboru. Výsledné pole bajtů se předává do <code>UniversalDetector.feed()</code> a nakonec se dostane až k předkompilovanému regulárnímu výrazu <var>self._highBitDetector</var>, aby se našly osmibitové&hellip; znaky. Ale my nemáme znaky. My máme bajty. A do prčic.
+<p>Potřebujeme, aby tento regulární výraz nehledal v poli znaků, ale v poli bajtů.
+<p>Když už jsme na to přišli, bude náprava jednoduchá. Regulární výrazy definované řetězci mohou hledat v řetězcích. Regulární výrazy definované poli bajtů mohou hledat v polích bajtů. Abychom definovali vzorek polem bajtů, jednoduše změníme typ argumentu, který používáme pro definici regulárního výrazu, na pole bajtů. (Hned na následujícím řádku je další případ téhož problému.)
 <pre class='nd pp'><code>  class UniversalDetector:
       def __init__(self):
 <del>-         self._highBitDetector = re.compile(r'[\x80-\xFF]')</del>
@@ -356,7 +356,7 @@ for line in open(f, 'rb'):
           self._mEscCharSetProber = None
           self._mCharSetProbers = []
           self.reset()</code></pre>
-<p>Když necháme ve všech zdrojových textech vyhledat použití modulu <code>re</code>, objevíme další dva případy v <code>charsetprober.py</code>. Jde opět o případy, kdy jsou regulární výrazy definovány jako řetězce, ale používáme je pro <var>aBuf</var>, což je pole bajtů. Řešení je stejné: definujeme vzorky regulárních výrazů jako pole bajtů. 
+<p>Když necháme ve všech zdrojových textech vyhledat použití modulu <code>re</code>, objevíme další dva případy v <code>charsetprober.py</code>. Jde opět o případy, kdy jsou regulární výrazy definovány jako řetězce, ale používáme je pro <var>aBuf</var>, což je pole bajtů. Řešení je stejné: definujeme vzorky regulárních výrazů jako pole bajtů.
 <pre class='nd pp'><code>  class CharSetProber:
       .
       .
@@ -365,60 +365,37 @@ for line in open(f, 'rb'):
 <del>-         aBuf = re.sub(r'([\x00-\x7F])+', ' ', aBuf)</del>
 <ins>+         aBuf = re.sub(b'([\x00-\x7F])+', b' ', aBuf)</ins>
           return aBuf
-    
+
       def filter_without_english_letters(self, aBuf):
 <del>-         aBuf = re.sub(r'([A-Za-z])+', ' ', aBuf)</del>
 <ins>+         aBuf = re.sub(b'([A-Za-z])+', b' ', aBuf)</ins>
           return aBuf</code></pre>
 
 <h3 id=cantconvertbytesobject>Objekt typu <code>'bytes'</code> nelze implicitně převést na <code>str</code></h3>
-<p>Divoucnější a divoucnější&hellip; <pre class='nd screen'><samp
-class="p">C:\home\chardet> </samp><kbd>python test.py
-tests\*\*</kbd>
+<p>Divoucnější a divoucnější&hellip;
+<pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml</samp>
-<samp class="traceback">Traceback (most recent call last):
+<samp class=traceback>Traceback (most recent call last):
   File "test.py", line 10, in &lt;module>
     u.feed(line)
   File "C:\home\chardet\chardet\universaldetector.py", line 100, in feed
     elif (self._mInputState == ePureAscii) and self._escDetector.search(self._mLastChar + aBuf):
 TypeError: Can't convert 'bytes' object to str implicitly</samp></pre>
-<p>Zde dochází k nešťastné kolizi mezi stylem zápisu zdrojového textu
-a interpretem Pythonu. Chyba <code>TypeError</code> se může vázat na
-kteroukoliv část řádku, ale trasovací výpis nám neříká, kde přesně je.
-Může to být v první nebo v druhé části podmínky, ale z trasovacího
-výpisu se to nepozná. Abychom prostor pro hledání zúžili, měli bychom
-řádek rozdělit: <pre class='nd pp'><code>elif (self._mInputState ==
-ePureAscii) and \
+<p>Zde dochází k nešťastné kolizi mezi stylem zápisu zdrojového textu a interpretem Pythonu. Chyba <code>TypeError</code> se může vázat na kteroukoliv část řádku, ale trasovací výpis nám neříká, kde přesně je. Může to být v první nebo v druhé části podmínky, ale z trasovacího výpisu se to nepozná. Abychom prostor pro hledání zúžili, měli bychom řádek rozdělit:
+<pre class='nd pp'><code>elif (self._mInputState == ePureAscii) and \
     self._escDetector.search(self._mLastChar + aBuf):</code></pre>
-<p>A znovu spustíme test: <pre class='nd screen'><samp
-class="p">C:\home\chardet> </samp><kbd>python test.py
-tests\*\*</kbd>
+<p>A znovu spustíme test:
+<pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml</samp>
-<samp class="traceback">Traceback (most recent call last):
+<samp class=traceback>Traceback (most recent call last):
   File "test.py", line 10, in &lt;module>
     u.feed(line)
   File "C:\home\chardet\chardet\universaldetector.py", line 101, in feed
     self._escDetector.search(self._mLastChar + aBuf):
 TypeError: Can't convert 'bytes' object to str implicitly</samp></pre>
-<p>Aha! Problém se nevyskytoval v první části podmínky
-(<code>self._mInputState == ePureAscii</code>), ale v druhé. Takže co
-zde vlastně způsobuje chybu <code>TypeError</code>? Možná si myslíte,
-že metoda <code>search()</code> očekává hodnotu odlišného typu. To by
-ale nevygenerovalo takový trasovací výpis. Pythonovské funkce mohou
-přebírat libovolné hodnoty. Pokud předáme správný počet argumentů,
-funkce se provede. Pokud bychom předali hodnotu jiného typu, než
-funkce očekává, mohla by <em>havarovat</em>. Ale pokud by se tak
-stalo, trasovací výpis by ukazoval na místo někde uvnitř funkce. Jenže
-tento trasovací výpis říká, že se nikdy nedošlo tak daleko, aby se
-metoda <code>search()</code> zavolala. Takže problém musí být skryt v
-operaci <code>+</code>, protože ta se snaží o zkonstruování hodnoty,
-která bude nakonec předána metodě <code>search()</code>. <p><a
-href="#cantuseastringpattern">Z předchozího ladění</a> víme, že
-<var>aBuf</var> je polem bajtů. A co je tedy
-<code>self._mLastChar</code>? Jde o členskou proměnnou definovanou v
-metodě <code>reset()</code>, která je ve skutečnosti volána z metody
-<code>__init__()</code>. <pre class='nd pp'><code>class
-UniversalDetector:
+<p>Aha! Problém se nevyskytoval v první části podmínky (<code>self._mInputState == ePureAscii</code>), ale v druhé. Takže co zde vlastně způsobuje chybu <code>TypeError</code>? Možná si myslíte, že metoda <code>search()</code> očekává hodnotu odlišného typu. To by ale nevygenerovalo takový trasovací výpis. Pythonovské funkce mohou přebírat libovolné hodnoty. Pokud předáme správný počet argumentů, funkce se provede. Pokud bychom předali hodnotu jiného typu, než funkce očekává, mohla by <em>havarovat</em>. Ale pokud by se tak stalo, trasovací výpis by ukazoval na místo někde uvnitř funkce. Jenže tento trasovací výpis říká, že se nikdy nedošlo tak daleko, aby se metoda <code>search()</code> zavolala. Takže problém musí být skryt v operaci <code>+</code>, protože ta se snaží o zkonstruování hodnoty, která bude nakonec předána metodě <code>search()</code>.
+<p><a href="#cantuseastringpattern">Z předchozího ladění</a> víme, že <var>aBuf</var> je polem bajtů. A co je tedy <code>self._mLastChar</code>? Jde o členskou proměnnou definovanou v metodě <code>reset()</code>, která je ve skutečnosti volána z metody <code>__init__()</code>.
+<pre class='nd pp'><code>class UniversalDetector:
     def __init__(self):
         self._highBitDetector = re.compile(b'[\x80-\xFF]')
         self._escDetector = re.compile(b'(\033|~{)')
@@ -433,13 +410,9 @@ UniversalDetector:
         self._mGotData = False
         self._mInputState = ePureAscii
 <mark>        self._mLastChar = ''</mark></code></pre>
-<p>A tady máme odpověď. Vidíte to? <var>self._mLastChar</var> je
-řetězec, ale <var>aBuf</var> je pole bajtů. Konkatenaci (zřetězení,
-spojení) nelze provádět pro řetězec a pole bajtů&nbsp;&mdash;&nbsp;ani když
-jde o řetězec nulové délky. <p>No dobrá, ale k čemu je tedy
-<var>self._mLastChar</var>? V metodě <code>feed()</code>, jen pár
-řádků pod místem označeným v trasovacím výpisu, vidíme&hellip; <pre
-class='nd pp'><code>if self._mInputState == ePureAscii:
+<p>A tady máme odpověď. Vidíte to? <var>self._mLastChar</var> je řetězec, ale <var>aBuf</var> je pole bajtů. Konkatenaci (zřetězení, spojení) nelze provádět pro řetězec a pole bajtů&nbsp;&mdash;&nbsp;ani když jde o řetězec nulové délky.
+<p>No dobrá, ale k čemu je tedy <var>self._mLastChar</var>? V metodě <code>feed()</code>, jen pár řádků pod místem označeným v trasovacím výpisu, vidíme&hellip;
+<pre class='nd pp'><code>if self._mInputState == ePureAscii:
     if self._highBitDetector.search(aBuf):
         self._mInputState = eHighbyte
     elif (self._mInputState == ePureAscii) and \
@@ -447,31 +420,15 @@ class='nd pp'><code>if self._mInputState == ePureAscii:
         self._mInputState = eEscAscii
 
 <mark>self._mLastChar = aBuf[-1]</mark></code></pre>
-<p>Volající funkce volá metodu <code>feed()</code> pořád dokola s tím,
-že jí pokaždé předá pár bajtů. Metoda zpracuje zadané bajty (dostává
-je v <var>aBuf</var>) a potom uloží poslední bajt do
-<var>self._mLastChar</var> pro případ, že by jej potřebovala při
-dalším volání. (Při použití vícebajtového kódování by metoda
-<code>feed()</code> mohla být zavolána pro polovinu znaku a pak by
-mohla být volána pro jeho druhou polovinu.) Ale protože je teď
-<var>aBuf</var> místo řetězce polem bajtů, musíme udělat pole bajtů i
-z <var>self._mLastChar</var>. Takže: <pre class='nd pp'><code>  def
-reset(self):
+<p>Volající funkce volá metodu <code>feed()</code> pořád dokola s tím, že jí pokaždé předá pár bajtů. Metoda zpracuje zadané bajty (dostává je v <var>aBuf</var>) a potom uloží poslední bajt do <var>self._mLastChar</var> pro případ, že by jej potřebovala při dalším volání. (Při použití vícebajtového kódování by metoda <code>feed()</code> mohla být zavolána pro polovinu znaku a pak by mohla být volána pro jeho druhou polovinu.) Ale protože je teď <var>aBuf</var> místo řetězce polem bajtů, musíme udělat pole bajtů i z <var>self._mLastChar</var>. Takže:
+<pre class='nd pp'><code>  def reset(self):
       .
       .
       .
 <del>-     self._mLastChar = ''</del>
 <ins>+     self._mLastChar = b''</ins></code></pre>
-<p>Když ve všech zdrojových souborech vyhledáme
-„<code>mLastChar</code>“, najdeme podobný problém v
-<code>mbcharsetprober.py</code>. Ale místo uchovávání posledního znaku
-se uchovávají poslední <em>dva</em> znaky. Třída
-<code>MultiByteCharSetProber</code> používá k uchovávání posledních
-dvou znaků seznam jednoznakových řetězců. V Pythonu 3 musíme použít
-seznam celých čísel, protože ve skutečnosti neuchováváme znaky, ale
-bajty. (Bajty jsou prostě celá čísla v intervalu <code>0‒255</code>.)
-<pre class='nd pp'><code>  class
-MultiByteCharSetProber(CharSetProber):
+<p>Když ve všech zdrojových souborech vyhledáme „<code>mLastChar</code>“, najdeme podobný problém v <code>mbcharsetprober.py</code>. Ale místo uchovávání posledního znaku se uchovávají poslední <em>dva</em> znaky. Třída <code>MultiByteCharSetProber</code> používá k uchovávání posledních dvou znaků seznam jednoznakových řetězců. V Pythonu 3 musíme použít seznam celých čísel, protože ve skutečnosti neuchováváme znaky, ale bajty. (Bajty jsou prostě celá čísla v intervalu <code>0‒255</code>.)
+<pre class='nd pp'><code>  class MultiByteCharSetProber(CharSetProber):
       def __init__(self):
           CharSetProber.__init__(self)
           self._mDistributionAnalyzer = None
@@ -488,27 +445,19 @@ MultiByteCharSetProber(CharSetProber):
 <del>-         self._mLastChar = ['\x00', '\x00']</del>
 <ins>+         self._mLastChar = [0, 0]</ins></code></pre>
 <h3 id=unsupportedoperandtypeforplus>Nepodporované typy operandů pro +: <code>'int'</code> a <code>'bytes'</code></h3>
-<p>Mám jednu dobrou a jednu špatnou zprávu. Ta dobrá je, že děláme
-pokroky&hellip; <pre class='nd screen'><samp class="p">C:\home\chardet>
-</samp><kbd>python test.py tests\*\*</kbd>
+<p>Mám jednu dobrou a jednu špatnou zprávu. Ta dobrá je, že děláme pokroky&hellip;
+<pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml</samp>
-<samp class="traceback">Traceback (most recent call last):
+<samp class=traceback>Traceback (most recent call last):
   File "test.py", line 10, in &lt;module>
     u.feed(line)
   File "C:\home\chardet\chardet\universaldetector.py", line 101, in feed
     self._escDetector.search(self._mLastChar + aBuf):
 TypeError: unsupported operand type(s) for +: 'int' and 'bytes'</samp></pre>
-<p>&hellip;Ta špatná je, že to někdy tak nevypadá. <p>Ale on to je pokrok!
-Opravdu! I když trasovací výpis označuje stejný řádek kódu, je to jiná
-chyba, než se hlásila dříve. Pokrok! Takže kdepak máme problém teď?
-Když jsme to kontrolovali minule, nesnažil se tento řádek řetězit
-<code>int</code> s polem bajtů (<code>bytes</code>). Ve skutečnosti
-jsme strávili dost času tím, abychom <a
-href="#cantconvertbytesobject">zajistili, že
-<var>self._mLastChar</var> bude pole bajtů</a>. Jak se mohlo změnit na
-<code>int</code>? <p>Odpověď není skrytá v předchozích řádcích kódu,
-ale v následujících. <pre class='nd pp'><code>if self._mInputState ==
-ePureAscii:
+<p>&hellip; Ta špatná je, že to někdy tak nevypadá.
+<p>Ale on to je pokrok! Opravdu! I když trasovací výpis označuje stejný řádek kódu, je to jiná chyba, než se hlásila dříve. Pokrok! Takže kdepak máme problém teď? Když jsme to kontrolovali minule, nesnažil se tento řádek řetězit <code>int</code> s polem bajtů (<code>bytes</code>). Ve skutečnosti jsme strávili dost času tím, abychom <a href="#cantconvertbytesobject">zajistili, že <var>self._mLastChar</var> bude pole bajtů</a>. Jak se mohlo změnit na <code>int</code>?
+<p>Odpověď není skrytá v předchozích řádcích kódu, ale v následujících.
+<pre class='nd pp'><code>if self._mInputState == ePureAscii:
     if self._highBitDetector.search(aBuf):
         self._mInputState = eHighbyte
     elif (self._mInputState == ePureAscii) and \
@@ -517,52 +466,45 @@ ePureAscii:
 
 <mark>self._mLastChar = aBuf[-1]</mark></code></pre>
 <aside>Každý prvek řetězce je řetězcem. Každý prvek z pole bajtů je celé číslo.</aside>
-<p>Tato chyba se nevyskytne při prvním volání metody
-<code>feed()</code>. Vyskytne se <em>při druhém volání</em> poté, co
-byl proměnné <var>self._mLastChar</var> přiřazen poslední bajt
-<var>aBuf</var>. No a v čem je tedy problém? Když z bajtového pole
-získáme jeden prvek, dostaneme celé číslo a ne bajtové pole. Abychom
-ten rozdíl viděli, ukážeme si to v interaktivním shellu: <pre
-class=screen>
-<a><samp class="p">>>> </samp><kbd class="pp">aBuf = b'\xEF\xBB\xBF'</kbd>         <span class="u">①</span></a>
-<samp class="p">>>> </samp><kbd class="pp">len(aBuf)</kbd>
-<samp class="pp">3</samp>
-<samp class="p">>>> </samp><kbd class="pp">mLastChar = aBuf[-1]</kbd>
-<a><samp class="p">>>> </samp><kbd class="pp">mLastChar</kbd>                      <span class="u">②</span></a>
-<samp class="pp">191</samp>
-<a><samp class="p">>>> </samp><kbd class="pp">type(mLastChar)</kbd>                <span class="u">③</span></a>
-<samp class="pp">&lt;class 'int'></samp>
-<a><samp class="p">>>> </samp><kbd class="pp">mLastChar + aBuf</kbd>               <span class="u">④</span></a>
-<samp class="traceback">Traceback (most recent call last):
+<p>Tato chyba se nevyskytne při prvním volání metody <code>feed()</code>. Vyskytne se <em>při druhém volání</em> poté, co byl proměnné <var>self._mLastChar</var> přiřazen poslední bajt <var>aBuf</var>. No a v čem je tedy problém? Když z bajtového pole získáme jeden prvek, dostaneme celé číslo a ne bajtové pole. Abychom ten rozdíl viděli, ukážeme si to v interaktivním shellu:
+<pre class=screen>
+<a><samp class=p>>>> </samp><kbd class=pp>aBuf = b'\xEF\xBB\xBF'</kbd>         <span class=u>&#x2460;</span></a>
+<samp class=p>>>> </samp><kbd class=pp>len(aBuf)</kbd>
+<samp class=pp>3</samp>
+<samp class=p>>>> </samp><kbd class=pp>mLastChar = aBuf[-1]</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>mLastChar</kbd>                      <span class=u>&#x2461;</span></a>
+<samp class=pp>191</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>type(mLastChar)</kbd>                <span class=u>&#x2462;</span></a>
+<samp class=pp>&lt;class 'int'></samp>
+<a><samp class=p>>>> </samp><kbd class=pp>mLastChar + aBuf</kbd>               <span class=u>&#x2463;</span></a>
+<samp class=traceback>Traceback (most recent call last):
   File "&lt;stdin>", line 1, in &lt;module>
 TypeError: unsupported operand type(s) for +: 'int' and 'bytes'</samp>
-<a><samp class="p">>>> </samp><kbd class="pp">mLastChar = aBuf[-1:]</kbd>          <span class="u">⑤</span></a>
-<samp class="p">>>> </samp><kbd class="pp">mLastChar</kbd>
-<samp class="pp">b'\xbf'</samp>
-<a><samp class="p">>>> </samp><kbd class="pp">mLastChar + aBuf</kbd>               <span class="u">⑥</span></a>
-<samp class="pp">b'\xbf\xef\xbb\xbf'</samp></pre>
+<a><samp class=p>>>> </samp><kbd class=pp>mLastChar = aBuf[-1:]</kbd>          <span class=u>&#x2464;</span></a>
+<samp class=p>>>> </samp><kbd class=pp>mLastChar</kbd>
+<samp class=pp>b'\xbf'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>mLastChar + aBuf</kbd>               <span class=u>&#x2465;</span></a>
+<samp class=pp>b'\xbf\xef\xbb\xbf'</samp></pre>
 <ol>
-<li>Definujeme pole bajtů o délce 3. <li>Poslední prvek pole bajtů má hodnotu 191. <li>Je to celé číslo (integer). <li>Zřetězení pole bajtů s celým číslem nefunguje. Právě jsme navodili chybu, kterou jsme pozorovali v <code>universaldetector.py</code>. <li>A tady máme nápravu. Místo získávání posledního prvku z pole bajtů použijeme <a href="native-datatypes.html#slicinglists">operaci pro získání výřezu</a> (slicing). Vytvoříme jí nové pole bajtů, které obsahuje jen poslední prvek. To znamená, že začneme posledním prvkem a pokračujeme v tvorbě výřezu (slice), dokud nedosáhneme konce pole bajtů. Teď je <var>mLastChar</var> polem bajtů o délce 1. <li>Zřetězením pole bajtů o délce 1 s polem bajtů o délce 3 dostaneme nové pole bajtů o délce 4.
+<li>Definujeme pole bajtů o délce 3.
+<li>Poslední prvek pole bajtů má hodnotu 191.
+<li>Je to celé číslo (integer).
+<li>Zřetězení pole bajtů s celým číslem nefunguje. Právě jsme navodili chybu, kterou jsme pozorovali v <code>universaldetector.py</code>.
+<li>A tady máme nápravu. Místo získávání posledního prvku z pole bajtů použijeme <a href="native-datatypes.html#slicinglists">operaci pro získání výřezu</a> (slicing). Vytvoříme jí nové pole bajtů, které obsahuje jen poslední prvek. To znamená, že začneme posledním prvkem a pokračujeme v tvorbě výřezu (slice), dokud nedosáhneme konce pole bajtů. Teď je <var>mLastChar</var> polem bajtů o délce 1.
+<li>Zřetězením pole bajtů o délce 1 s polem bajtů o délce 3 dostaneme nové pole bajtů o délce 4.
 </ol>
-<p>Takže abychom zajistili, že bude metoda <code>feed()</code> v
-<code>universaldetector.py</code> pokračovat v činnosti nezávisle na
-tom, jak často je volána, musíme <a
-href="#cantconvertbytesobject">inicializovat
-<var>self._mLastChar</var> polem bajtů o nulové délce</a> a potom
-<em>musíme zajistit, aby tato proměnná zůstala polem bajtů</em>. <pre
-class='nd pp'><code>
-self._escDetector.search(self._mLastChar + aBuf):
+<p>Takže abychom zajistili, že bude metoda <code>feed()</code> v <code>universaldetector.py</code> pokračovat v činnosti nezávisle na tom, jak často je volána, musíme <a href="#cantconvertbytesobject">inicializovat <var>self._mLastChar</var> polem bajtů o nulové délce</a> a potom <em>musíme zajistit, aby tato proměnná zůstala polem bajtů</em>.
+<pre class='nd pp'><code>              self._escDetector.search(self._mLastChar + aBuf):
           self._mInputState = eEscAscii
 
 <del>- self._mLastChar = aBuf[-1]</del>
 <ins>+ self._mLastChar = aBuf[-1:]</ins></code></pre>
 <h3 id=ordexpectedstring>funkce <code>ord()</code> očekávala řetězec o délce 1, ale byl nalezen <code>int</code></h3>
-<p>Jste už unaveni? Už to máme skoro hotové&hellip; <pre class='nd
-screen'><samp class="p">C:\home\chardet> </samp><kbd>python test.py
-tests\*\*</kbd>
+<p>Jste už unaveni? Už to máme skoro hotové&hellip;
+<pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml                       ascii with confidence 1.0
 tests\Big5\0804.blogspot.com.xml</samp>
-<samp class="traceback">Traceback (most recent call last):
+<samp class=traceback>Traceback (most recent call last):
   File "test.py", line 10, in &lt;module>
     u.feed(line)
   File "C:\home\chardet\chardet\universaldetector.py", line 116, in feed
@@ -574,34 +516,26 @@ tests\Big5\0804.blogspot.com.xml</samp>
   File "C:\home\chardet\chardet\codingstatemachine.py", line 43, in next_state
     byteCls = self._mModel['classTable'][ord(c)]
 TypeError: ord() expected string of length 1, but int found</samp></pre>
-<p>OK, takže <var>c</var> je typu <code>int</code>, ale funkce
-<code>ord()</code> očekávala jednoznakový řetězec. No dobrá. Kde je
-definována proměnná <var>c</var>? <pre class='nd pp'><code>#
-codingstatemachine.py
+<p>OK, takže <var>c</var> je typu <code>int</code>, ale funkce <code>ord()</code> očekávala jednoznakový řetězec. No dobrá. Kde je definována proměnná <var>c</var>?
+<pre class='nd pp'><code># codingstatemachine.py
 def next_state(self, c):
     # for each byte we get its class
     # if it is first byte, we also get byte length
     byteCls = self._mModel['classTable'][ord(c)]</code></pre>
-<p>To nám nepomůže. Tady se jen předává funkci. Podívejme se hlouběji
-do zásobníku. <pre class='nd pp'><code># utf8prober.py
+<p>To nám nepomůže. Tady se jen předává funkci. Podívejme se hlouběji do zásobníku.
+<pre class='nd pp'><code># utf8prober.py
 def feed(self, aBuf):
     for c in aBuf:
         codingState = self._mCodingSM.next_state(c)</code></pre>
-<p>Vidíte to? V Pythonu 2 byla proměnná <var>aBuf</var> řetězcem,
-takže proměnná <var>c</var> byla jednoznakovým řetězcem. (Ten
-dostáváme, když iterujeme přes řetězec&nbsp;&mdash;&nbsp;všechny znaky,
-jeden po druhém.) Ale teď je <var>aBuf</var> polem bajtů, takže
-<var>c</var> je typu <code>int</code> a ne jednoznakový řetězec.
-Jinými slovy, už nepotřebujeme volat funkci <code>ord()</code>,
-protože <var>c</var> už je typu <code>int</code>! <p>Takže: <pre
-class='nd pp'><code>  def next_state(self, c):
+<p>Vidíte to? V Pythonu 2 byla proměnná <var>aBuf</var> řetězcem, takže proměnná <var>c</var> byla jednoznakovým řetězcem. (Ten dostáváme, když iterujeme přes řetězec&nbsp;&mdash;&nbsp;všechny znaky, jeden po druhém.) Ale teď je <var>aBuf</var> polem bajtů, takže <var>c</var> je typu <code>int</code> a ne jednoznakový řetězec. Jinými slovy, už nepotřebujeme volat funkci <code>ord()</code>, protože <var>c</var> už je typu <code>int</code>!
+<p>Takže:
+<pre class='nd pp'><code>  def next_state(self, c):
       # for each byte we get its class
       # if it is first byte, we also get byte length
 <del>-     byteCls = self._mModel['classTable'][ord(c)]</del>
 <ins>+     byteCls = self._mModel['classTable'][c]</ins></code></pre>
-<p>Vyhledáním „<code>ord(c)</code>“ ve všech zdrojových textech
-odhalíme podobné problémy v <code>sbcharsetprober.py</code>&hellip; <pre
-class='nd pp'><code># sbcharsetprober.py
+<p>Vyhledáním „<code>ord(c)</code>“ ve všech zdrojových textech odhalíme podobné problémy v <code>sbcharsetprober.py</code>&hellip;
+<pre class='nd pp'><code># sbcharsetprober.py
 def feed(self, aBuf):
     if not self._mModel['keepEnglishLetter']:
         aBuf = self.filter_without_english_letters(aBuf)
@@ -610,16 +544,14 @@ def feed(self, aBuf):
         return self.get_state()
     for c in aBuf:
 <mark>        order = self._mModel['charToOrderMap'][ord(c)]</mark></code></pre>
-<p>&hellip; a v <code>latin1prober.py</code>&hellip; <pre class='nd pp'><code>#
-latin1prober.py
+<p>&hellip; a v <code>latin1prober.py</code>&hellip;
+<pre class='nd pp'><code># latin1prober.py
 def feed(self, aBuf):
     aBuf = self.filter_with_english_letters(aBuf)
     for c in aBuf:
 <mark>        charClass = Latin1_CharToClass[ord(c)]</mark></code></pre>
-<p>Proměnná <var>c</var> iteruje přes <var>aBuf</var>, což znamená, že
-v ní bude celé číslo a ne jednoznakový řetězec. Řešení je stejné:
-<code>ord(c)</code> změníme na prosté <code>c</code>. <pre class='nd
-pp'><code>  # sbcharsetprober.py
+<p>Proměnná <var>c</var> iteruje přes <var>aBuf</var>, což znamená, že v ní bude celé číslo a ne jednoznakový řetězec. Řešení je stejné: <code>ord(c)</code> změníme na prosté <code>c</code>.
+<pre class='nd pp'><code>  # sbcharsetprober.py
   def feed(self, aBuf):
       if not self._mModel['keepEnglishLetter']:
           aBuf = self.filter_without_english_letters(aBuf)
@@ -638,12 +570,11 @@ pp'><code>  # sbcharsetprober.py
 <ins>+         charClass = Latin1_CharToClass[c]</ins>
 </code></pre>
 <h3 id=unorderabletypes>Neuspořádatelné datové typy: <code>int()</code> >= <code>str()</code></h3>
-<p>A spusťme to znovu. <pre class='nd screen'><samp
-class="p">C:\home\chardet> </samp><kbd>python test.py
-tests\*\*</kbd>
+<p>A spusťme to znovu.
+<pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml                       ascii with confidence 1.0
 tests\Big5\0804.blogspot.com.xml</samp>
-<samp class="traceback">Traceback (most recent call last):
+<samp class=traceback>Traceback (most recent call last):
   File "test.py", line 10, in &lt;module>
     u.feed(line)
   File "C:\home\chardet\chardet\universaldetector.py", line 116, in feed
@@ -657,11 +588,8 @@ tests\Big5\0804.blogspot.com.xml</samp>
   File "C:\home\chardet\chardet\jpcntx.py", line 176, in get_order
     if ((aStr[0] >= '\x81') and (aStr[0] &lt;= '\x9F')) or \
 TypeError: unorderable types: int() >= str()</samp></pre>
-<p>A co se děje zase tady? „Unorderable types“ čili neuspořádatelné
-typy? (Neuspořádatelné ve smyslu, že mezi těmito hodnotami nelze určit
-pořadí.) A rozdíl mezi bajty a řetězci znovu vystrkuje svou ošklivou
-hlavu. Ale podívejte se na kód: <pre class='nd pp'><code>class
-SJISContextAnalysis(JapaneseContextAnalysis):
+<p>A co se děje zase tady? „Unorderable types“ čili neuspořádatelné typy? (Neuspořádatelné ve smyslu, že mezi těmito hodnotami nelze určit pořadí.) A rozdíl mezi bajty a řetězci znovu vystrkuje svou ošklivou hlavu. Ale podívejte se na kód:
+<pre class='nd pp'><code>class SJISContextAnalysis(JapaneseContextAnalysis):
     def get_order(self, aStr):
         if not aStr: return -1, 1
         # find out current char's byte length
@@ -670,36 +598,18 @@ SJISContextAnalysis(JapaneseContextAnalysis):
             charLen = 2
         else:
             charLen = 1</code></pre>
-<p>A odkud se vzala proměnná <var>aStr</var>? Podívejme se hlouběji do
-zásobníku: <pre class='nd pp'><code>def feed(self, aBuf, aLen):
+<p>A odkud se vzala proměnná <var>aStr</var>? Podívejme se hlouběji do zásobníku:
+<pre class='nd pp'><code>def feed(self, aBuf, aLen):
     .
     .
     .
     i = self._mNeedToSkipCharNum
     while i &lt; aLen:
 <mark>        order, charLen = self.get_order(aBuf[i:i+2])</mark></code></pre>
-<p>Hele, podívejme. To je náš starý přítel <var>aBuf</var>. Jak už
-jste mohli odhadnout ze všech předchozích problémů, se kterými jsme se
-v této kapitole setkali, <var>aBuf</var> je pole bajtů. V tomto místě
-je metoda <code>feed()</code> nepředává jako celek. Vytváří z něj
-výřez. Ale jak jsme viděli <a href="#unsupportedoperandtypeforplus">v
-této kapitole o něco dříve</a>, výřezem z pole bajtů vznikne pole
-bajtů. Takže parametr <var>aStr</var>, který přebírá metoda
-<code>get_order()</code>, je pořád pole bajtů. <p>A co se tento kód s
-<var>aStr</var> pokouší dělat? Získává první prvek z pole bajtů a
-srovnává jej s jednoznakovým řetězcem. V Pythonu 2 to fungovalo,
-protože <var>aStr</var> a <var>aBuf</var> byly řetězce a
-<var>aStr[0]</var> by byl taky řetězec. U řetězců můžeme zjišťovat,
-zda jsou různé. Ale v Pythonu 3 jsou proměnné <var>aStr</var> a
-<var>aBuf</var> poli bajtů a <var>aStr[0]</var> je celé číslo. Číslo a
-řetězec nemůžeme porovnávat na neshodu, aniž jednu z hodnot explicitně
-nepřevedeme na stejný typ. <p>V tomto případě nemusíme kód komplikovat
-přidáváním explicitního převodu typu. <var>aStr[0]</var> je celé
-číslo. Vše, s čím ho srovnáváme, jsou konstanty. Můžeme je změnit z
-jednoznakových řetězců na čísla. A když už to děláme, změňme také
-identifikátor <var>aStr</var> na <var>aBuf</var>, protože to ve
-skutečnosti není řetězec (string). <pre class='nd pp'><code>  class
-SJISContextAnalysis(JapaneseContextAnalysis):
+<p>Hele, podívejme. To je náš starý přítel <var>aBuf</var>. Jak už jste mohli odhadnout ze všech předchozích problémů, se kterými jsme se v této kapitole setkali, <var>aBuf</var> je pole bajtů. V tomto místě je metoda <code>feed()</code> nepředává jako celek. Vytváří z něj výřez. Ale jak jsme viděli <a href="#unsupportedoperandtypeforplus">v této kapitole o něco dříve</a>, výřezem z pole bajtů vznikne pole bajtů. Takže parametr <var>aStr</var>, který přebírá metoda <code>get_order()</code>, je pořád pole bajtů. 
+<p>A co se tento kód s <var>aStr</var> pokouší dělat? Získává první prvek z pole bajtů a srovnává jej s jednoznakovým řetězcem. V Pythonu 2 to fungovalo, protože <var>aStr</var> a <var>aBuf</var> byly řetězce a <var>aStr[0]</var> by byl taky řetězec. U řetězců můžeme zjišťovat, zda jsou různé. Ale v Pythonu 3 jsou proměnné <var>aStr</var> a <var>aBuf</var> poli bajtů a <var>aStr[0]</var> je celé číslo. Číslo a řetězec nemůžeme porovnávat na neshodu, aniž jednu z hodnot explicitně nepřevedeme na stejný typ. 
+<p>V tomto případě nemusíme kód komplikovat přidáváním explicitního převodu typu. <var>aStr[0]</var> je celé číslo. Vše, s čím ho srovnáváme, jsou konstanty. Můžeme je změnit z jednoznakových řetězců na čísla. A když už to děláme, změňme také identifikátor <var>aStr</var> na <var>aBuf</var>, protože to ve skutečnosti není řetězec (string). 
+<pre class='nd pp'><code>  class SJISContextAnalysis(JapaneseContextAnalysis):
 <del>-     def get_order(self, aStr):</del>
 <del>-      if not aStr: return -1, 1</del>
 <ins>+     def get_order(self, aBuf):</ins>
@@ -757,24 +667,14 @@ SJISContextAnalysis(JapaneseContextAnalysis):
 <ins>+               return aBuf[1] - 0xA1, charLen</ins>
 
         return -1, charLen</code></pre>
-<p>Hledáním výskytu funkce <code>ord()</code> ve zdrojových textech
-odkryjeme stejný problém v <code>chardistribution.py</code> (konkrétně
-ve třídách <code>EUCTWDistributionAnalysis</code>,
-<code>EUCKRDistributionAnalysis</code>,
-<code>GB2312DistributionAnalysis</code>,
-<code>Big5DistributionAnalysis</code>,
-<code>SJISDistributionAnalysis</code> a
-<code>EUCJPDistributionAnalysis</code>). Ve všech případech se oprava
-podobá změnám, které jsme provedli v třídách
-<code>EUCJPContextAnalysis</code> a <code>SJISContextAnalysis</code> v
-souboru <code>jpcntx.py</code>. <h3 id=reduceisnotdefined>Globální
-jméno <code>'reduce'</code> není definováno</h3>
-<p>Ještě jedna trhlina&hellip; <pre class='nd screen'><samp
-class="p">C:\home\chardet> </samp><kbd>python test.py
-tests\*\*</kbd>
+<p>Hledáním výskytu funkce <code>ord()</code> ve zdrojových textech odkryjeme stejný problém v <code>chardistribution.py</code> (konkrétně ve třídách <code>EUCTWDistributionAnalysis</code>, <code>EUCKRDistributionAnalysis</code>, <code>GB2312DistributionAnalysis</code>, <code>Big5DistributionAnalysis</code>, <code>SJISDistributionAnalysis</code> a <code>EUCJPDistributionAnalysis</code>). Ve všech případech se oprava podobá změnám, které jsme provedli v třídách <code>EUCJPContextAnalysis</code> a <code>SJISContextAnalysis</code> v souboru <code>jpcntx.py</code>. 
+
+<h3 id=reduceisnotdefined>Globální jméno <code>'reduce'</code> není definováno</h3> 
+<p>Ještě jedna trhlina&hellip; 
+<pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml                       ascii with confidence 1.0
 tests\Big5\0804.blogspot.com.xml</samp>
-<samp class="traceback">Traceback (most recent call last):
+<samp class=traceback>Traceback (most recent call last):
   File "test.py", line 12, in &lt;module>
     u.close()
   File "C:\home\chardet\chardet\universaldetector.py", line 141, in close
@@ -782,43 +682,26 @@ tests\Big5\0804.blogspot.com.xml</samp>
   File "C:\home\chardet\chardet\latin1prober.py", line 126, in get_confidence
     total = reduce(operator.add, self._mFreqCounter)
 NameError: global name 'reduce' is not defined</samp></pre>
-<p>Podle oficiálního průvodce <a
-href="http://docs.python.org/3.0/whatsnew/3.0.html#builtins">What’s
-New In Python 3.0</a> byla funkce <code>reduce()</code> vyňata z
-globálního prostoru jmen a přesunuta do modulu <code>functools</code>.
-Citujme z průvodce: „Pokud opravdu potřebujete
-<code>functools.reduce()</code>, použijte ji. Ale v 99 procentech
-případů je explicitní cyklus <code>for</code> čitelnější.“ O tomto
-rozhodnutí se dočtete více na weblogu Guida van Rossuma: <a
-href="http://www.artima.com/weblogs/viewpost.jsp?thread=98196">The
-fate of reduce() in Python 3000</a> (Osud reduce v Pythonu 3000). <pre
-class='nd pp'><code>def get_confidence(self):
+<p>Podle oficiálního průvodce <a href="http://docs.python.org/3.0/whatsnew/3.0.html#builtins">What’s New In Python 3.0</a> byla funkce <code>reduce()</code> vyňata z globálního prostoru jmen a přesunuta do modulu <code>functools</code>. Citujme z průvodce: „Pokud opravdu potřebujete <code>functools.reduce()</code>, použijte ji. Ale v 99 procentech případů je explicitní cyklus <code>for</code> čitelnější.“ O tomto rozhodnutí se dočtete více na weblogu Guida van Rossuma: <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=98196">The fate of reduce() in Python 3000</a> (Osud reduce v Pythonu 3000).
+<pre class='nd pp'><code>def get_confidence(self):
     if self.get_state() == constants.eNotMe:
         return 0.01
-
+  
 <mark>    total = reduce(operator.add, self._mFreqCounter)</mark></code></pre>
-<p>Funkce <code>reduce()</code> přebírá dva
-argumenty&nbsp;&mdash;&nbsp;funkci a seznam (přesněji řečeno, může to být
-libovolný iterovatelný objekt)&nbsp;&mdash;&nbsp;a kumulativně aplikuje
-zadanou funkci na každý z prvků seznamu. Jinými slovy, jde o efektní a
-nepřímý způsob realizace součtu všech prvků seznamu. <p>Tato obludnost
-byla tak běžná, že byla do Pythonu přidána globální funkce
-<code>sum()</code>. <pre class='nd pp'><code>  def
-get_confidence(self):
+<p>Funkce <code>reduce()</code> přebírá dva argumenty&nbsp;&mdash;&nbsp;funkci a seznam (přesněji řečeno, může to být libovolný iterovatelný objekt)&nbsp;&mdash;&nbsp;a kumulativně aplikuje zadanou funkci na každý z prvků seznamu. Jinými slovy, jde o efektní a nepřímý způsob realizace součtu všech prvků seznamu. 
+<p>Tato obludnost byla tak běžná, že byla do Pythonu přidána globální funkce <code>sum()</code>. 
+<pre class='nd pp'><code>  def get_confidence(self):
       if self.get_state() == constants.eNotMe:
           return 0.01
-
+  
 <del>-     total = reduce(operator.add, self._mFreqCounter)</del>
 <ins>+     total = sum(self._mFreqCounter)</ins></code></pre>
-<p>Protože jsme přestali používat modul <code>operator</code>, můžeme
-také ze začátku souboru odstranit příslušný příkaz
-<code>import</code>. <pre class='nd pp'><code>  from .charsetprober
-import CharSetProber
+<p>Protože jsme přestali používat modul <code>operator</code>, můžeme také ze začátku souboru odstranit příslušný příkaz <code>import</code>. 
+<pre class='nd pp'><code>  from .charsetprober import CharSetProber
   from . import constants
 <del>- import operator</del></code></pre>
-<p>A tož, možeme to otestovať? <pre class='nd screen'><samp
-class="p">C:\home\chardet> </samp><kbd>python test.py
-tests\*\*</kbd>
+<p>A tož, možeme to otestovať? 
+<pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml                       ascii with confidence 1.0
 tests\Big5\0804.blogspot.com.xml                             Big5 with confidence 0.99
 tests\Big5\blog.worren.net.xml                               Big5 with confidence 0.99
@@ -852,17 +735,20 @@ tests\EUC-JP\arclamp.jp.xml                                  EUC-JP with confide
 .
 .
 316 tests</samp></pre>
-<p>No to mě podrž, ono to funguje! <em><a
-href="http://www.hampsterdance.com" />/me si trošku zatancuju</a></em>
-<p class=a>&#x2042; <h2 id=summary>Shrnutí</h2>
-<p>Co jsme se naučili? <ol>
-<li>Přepisování jakéhokoliv netriviálního kódu z Pythonu 2 do Pythonu 3 bude bolestivé. Nedá se to obejít. Je to obtížné. <li><a href="porting-code-to-python-3-with-2to3.html">Automatický nástroj <code>2to3</code></a> nám částečně pomůže, ale postará se jen o snadnější části&nbsp;&mdash;&nbsp;přejmenování funkcí, přejmenování modulů, úpravy syntaxe. Jde o impozantní kus inženýrské práce, ale koneckonců jde jen o inteligentního robota provádějícího vyhledávání a náhrady. <li>Problémem č. 1 při přepisování této knihovny byl rozdíl mezi řetězci a bajty. V tomto případě se to zdá být zřejmé, protože hlavním účelem knihovny <code>chardet</code> je převod proudu bajtů na řetězec. Ale „s proudem bajtů“ se setkáváme častěji, než byste si mysleli. Čtete soubor v „binárním“ režimu? Dostáváte proud bajtů. Získáváte obsah webovské stránky? Voláte webové aplikační rozhraní? Také se vrací proud bajtů. <li>Programu musíte rozumět <em>vy</em>. Skrz naskrz. Především protože jste ho napsali, ale musíte se vyrovnat se všemi jeho triky a zatuchlými kouty. Chyby jsou všude. <li>Testovací případy jsou nepostradatelné. Pokud je nemáte, nic nepřepisujte. <em>Jediný</em> důvod, proč věřím tomu, že <code>chardet</code> funguje v Pythonu 3, spočívá v tom, že jsem začal s testovací sadou, která prověřovala všechny hlavní cesty, kudy se kód ubírá. Pokud žádné testy nemáte, napište je dříve, než začnete přenos do Pythonu 3 realizovat. Pokud máte jen pár testů, napište jich víc. Pokud máte hodně testů, pak teprve může začít opravdová legrace.
+<p>No to mě podrž, ono to funguje! <em><a href="http://www.hampsterdance.com" />/me si trošku zatancuju</a></em> 
+<p class=a>&#x2042; 
+
+<h2 id=summary>Shrnutí</h2>
+<p>Co jsme se naučili? 
+<ol>
+<li>Přepisování jakéhokoliv netriviálního kódu z Pythonu 2 do Pythonu 3 bude bolestivé. Nedá se to obejít. Je to obtížné. 
+<li><a href="porting-code-to-python-3-with-2to3.html">Automatický nástroj <code>2to3</code></a> nám částečně pomůže, ale postará se jen o snadnější části&nbsp;&mdash;&nbsp;přejmenování funkcí, přejmenování modulů, úpravy syntaxe. Jde o impozantní kus inženýrské práce, ale koneckonců jde jen o inteligentního robota provádějícího vyhledávání a náhrady. 
+<li>Problémem č. 1 při přepisování této knihovny byl rozdíl mezi řetězci a bajty. V tomto případě se to zdá být zřejmé, protože hlavním účelem knihovny <code>chardet</code> je převod proudu bajtů na řetězec. Ale „s proudem bajtů“ se setkáváme častěji, než byste si mysleli. Čtete soubor v „binárním“ režimu? Dostáváte proud bajtů. Získáváte obsah webovské stránky? Voláte webové aplikační rozhraní? Také se vrací proud bajtů. 
+<li>Programu musíte rozumět <em>vy</em>. Skrz naskrz. Především protože jste ho napsali, ale musíte se vyrovnat se všemi jeho triky a zatuchlými kouty. Chyby jsou všude. 
+<li>Testovací případy jsou nepostradatelné. Pokud je nemáte, nic nepřepisujte. <em>Jediný</em> důvod, proč věřím tomu, že <code>chardet</code> funguje v Pythonu 3, spočívá v tom, že jsem začal s testovací sadou, která prověřovala všechny hlavní cesty, kudy se kód ubírá. Pokud žádné testy nemáte, napište je dříve, než začnete přenos do Pythonu 3 realizovat. Pokud máte jen pár testů, napište jich víc. Pokud máte hodně testů, pak teprve může začít opravdová legrace.
 </ol>
 
-<p class=v><a rel="prev" href="http-web-services.html" title="zpět na
-„Webové služby nad HTTP“"><span class="u">☜</span></a> <a rel="next"
-href="packaging.html" title="dopředu na „Balení pythonovských
-knihoven“"><span class="u">&#x261E;</span></a>
+<p class=v><a rel="prev" href="http-web-services.html" title="zpět na „Webové služby nad HTTP“"><span class="u">&#x261C;</span></a> <a rel="next" href="packaging.html" title="dopředu na „Balení pythonovských knihoven“"><span class="u">&#x261E;</span></a> 
 <p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
