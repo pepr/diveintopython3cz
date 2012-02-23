@@ -85,7 +85,7 @@ takže stejný kód by na vašem počítači fungovat <em>mohl</em> (pokud by
 vaším výchozím kódováním bylo <abbr>UTF-8</abbr>). Ale pokud program
 přenesete k někomu jinému (kdo používá jiné výchozí kódování, jako
 třeba CP-1252), dojde k selhání. <blockquote class=note>
-<p><span class="u">☞</span>Pokud potřebujete zjistit výchozí znakové
+<p><span class="u">&#x261E;</span>Pokud potřebujete zjistit výchozí znakové
 kódování, importujte modul <code>locale</code> a zavolejte
 <code>locale.getpreferredencoding()</code>. Na mém laptopu s Windows
 funkce vrací <code>'cp1252'</code>, ale na mém linuxovém stroji v
@@ -117,7 +117,7 @@ class=screen>
 </ol>
 
 <blockquote class=note>
-<p><span class="u">☞</span>Seznam všech možných režimů najdete <a
+<p><span class="u">&#x261E;</span>Seznam všech možných režimů najdete <a
 href="http://docs.python.org/3.1/library/io.html#module-interface">v
 dokumentaci pro funkci <code>open()</code></a>.
 </blockquote>
@@ -262,7 +262,7 @@ kdyby „skončil“ v důsledku neošetřené výjimky. Tak to opravdu je. I v
 případě, kdy kód vyvolá výjimku a celý váš program se skřípěním
 zastaví, dotčený soubor bude uzavřen. Je to zaručeno. <blockquote
 class=note>
-<p><span class="u">☞</span>Z technického pohledu příkaz
+<p><span class="u">&#x261E;</span>Z technického pohledu příkaz
 <code>with</code> vytváří <dfn>operační kontext</dfn> (runtime
 context). Objekt typu stream je v těchto příkladech využit jako
 <dfn>správce kontextu</dfn> (context manager). Python vytvoří objekt
@@ -299,7 +299,7 @@ zmíněné znaky. <p>Teď si můžete s úlevou oddechnout, protože
 „chci přečíst tento textový soubor řádek po řádku“, Python zjistí,
 který typ konců řádků se v textovém souboru používá, a zařídí, že to
 prostě bude fungovat. <blockquote class=note>
-<p><span class="u">☞</span>Pokud potřebujete získat detailní kontrolu
+<p><span class="u">&#x261E;</span>Pokud potřebujete získat detailní kontrolu
 nad tím, co se považuje za konec řádku, můžete funkci
 <code>open()</code> předat nepovinný parametr <code>newline</code>.
 Detaily najdete <a
@@ -492,7 +492,7 @@ každý druh vstupu psát různý kód. <pre class=screen>
 </ol>
 
 <blockquote class=note>
-<p><span class="u">☞</span>Třída <code>io.StringIO</code> vám umožní
+<p><span class="u">&#x261E;</span>Třída <code>io.StringIO</code> vám umožní
 chovat se k řetězci jako k textovému souboru. Existuje také třída
 <code>io.BytesIO</code>, která vám umožní chovat se k poli bajtů jako
 k binárnímu souboru.
@@ -720,7 +720,7 @@ si (vše anglicky)</h2>
 
 <p class=v><a href="refactoring.html" rel="prev" title="zpět na
 „Refaktorizace“"><span class="u">&#x261C;</span></a> <a href="xml.html"
-rel="next" title="dopředu na „XML“"><span class="u">☞</span></a>
+rel="next" title="dopředu na „XML“"><span class="u">&#x261E;</span></a>
 
 <p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>

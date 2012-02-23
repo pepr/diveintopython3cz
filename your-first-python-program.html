@@ -122,7 +122,7 @@ pythonovská funkce vrací hodnotu. Pokud funkce provede příkaz
 <code>return</code>, vrátí v něm uvedenou hodnotu. V ostatních
 případech vrací <code>None</code>, což je pythonovský ekvivalent
 hodnoty null, nil, nic, žádná hodnota.) <blockquote class=note>
-<p><span class="u">☞</span>V některých jazycích funkce (které vracejí
+<p><span class="u">&#x261E;</span>V některých jazycích funkce (které vracejí
 hodnotu) začínají slovem <code>function</code> a podprogramy (které
 nevracejí hodnotu) začínají slovem <code>sub</code>. Jazyk Python
 žádné podprogramy nezná. Vše jsou funkce, všechny funkce vracejí
@@ -135,7 +135,7 @@ argumenty&nbsp;&mdash;&nbsp;<var>size</var> a
 určen datový typ. V jazyce Python nemají proměnné explicitně určen typ
 nikdy. Python zjistí, jakého typu proměnná je, a vnitřně si to
 eviduje. <blockquote class='note compare java'>
-<p><span class="u">☞</span>V jazyce Java a v dalších jazycích se
+<p><span class="u">&#x261E;</span>V jazyce Java a v dalších jazycích se
 statickými datovými typy musíme určovat datový typ návratové hodnoty
 funkce a každého argumentu funkce. V jazyce Python nikdy explicitně
 neurčujeme datový typ čehokoliv. Python vnitřně sleduje datový typ
@@ -215,7 +215,7 @@ koncovými apostrofy (nebo uvozovkami) se stává součástí jediného
 apostrofů. Víceřádkové řetězce můžete použít kdekoliv, ale nejčastěji
 se s nimi setkáte při zápisech dokumentačních řetězců. <blockquote
 class='note compare perl5'>
-<p><span class="u">☞</span>Použití ztrojených apostrofů představuje
+<p><span class="u">&#x261E;</span>Použití ztrojených apostrofů představuje
 rovněž jednoduchý způsob pro zápis řetězců, ve kterých se vyskytují
 jak apostrofy, tak uvozovky. Chovají se jako zápis
 <code>qq/.../</code> v jazyce Perl 5.
@@ -230,7 +230,7 @@ vím, že jste o tom slyšeli v každém kurzu programování, který jste
 navštěvovali. Ale u jazyka Python máme jeden motivační faktor navíc:
 <code>docstring</code> je dostupný za běhu programu v podobě atributu
 (vlastnosti) funkce. <blockquote class=note>
-<p><span class="u">☞</span>Mnohá pythonovská integrovaná vývojová
+<p><span class="u">&#x261E;</span>Mnohá pythonovská integrovaná vývojová
 prostředí používají <code>docstring</code> pro účely kontextově
 citlivé nápovědy. To znamená, že po napsání jména funkce se její
 <code>docstring</code> zobrazí v podobě tooltipu (tj. malého
@@ -297,7 +297,7 @@ interaktivní pythonovský shell a vyzkoušejme si: <pre class=screen>
 <li>Na prvním řádku importujeme program <code>humansize</code> jako modul&nbsp;&mdash;&nbsp;kus kódu, který můžeme používat interaktivně nebo z většího pythonovského programu. Jakmile je import modulu proveden, můžeme se odkazovat na jeho veřejné funkce, třídy nebo atributy. Moduly mohou dělat totéž, čímž si zpřístupňují funkčnost z jiných modulů. A my to můžeme udělat v interaktivním pythonovském shellu také. Tato koncepce je důležitá a v knize se s ní potkáme ještě mnohokrát. <li>Pokud chceme použít funkce definované v importovaných modulech, musíme uvést i jméno modulu. Takže nestačí napsat jen <code>approximate_size</code>. Musíme uvést <code>humansize.approximate_size</code>. Pokud jste používali třídy v jazyce Java, mělo by vám to něco připomínat. <li>Zde se místo očekávaného volání funkce ptáme na jeden z jejích atributů, který je nazván <code>__doc__</code>.
 </ol>
 <blockquote class='note compare perl5'>
-<p><span class="u">☞</span>Pythonovský příkaz <code>import</code> se
+<p><span class="u">&#x261E;</span>Pythonovský příkaz <code>import</code> se
 podobá příkazu <code>require</code> v jazyce Perl. Jakmile provedeme
 <code>import</code> pythonovského modulu, vyjadřujeme přístup k jeho
 funkcím zápisem <code><var>modul</var>.<var>funkce</var></code>.
@@ -357,7 +357,7 @@ výhod spočívá v tom, že všechny pythonovské programy vypadají podobně,
 protože odsazování je vynuceno samotným jazykem a není jen věcí stylu.
 Pythonovský kód napsaný někým jiným se proto snadněji čte a je
 srozumitelnější. <blockquote class='note compare java'>
-<p><span class="u">☞</span>Python používá k oddělování příkazů konec
+<p><span class="u">&#x261E;</span>Python používá k oddělování příkazů konec
 řádku. Oddělení bloku kódu se vyjadřuje dvojtečkou a odsazením. Jazyky
 <abbr>C++</abbr> a Java používají k oddělování příkazů středník a k
 oddělování bloku kódu složené závorky.
@@ -384,7 +384,7 @@ stalo u vašeho skutečného pythonovského programu, pak by za
 předpokladu, že výjimku nic neobsloužilo, došlo ke skřípavému
 zastavení jeho běhu. Možná by vám to vyhovovalo, možná ne. <blockquote
 class='note compare java'>
-<p><span class="u">☞</span>V Pythonu nemusí funkce deklarovat, jaké
+<p><span class="u">&#x261E;</span>V Pythonu nemusí funkce deklarovat, jaké
 výjimky mohou vyvolat &mdash; na rozdíl od jazyka Java. Rozhodnutí o tom,
 jaké možné výjimky potřebujete odchytávat, záleží zcela na vás.
 </blockquote>
@@ -400,7 +400,7 @@ nedostatečným bezpečnostním oprávněním. Pokud víte, že na nějakém
 řádku může vzniknout výjimka, měli byste ji obsloužit pomocí
 konstrukce <code>try...except</code>. <blockquote class='note compare
 java'>
-<p><span class="u">☞</span>Python používá bloky
+<p><span class="u">&#x261E;</span>Python používá bloky
 <code>try...except</code> k obsluze výjimek. Příkaz <code>raise</code>
 používá k jejich generování. Jazyky Java a <abbr>C++</abbr> používají
 k obsloužení výjimek bloky <code>try...catch</code>. K jejich
@@ -422,7 +422,7 @@ jako třídy. Příkaz <code>raise</code> zde vytváří instanci třídy
 <code>'number must be non-negative'</code> (číslo nesmí být záporné).
 Ale <a href="iterators.html#defining-classes">nepředbíhejme</a>!)
 <blockquote class=note>
-<p><span class="u">☞</span>Výjimka nemusí být obsloužena ve funkci,
+<p><span class="u">&#x261E;</span>Výjimka nemusí být obsloužena ve funkci,
 která ji vyvolala. Pokud ji jedna funkce neobslouží, výjimka bude
 předána volající funkci, pak funkci, která vyvolala zase ji a tak
 dále, „nahoru po zásobníku“. Pokud není výjimka obsloužena vůbec,
@@ -540,7 +540,7 @@ if __name__ == '__main__':
     print(approximate_size(1000000000000, False))
     print(approximate_size(1000000000000))</code></pre>
 <blockquote class='note compare clang'>
-<p><span class="u">☞</span>Python &mdash; stejně jako jazyk <abbr>C</abbr> &mdash;
+<p><span class="u">&#x261E;</span>Python &mdash; stejně jako jazyk <abbr>C</abbr> &mdash;
 používá <code>==</code> pro porovnání a <code>=</code> pro přiřazení.
 Na rozdíl od jazyka <abbr>C</abbr> ale Python nepodporuje přiřazovací
 výraz, takže odpadá možnost nechtěného přiřazení hodnoty v situaci,
@@ -572,7 +572,7 @@ hodnoty. <pre class='nd screen'>
 <p class=v><a rel="prev" href="installing-python.html" title="zpět na
 „Instalujeme Python“"><span class="u">&#x261C;</span></a> <a rel="next"
 href="native-datatypes.html" title="dále na „Přirozené datové
-typy“"><span class="u">☞</span></a>
+typy“"><span class="u">&#x261E;</span></a>
 <p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>

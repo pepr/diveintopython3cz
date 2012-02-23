@@ -133,7 +133,7 @@ převodu je můžete donutit taky vy sami. <pre class=screen>
 <li>Voláním funkce <code>float()</code> můžeme explicitně vynutit převod <code>int</code> (typ pro celé číslo) na <code>float</code> (typ pro reálné číslo). <li>A nebude asi moc překvapivé, že voláním <code>int()</code> můžeme vynutit převod <code>float</code> na <code>int</code>. <li>Funkce <code>int()</code> nezaokrouhluje, ale odsekává. <li>Funkce <code>int()</code> odsekává desetinnou část u záporných čísel směrem k nule. Jde o funkci opravdového odsekávání, ne o funkci <code>floor</code> (tj. u záporných čísel dojde ke zvětšení čísla, protože například <code>&ndash;2.5</code> se změní na <code>&ndash;2</code>). <li>Čísla typu <code>float</code> jsou uložena s přesností na 15 desetinných míst. <li>Celá čísla mohou být libovolně velká.
 </ol>
 <blockquote class='note compare python2'>
-<p><span class="u">☞</span>Python 2 měl oddělené typy <code>int</code>
+<p><span class="u">&#x261E;</span>Python 2 měl oddělené typy <code>int</code>
 a <code>long</code>. Datový typ <code>int</code> byl omezen konstantou
 <code>sys.maxint</code>, která byla platformově závislá, ale obvykle
 nabývala hodnoty <code>2<sup>32</sup>-1</code>. Python 3 má pouze
@@ -161,7 +161,7 @@ href="http://www.python.org/dev/peps/pep-0237"><abbr>PEP</abbr>
 <li>Operátor <code>/</code> provádí dělení. Vrací výsledek typu <code>float</code> dokonce i v případě, že činitel i jmenovatel jsou typu <code>int</code>. <li>Operátor <code>//</code> provádí svým způsobem podivné celočíselné dělení. Pokud je výsledek kladný, můžete o něm uvažovat, že vznikl odseknutím desetinných míst (tedy nikoliv zaokrouhlením). Ale pozor na to. <li>Při celočíselném dělení záporných čísel provede operátor <code>//</code> zaokrouhlení „nahoru“ k nejbližšímu celému číslu. Z matematického hlediska zaokrouhluje „dolů“, protože <code>−6</code> je menší než <code>−5</code>. Ale pokud byste očekávali, že dojde k odseknutí na <code>−5</code>, tak byste se nachytali. <li>Operátor <code>//</code> nevrací celé číslo vždy. Pokud je čitatel nebo jmenovatel typu <code>float</code>, bude výsledek sice opět zaokrouhlen na celé číslo, ale výsledná hodnota bude typu <code>float</code>. <li>Operátor <code>**</code> znamená „umocněno na“. <code>11<sup>2</sup></code> je <code>121</code>. <li>Operátor <code>%</code> vrací zbytek po celočíselném dělení. <code>11</code> děleno <code>2</code> je <code>5</code> a zbytek je <code>1</code>. Takže výsledkem bude <code>1</code>.
 </ol>
 <blockquote class='note compare python2'>
-<p><span class="u">☞</span>V Pythonu 2 obvykle operátor <code>/</code>
+<p><span class="u">&#x261E;</span>V Pythonu 2 obvykle operátor <code>/</code>
 prováděl celočíselné dělení. Ale když jste ve svém kódu použili
 speciální direktivu, mohli jste jeho význam přepnout na reálné dělení.
 V Pythonu 3 operátor <code>/</code> vyjadřuje vždy dělení s reálným
@@ -239,13 +239,13 @@ jako false, nenulové jako true. <pre class=screen>
 jehož velikost musím předem deklarovat, které může obsahovat jen prvky
 stejného typu atd.“. Tímto směrem neuvažujte. Seznamy jsou mnohem
 lepší. <blockquote class='note compare perl5'>
-<p><span class="u">☞</span>Pythonovský seznam se podobá poli (array) v
+<p><span class="u">&#x261E;</span>Pythonovský seznam se podobá poli (array) v
 Perl 5. Proměnné polí v jazyce Perl 5 vždycky začínají znakem
 <code>@</code>. Pythonovské proměnné můžou být pojmenovány zcela
 libovolně. Python si vnitřně eviduje jejich datový typ.
 </blockquote>
 <blockquote class='note compare java'>
-<p><span class="u">☞</span>Pythonovský seznam má větší možnosti než
+<p><span class="u">&#x261E;</span>Pythonovský seznam má větší možnosti než
 pole (array) v jazyce Java. (Ačkoliv pokud je to vše, co od života
 očekáváte, můžete jej tímto způsobem používat.) Podobnější je mu třída
 <code>ArrayList</code>, která umožňuje uchovávání libovolných objektů
@@ -311,7 +311,7 @@ pohledu abstraktního záměru &mdash; vytváření podseznamu. <pre class=scree
 </ol>
 
 <blockquote class='note compare perl'>
-<p><span class="u">☞</span>Volání metody
+<p><span class="u">&#x261E;</span>Volání metody
 <code><var>a_list</var>.insert(0, <var>value</var>)</code> se podobá
 použití funkce <code>unshift()</code> v jazyce Perl. Vloží prvek na
 začátek seznamu a index všech ostatních položek se zvýší, aby vzniklo
@@ -433,7 +433,7 @@ IndexError: pop from empty list</samp></pre>
 </ol>
 
 <blockquote class='note compare perl'>
-<p><span class="u">☞</span>Volání metody seznamu <code>pop()</code>
+<p><span class="u">&#x261E;</span>Volání metody seznamu <code>pop()</code>
 bez argumentu se podobá volání funkce <code>pop()</code> v jazyce
 Perl. Odstraní poslední položku seznamu a vrátí hodnotu, která byla
 odstraněna. V jazyce Perl existuje také funkce <code>shift()</code>,
@@ -516,7 +516,7 @@ AttributeError: 'tuple' object has no attribute 'remove'</samp>
 </ul>
 
 <blockquote class=note>
-<p><span class="u">☞</span>N-tice mohou být převedeny na seznamy a
+<p><span class="u">&#x261E;</span>N-tice mohou být převedeny na seznamy a
 naopak. Zabudovaná funkce <code>tuple()</code> může převzít seznam a
 vrací n-tici se stejnými prvky. A naopak funkce <code>list()</code>
 může převzít zadanou n-tici a vrací seznam. Z pohledu účinku tedy
@@ -804,7 +804,7 @@ přidat i hodnotu, která ke klíči patří. (Hodnotu můžeme v budoucnu
 kdykoliv změnit.) Pythonovské slovníky jsou optimalizované pro
 získávání hodnoty k zadanému klíči, ale ne naopak. <blockquote
 class='note compare perl5'>
-<p><span class="u">☞</span>Pythonovský slovník se chová jako hash (čti
+<p><span class="u">&#x261E;</span>Pythonovský slovník se chová jako hash (čti
 [heš]; vyhledávací tabulka) v Perl 5. V jazyce Perl 5 začínají
 proměnné typu hash vždy znakem <code>%</code>. Pythonovské proměnné
 mohou být pojmenovány zcela libovolně. Python si vnitřně eviduje
@@ -956,7 +956,7 @@ class='nd screen'>
 <p class=v><a href="your-first-python-program.html" rel="prev"
 title="zpět na „Váš první pythonovský program“"><span
 class="u">&#x261C;</span></a> <a href="comprehensions.html" rel="next"
-title="dopředu na „Generátorová notace“"><span class="u">☞</span></a>
+title="dopředu na „Generátorová notace“"><span class="u">&#x261E;</span></a>
 <p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
