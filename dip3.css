@@ -364,7 +364,19 @@ h3:before {
 #appd h3:before {
   counter-increment: h3;
   content: 'D.' counter(h2) '.' counter(h3) ' '
-} 
+}
+#appe h1:before {
+  counter-increment: h1;
+  content: 'Příloha E. '
+}
+#appe h2:before {
+  counter-increment: h2;
+  content: 'E.' counter(h2) ' '
+}
+#appe h3:before {
+  counter-increment: h3;
+  content: 'E.' counter(h2) '.' counter(h3) ' '
+}
 aside {
   display: block;
   float: right;
