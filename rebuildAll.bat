@@ -1,4 +1,5 @@
 call clean.bat
+call changelog.bat
 pushd util
 call f.bat
 popd

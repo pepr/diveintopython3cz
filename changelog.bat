@@ -1,1 +1,1 @@
-git log --pretty=format:"%%ad  %%s" --date=short >changelog.txt
+call python3 util\buildchangelog.py
