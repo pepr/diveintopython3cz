@@ -1,7 +1,4 @@
 call clean.bat
-call changelog.bat
-pushd util
-call f.bat
-popd
+call python3 util\buildchangelog.py
+call python3 util\flatten2.py
 call pack.bat
-call gitlog.bat

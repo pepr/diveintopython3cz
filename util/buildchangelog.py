@@ -19,10 +19,26 @@ head = '''<!DOCTYPE html>
 <p>Nacházíte se zde: <a href="index.html">Domů</a> <span class="u">&#8227;</span> <a href="table-of-contents.html#troubleshooting">Ponořme se do Pythonu 3</a> <span class="u">&#8227;</span>
 <h1>Seznam oprav a úprav</h1>
 
+<p>Nejnovější záznamy jsou nahoře.
+
+
 <pre>
 '''
 
-foot = '</pre>'
+foot = '''</pre>
+
+<p class=a>&#x2042;
+
+<p class=v><a rel="prev" href="troubleshooting.html" title="zpět na „Odstraňování problémů“"><span class="u">&#x261C;</span></a> <a href="blank.html" rel="next"><span class="u">&#x261E;</span></a>
+
+<p class=c>Generováno pro český překlad.
+<script src=j/jquery.js></script>
+<script src=j/dip3.js></script> 
+'''
+
+pgmPath = os.path.split(os.path.realpath(__file__))[0]
+chlogname = os.path.join(pgmPath, '..', 'changelog.html')
+
 
 def gitLogLines():
     gitcmd = 'git log --pretty=format:"%ad  %s" --date=short'
@@ -34,12 +50,7 @@ def gitLogLines():
                 yield line.decode('cp1250') # první git commit byl v cp1250
 
 
-def pgmPath():
-    return os.path.split(os.path.realpath(__file__))[0]
-
-
 # Generovaný výstupní soubor.
-chlogname = os.path.join(pgmPath(), '..', 'changelog.html')
 with open(chlogname, 'w', encoding='utf-8') as f:
     f.write(head)
     f.write(''.join(gitLogLines()).replace('&', '&amp;'))
