@@ -1,41 +1,31 @@
-<!DOCTYPE html> <meta charset=utf-8>
+<!DOCTYPE html>
+<meta charset=utf-8>
 <title>Ponořme se do Pythonu 3</title>
 <link rel=alternate type=application/atom+xml href=http://hg.diveintopython3.org/atom-log>
 <link rel=stylesheet href=dip3.css>
 <style>
 h1:before,h2:before{content:''}
-#a,#b,#c,#d{list-style:none;margin:0 0 0 -1.7em}
+#a,#b,#c,#d,#e{list-style:none;margin:0 0 0 -1.7em}
 #a:before{content:'A. \00a0 \00a0'}
 #b:before{content:'B. \00a0 \00a0'}
 #c:before{content:'C. \00a0 \00a0'}
 #d:before{content:'D. \00a0 \00a0'}
+#e:before{content:'E. \00a0 \00a0'}
 </style>
 <link rel=stylesheet media='only screen and (max-device-width: 480px)' href=mobile.css>
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
-<!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx
-value=014021643941856155761:l5eihuescdw><input type=hidden name=ie
-value=UTF-8><input type=search name=q size=25 placeholder="powered by
-Google&trade;">&nbsp;<input type="submit" name="sa"
-value="Hledej"></div></form> -->
+<!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8><input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
 
-<p>Nacházíte se zde:&nbsp;&nbsp;<span title="Ce n&apos;est pas un
-point" style="cursor:default">•</span>
+<p>Nacházíte se zde:&nbsp;&nbsp;<span title="Ce n&apos;est pas un point" style="cursor:default">&bull;</span>
 
 <h1>Ponořme se do Pythonu 3</h1>
 
-<p><cite>Ponořme se do Pythonu 3</cite> pokrývá vlastnosti jazyka
-Python 3 a popisuje rozdíly proti jazyku Python 2. Ve srovnání s
-<cite><a href="http://www.diveintopython.net/" />Dive Into
-Python</a></cite> zde naleznete asi 20&nbsp;% revidovaného textu a asi
-80&nbsp;% nového materiálu. Knihu považuji za dokončenou, ale <a
-href="about.html">zpětná vazba je vždy vítána</a>. <h2>Obsah (<a
-href="table-of-contents.html">rozbalit</a>)</h2>
+<p><cite>Ponořme se do Pythonu 3</cite> pokrývá vlastnosti jazyka Python 3 a popisuje rozdíly proti jazyku Python 2. Ve srovnání s <cite><a href="http://www.diveintopython.net/" />Dive Into Python</a></cite> zde naleznete asi 20&nbsp;% revidovaného textu a asi 80&nbsp;% nového materiálu. Knihu považuji za dokončenou, ale <a href="about.html">zpětná vazba je vždy vítána</a>.
 
-<p style="float:right;width:245px;text-align:center;margin:0 0 0
-1.75em"><a href="http://knihy.nic.cz/"><em>K dispozici též v tištěné
-podobě!</em><br><img src="i/cover.png" alt="Ponořme se do Pythonu 3"
-/></a>
+<h2>Obsah (<a href="table-of-contents.html">rozbalit</a>)</h2>
+
+<p style="float:right;width:245px;text-align:center;margin:0 0 0 1.75em"><a href="http://knihy.nic.cz/"><em>K dispozici též v tištěné podobě!</em><br><img src="i/cover.png" alt="Ponořme se do Pythonu 3" /></a>
 
 <!-- toc -->
 <ol start=-1>
@@ -61,34 +51,23 @@ podobě!</em><br><img src="i/cover.png" alt="Ponořme se do Pythonu 3"
 <li id=b><a href="special-method-names.html">Jména speciálních metod</a>
 <li id=c><a href="where-to-go-from-here.html">Čím pokračovat</a>
 <li id=d><a href="troubleshooting.html">Odstraňování problémů</a>
+<li id=e><a href="changelog.html">Seznam oprav a úprav</a>
 </ol>
 <!-- /toc -->
 
-<p>Kniha je volně dostupná pod licencí <a rel="license"
-href="http://creativecommons.org/licenses/by-sa/3.0" />Creative
-Commons Attribution Share-Alike</a>.</p>
+<p>Kniha je volně dostupná pod licencí <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0" />Creative Commons Attribution Share-Alike</a>.</p>
 
-<p>Český překlad iniciovalo a financovalo sdružení <a
-href="http://knihy.nic.cz/page/351/o-sdruzeni/">CZ.NIC, z. s. p. o.</a>,
-které zajistilo rovněž sazbu a vydání v Edici CZ.NIC (<a
-href="http://knihy.nic.cz/">http://knihy.nic.cz/</a>). Kromě tištěné podoby
-zveřejnilo i odpovídající PDF (vzhled přebalu viz obrázek vpravo nahoře).</p>
+<p>Český překlad iniciovalo a financovalo sdružení <a href="http://knihy.nic.cz/page/351/o-sdruzeni/">CZ.NIC, z. s. p. o.</a>, které zajistilo rovněž sazbu a vydání v Edici CZ.NIC (<a href="http://knihy.nic.cz/">http://knihy.nic.cz/</a>). Kromě tištěné podoby zveřejnilo i odpovídající PDF (vzhled přebalu viz obrázek vpravo nahoře).
 
-<p>Zprostředkování kontaktu s CZ.NIC, technickou podporu (překladatelský
-nástroj memoQ) a jazykovou korekturu zajistily <a
-href="http://www.ceskepreklady.cz/">České překlady s.r.o.</a>. První překlad
-realizoval Petr Přikryl. Znamenitou věcnou korekturu (vyplývající ze
-znalosti problematiky) provedl Jiří Znamenáček.</p>
+<p>Zprostředkování kontaktu s CZ.NIC, technickou podporu (překladatelský nástroj memoQ) a jazykovou korekturu zajistily <a href="http://www.ceskepreklady.cz/">České překlady s.r.o.</a>. První překlad realizoval Petr Přikryl. Znamenitou věcnou korekturu (vyplývající ze znalosti problematiky) provedl Jiří Znamenáček.
 
-<p>HTML podobu, která kopíruje vzhled originálu, najdete na adrese <a
-href="http://diveintopython3.py.cz/">http://diveintopython3.py.cz/</a>.
-Pro lokální prohlížení si můžete stáhnout <a
-href="PonormeSeDoPythonu3-html.zip">aktuální verzi celé HTML podoby</a> (cca 1&nbsp;MB).</p>
+<p>HTML podobu, která kopíruje vzhled originálu, najdete na adrese <a href="http://diveintopython3.py.cz/">http://diveintopython3.py.cz/</a>. Pro lokální prohlížení si můžete stáhnout <a href="PonormeSeDoPythonu3-html.zip">aktuální verzi celé HTML podoby</a> (cca 1&nbsp;MB). Seznam posledních úprav najdete v příloze <a href="changelog.html">Seznam oprav a úprav</a> (jsou v ní i poznámky, které nemají přímý vztah k obsahu knihy, ale které se týkají různého technického zpracování).
 
 <p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 
-<p class=c>Originál: <a href="http://diveintopython3.ep.io/">in
-English</a> Překlady:
+<p class=c>Originál:
+<a href="http://diveintopython3.ep.io/">in English</a>
+Překlady:
 <a href="http://code.google.com/p/inmersionenpython3/" lang="es" hreflang="es">en español</a>,
 <a href="http://gpiancastelli.altervista.org/dip3-it/" lang="it" hreflang="it">in italiano</a>,
 <a href="http://ru.wikisource.org/wiki/%D0%9F%D0%BE%D0%B3%D1%80%D1%83%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B2_Python_3_(%D0%9F%D0%B8%D0%BB%D0%B3%D1%80%D0%B8%D0%BC)" lang="ru" hreflang="ru">на русском языке</a>,
