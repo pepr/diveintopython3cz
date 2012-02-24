@@ -1,4 +1,5 @@
-<!DOCTYPE html> <meta charset=utf-8>
+<!DOCTYPE html>
+<meta charset=utf-8>
 <title>Uzávěry a generátory &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
@@ -9,145 +10,121 @@ body{counter-reset:h1 6}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
-<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">&#8227;</span> <a href="table-of-contents.html#generators">Ponořme
-se do Pythonu 3</a> <span class="u">&#8227;</span>
-<p id=level>Úroveň obtížnosti: <span class="u" title="mírně
-pokročilí">&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span class="u">&#8227;</span> <a href="table-of-contents.html#generators">Ponořme se do Pythonu 3</a> <span class="u">&#8227;</span>
+<p id=level>Úroveň obtížnosti: <span class="u" title="mírně pokročilí">&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
 <h1>Uzávěry a generátory</h1>
 <blockquote class=q>
-<p><span class="u">&#x275D;</span> My spelling is Wobbly. It’s good spelling
-but it Wobbles, and the letters get in the wrong places. <span
-class="u">&#x275E;</span><br>(Mé jméno je Houpavý. Hláskuji to správně, ale
-Houpe se to a písmenka se dostávají na špatná místa.)<br>&mdash; Medvídek
-Pú
+<p><span class="u">&#x275D;</span> My spelling is Wobbly. It’s good spelling but it Wobbles, and the letters get in the wrong places. <span class="u">&#x275E;</span><br>(Mé jméno je Houpavý. Hláskuji to správně, ale Houpe se to a písmenka se dostávají na špatná místa.)<br>&mdash; Medvídek Pú
 </blockquote>
-<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
-<p class=f>Vyrůstal jsem jako syn knihovnice, která vystudovala
-angličtinu, a vždycky mě fascinovaly jazyky. Nemyslím programovací
-jazyky. Tedy ano, i programovací jazyky, ale také přirozené jazyky.
-Dejme tomu angličtina. Angličtina je schizofrenní jazyk, který si
-slova půjčuje z němčiny, francouzštiny, španělštiny a latiny (když už
-mám pár vyjmenovat). Slova „půjčuje si“ ve skutečnosti nejsou ta
-pravá, „vykrádá“ je přiléhavější. Nebo si je možná
-„asimiluje“&nbsp;&mdash;&nbsp;jako Borg. Jo, to se mi líbí. <p
-class=c><code>My jsme Borg. Zvláštnosti vašeho jazyka a původu slov
-budou přidány do našeho vlastního. Odpor je marný.</code>
-<p>V této kapitole se naučíte něco o anglických podstatných jménech v
-množném čísle. A také o funkcích, které vracejí jiné funkce, o
-regulárních výrazech pro pokročilé a o generátorech. Ale nejdříve si
-řekněme něco o tom, jak se tvoří podstatná jména v množném čísle.
-(Pokud jste nečetli <a href="regular-expressions.html">kapitolu o
-regulárních výrazech</a>, tak je na to vhodná doba právě teď. V této
-kapitole se předpokládá, že základům regulárních výrazů už rozumíte,
-protože se rychle dostaneme k látce pro pokročilé.) <p>Pokud jste
-vyrostli v anglicky mluvící zemi nebo pokud jste se angličtinu učili
-ve školních lavicích, pak pravděpodobně základní pravidla znáte: <ul>
-<li>Pokud slovo končí na S, X nebo Z, přidáme ES. Z <i>bass</i> se stává <i>basses</i>, z <i>fax</i> se stává <i>faxes</i> a <i>waltz</i> se mění na <i>waltzes</i>. <li>Pokud slovo končí hlasitým H, přidáme ES. Pokud končí tichým H, přidáme jen S. Co to je hlasité H? Když H zkombinujeme s jinými písmeny, vydá zvuk, který slyšíme. Takže <i>coach</i> [kouč] se změní na <i>coaches</i> a z <i>rash</i> [reš] se stane <i>rashes</i>, protože při vyslování slyšíme zvuky pro CH [č] a SH [š]. Ale z <i>cheetah</i> [číta] se stane <i>cheetahs</i>, protože H je zde tiché. <li>Pokud slovo končí písmenem Y, které zní jako I, změníme Y na IES. Pokud se Y kombinuje se samohláskou tak, že zní jako něco jiného, pak pouze přidáme S. <i>Vacancy</i> se proto změní na <i>vacancies</i>, ale z <i>day</i> se stane <i>days</i>. <li>Pokud všechno selhalo, přidáme S a doufáme, že to projde.
+<p id=toc>&nbsp;
+<h2 id=divingin>Ponořme se</h2>
+<p class=f>Vyrůstal jsem jako syn knihovnice, která vystudovala angličtinu, a vždycky mě fascinovaly jazyky. Nemyslím programovací jazyky. Tedy ano, i programovací jazyky, ale také přirozené jazyky. Dejme tomu angličtina. Angličtina je schizofrenní jazyk, který si slova půjčuje z němčiny, francouzštiny, španělštiny a latiny (když už mám pár vyjmenovat). Slova „půjčuje si“ ve skutečnosti nejsou ta pravá, „vykrádá“ je přiléhavější. Nebo si je možná „asimiluje“&nbsp;&mdash;&nbsp;jako Borg. Jo, to se mi líbí.
+<p class=c><code>My jsme Borg. Zvláštnosti vašeho jazyka a původu slov budou přidány do našeho vlastního. Odpor je marný.</code>
+<p>V této kapitole se naučíte něco o anglických podstatných jménech v množném čísle. A také o funkcích, které vracejí jiné funkce, o regulárních výrazech pro pokročilé a o generátorech. Ale nejdříve si řekněme něco o tom, jak se tvoří podstatná jména v množném čísle. (Pokud jste nečetli <a href="regular-expressions.html">kapitolu o regulárních výrazech</a>, tak je na to vhodná doba právě teď. V této kapitole se předpokládá, že základům regulárních výrazů už rozumíte, protože se rychle dostaneme k látce pro pokročilé.)
+<p>Pokud jste vyrostli v anglicky mluvící zemi nebo pokud jste se angličtinu učili ve školních lavicích, pak pravděpodobně základní pravidla znáte:
+<ul>
+<li>Pokud slovo končí na S, X nebo Z, přidáme ES. Z <i>bass</i> se stává <i>basses</i>, z <i>fax</i> se stává <i>faxes</i> a <i>waltz</i> se mění na <i>waltzes</i>.
+<li>Pokud slovo končí hlasitým H, přidáme ES. Pokud končí tichým H, přidáme jen S. Co to je hlasité H? Když H zkombinujeme s jinými písmeny, vydá zvuk, který slyšíme. Takže <i>coach</i> [kouč] se změní na <i>coaches</i> a z <i>rash</i> [reš] se stane <i>rashes</i>, protože při vyslování slyšíme zvuky pro CH [č] a SH [š]. Ale z <i>cheetah</i> [číta] se stane <i>cheetahs</i>, protože H je zde tiché.
+<li>Pokud slovo končí písmenem Y, které zní jako I, změníme Y na IES. Pokud se Y kombinuje se samohláskou tak, že zní jako něco jiného, pak pouze přidáme S. <i>Vacancy</i> se proto změní na <i>vacancies</i>, ale z <i>day</i> se stane <i>days</i>.
+<li>Pokud všechno selhalo, přidáme S a doufáme, že to projde.
 </ul>
-<p>(No ano, existuje spousta výjimek. Z <i>man</i> se stává <i>men</i>
-a z <i>woman</i> zase <i>women</i>, ale <i>human</i> se mění na
-<i>humans</i>. <i>Mouse</i> přechází v <i>mice</i> a z <i>louse</i> je
-zase <i>lice</i>, ale <i>house</i> se mění v <i>houses</i>.
-<i>Knife</i> přechází v <i>knives</i> a z <i>wife</i> se stávají
-<i>wives</i>, ale <i>lowlife</i> se mění v <i>lowlifes</i>. A
-nechtějte, abych začal o slovech, která jsou sama svým množným číslem
-(tj. pomnožná), jako jsou <i>sheep</i>, <i>deer</i> a <i>haiku</i>.)
-<p>V jiných jazycích je to, samozřejmě, úplně jiné. <p>Pojďme si
-navrhnout pythonovskou knihovnu, která automaticky převádí anglická
-podstatná jména do množného čísla. Začneme s uvedenými čtyřmi
-pravidly. Ale myslete na to, že budeme nevyhnutelně muset přidávat
-další. <p class=a>&#x2042; <h2 id=i-know>Já vím jak na to! Použijeme
-regulární výrazy!</h2>
-<p>Takže se díváme na slova, což znamená (přinejmenším v angličtině),
-že se díváme na řetězce znaků. Pak tady máme pravidla, která nám
-říkají, že potřebujeme najít různé kombinace znaků a podle nich něco
-udělat. Vypadá to jako práce pro regulární výrazy! <p class=d>[<a
-href="examples/plural1.py">stáhnout <code>plural1.py</code></a>] <pre
-class=pp><code>import re
+<p>(No ano, existuje spousta výjimek. Z <i>man</i> se stává <i>men</i> a z <i>woman</i> zase <i>women</i>, ale <i>human</i> se mění na <i>humans</i>. <i>Mouse</i> přechází v <i>mice</i> a z <i>louse</i> je zase <i>lice</i>, ale <i>house</i> se mění v <i>houses</i>. <i>Knife</i> přechází v <i>knives</i> a z <i>wife</i> se stávají <i>wives</i>, ale <i>lowlife</i> se mění v <i>lowlifes</i>. A nechtějte, abych začal o slovech, která jsou sama svým množným číslem (tj. pomnožná), jako jsou <i>sheep</i>, <i>deer</i> a <i>haiku</i>.)
+<p>V jiných jazycích je to, samozřejmě, úplně jiné.
+<p>Pojďme si navrhnout pythonovskou knihovnu, která automaticky převádí anglická podstatná jména do množného čísla. Začneme s uvedenými čtyřmi pravidly. Ale myslete na to, že budeme nevyhnutelně muset přidávat další.
+<p class=a>&#x2042;
 
-def plural(noun):          
-<a>    if re.search('[sxz]$', noun):             <span class="u">①</span></a>
-<a>        return re.sub('$', 'es', noun)        <span class="u">②</span></a>
+<h2 id=i-know>Já vím jak na to! Použijeme regulární výrazy!</h2>
+<p>Takže se díváme na slova, což znamená (přinejmenším v angličtině), že se díváme na řetězce znaků. Pak tady máme pravidla, která nám říkají, že potřebujeme najít různé kombinace znaků a podle nich něco udělat. Vypadá to jako práce pro regulární výrazy!
+<p class=d>[<a href="examples/plural1.py">stáhnout <code>plural1.py</code></a>]
+<pre class=pp><code>import re
+
+def plural(noun):
+<a>    if re.search('[sxz]$', noun):             <span class=u>&#x2460;</span></a>
+<a>        return re.sub('$', 'es', noun)        <span class=u>&#x2461;</span></a>
     elif re.search('[^aeioudgkprt]h$', noun):
-        return re.sub('$', 'es', noun)       
-    elif re.search('[^aeiou]y$', noun):      
-        return re.sub('y$', 'ies', noun)     
+        return re.sub('$', 'es', noun)
+    elif re.search('[^aeiou]y$', noun):
+        return re.sub('y$', 'ies', noun)
     else:
         return noun + 's'</code></pre>
 <ol>
-<li>Jde o regulární výraz, ale používá syntaxi, se kterou jste se v kapitole <a href="regular-expressions.html"><i>Regulární výrazy</i></a> nesetkali. Hranaté závorky znamenají „napasuj se přesně na jeden z těchto znaků“. Takže <code>[sxz]</code> znamená „<code>s</code> nebo <code>x</code> nebo <code>z</code>“, ale jenom jeden z nich. Znak <code>$</code> by vám měl být povědomý. Vyjadřuje shodu s koncem řetězce. Když to dáme dohromady, pak tento regulární výraz testuje, zda <var>noun</var> (podstatné jméno) končí znakem <code>s</code>, <code>x</code> nebo <code>z</code>. <li>Funkce <code>re.sub()</code> provádí náhrady v řetězci, které jsou založeny na použití regulárního výrazu.
+<li>Jde o regulární výraz, ale používá syntaxi, se kterou jste se v kapitole <a href="regular-expressions.html"><i>Regulární výrazy</i></a> nesetkali. Hranaté závorky znamenají „napasuj se přesně na jeden z těchto znaků“. Takže <code>[sxz]</code> znamená „<code>s</code> nebo <code>x</code> nebo <code>z</code>“, ale jenom jeden z nich. Znak <code>$</code> by vám měl být povědomý. Vyjadřuje shodu s koncem řetězce. Když to dáme dohromady, pak tento regulární výraz testuje, zda <var>noun</var> (podstatné jméno) končí znakem <code>s</code>, <code>x</code> nebo <code>z</code>.
+<li>Funkce <code>re.sub()</code> provádí náhrady v řetězci, které jsou založeny na použití regulárního výrazu.
 </ol>
 
 <p>Podívejme se na náhrady předepsané regulárním výrazem podrobněji.
 <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import re</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.search('[abc]', 'Mark')</kbd>    <span class="u">①</span></a>
-&lt;_sre.SRE_Match object at 0x001C1FA8&gt;
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.sub('[abc]', 'o', 'Mark')</kbd>  <span class="u">②</span></a>
-<samp class="pp">'Mork'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.sub('[abc]', 'o', 'rock')</kbd>  <span class="u">③</span></a>
-<samp class="pp">'rook'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.sub('[abc]', 'o', 'caps')</kbd>  <span class="u">④</span></a>
-<samp class="pp">'oops'</samp></pre>
+<samp class=p>>>> </samp><kbd class=pp>import re</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>re.search('[abc]', 'Mark')</kbd>    <span class=u>&#x2460;</span></a>
+&lt;_sre.SRE_Match object at 0x001C1FA8>
+<a><samp class=p>>>> </samp><kbd class=pp>re.sub('[abc]', 'o', 'Mark')</kbd>  <span class=u>&#x2461;</span></a>
+<samp class=pp>'Mork'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>re.sub('[abc]', 'o', 'rock')</kbd>  <span class=u>&#x2462;</span></a>
+<samp class=pp>'rook'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>re.sub('[abc]', 'o', 'caps')</kbd>  <span class=u>&#x2463;</span></a>
+<samp class=pp>'oops'</samp></pre>
 <ol>
-<li>Obsahuje řetězec <code>Mark</code> znak <code>a</code>, <code>b</code> nebo <code>c</code>? Ano, obsahuje <code>a</code>. <li>Fajn. Teď najdi <code>a</code>, <code>b</code> nebo <code>c</code> a nahraď ho znakem <code>o</code>. Z <code>Mark</code> se stane <code>Mork</code>. <li>Stejná funkce změní <code>rock</code> na <code>rook</code>. <li>Mohli byste si myslet, že stejná funkce změní <code>caps</code> na <code>oaps</code>, ale není tomu tak. Funkce <code>re.sub</code> nahrazuje <em>všechny</em> shody s regulárním výrazem, nejenom první z nich. Takže tento regulární výraz změní <code>caps</code> na <code>oops</code>, protože jak <code>c</code>, tak <code>a</code> se změní na <code>o</code>.
+<li>Obsahuje řetězec <code>Mark</code> znak <code>a</code>, <code>b</code> nebo <code>c</code>? Ano, obsahuje <code>a</code>.
+<li>Fajn. Teď najdi <code>a</code>, <code>b</code> nebo <code>c</code> a nahraď ho znakem <code>o</code>. Z <code>Mark</code> se stane <code>Mork</code>.
+<li>Stejná funkce změní <code>rock</code> na <code>rook</code>.
+<li>Mohli byste si myslet, že stejná funkce změní <code>caps</code> na <code>oaps</code>, ale není tomu tak. Funkce <code>re.sub</code> nahrazuje <em>všechny</em> shody s regulárním výrazem, nejenom první z nich. Takže tento regulární výraz změní <code>caps</code> na <code>oops</code>, protože jak <code>c</code>, tak <code>a</code> se změní na <code>o</code>.
 </ol>
 
-<p>A teď zpět k funkci <code>plural()</code> (množné číslo)&hellip; <pre
-class=pp><code>def plural(noun):
-    if re.search('[sxz]$', noun):            
-<a>        return re.sub('$', 'es', noun)         <span class="u">①</span></a>
-<a>    elif re.search('[^aeioudgkprt]h$', noun):  <span class="u">②</span></a>
+<p>A teď zpět k funkci <code>plural()</code> (množné číslo)&hellip;
+
+<pre class=pp><code>def plural(noun):
+    if re.search('[sxz]$', noun):
+<a>        return re.sub('$', 'es', noun)         <span class=u>&#x2460;</span></a>
+<a>    elif re.search('[^aeioudgkprt]h$', noun):  <span class=u>&#x2461;</span></a>
         return re.sub('$', 'es', noun)
-<a>    elif re.search('[^aeiou]y$', noun):        <span class="u">③</span></a>
-        return re.sub('y$', 'ies', noun)     
+<a>    elif re.search('[^aeiou]y$', noun):        <span class=u>&#x2462;</span></a>
+        return re.sub('y$', 'ies', noun)
     else:
         return noun + 's'</code></pre>
 <ol>
-<li>Zde nahrazujeme konec řetězce (shoda s předpisem <code>$</code>) řetězcem <code>es</code>. Jinými slovy, přidáváme <code>es</code> na konec řetězce. Stejného efektu byste mohli dosáhnout konkatenací řetězců (spojením), například použitím <code>noun + 'es'</code>. Ale z důvodu, které budou jasnější později, jsem se rozhodl každé pravidlo realizovat pomocí regulárního výrazu. <li>Teď se pořádně podívejte na následující novinku. Znak <code>^</code> uvedený v hranatých závorkách na začátku má speciální význam &mdash; negaci. Zápis <code>[^abc]</code> znamená „libovolný znak <em>s výjimkou</em> <code>a</code>, <code>b</code> nebo <code>c</code>“. Takže <code>[^aeioudgkprt]</code> znamená libovolný znak s výjimkou <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code>, <code>u</code>, <code>d</code>, <code>g</code>, <code>k</code>, <code>p</code>, <code>r</code> nebo <code>t</code>. Tento znak musí být následován znakem <code>h</code> a koncem řetězce. Hledáme slova, která končí písmenem H a ve kterých je H slyšet. <li>Stejně postupujeme v tomto případě: napasuj se na slova, která končí písmenem Y, kde předcházejícím znakem <em>není</em> <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code> nebo <code>u</code>. Hledáme slova, která končí písmenem Y, které zní jako I.
+<li>Zde nahrazujeme konec řetězce (shoda s předpisem <code>$</code>) řetězcem <code>es</code>. Jinými slovy, přidáváme <code>es</code> na konec řetězce. Stejného efektu byste mohli dosáhnout konkatenací řetězců (spojením), například použitím <code>noun + 'es'</code>. Ale z důvodu, které budou jasnější později, jsem se rozhodl každé pravidlo realizovat pomocí regulárního výrazu.
+<li>Teď se pořádně podívejte na následující novinku. Znak <code>^</code> uvedený v hranatých závorkách na začátku má speciální význam &mdash; negaci. Zápis <code>[^abc]</code> znamená „libovolný znak <em>s výjimkou</em> <code>a</code>, <code>b</code> nebo <code>c</code>“. Takže <code>[^aeioudgkprt]</code> znamená libovolný znak s výjimkou <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code>, <code>u</code>, <code>d</code>, <code>g</code>, <code>k</code>, <code>p</code>, <code>r</code> nebo <code>t</code>. Tento znak musí být následován znakem <code>h</code> a koncem řetězce. Hledáme slova, která končí písmenem H a ve kterých je H slyšet.
+<li>Stejně postupujeme v tomto případě: napasuj se na slova, která končí písmenem Y, kde předcházejícím znakem <em>není</em> <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code> nebo <code>u</code>. Hledáme slova, která končí písmenem Y, které zní jako I.
 </ol>
 
-<p>Podívejme se na regulární výrazy s negací podrobněji. <pre
-class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import re</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.search('[^aeiou]y$', 'vacancy')</kbd>  <span class="u">①</span></a>
-&lt;_sre.SRE_Match object at 0x001C1FA8&gt;
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.search('[^aeiou]y$', 'boy')</kbd>      <span class="u">②</span></a>
-<samp class="p">&gt;&gt;&gt; </samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.search('[^aeiou]y$', 'day')</kbd>
-<samp class="p">&gt;&gt;&gt; </samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.search('[^aeiou]y$', 'pita')</kbd>     <span class="u">③</span></a>
-<samp class="p">&gt;&gt;&gt; </samp></pre>
+<p>Podívejme se na regulární výrazy s negací podrobněji.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>import re</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>re.search('[^aeiou]y$', 'vacancy')</kbd>  <span class=u>&#x2460;</span></a>
+&lt;_sre.SRE_Match object at 0x001C1FA8>
+<a><samp class=p>>>> </samp><kbd class=pp>re.search('[^aeiou]y$', 'boy')</kbd>      <span class=u>&#x2461;</span></a>
+<samp class=p>>>> </samp>
+<samp class=p>>>> </samp><kbd class=pp>re.search('[^aeiou]y$', 'day')</kbd>
+<samp class=p>>>> </samp>
+<a><samp class=p>>>> </samp><kbd class=pp>re.search('[^aeiou]y$', 'pita')</kbd>     <span class=u>&#x2462;</span></a>
+<samp class=p>>>> </samp></pre>
 <ol>
-<li><code>vacancy</code> tomuto regulárnímu výrazu vyhovuje, protože končí na <code>cy</code> a <code>c</code> nepatří mezi <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code> nebo <code>u</code>. <li><code>boy</code> k regulárnímu výrazu nepasuje, protože končí <code>oy</code> a regulárním výrazem jsme přímo řekli, že před znakem <code>y</code> nemůže být <code>o</code>. Nepasuje ani <code>day</code>, protože končí na <code>ay</code>. <li><code>pita</code> nevyhovuje také, protože nekončí <code>y</code>.
+<li><code>vacancy</code> tomuto regulárnímu výrazu vyhovuje, protože končí na <code>cy</code> a <code>c</code> nepatří mezi <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code> nebo <code>u</code>.
+<li><code>boy</code> k regulárnímu výrazu nepasuje, protože končí <code>oy</code> a regulárním výrazem jsme přímo řekli, že před znakem <code>y</code> nemůže být <code>o</code>. Nepasuje ani <code>day</code>, protože končí na <code>ay</code>.
+<li><code>pita</code> nevyhovuje také, protože nekončí <code>y</code>.
 </ol>
 <pre class=screen>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.sub('y$', 'ies', 'vacancy')</kbd>               <span class="u">①</span></a>
-<samp class="pp">'vacancies'</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.sub('y$', 'ies', 'agency')</kbd>
-<samp class="pp">'agencies'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">re.sub('([^aeiou])y$', r'\1ies', 'vacancy')</kbd>  <span class="u">②</span></a>
-<samp class="pp">'vacancies'</samp></pre>
+<a><samp class=p>>>> </samp><kbd class=pp>re.sub('y$', 'ies', 'vacancy')</kbd>               <span class=u>&#x2460;</span></a>
+<samp class=pp>'vacancies'</samp>
+<samp class=p>>>> </samp><kbd class=pp>re.sub('y$', 'ies', 'agency')</kbd>
+<samp class=pp>'agencies'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>re.sub('([^aeiou])y$', r'\1ies', 'vacancy')</kbd>  <span class=u>&#x2461;</span></a>
+<samp class=pp>'vacancies'</samp></pre>
 <ol>
-<li>Tento regulární výraz mění <code>vacancy</code> na <code>vacancies</code> a <code>agency</code> na <code>agencies</code>, což jsme chtěli. Všimněte si, že by změnil také <code>boy</code> na <code>boies</code>, ale k tomu uvnitř funkce nikdy nedojde, protože provedení <code>re.sub</code> je podmíněno výsledkem předchozího <code>re.search</code>. <li>Když už jsme u toho, chtěl bych upozornit, že uvedené dva regulární výrazy (jeden, který rozhoduje o uplatnění pravidla, a druhý, který ho realizuje) můžeme zkombinovat do jednoho. Vypadalo by to nějak takto. S většinou výrazu už byste neměli mít problém. Používáme zapamatovanou skupinu, o které jsme si povídali v případové studii zabývající se <a href="regular-expressions.html#phonenumbers">analýzou telefonních čísel</a>. Skupina se používá k zapamatování si znaku, který se nachází před písmenem <code>y</code>. V řetězci s náhradou se pak používá nový syntaktický prvek <code>\1</code>, který znamená: „Máš tu první zapamatovanou skupinu? Vlož ji sem.“ V tomto případě se před <code>y</code> zapamatovalo <code>c</code>. V okamžiku substituce se na místo <code>c</code> vloží <code>c</code> a <code>y</code> se nahradí <code>ies</code>. (Pokud pracujete s více než jednou zapamatovanou skupinou, můžete použít <code>\2</code> a <code>\3</code> a tak dále.)
+<li>Tento regulární výraz mění <code>vacancy</code> na <code>vacancies</code> a <code>agency</code> na <code>agencies</code>, což jsme chtěli. Všimněte si, že by změnil také <code>boy</code> na <code>boies</code>, ale k tomu uvnitř funkce nikdy nedojde, protože provedení <code>re.sub</code> je podmíněno výsledkem předchozího <code>re.search</code>.
+<li>Když už jsme u toho, chtěl bych upozornit, že uvedené dva regulární výrazy (jeden, který rozhoduje o uplatnění pravidla, a druhý, který ho realizuje) můžeme zkombinovat do jednoho. Vypadalo by to nějak takto. S většinou výrazu už byste neměli mít problém. Používáme zapamatovanou skupinu, o které jsme si povídali v případové studii zabývající se <a href="regular-expressions.html#phonenumbers">analýzou telefonních čísel</a>. Skupina se používá k zapamatování si znaku, který se nachází před písmenem <code>y</code>. V řetězci s náhradou se pak používá nový syntaktický prvek <code>\1</code>, který znamená: „Máš tu první zapamatovanou skupinu? Vlož ji sem.“ V tomto případě se před <code>y</code> zapamatovalo <code>c</code>. V okamžiku substituce se na místo <code>c</code> vloží <code>c</code> a <code>y</code> se nahradí <code>ies</code>. (Pokud pracujete s více než jednou zapamatovanou skupinou, můžete použít <code>\2</code> a <code>\3</code> a tak dále.)
 </ol>
-<p>Náhrady pomocí regulárních výrazů jsou velmi mocné a syntaxe
-<code>\1</code> je činí ještě mocnějšími. Ale zkombinování celé
-operace do jednoho regulárního výrazu snižuje čitelnost a navíc toto
-řešení nevyjadřuje přímočaře způsob popisu pravidla pro vytváření
-množného čísla. Původně jsme pravidlo vyjádřili ve stylu „pokud slovo
-končí S, X nebo Z, pak přidáme ES“. Když se podíváte na zápis funkce,
-vidíte dva řádky kódu, které říkají „jestliže slovo končí S, X nebo Z,
-pak přidej ES“. Přímočařeji už to snad ani vyjádřit nejde. <p
-class=a>&#x2042; <h2 id=a-list-of-functions>Seznam funkcí</h2>
+<p>Náhrady pomocí regulárních výrazů jsou velmi mocné a syntaxe <code>\1</code> je činí ještě mocnějšími. Ale zkombinování celé operace do jednoho regulárního výrazu snižuje čitelnost a navíc toto řešení nevyjadřuje přímočaře způsob popisu pravidla pro vytváření množného čísla. Původně jsme pravidlo vyjádřili ve stylu „pokud slovo končí S, X nebo Z, pak přidáme ES“. Když se podíváte na zápis funkce, vidíte dva řádky kódu, které říkají „jestliže slovo končí S, X nebo Z, pak přidej ES“. Přímočařeji už to snad ani vyjádřit nejde.
 
-<p>Teď přidáme úroveň abstrakce. Začali jsme definicí seznamu
-pravidel: Jestliže platí tohle, udělej tamto, v opačném případě přejdi
-k dalšímu pravidlu. Dočasně zkomplikujeme jednu část programu, abychom
-mohli zjednodušit jinou. <p class=d>[<a
-href="examples/plural2.py">download <code>plural2.py</code></a>] <pre
-class=pp><code>import re
+<p class=a>&#x2042;
+
+<h2 id=a-list-of-functions>Seznam funkcí</h2>
+
+<p>Teď přidáme úroveň abstrakce. Začali jsme definicí seznamu pravidel: Jestliže platí tohle, udělej tamto, v opačném případě přejdi k dalšímu pravidlu. Dočasně zkomplikujeme jednu část programu, abychom mohli zjednodušit jinou.
+
+<p class=d>[<a href="examples/plural2.py">download <code>plural2.py</code></a>]
+<pre class=pp><code>import re
 
 def match_sxz(noun):
     return re.search('[sxz]$', noun)
@@ -161,10 +138,10 @@ def match_h(noun):
 def apply_h(noun):
     return re.sub('$', 'es', noun)
 
-<a>def match_y(noun):                             <span class="u">①</span></a>
+<a>def match_y(noun):                             <span class=u>&#x2460;</span></a>
     return re.search('[^aeiou]y$', noun)
-        
-<a>def apply_y(noun):                             <span class="u">②</span></a>
+
+<a>def apply_y(noun):                             <span class=u>&#x2461;</span></a>
     return re.sub('y$', 'ies', noun)
 
 def match_default(noun):
@@ -173,35 +150,29 @@ def match_default(noun):
 def apply_default(noun):
     return noun + 's'
 
-<a>rules = ((match_sxz, apply_sxz),               <span class="u">③</span></a>
+<a>rules = ((match_sxz, apply_sxz),               <span class=u>&#x2462;</span></a>
          (match_h, apply_h),
          (match_y, apply_y),
          (match_default, apply_default)
          )
 
-def plural(noun):           
-<a>    for matches_rule, apply_rule in rules:       <span class="u">④</span></a>
+def plural(noun):
+<a>    for matches_rule, apply_rule in rules:       <span class=u>&#x2463;</span></a>
         if matches_rule(noun):
             return apply_rule(noun)</code></pre>
 <ol>
-<li>V tomto okamžiku má každé rozhodovací (match) pravidlo svou vlastní funkci, která vrací výsledek volání funkce <code>re.search()</code>. <li>Každé aplikační pravidlo má také svou vlastní funkci, která volá funkci <code>re.sub()</code> realizující příslušný způsob vytvoření množného čísla. <li>Místo jedné funkce (<code>plural()</code>) s mnoha pravidly teď máme datovou strukturu <code>rules</code> (pravidla), která je posloupností dvojic funkcí. <li>A protože pravidla byla rozbita do podoby oddělené datové struktury, může být nová funkce <code>plural()</code> zredukována na pár řádků kódu. V cyklu <code>for</code> můžeme z datové struktury <var>rules</var> po dvojicích vybírat rozhodovací a aplikační pravidla (jedno rozhodovací a jedno aplikační). Při prvním průchodu cyklem <code>for</code> nabude <var>matches_rule</var> hodnoty <code>match_sxz</code> a <var>apply_rule</var> hodnoty <code>apply_sxz</code>. Při druhém průchodu (za předpokladu, že se tak daleko dostaneme) bude proměnné <var>matches_rule</var> přiřazena <code>match_h</code> a proměnné <var>apply_rule</var> bude přiřazena <code>apply_h</code>. Je zaručeno, že funkce nakonec něco vrátí, protože poslední rozhodovací funkce (<code>match_default</code>) vrací prostě <code>True</code>. To znamená, že se provede odpovídající aplikační pravidlo (<code>apply_default</code>).
+<li>V tomto okamžiku má každé rozhodovací (match) pravidlo svou vlastní funkci, která vrací výsledek volání funkce <code>re.search()</code>.
+<li>Každé aplikační pravidlo má také svou vlastní funkci, která volá funkci <code>re.sub()</code> realizující příslušný způsob vytvoření množného čísla.
+<li>Místo jedné funkce (<code>plural()</code>) s mnoha pravidly teď máme datovou strukturu <code>rules</code> (pravidla), která je posloupností dvojic funkcí.
+<li>A protože pravidla byla rozbita do podoby oddělené datové struktury, může být nová funkce <code>plural()</code> zredukována na pár řádků kódu. V cyklu <code>for</code> můžeme z datové struktury <var>rules</var> po dvojicích vybírat rozhodovací a aplikační pravidla (jedno rozhodovací a jedno aplikační). Při prvním průchodu cyklem <code>for</code> nabude <var>matches_rule</var> hodnoty <code>match_sxz</code> a <var>apply_rule</var> hodnoty <code>apply_sxz</code>. Při druhém průchodu (za předpokladu, že se tak daleko dostaneme) bude proměnné <var>matches_rule</var> přiřazena <code>match_h</code> a proměnné <var>apply_rule</var> bude přiřazena <code>apply_h</code>. Je zaručeno, že funkce nakonec něco vrátí, protože poslední rozhodovací funkce (<code>match_default</code>) vrací prostě <code>True</code>. To znamená, že se provede odpovídající aplikační pravidlo (<code>apply_default</code>).
 </ol>
 
 <aside>Proměnná „rules“ je posloupností dvojic funkcí.</aside>
-<p>Funkčnost této techniky je zaručena tím, že <a
-href="your-first-python-program.html#everythingisanobject">v Pythonu
-je objektem všechno</a>, včetně funkcí. Datová struktura
-<var>rules</var> obsahuje funkce&nbsp;&mdash;&nbsp;nikoliv jména funkcí, ale
-skutečné objekty funkcí. Když v cyklu <code>for</code> dojde k jejich
-přiřazení, stanou se z proměnných <var>matches_rule</var> a
-<var>apply_rule</var> skutečné funkce, které můžeme volat. Při prvním
-průchodu cyklu <code>for</code> je to stejné, jako kdyby se volala
-funkce <code>matches_sxz(noun)</code>. A pokud by vrátila objekt
-odpovídající shodě, zavolala by se funkce
-<code>apply_sxz(noun)</code>. <p>Pokud se vám přidaná úroveň abstrakce
-jeví jako matoucí, zkuste si cyklus uvnitř funkce rozepsat a shodu
-rozpoznáte snadněji. Celý cyklus <code>for</code> je ekvivalentní
-následujícímu zápisu: <pre class='nd pp'><code>
+<p>Funkčnost této techniky je zaručena tím, že <a href="your-first-python-program.html#everythingisanobject">v Pythonu je objektem všechno</a>, včetně funkcí. Datová struktura <var>rules</var> obsahuje funkce&nbsp;&mdash;&nbsp;nikoliv jména funkcí, ale skutečné objekty funkcí. Když v cyklu <code>for</code> dojde k jejich přiřazení, stanou se z proměnných <var>matches_rule</var> a <var>apply_rule</var> skutečné funkce, které můžeme volat. Při prvním průchodu cyklu <code>for</code> je to stejné, jako kdyby se volala funkce <code>matches_sxz(noun)</code>. A pokud by vrátila objekt odpovídající shodě, zavolala by se funkce <code>apply_sxz(noun)</code>.
+
+<p>Pokud se vám přidaná úroveň abstrakce jeví jako matoucí, zkuste si cyklus uvnitř funkce rozepsat a shodu rozpoznáte snadněji. Celý cyklus <code>for</code> je ekvivalentní následujícímu zápisu:
+
+<pre class='nd pp'><code>
 def plural(noun):
     if match_sxz(noun):
         return apply_sxz(noun)
@@ -212,95 +183,88 @@ def plural(noun):
     if match_default(noun):
         return apply_default(noun)</code></pre>
 
-<p>Výhodou je, že funkce <code>plural()</code> se zjednodušila.
-Přebírá sadu pravidel, která mohla být definována kdekoliv, a prochází
-jimi zobecněným způsobem. <ol>
-<li>Získej rozhodovací pravidlo (match rule). <li>Došlo ke shodě? Tak volej aplikační pravidlo a vrať výsledek. <li>Nedošlo ke shodě? Přejdi ke kroku 1.
+<p>Výhodou je, že funkce <code>plural()</code> se zjednodušila. Přebírá sadu pravidel, která mohla být definována kdekoliv, a prochází jimi zobecněným způsobem.
+
+<ol>
+<li>Získej rozhodovací pravidlo (match rule).
+<li>Došlo ke shodě? Tak volej aplikační pravidlo a vrať výsledek.
+<li>Nedošlo ke shodě? Přejdi ke kroku 1.
 </ol>
 
-<p>Pravidla mohou být definována kdekoliv, jakýmkoliv způsobem. Funkci
-<code>plural()</code> je to jedno. <p>Dobrá, ale bylo vůbec přidání
-úrovně abstrakce k něčemu dobré? No, zatím ne. Zvažme, co to znamená,
-když k funkci chceme přidat nové pravidlo. V prvním příkladu by to
-znamenalo přidat do funkce <code>plural()</code> příkaz
-<code>if</code>. V tomto druhém příkladu by to vyžadovalo přidání
-dalších dvou funkcí <code>match_foo()</code> a
-<code>apply_foo()</code>. Pak bychom museli určit, do kterého místa
-posloupnosti <var>rules</var> má být dvojice s rozhodovací a aplikační
-funkcí zařazena (poloha vůči ostatním pravidlům). <p>Ale to jsme již
-jen krůček od následující podkapitoly. Pojďme na to... <p class=a>&#x2042;
+<p>Pravidla mohou být definována kdekoliv, jakýmkoliv způsobem. Funkci <code>plural()</code> je to jedno.
+
+<p>Dobrá, ale bylo vůbec přidání úrovně abstrakce k něčemu dobré? No, zatím ne. Zvažme, co to znamená, když k funkci chceme přidat nové pravidlo. V prvním příkladu by to znamenalo přidat do funkce <code>plural()</code> příkaz <code>if</code>. V tomto druhém příkladu by to vyžadovalo přidání dalších dvou funkcí <code>match_foo()</code> a <code>apply_foo()</code>. Pak bychom museli určit, do kterého místa posloupnosti <var>rules</var> má být dvojice s rozhodovací a aplikační funkcí zařazena (poloha vůči ostatním pravidlům).
+
+<p>Ale to jsme již jen krůček od následující podkapitoly. Pojďme na to...
+
+<p class=a>&#x2042;
+
 <h2 id=a-list-of-patterns>Seznam vzorků</h2>
 
-<p>Ono ve skutečnosti není nezbytné, abychom pro každé rozhodovací a
-aplikační pravidlo definovali samostatné pojmenované funkce. Nikdy je
-nevoláme přímo. Přidáváme je do posloupnosti <var>rules</var> a voláme
-je přes tuto strukturu. Každá z těchto funkcí navíc odpovídá jednomu
-ze dvou vzorů. Všechny rozhodovací funkce volají
-<code>re.search()</code> a všechny aplikační funkce volají
-<code>re.sub()</code>. Rozložme tyto vzory tak, abychom si usnadnili
-budování nových pravidel. <p class=d>[<a
-href="examples/plural3.py">download <code>plural3.py</code></a>] <pre
-class=pp><code>import re
+<p>Ono ve skutečnosti není nezbytné, abychom pro každé rozhodovací a aplikační pravidlo definovali samostatné pojmenované funkce. Nikdy je nevoláme přímo. Přidáváme je do posloupnosti <var>rules</var> a voláme je přes tuto strukturu. Každá z těchto funkcí navíc odpovídá jednomu ze dvou vzorů. Všechny rozhodovací funkce volají <code>re.search()</code> a všechny aplikační funkce volají <code>re.sub()</code>. Rozložme tyto vzory tak, abychom si usnadnili budování nových pravidel.
+
+<p class=d>[<a href="examples/plural3.py">download <code>plural3.py</code></a>]
+<pre class=pp><code>import re
 
 def build_match_and_apply_functions(pattern, search, replace):
-<a>    def matches_rule(word):                                     <span class="u">①</span></a>
+<a>    def matches_rule(word):                                     <span class=u>&#x2460;</span></a>
         return re.search(pattern, word)
-<a>    def apply_rule(word):                                       <span class="u">②</span></a>
+<a>    def apply_rule(word):                                       <span class=u>&#x2461;</span></a>
         return re.sub(search, replace, word)
-<a>    return (matches_rule, apply_rule)                           <span class="u">③</span></a></code></pre>
+<a>    return (matches_rule, apply_rule)                           <span class=u>&#x2462;</span></a></code></pre>
 <ol>
-<li><code>build_match_and_apply_functions()</code> je funkce, která vytváří další funkce dynamicky. Přebírá argumenty <var>pattern</var>, <var>search</var> a <var>replace</var>. Pak definuje rozhodovací funkci <code>matches_rule()</code>, která volá <code>re.search()</code> s vzorkem <var>pattern</var>, který byl předán funkci <code>build_match_and_apply_functions()</code>, a se slovem <var>word</var>, které se předává právě budované funkci <code>matches_rule()</code>. Ty jo! <li>Aplikační funkce se vytváří stejným způsobem. Aplikační funkce přebírá jeden parametr a volá <code>re.sub()</code> s argumenty <var>search</var> a <var>replace</var>, které byly předány funkci <code>build_match_and_apply_functions()</code>, a s parametrem <var>word</var>, který se předává právě budované funkci <code>apply_rule()</code>. Této technice, kdy se uvnitř dynamicky budované funkce použijí vnější hodnoty, se říká <em>uzávěr</em> (closure). Uvnitř budované aplikační funkce v podstatě definujeme konstanty. Funkce přebírá jeden parametr (<var>word</var>), potom se chová podle něj, ale také podle dalších dvou hodnot (<var>search</var> a <var>replace</var>), které platily v době definice aplikační funkce. <li>Nakonec funkce <code>build_match_and_apply_functions()</code> vrátila dvojici hodnot &mdash; dvě funkce, které jsme právě vytvořili. Konstanty, které jsme uvnitř těchto funkcí definovali (<var>pattern</var> uvnitř funkce <code>matches_rule()</code> a <var>search</var> a <var>replace</var> uvnitř funkce <code>apply_rule()</code>), v nich zůstávají uzavřené dokonce i po návratu z funkce <code>build_match_and_apply_functions()</code>. To je prostě špica!
+<li><code>build_match_and_apply_functions()</code> je funkce, která vytváří další funkce dynamicky. Přebírá argumenty <var>pattern</var>, <var>search</var> a <var>replace</var>. Pak definuje rozhodovací funkci <code>matches_rule()</code>, která volá <code>re.search()</code> s vzorkem <var>pattern</var>, který byl předán funkci <code>build_match_and_apply_functions()</code>, a se slovem <var>word</var>, které se předává právě budované funkci <code>matches_rule()</code>. Ty jo!
+<li>Aplikační funkce se vytváří stejným způsobem. Aplikační funkce přebírá jeden parametr a volá <code>re.sub()</code> s argumenty <var>search</var> a <var>replace</var>, které byly předány funkci <code>build_match_and_apply_functions()</code>, a s parametrem <var>word</var>, který se předává právě budované funkci <code>apply_rule()</code>. Této technice, kdy se uvnitř dynamicky budované funkce použijí vnější hodnoty, se říká <em>uzávěr</em> (closure). Uvnitř budované aplikační funkce v podstatě definujeme konstanty. Funkce přebírá jeden parametr (<var>word</var>), potom se chová podle něj, ale také podle dalších dvou hodnot (<var>search</var> a <var>replace</var>), které platily v době definice aplikační funkce.
+<li>Nakonec funkce <code>build_match_and_apply_functions()</code> vrátila dvojici hodnot &mdash; dvě funkce, které jsme právě vytvořili. Konstanty, které jsme uvnitř těchto funkcí definovali (<var>pattern</var> uvnitř funkce <code>matches_rule()</code> a <var>search</var> a <var>replace</var> uvnitř funkce <code>apply_rule()</code>), v nich zůstávají uzavřené dokonce i po návratu z funkce <code>build_match_and_apply_functions()</code>. To je prostě špica!
 </ol>
 
-<p>Pokud se vám to zdá neuvěřitelně matoucí (a to by mělo, protože to
-je fakt ujeté), může se to vyjasnit, když uvidíte, jak se to používá.
-<pre class=pp><code><a>patterns = \
-<span class="u">①</span></a>
+<p>Pokud se vám to zdá neuvěřitelně matoucí (a to by mělo, protože to je fakt ujeté), může se to vyjasnit, když uvidíte, jak se to používá.
+
+<pre class=pp><code><a>patterns = \                                                        <span class=u>&#x2460;</span></a>
   (
     ('[sxz]$',           '$',  'es'),
     ('[^aeioudgkprt]h$', '$',  'es'),
     ('(qu|[^aeiou])y$',  'y$', 'ies'),
-<a>    ('$',                '$',  's')                                 <span class="u">②</span></a>
+<a>    ('$',                '$',  's')                                 <span class=u>&#x2461;</span></a>
   )
-<a>rules = [build_match_and_apply_functions(pattern, search, replace)  <span class="u">③</span></a>
+<a>rules = [build_match_and_apply_functions(pattern, search, replace)  <span class=u>&#x2462;</span></a>
          for (pattern, search, replace) in patterns]</code></pre>
 <ol>
-<li>Naše pravidla (rules) pro tvorbu množného čísla jsou nyní definována jako n-tice trojic <em>řetězců</em> (ne funkcí). Prvním řetězcem v každé skupině je regulární výraz, který se bude používat v <code>re.search()</code> pro rozhodování, zda se toto pravidlo uplatňuje. Druhý a třetí řetězec ve skupině jsou výrazy pro vyhledání a náhradu, které se použijí v <code>re.sub()</code> pro aplikaci pravidla, které sloveso převede do množného čísla. <li>U záložního pravidla došlo k drobné změně. Pokud v předchozím příkladu nebylo nalezeno žádné ze specifičtějších pravidel, vracela funkce <code>match_default()</code> hodnotu <code>True</code>, což znamenalo, že se na konec slova jednoduše přidá <code>s</code>. Tento dosahuje stejné funkčnosti trochu jinak. Poslední regulární výraz zjišťuje, jestli slovo končí (<code>$</code> odpovídá konci řetězce). A samozřejmě, každý řetězec končí (dokonce i prázdný řetězec), takže shoda s tímto výrazem je nalezena vždy. Tento přístup tedy plní stejný účel jako funkce <code>match_default()</code>, která vždycky vracela <code>True</code>. Pokud nepasuje žádné specifičtější pravidlo, zajistí přidání <code>s</code> na konec daného slova. <li>Tento řádek je magický. Přebírá řetězce z posloupnosti <var>patterns</var> a mění je na posloupnost funkcí. Jak to dělá? „Zobrazením“ řetězců prostřednictvím funkce <code>build_match_and_apply_functions()</code>. To znamená, že se vezme každá trojice řetězců a ty se předají jako argumenty funkci <code>build_match_and_apply_functions()</code>. Funkce <code>build_match_and_apply_functions()</code> vrátí dvojici funkcí. To znamená, že struktura <var>rules</var> získá funkčně shodnou podobu jako v předchozím příkladu &mdash; seznam dvojic, kde každá obsahuje dvě funkce. První funkce je rozhodovací (match; pasovat) a volá <code>re.search()</code>, druhá funkce je aplikační a volá <code>re.sub()</code>.
+<li>Naše pravidla (rules) pro tvorbu množného čísla jsou nyní definována jako n-tice trojic <em>řetězců</em> (ne funkcí). Prvním řetězcem v každé skupině je regulární výraz, který se bude používat v <code>re.search()</code> pro rozhodování, zda se toto pravidlo uplatňuje. Druhý a třetí řetězec ve skupině jsou výrazy pro vyhledání a náhradu, které se použijí v <code>re.sub()</code> pro aplikaci pravidla, které sloveso převede do množného čísla.
+<li>U záložního pravidla došlo k drobné změně. Pokud v předchozím příkladu nebylo nalezeno žádné ze specifičtějších pravidel, vracela funkce <code>match_default()</code> hodnotu <code>True</code>, což znamenalo, že se na konec slova jednoduše přidá <code>s</code>. Tento dosahuje stejné funkčnosti trochu jinak. Poslední regulární výraz zjišťuje, jestli slovo končí (<code>$</code> odpovídá konci řetězce). A samozřejmě, každý řetězec končí (dokonce i prázdný řetězec), takže shoda s tímto výrazem je nalezena vždy. Tento přístup tedy plní stejný účel jako funkce <code>match_default()</code>, která vždycky vracela <code>True</code>. Pokud nepasuje žádné specifičtější pravidlo, zajistí přidání <code>s</code> na konec daného slova.
+<li>Tento řádek je magický. Přebírá řetězce z posloupnosti <var>patterns</var> a mění je na posloupnost funkcí. Jak to dělá? „Zobrazením“ řetězců prostřednictvím funkce <code>build_match_and_apply_functions()</code>. To znamená, že se vezme každá trojice řetězců a ty se předají jako argumenty funkci <code>build_match_and_apply_functions()</code>. Funkce <code>build_match_and_apply_functions()</code> vrátí dvojici funkcí. To znamená, že struktura <var>rules</var> získá funkčně shodnou podobu jako v předchozím příkladu &mdash; seznam dvojic, kde každá obsahuje dvě funkce. První funkce je rozhodovací (match; pasovat) a volá <code>re.search()</code>, druhá funkce je aplikační a volá <code>re.sub()</code>.
 </ol>
 
-<p>Skript zakončíme hlavním vstupním bodem, funkcí
-<code>plural()</code>. <pre class=pp><code>def plural(noun):
-<a>    for matches_rule, apply_rule in rules:  <span class="u">①</span></a>
+<p>Skript zakončíme hlavním vstupním bodem, funkcí <code>plural()</code>.
+
+<pre class=pp><code>def plural(noun):
+<a>    for matches_rule, apply_rule in rules:  <span class=u>&#x2460;</span></a>
         if matches_rule(noun):
             return apply_rule(noun)</code></pre>
 <ol>
 <li>A protože je seznam <var>rules</var> stejný jako v předchozím příkladu (a to opravdu je), nemělo by být žádným překvapením, že se funkce <code>plural()</code> vůbec nezměnila. Je zcela obecná. Přebírá seznam funkcí realizujících pravidla a volá je v uvedeném pořadí. Nestará se o to, jak jsou pravidla definována. V předcházejícím příkladu byla definována jako pojmenované funkce. Teď jsou funkce pravidel budovány dynamicky zobrazením řetězců ze vstupního seznamu voláním funkce <code>build_match_and_apply_functions()</code>. Na tom ale vůbec nezáleží. Funkce <code>plural()</code> pracuje stále stejným způsobem.
 </ol>
 
-<p class=a>&#x2042; <h2 id=a-file-of-patterns>Soubor vzorků</h2>
+<p class=a>&#x2042;
 
-<p>Jsme v situaci, kdy už jsme rozpoznali veškeré duplicity v kódu a
-přešli jsme na dostatečnou úroveň abstrakce. To nám umožnilo definovat
-pravidla pro vytváření množného čísla v podobě seznamu řetězců. Další
-logický krok spočívá v uložení těchto řetězců v odděleném souboru.
-Pravidla (v podobě řetězců) pak mohou být udržována odděleně od kódu,
-který je používá. <p>Nejdříve vytvořme textový soubor, který obsahuje
-požadovaná pravidla. Nebudeme používat žádné efektní datové struktury.
-Stačí nám tři sloupce řetězců oddělené bílými znaky (whitespace; zde
-mezery nebo tabulátory). Soubor nazveme
-<code>plural4-rules.txt</code>. <p class=d>[<a
-href="examples/plural4-rules.txt">stáhnout
-<code>plural4-rules.txt</code></a>] <pre class='nd pp'><code>[sxz]$
-$    es
+<h2 id=a-file-of-patterns>Soubor vzorků</h2>
+
+<p>Jsme v situaci, kdy už jsme rozpoznali veškeré duplicity v kódu a přešli jsme na dostatečnou úroveň abstrakce. To nám umožnilo definovat pravidla pro vytváření množného čísla v podobě seznamu řetězců. Další logický krok spočívá v uložení těchto řetězců v odděleném souboru. Pravidla (v podobě řetězců) pak mohou být udržována odděleně od kódu, který je používá.
+
+<p>Nejdříve vytvořme textový soubor, který obsahuje požadovaná pravidla. Nebudeme používat žádné efektní datové struktury. Stačí nám tři sloupce řetězců oddělené bílými znaky (whitespace; zde mezery nebo tabulátory). Soubor nazveme <code>plural4-rules.txt</code>.
+
+<p class=d>[<a href="examples/plural4-rules.txt">stáhnout <code>plural4-rules.txt</code></a>]
+<pre class='nd pp'><code>[sxz]$               $    es
 [^aeioudgkprt]h$     $    es
 [^aeiou]y$          y$    ies
 $                    $    s</code></pre>
 
-<p>Teď se podívejme na to, jak můžeme soubor s pravidly použít. <p
-class=d>[<a href="examples/plural4.py">download
-<code>plural4.py</code></a>] <pre class=pp><code>import re
+<p>Teď se podívejme na to, jak můžeme soubor s pravidly použít.
 
-<a>def build_match_and_apply_functions(pattern, search, replace):  <span class="u">①</span></a>
+<p class=d>[<a href="examples/plural4.py">stáhnout <code>plural4.py</code></a>]
+<pre class=pp><code>import re
+
+<a>def build_match_and_apply_functions(pattern, search, replace):  <span class=u>&#x2460;</span></a>
     def matches_rule(word):
         return re.search(pattern, word)
     def apply_rule(word):
@@ -308,29 +272,29 @@ class=d>[<a href="examples/plural4.py">download
     return (matches_rule, apply_rule)
 
 rules = []
-<a>with open('plural4-rules.txt', encoding='utf-8') as pattern_file:  <span class="u">②</span></a>
-<a>    for line in pattern_file:                                      <span class="u">③</span></a>
-<a>        pattern, search, replace = line.split(None, 3)             <span class="u">④</span></a>
-<a>        rules.append(build_match_and_apply_functions(              <span class="u">⑤</span></a>
+<a>with open('plural4-rules.txt', encoding='utf-8') as pattern_file:  <span class=u>&#x2461;</span></a>
+<a>    for line in pattern_file:                                      <span class=u>&#x2462;</span></a>
+<a>        pattern, search, replace = line.split(None, 3)             <span class=u>&#x2463;</span></a>
+<a>        rules.append(build_match_and_apply_functions(              <span class=u>&#x2464;</span></a>
                 pattern, search, replace))</code></pre>
 <ol>
-<li>Funkce <code>build_match_and_apply_functions()</code> se nezměnila. Pro dynamické vytvoření funkcí, které používají proměnné definované vnější funkcí, pořád používáme uzávěry. <li>Globální funkce <code>open()</code> otvírá soubor a vrací souborový objekt. V tomto případě otvíráme soubor, který obsahuje vzorky řetězců pro převádění podstatných jmen do množného čísla. Příkaz <code>with</code> vytváří takzvaný <i>kontext</i>. Jakmile blok příkazu <code>with</code> skončí, Python soubor automaticky uzavře, a to i v případě, kdyby byla uvnitř bloku <code>with</code> vyvolána výjimka. O blocích <code>with</code> a o souborových objektech se dozvíte více v kapitole <a href="files.html">Soubory</a>. <li>Obrat <code>for line in &lt;souborový_objekt&gt;</code> čte data z otevřeného souborového objektu řádek po řádku a přiřazuje text do proměnné <var>line</var> (řádek). O čtení ze souboru se dozvíte více v kapitole <a href="files.html">Soubory</a>. <li>Každý řádek souboru obsahuje tři hodnoty, ale jsou oddělené bílými znaky (tabulátory nebo mezerami, na tom nezáleží). Rozdělíme je použitím řetězcové metody <code>split()</code>. Prvním argumentem metody <code>split()</code> je <code>None</code>, což vyjadřuje požadavek „rozdělit v místech posloupností bílých znaků (tabulátorů nebo mezer, na tom nezáleží)“. Druhým argumentem je hodnota <code>3</code>, což znamená „rozdělit na místě bílých znaků maximálně 3krát a zbytek řádku ponechat beze změny“. Například řádek <code>[sxz]$ $ es</code> bude rozložen na seznam <code>['[sxz]$', '$', 'es']</code>. To znamená, že proměnná <var>pattern</var> získá hodnotu <code>'[sxz]$'</code>, proměnná <var>search</var> hodnotu <code>'$'</code> a proměnná <var>replace</var> hodnotu <code>'es'</code>. V tak krátkém řádku kódu se skrývá docela hodně síly. <li>Nakonec předáme <code>pattern</code>, <code>search</code> a <code>replace</code> funkci <code>build_match_and_apply_functions()</code>, která vrátí dvojici funkcí. Tuto dvojici připojíme na konec seznamu pravidel, takže nakonec bude <var>rules</var> uchovávat seznam rozhodovacích a aplikačních funkcí, které potřebuje funkce <code>plural()</code>.
+<li>Funkce <code>build_match_and_apply_functions()</code> se nezměnila. Pro dynamické vytvoření funkcí, které používají proměnné definované vnější funkcí, pořád používáme uzávěry.
+<li>Globální funkce <code>open()</code> otvírá soubor a vrací souborový objekt. V tomto případě otvíráme soubor, který obsahuje vzorky řetězců pro převádění podstatných jmen do množného čísla. Příkaz <code>with</code> vytváří takzvaný <i>kontext</i>. Jakmile blok příkazu <code>with</code> skončí, Python soubor automaticky uzavře, a to i v případě, kdyby byla uvnitř bloku <code>with</code> vyvolána výjimka. O blocích <code>with</code> a o souborových objektech se dozvíte více v kapitole <a href="files.html">Soubory</a>.
+<li>Obrat <code>for line in &lt;souborový_objekt&gt;</code> čte data z otevřeného souborového objektu řádek po řádku a přiřazuje text do proměnné <var>line</var> (řádek). O čtení ze souboru se dozvíte více v kapitole <a href="files.html">Soubory</a>.
+<li>Každý řádek souboru obsahuje tři hodnoty, ale jsou oddělené bílými znaky (tabulátory nebo mezerami, na tom nezáleží). Rozdělíme je použitím řetězcové metody <code>split()</code>. Prvním argumentem metody <code>split()</code> je <code>None</code>, což vyjadřuje požadavek „rozdělit v místech posloupností bílých znaků (tabulátorů nebo mezer, na tom nezáleží)“. Druhým argumentem je hodnota <code>3</code>, což znamená „rozdělit na místě bílých znaků maximálně 3krát a zbytek řádku ponechat beze změny“. Například řádek <code>[sxz]$ $ es</code> bude rozložen na seznam <code>['[sxz]$', '$', 'es']</code>. To znamená, že proměnná <var>pattern</var> získá hodnotu <code>'[sxz]$'</code>, proměnná <var>search</var> hodnotu <code>'$'</code> a proměnná <var>replace</var> hodnotu <code>'es'</code>. V tak krátkém řádku kódu se skrývá docela hodně síly.
+<li>Nakonec předáme <code>pattern</code>, <code>search</code> a <code>replace</code> funkci <code>build_match_and_apply_functions()</code>, která vrátí dvojici funkcí. Tuto dvojici připojíme na konec seznamu pravidel, takže nakonec bude <var>rules</var> uchovávat seznam rozhodovacích a aplikačních funkcí, které potřebuje funkce <code>plural()</code>.
 </ol>
 
-<p>Zdokonalení spočívá v tom, že jsme pravidla pro vytváření množného
-čísla podstatných jmen oddělili do vnějšího souboru, který může být
-udržován odděleně od kódu, který pravidla využívá. Kód se stal kódem,
-z dat jsou data a život je krásnější. <p class=a>&#x2042; <h2
-id=generators>Generátory</h2>
+<p>Zdokonalení spočívá v tom, že jsme pravidla pro vytváření množného čísla podstatných jmen oddělili do vnějšího souboru, který může být udržován odděleně od kódu, který pravidla využívá. Kód se stal kódem, z dat jsou data a život je krásnější.
 
-<p>Nebylo by skvělé, kdybychom měli obecnou funkci
-<code>plural()</code>, která si umí sama zpracovat soubor s pravidly?
-Získala by pravidla, zkontrolovala by, které se má uplatnit, provedla
-by příslušné transformace, přešla by k dalšímu pravidlu. To je to, co
-bychom po funkci <code>plural()</code> chtěli. A to je to, co by
-funkce <code>plural()</code> měla dělat. <p class=d>[<a
-href="examples/plural5.py">stáhnout <code>plural5.py</code></a>] <pre
-class='nd pp'><code>def rules(rules_filename):
+<p class=a>&#x2042;
+
+<h2 id=generators>Generátory</h2>
+
+<p>Nebylo by skvělé, kdybychom měli obecnou funkci <code>plural()</code>, která si umí sama zpracovat soubor s pravidly? Získala by pravidla, zkontrolovala by, které se má uplatnit, provedla by příslušné transformace, přešla by k dalšímu pravidlu. To je to, co bychom po funkci <code>plural()</code> chtěli. A to je to, co by funkce <code>plural()</code> měla dělat.
+
+<p class=d>[<a href="examples/plural5.py">stáhnout <code>plural5.py</code></a>]
+<pre class='nd pp'><code>def rules(rules_filename):
     with open(rules_filename, encoding='utf-8') as pattern_file:
         for line in pattern_file:
             pattern, search, replace = line.split(None, 3)
@@ -342,101 +306,102 @@ def plural(noun, rules_filename='plural5-rules.txt'):
             return apply_rule(noun)
     raise ValueError('no matching rule for {0}'.format(noun))</code></pre>
 
-<p>Jak sakra funguje <em>tohle</em>? Podívejme se nejdříve na
-interaktivní příklad. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">def make_counter(x):</kbd>
-<samp class="p">... </samp><kbd class="pp">    print('entering make_counter')</kbd>
-<samp class="p">... </samp><kbd class="pp">    while True:</kbd>
-<a><samp class="p">... </samp><kbd class="pp">        yield x</kbd>                    <span class="u">①</span></a>
-<samp class="p">... </samp><kbd class="pp">        print('incrementing x')</kbd>
-<samp class="p">... </samp><kbd class="pp">        x = x + 1</kbd>
-<samp class="p">... </samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">counter = make_counter(2)</kbd>          <span class="u">②</span></a>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">counter</kbd>                            <span class="u">③</span></a>
-&lt;generator object at 0x001C9C10&gt;
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(counter)</kbd>                      <span class="u">④</span></a>
+<p>Jak sakra funguje <em>tohle</em>? Podívejme se nejdříve na interaktivní příklad.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>def make_counter(x):</kbd>
+<samp class=p>... </samp><kbd class=pp>    print('entering make_counter')</kbd>
+<samp class=p>... </samp><kbd class=pp>    while True:</kbd>
+<a><samp class=p>... </samp><kbd class=pp>        yield x</kbd>                    <span class=u>&#x2460;</span></a>
+<samp class=p>... </samp><kbd class=pp>        print('incrementing x')</kbd>
+<samp class=p>... </samp><kbd class=pp>        x = x + 1</kbd>
+<samp class=p>... </samp>
+<a><samp class=p>>>> </samp><kbd class=pp>counter = make_counter(2)</kbd>          <span class=u>&#x2461;</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>counter</kbd>                            <span class=u>&#x2462;</span></a>
+&lt;generator object at 0x001C9C10>
+<a><samp class=p>>>> </samp><kbd class=pp>next(counter)</kbd>                      <span class=u>&#x2463;</span></a>
 <samp>entering make_counter
 2</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(counter)</kbd>                      <span class="u">⑤</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>next(counter)</kbd>                      <span class=u>&#x2464;</span></a>
 <samp>incrementing x
 3</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">next(counter)</kbd>                      <span class="u">⑥</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>next(counter)</kbd>                      <span class=u>&#x2465;</span></a>
 <samp>incrementing x
 4</samp></pre>
 <ol>
-<li>Přítomnost klíčového slova <code>yield</code> v <code>make_counter</code> znamená, že nejde o obyčejnou funkci. Jde o speciální druh funkce, která generuje hodnoty jednu po druhé. Můžeme si ji představit jako funkci, která umí při dalším volání pokračovat v činnosti. Když ji zavoláme, vrátí nám <i>generátor</i>, který můžeme použít pro generování posloupnosti hodnot <var>x</var>. <li>Instanci generátoru <code>make_counter</code> vytvoříme tím, že ji zavoláme jako každou jinou funkci. Poznamenejme, že tím ve skutečnosti nedojde k provedení kódu funkce. Jde to poznat i podle toho, že se na prvním řádku funkce <code>make_counter()</code> volá <code>print()</code>, ale nic se zatím nevytisklo. <li>Funkce <code>make_counter()</code> vrátila objekt generátoru. <li>Funkce <code>next()</code> přebírá objekt generátoru a vrací jeho další hodnotu. Při prvním volání funkce <code>next()</code> pro generátor <var>counter</var> se provede kód z <code>make_counter()</code> až do prvního příkazu <code>yield</code> a vrátí se vyprodukovaná hodnota. V našem případě to bude <code>2</code>, protože jsme generátor vytvořili voláním <code>make_counter(2)</code>. <li>Při opakovaném volání funkce <code>next()</code> pro stejný generátorový objekt se dostáváme přesně do místa, kde jsme minule skončili, a pokračujeme až do místa, kdy znovu narazíme na příkaz <code>yield</code>. Při provedení <code>yield</code> jsou všechny proměnné, lokální stav a další věci uloženy a při dalším volání <code>next()</code> jsou obnoveny. Další řádek kódu, který čeká na provedení, volá funkci <code>print()</code>, která vytiskne <samp>incrementing x</samp> (zvyšuji hodnotu x). Poté je proveden příkaz <code>x = x + 1</code>. Pak se provede další obrátka cyklu <code>while</code> a hned se narazí na příkaz <code>yield x</code>. Ten uloží stav všeho možného a vrátí aktuální hodnotu proměnné <var>x</var> (v tomto okamžiku <code>3</code>). <li>Při druhém volání <code>next(counter)</code> se vše opakuje, ale tentokrát má <var>x</var> hodnotu <code>4</code>.
+<li>Přítomnost klíčového slova <code>yield</code> v <code>make_counter</code> znamená, že nejde o obyčejnou funkci. Jde o speciální druh funkce, která generuje hodnoty jednu po druhé. Můžeme si ji představit jako funkci, která umí při dalším volání pokračovat v činnosti. Když ji zavoláme, vrátí nám <i>generátor</i>, který můžeme použít pro generování posloupnosti hodnot <var>x</var>.
+<li>Instanci generátoru <code>make_counter</code> vytvoříme tím, že ji zavoláme jako každou jinou funkci. Poznamenejme, že tím ve skutečnosti nedojde k provedení kódu funkce. Jde to poznat i podle toho, že se na prvním řádku funkce <code>make_counter()</code> volá <code>print()</code>, ale nic se zatím nevytisklo.
+<li>Funkce <code>make_counter()</code> vrátila objekt generátoru.
+<li>Funkce <code>next()</code> přebírá objekt generátoru a vrací jeho další hodnotu. Při prvním volání funkce <code>next()</code> pro generátor <var>counter</var> se provede kód z <code>make_counter()</code> až do prvního příkazu <code>yield</code> a vrátí se vyprodukovaná hodnota. V našem případě to bude <code>2</code>, protože jsme generátor vytvořili voláním <code>make_counter(2)</code>.
+<li>Při opakovaném volání funkce <code>next()</code> pro stejný generátorový objekt se dostáváme přesně do místa, kde jsme minule skončili, a pokračujeme až do místa, kdy znovu narazíme na příkaz <code>yield</code>. Při provedení <code>yield</code> jsou všechny proměnné, lokální stav a další věci uloženy a při dalším volání <code>next()</code> jsou obnoveny. Další řádek kódu, který čeká na provedení, volá funkci <code>print()</code>, která vytiskne <samp>incrementing x</samp> (zvyšuji hodnotu x). Poté je proveden příkaz <code>x = x + 1</code>. Pak se provede další obrátka cyklu <code>while</code> a hned se narazí na příkaz <code>yield x</code>. Ten uloží stav všeho možného a vrátí aktuální hodnotu proměnné <var>x</var> (v tomto okamžiku <code>3</code>).
+<li>Při druhém volání <code>next(counter)</code> se vše opakuje, ale tentokrát má <var>x</var> hodnotu <code>4</code>.
 </ol>
 
-<p>Protože <code>make_counter</code> definuje nekonečný cyklus, mohli
-bychom pokračovat teoreticky do nekonečna a docházelo by k neustálému
-zvyšování proměnné <var>x</var> a vracení její hodnoty. Místo toho se
-ale podívejme na užitečnější použití generátorů. <h3
-id=a-fibonacci-generator>Generátor Fibonacciho posloupnosti</h3>
+<p>Protože <code>make_counter</code> definuje nekonečný cyklus, mohli bychom pokračovat teoreticky do nekonečna a docházelo by k neustálému zvyšování proměnné <var>x</var> a vracení její hodnoty. Místo toho se ale podívejme na užitečnější použití generátorů.
+
+<h3 id=a-fibonacci-generator>Generátor Fibonacciho posloupnosti</h3>
 
 <aside>„yield“ funkci zastaví. „next()“ pokračuje od místa zastavení.</aside>
 
-<p class=d>[<a href="examples/fibonacci.py">stáhnout
-<code>fibonacci.py</code></a>] <pre class=pp><code>def fib(max):
-<a>    a, b = 0, 1          <span class="u">①</span></a>
+<p class=d>[<a href="examples/fibonacci.py">stáhnout <code>fibonacci.py</code></a>]
+<pre class=pp><code>def fib(max):
+<a>    a, b = 0, 1          <span class=u>&#x2460;</span></a>
     while a &lt; max:
-<a>        yield a          <span class="u">②</span></a>
-<a>        a, b = b, a + b  <span class="u">③</span></a></code></pre>
+<a>        yield a          <span class=u>&#x2461;</span></a>
+<a>        a, b = b, a + b  <span class=u>&#x2462;</span></a></code></pre>
 <ol>
-<li>Fibonacciho posloupnost je řada čísel, kde každé další číslo je součtem dvou předchozích. Začíná hodnotami <code>0</code> a <code>1</code>, zpočátku roste pomalu a pak rychleji a rychleji. Na začátku potřebujeme dvě proměnné: <var>a</var> s počáteční hodnotou <code>0</code> a <var>b</var> s počáteční hodnotou <code>1</code>. <li>Proměnná <var>a</var> obsahuje aktuální číslo posloupnosti, takže hodnotu vyprodukujeme (yield). <li>Proměnná <var>b</var> představuje další číslo v posloupnosti, takže je přiřadíme do <var>a</var>, ale současně vypočteme další hodnotu (<code>a + b</code>) a přiřadíme ji do <var>b</var> pro pozdější použití. Poznamenejme, že se to děje paralelně. Pokud má <var>a</var> hodnotu <code>3</code> a <var>b</var> hodnotu <code>5</code>, pak <code>a, b = b, a + b</code> nastaví <var>a</var> na <code>5</code> (předchozí hodnota <var>b</var>) a <var>b</var> na <code>8</code> (součet předchozí hodnoty <var>a</var> a <var>b</var>).
+<li>Fibonacciho posloupnost je řada čísel, kde každé další číslo je součtem dvou předchozích. Začíná hodnotami <code>0</code> a <code>1</code>, zpočátku roste pomalu a pak rychleji a rychleji. Na začátku potřebujeme dvě proměnné: <var>a</var> s počáteční hodnotou <code>0</code> a <var>b</var> s počáteční hodnotou <code>1</code>.
+<li>Proměnná <var>a</var> obsahuje aktuální číslo posloupnosti, takže hodnotu vyprodukujeme (yield).
+<li>Proměnná <var>b</var> představuje další číslo v posloupnosti, takže je přiřadíme do <var>a</var>, ale současně vypočteme další hodnotu (<code>a + b</code>) a přiřadíme ji do <var>b</var> pro pozdější použití. Poznamenejme, že se to děje paralelně. Pokud má <var>a</var> hodnotu <code>3</code> a <var>b</var> hodnotu <code>5</code>, pak <code>a, b = b, a + b</code> nastaví <var>a</var> na <code>5</code> (předchozí hodnota <var>b</var>) a <var>b</var> na <code>8</code> (součet předchozí hodnoty <var>a</var> a <var>b</var>).
 </ol>
 
-<p>Dostali jsme funkci, která postupně chrlí Fibonacciho čísla. Mohli
-byste to popsat i rekurzivním řešením, ale tento způsob je čitelnější.
-A navíc dobře funguje při použití v cyklech <code>for</code>. <pre
-class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">from fibonacci import fib</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">for n in fib(1000):</kbd>      <span class="u">①</span></a>
-<a><samp class="p">... </samp><kbd class="pp">    print(n, end=' ')</kbd>    <span class="u">②</span></a>
-<samp class="pp">0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">list(fib(1000))</kbd>          <span class="u">③</span></a>
-<samp class="pp">[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987]</samp></pre>
+<p>Dostali jsme funkci, která postupně chrlí Fibonacciho čísla. Mohli byste to popsat i rekurzivním řešením, ale tento způsob je čitelnější. A navíc dobře funguje při použití v cyklech <code>for</code>.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>from fibonacci import fib</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>for n in fib(1000):</kbd>      <span class=u>&#x2460;</span></a>
+<a><samp class=p>... </samp><kbd class=pp>    print(n, end=' ')</kbd>    <span class=u>&#x2461;</span></a>
+<samp class=pp>0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>list(fib(1000))</kbd>          <span class=u>&#x2462;</span></a>
+<samp class=pp>[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987]</samp></pre>
 <ol>
-<li>Generátor jako <code>fib()</code> můžete v cyklu <code>for</code> použít přímo. Cyklus <code>for</code> automaticky získává hodnoty generátoru <code>fib()</code> voláním funkce <code>next()</code> a přiřazuje je do proměnné cyklu <var>n</var>. <li>Při každé obrátce cyklu <code>for</code> získává proměnná <var>n</var> novou hodnotu, která je uvnitř <code>fib()</code> produkována příkazem <code>yield</code>. Stačí ji jen vytisknout. Jakmile <code>fib()</code> dojdou čísla (<var>a</var> nabude hodnoty větší než <var>max</var>, což je v našem případě <code>1000</code>), cyklus <code>for</code> elegantně skončí. <li>Toto je užitečný obrat. Funkci <code>list()</code> předáme generátor. Funkce projde (iteruje přes) všechny jeho hodnoty (stejně jako tomu bylo v předchozím příkladu u cyklu <code>for</code>) a vrátí seznam všech generovaných hodnot.
+<li>Generátor jako <code>fib()</code> můžete v cyklu <code>for</code> použít přímo. Cyklus <code>for</code> automaticky získává hodnoty generátoru <code>fib()</code> voláním funkce <code>next()</code> a přiřazuje je do proměnné cyklu <var>n</var>.
+<li>Při každé obrátce cyklu <code>for</code> získává proměnná <var>n</var> novou hodnotu, která je uvnitř <code>fib()</code> produkována příkazem <code>yield</code>. Stačí ji jen vytisknout. Jakmile <code>fib()</code> dojdou čísla (<var>a</var> nabude hodnoty větší než <var>max</var>, což je v našem případě <code>1000</code>), cyklus <code>for</code> elegantně skončí.
+<li>Toto je užitečný obrat. Funkci <code>list()</code> předáme generátor. Funkce projde (iteruje přes) všechny jeho hodnoty (stejně jako tomu bylo v předchozím příkladu u cyklu <code>for</code>) a vrátí seznam všech generovaných hodnot.
 </ol>
 
 <h3 id=a-plural-rule-generator>Generátor pravidel pro množné číslo</h3>
 
-<p>Vraťme se k <code>plural5.py</code> a podívejme se, jak tato verze
-funkce <code>plural()</code> pracuje. <pre class=pp><code>def
-rules(rules_filename):
+<p>Vraťme se k <code>plural5.py</code> a podívejme se, jak tato verze funkce <code>plural()</code> pracuje.
+
+<pre class=pp><code>def rules(rules_filename):
     with open(rules_filename, encoding='utf-8') as pattern_file:
         for line in pattern_file:
-<a>            pattern, search, replace = line.split(None, 3)                   <span class="u">①</span></a>
-<a>            yield build_match_and_apply_functions(pattern, search, replace)  <span class="u">②</span></a>
+<a>            pattern, search, replace = line.split(None, 3)                   <span class=u>&#x2460;</span></a>
+<a>            yield build_match_and_apply_functions(pattern, search, replace)  <span class=u>&#x2461;</span></a>
 
 def plural(noun, rules_filename='plural5-rules.txt'):
-<a>    for matches_rule, apply_rule in rules(rules_filename):                   <span class="u">③</span></a>
+<a>    for matches_rule, apply_rule in rules(rules_filename):                   <span class=u>&#x2462;</span></a>
         if matches_rule(noun):
             return apply_rule(noun)
     raise ValueError('no matching rule for {0}'.format(noun))</code></pre>
 <ol>
-<li>Není v tom žádná magie. Vzpomeňte si, že řádky souboru s pravidly obsahují vždy tři hodnoty oddělené bílými znaky. Takže použijeme <code>line.split(None, 3)</code> k získání tří „sloupců“ a jejich hodnoty přiřadíme do tří lokálních proměnných. <li><em>A pak vyprodukujeme výsledek (yield).</em> Jaký výsledek? Dvojici funkcí, které byly dynamicky vytvořeny naší starou známou funkcí <code>build_match_and_apply_functions()</code> (je stejná jako v předchozích příkladech). Řečeno jinak, <code>rules()</code> je generátor, který <em>na požádání</em> produkuje rozhodovací a aplikační funkce. <li>Protože <code>rules()</code> je generátor, můžeme jej přímo použít v cyklu <code>for</code>. Při první obrátce cyklu <code>for</code> zavoláme funkci <code>rules()</code>, která otevře soubor se vzorky, načte první řádek, na základě vzorků uvedených na řádku dynamicky vybuduje rozhodovací funkci a aplikační funkci a tyto funkce vrátí (yield). Ale během druhé obrátky cyklu <code>for</code> se dostáváme přesně do místa, kde jsme kód <code>rules()</code> opustili (což je uprostřed cyklu <code>for line in pattern_file</code>). První věcí, která se provede, bude načtení řádku souboru (který je pořád otevřen). Na základě vzorků z tohoto řádku souboru se dynamicky vytvoří další rozhodovací a aplikační funkce a tato dvojice se vrátí (yield).
+<li>Není v tom žádná magie. Vzpomeňte si, že řádky souboru s pravidly obsahují vždy tři hodnoty oddělené bílými znaky. Takže použijeme <code>line.split(None, 3)</code> k získání tří „sloupců“ a jejich hodnoty přiřadíme do tří lokálních proměnných.
+<li><em>A pak vyprodukujeme výsledek (yield).</em> Jaký výsledek? Dvojici funkcí, které byly dynamicky vytvořeny naší starou známou funkcí <code>build_match_and_apply_functions()</code> (je stejná jako v předchozích příkladech). Řečeno jinak, <code>rules()</code> je generátor, který <em>na požádání</em> produkuje rozhodovací a aplikační funkce.
+<li>Protože <code>rules()</code> je generátor, můžeme jej přímo použít v cyklu <code>for</code>. Při první obrátce cyklu <code>for</code> zavoláme funkci <code>rules()</code>, která otevře soubor se vzorky, načte první řádek, na základě vzorků uvedených na řádku dynamicky vybuduje rozhodovací funkci a aplikační funkci a tyto funkce vrátí (yield). Ale během druhé obrátky cyklu <code>for</code> se dostáváme přesně do místa, kde jsme kód <code>rules()</code> opustili (což je uprostřed cyklu <code>for line in pattern_file</code>). První věcí, která se provede, bude načtení řádku souboru (který je pořád otevřen). Na základě vzorků z tohoto řádku souboru se dynamicky vytvoří další rozhodovací a aplikační funkce a tato dvojice se vrátí (yield).
 </ol>
 
-<p>Co jsme vlastně proti verzi 4 získali navíc? Startovací čas. Ve
-verzi 4 se při importu modulu <code>plural4</code> &mdash; než jsme mohli
-vůbec uvažovat o volání funkce <code>plural()</code> &mdash; načítal celý
-soubor vzorků a budoval se seznam všech možných pravidel. Při použití
-generátorů můžeme vše dělat na poslední chvíli. Přečteme si první
-pravidlo, vytvoříme funkce a vyzkoušíme je. Pokud to funguje, nemusíme
-číst zbytek souboru nebo vytvářet další funkce. <p>A co jsme ztratili?
-Výkonnost! Generátor <code>rules()</code> startuje znovu od začátku
-pokaždé, když voláme funkci <code>plural()</code>. To znamená, že
-soubor se vzorky musí být znovu otevřen a musíme číst od začátku,
-jeden řádek po druhém. <p>Chtělo by to nějak získat to nejlepší z obou
-řešení: minimální čas při startu (žádné provádění kódu při
-<code>import</code>) a maximální výkonnost (žádné opakované vytváření
-funkcí). Ale pokud nebudeme muset číst stejné řádky dvakrát, bylo by
-dobré, aby pravidla mohla zůstat v odděleném souboru (protože kód je
-kód a data jsou data). <p>Abychom toho dosáhli, budeme muset vytvořit
-svůj vlastní iterátor. Ale předtím se musíme naučit něco o
-pythonovských třídách. <p class=a>&#x2042; <h2 id=furtherreading>Přečtěte
-si</h2>
+<p>Co jsme vlastně proti verzi 4 získali navíc? Startovací čas. Ve verzi 4 se při importu modulu <code>plural4</code> &mdash; než jsme mohli vůbec uvažovat o volání funkce <code>plural()</code> &mdash; načítal celý soubor vzorků a budoval se seznam všech možných pravidel. Při použití generátorů můžeme vše dělat na poslední chvíli. Přečteme si první pravidlo, vytvoříme funkce a vyzkoušíme je. Pokud to funguje, nemusíme číst zbytek souboru nebo vytvářet další funkce.
+
+<p>A co jsme ztratili? Výkonnost! Generátor <code>rules()</code> startuje znovu od začátku pokaždé, když voláme funkci <code>plural()</code>. To znamená, že soubor se vzorky musí být znovu otevřen a musíme číst od začátku, jeden řádek po druhém.
+
+<p>Chtělo by to nějak získat to nejlepší z obou řešení: minimální čas při startu (žádné provádění kódu při <code>import</code>) a maximální výkonnost (žádné opakované vytváření funkcí). Ale pokud nebudeme muset číst stejné řádky dvakrát, bylo by dobré, aby pravidla mohla zůstat v odděleném souboru (protože kód je kód a data jsou data).
+
+<p>Abychom toho dosáhli, budeme muset vytvořit svůj vlastní iterátor. Ale předtím se musíme naučit něco o pythonovských třídách.
+
+<p class=a>&#x2042;
+
+<h2 id=furtherreading>Přečtěte si</h2>
 <ul>
 <li><a href="http://www.python.org/dev/peps/pep-0255" />PEP 255: Simple Generators</a>
 <li><a href="http://effbot.org/zone/python-with-statement.htm">Understanding Python’s “with” statement</a>
@@ -445,12 +410,9 @@ si</h2>
 <li><a href="http://www2.gsu.edu/~wwwesl/egw/crump.htm">English Irregular Plural Nouns</a>
 </ul>
 
-<p class=v><a href="regular-expressions.html" rel="prev" title="zpět
-na „Regulární výrazy“"><span class="u">&#x261C;</span></a> <a
-href="iterators.html" rel="next" title="dopředu na „Třídy a
-iterátory“"><span class="u">&#x261E;</span></a>
+<p class=v><a href="regular-expressions.html" rel="prev" title="zpět na „Regulární výrazy“"><span class="u">&#x261C;</span></a> <a href="iterators.html" rel="next" title="dopředu na „Třídy a iterátory“"><span class="u">&#x261E;</span></a>
 
 <p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
-<script src=j/dip3.js></script> 
+<script src=j/dip3.js></script>
