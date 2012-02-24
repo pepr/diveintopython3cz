@@ -97,6 +97,7 @@ chapters = [
     'special-method-names.html',
     'where-to-go-from-here.html',
     'troubleshooting.html',
+    'changelog.html',
     'about.html',
     'colophon.html',
     ]
