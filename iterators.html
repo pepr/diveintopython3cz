@@ -1,4 +1,5 @@
-<!DOCTYPE html> <meta charset=utf-8>
+<!DOCTYPE html>
+<meta charset=utf-8>
 <title>Třídy a iterátory &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
@@ -9,32 +10,20 @@ body{counter-reset:h1 7}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
-<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">&#8227;</span> <a href="table-of-contents.html#iterators">Ponořme
-se do Pythonu 3</a> <span class="u">&#8227;</span>
-<p id=level>Úroveň obtížnosti: <span class="u" title="mírně
-pokročilí">&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span class="u">&#8227;</span> <a href="table-of-contents.html#iterators">Ponořme se do Pythonu 3</a> <span class="u">&#8227;</span>
+<p id=level>Úroveň obtížnosti: <span class="u" title="mírně pokročilí">&#x2666;&#x2666;&#x2666;&#x2662;&#x2662;</span>
 <h1>Třídy a iterátory</h1>
 <blockquote class=q>
-<p><span class="u">&#x275D;</span> East is East, and West is West, and never
-the twain shall meet. <span class="u">&#x275E;</span><br>(Východ je východ,
-západ je západ a ta dvojice se nikdy nesetká.)<br>&mdash; <a
-href="http://en.wikiquote.org/wiki/Rudyard_Kipling">Rudyard
-Kipling</a>
+<p><span class="u">&#x275D;</span> East is East, and West is West, and never the twain shall meet. <span class="u">&#x275E;</span><br>(Východ je východ, západ je západ a ta dvojice se nikdy nesetká.)<br>&mdash; <a href="http://en.wikiquote.org/wiki/Rudyard_Kipling">Rudyard Kipling</a>
 </blockquote>
-<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
-<p class=f>Iterátory jsou „tajnou omáčkou“ Pythonu 3. Jsou všude, vše
-je na nich založeno, vždy zůstávají v pozadí, neviditelné. <a
-href="comprehensions.html">Generátorové notace</a> jsou jednoduchou
-formou <i>iterátorů</i>. Generátory jsou jednoduchou formou
-<i>iterátorů</i>. Funkce, která produkuje hodnoty příkazem
-<code>yield</code>, je ukázkou pěkného a kompaktního způsobu vytvoření
-iterátoru, aniž bychom museli iterátor tvořit. Ukážu vám, co tím
-míním. <p>Vzpomínáte si na <a
-href="generators.html#a-fibonacci-generator">Fibonacciho
-generátor</a>? Tady ho máme v podobě iterátoru vytvořeného od základu:
-<p class=d>[<a href="examples/fibonacci2.py">stáhnout
-<code>fibonacci2.py</code></a>] <pre class=pp><code>class Fib:
+<p id=toc>&nbsp;
+<h2 id=divingin>Ponořme se</h2>
+<p class=f>Iterátory jsou „tajnou omáčkou“ Pythonu 3. Jsou všude, vše je na nich založeno, vždy zůstávají v pozadí, neviditelné. <a href="comprehensions.html">Generátorové notace</a> jsou jednoduchou formou <i>iterátorů</i>. Generátory jsou jednoduchou formou <i>iterátorů</i>. Funkce, která produkuje hodnoty příkazem <code>yield</code>, je ukázkou pěkného a kompaktního způsobu vytvoření iterátoru, aniž bychom museli iterátor tvořit. Ukážu vám, co tím míním.
+
+<p>Vzpomínáte si na <a href="generators.html#a-fibonacci-generator">Fibonacciho generátor</a>? Tady ho máme v podobě iterátoru vytvořeného od základu:
+
+<p class=d>[<a href="examples/fibonacci2.py">stáhnout <code>fibonacci2.py</code></a>]
+<pre class=pp><code>class Fib:
     '''iterator that yields numbers in the Fibonacci sequence'''
 
     def __init__(self, max):
@@ -47,183 +36,183 @@ generátor</a>? Tady ho máme v podobě iterátoru vytvořeného od základu:
 
     def __next__(self):
         fib = self.a
-        if fib &gt; self.max:
+        if fib > self.max:
             raise StopIteration
         self.a, self.b = self.b, self.a + self.b
         return fib</code></pre>
 
-<p>Proberme si jeho kód řádek po řádku. <pre class='nd pp'><code>class
-Fib:</code></pre>
+<p>Proberme si jeho kód řádek po řádku.
 
-<p><code>class</code>? Česky se tomu říká <em>třída</em>. Ale co to
-je? <p class=a>&#x2042; <h2 id=defining-classes>Definice tříd</h2>
+<pre class='nd pp'><code>class Fib:</code></pre>
 
-<p>Python je plně objektově orientovaný. Můžete definovat své vlastní
-třídy, dědit ze svých vlastních nebo ze zabudovaných tříd a z
-definovaných tříd můžete vytvářet instance. <p>Třídu definujeme v
-Pythonu jednoduše. Nepoužívá se zde oddělená definice rozhraní &mdash; je to
-jako u funkcí. Prostě definujeme třídu a začneme psát její kód.
-Pythonovská třída začíná vyhrazeným slovem <code>class</code>, za
-kterým následuje jméno třídy. Z technického pohledu je to vše, co se
-vyžaduje, protože třída nemusí dědit z žádné jiné třídy. <pre
-class=pp><code><a>class PapayaWhip:  <span class="u">①</span></a>
-<a>    pass           <span class="u">②</span></a></code></pre>
+<p><code>class</code>? Česky se tomu říká <em>třída</em>. Ale co to je?
+
+<p class=a>&#x2042;
+
+<h2 id=defining-classes>Definice tříd</h2>
+
+<p>Python je plně objektově orientovaný. Můžete definovat své vlastní třídy, dědit ze svých vlastních nebo ze zabudovaných tříd a z definovaných tříd můžete vytvářet instance.
+
+<p>Třídu definujeme v Pythonu jednoduše. Nepoužívá se zde oddělená definice rozhraní &mdash; je to jako u funkcí. Prostě definujeme třídu a začneme psát její kód. Pythonovská třída začíná vyhrazeným slovem <code>class</code>, za kterým následuje jméno třídy. Z technického pohledu je to vše, co se vyžaduje, protože třída nemusí dědit z žádné jiné třídy.
+
+<pre class=pp><code><a>class PapayaWhip:  <span class=u>&#x2460;</span></a>
+<a>    pass           <span class=u>&#x2461;</span></a></code></pre>
 <ol>
-<li>Jméno této třídy je <code>PapayaWhip</code>. Není odvozena od žádné jiné třídy. Jména tříd se obvykle zapisují s velkými písmeny u slov názvu, <code>KazdeSlovoNazvuTakto</code>. Ale je to jen konvence, není to závazné. <li>Asi už jste odhadli, že vše uvnitř třídy je odsazené &mdash; podobně jako kód uvnitř funkce, v příkazu <code>if</code>, u cyklu <code>for</code> nebo v případě jakéhokoliv jiného bloku kódu. Řádek, který není odsazen, už do třídy nepatří.
+<li>Jméno této třídy je <code>PapayaWhip</code>. Není odvozena od žádné jiné třídy. Jména tříd se obvykle zapisují s velkými písmeny u slov názvu, <code>KazdeSlovoNazvuTakto</code>. Ale je to jen konvence, není to závazné.
+<li>Asi už jste odhadli, že vše uvnitř třídy je odsazené &mdash; podobně jako kód uvnitř funkce, v příkazu <code>if</code>, u cyklu <code>for</code> nebo v případě jakéhokoliv jiného bloku kódu. Řádek, který není odsazen, už do třídy nepatří.
 </ol>
 
-<p>Třída <code>PapayaWhip</code> nedefinuje žádnou metodu ani
-atributy, ale ze syntaktických důvodů v definici něco být musí. Proto
-jsme zde použili příkaz <code>pass</code>. V Pythonu je toto slovo
-vyhrazeno a znamená „pokračuj dál, tady není nic k vidění“. Je to
-příkaz, který nic nedělá. Hodí se nám právě v případech, kdy
-potřebujeme napsat funkci nebo třídu, která existuje, ale nic nedělá.
+<p>Třída <code>PapayaWhip</code> nedefinuje žádnou metodu ani atributy, ale ze syntaktických důvodů v definici něco být musí. Proto jsme zde použili příkaz <code>pass</code>. V Pythonu je toto slovo vyhrazeno a znamená „pokračuj dál, tady není nic k vidění“. Je to příkaz, který nic nedělá. Hodí se nám právě v případech, kdy potřebujeme napsat funkci nebo třídu, která existuje, ale nic nedělá.
+
 <blockquote class='note compare java'>
-<p><span class="u">&#x261E;</span>Příkaz <code>pass</code> znamená v Pythonu
-totéž co prázdné složené závorky (<code>{}</code>) v jazycích Java
-nebo C.
+<p><span class="u">&#x261E;</span>Příkaz <code>pass</code> znamená v Pythonu totéž co prázdné složené závorky (<code>{}</code>) v jazycích Java nebo C.
 </blockquote>
 
-<p>Mnohé třídy dědí z jiných tříd, ale to není náš případ. Mnohé třídy
-definují metody, ale tato ne. Pythonovská třída nemusí mít nic, jen
-jméno. Obzvláště programátorům v C++ může přijít divné, že pythonovské
-třídy nemají explicitní konstruktory a destruktory. Ačkoliv se to
-nevyžaduje, pythonovské třídy <em>mohou</em> mít něco, co se
-konstruktoru podobá. Je to metoda <code>__init__()</code>. <h3
-id=init-method>Metoda <code>__init__()</code></h3>
+<p>Mnohé třídy dědí z jiných tříd, ale to není náš případ. Mnohé třídy definují metody, ale tato ne. Pythonovská třída nemusí mít nic, jen jméno. Obzvláště programátorům v C++ může přijít divné, že pythonovské třídy nemají explicitní konstruktory a destruktory. Ačkoliv se to nevyžaduje, pythonovské třídy <em>mohou</em> mít něco, co se konstruktoru podobá. Je to metoda <code>__init__()</code>.
 
-<p>Následující příklad ukazuje inicializaci třídy <code>Fib</code> s
-využitím metody <code>__init__</code>. <pre class=pp><code>class Fib:
-<a>    '''iterator that yields numbers in the Fibonacci sequence'''  <span class="u">①</span></a>
+<h3 id=init-method>Metoda <code>__init__()</code></h3>
 
-<a>    def __init__(self, max):                                      <span class="u">②</span></a></code></pre>
+<p>Následující příklad ukazuje inicializaci třídy <code>Fib</code> s využitím metody <code>__init__</code>.
+
+<pre class=pp><code>class Fib:
+<a>    '''iterator that yields numbers in the Fibonacci sequence'''  <span class=u>&#x2460;</span></a>
+
+<a>    def __init__(self, max):                                      <span class=u>&#x2461;</span></a></code></pre>
 <ol>
-<li>Třídy mohou (a měly by) mít své dokumentační řetězce &mdash; stejně jako moduly a funkce. <li>Metoda <code>__init__()</code> je zavolána bezprostředně po vytvoření instance třídy. Svádí nás to, abychom ji nazývali „konstruktorem“ třídy, ale z technického hlediska to není pravda. Svádí nás to, protože vypadá jako C++ konstruktor (konvence říká, že by metoda <code>__init__()</code> měla být v definici třídy uvedena jako první), chová se jako konstruktor (je to první kousek kódu, který se v nově vytvořené instanci třídy provádí) a vůbec. Chyba! V době volání metody <code>__init__()</code> už byl objekt zkonstruován (už existoval) a na novou instanci třídy už máme platný odkaz.
+<li>Třídy mohou (a měly by) mít své dokumentační řetězce &mdash; stejně jako moduly a funkce.
+<li>Metoda <code>__init__()</code> je zavolána bezprostředně po vytvoření instance třídy. Svádí nás to, abychom ji nazývali „konstruktorem“ třídy, ale z technického hlediska to není pravda. Svádí nás to, protože vypadá jako C++ konstruktor (konvence říká, že by metoda <code>__init__()</code> měla být v definici třídy uvedena jako první), chová se jako konstruktor (je to první kousek kódu, který se v nově vytvořené instanci třídy provádí) a vůbec. Chyba! V době volání metody <code>__init__()</code> už byl objekt zkonstruován (už existoval) a na novou instanci třídy už máme platný odkaz.
 </ol>
 
-<p>Prvním argumentem metody třídy je vždy odkaz na aktuální instanci
-třídy a platí to i pro metodu <code>__init__()</code>. Podle konvence
-je tento argument pojmenován <var>self</var>. Plní roli vyhrazeného
-slova, jakým je <code>this</code> v jazycích <abbr>C++</abbr> nebo
-Java, ale v Pythonu není <var>self</var> vyhrazeným slovem. Je to jen
-konvenční pojmenování. Přesto jej, prosím vás, nenazývejte nikdy jinak
-než <var>self</var>. Jde o velmi silnou konvenci. <p>Uvnitř metody
-<code>__init__()</code> odkazuje <var>self</var> na nově vytvořený
-objekt. U ostatních metod třídy odkazuje na instanci třídy, jejíž
-metoda byla zavolána. V okamžiku definice metody musíme uvést
-<var>self</var> explicitně. Ale v okamžiku volání metody už tento
-argument <em>neuvádíme</em>. Python ho přidá za nás automaticky. <p
-class=a>&#x2042; <h2 id=instantiating-classes>Vytváření instancí tříd</h2>
+<p>Prvním argumentem metody třídy je vždy odkaz na aktuální instanci třídy a platí to i pro metodu <code>__init__()</code>. Podle konvence je tento argument pojmenován <var>self</var>. Plní roli vyhrazeného slova, jakým je <code>this</code> v jazycích <abbr>C++</abbr> nebo Java, ale v Pythonu není <var>self</var> vyhrazeným slovem. Je to jen konvenční pojmenování. Přesto jej, prosím vás, nenazývejte nikdy jinak než <var>self</var>. Jde o velmi silnou konvenci.
 
-<p>Vytváření instancí tříd je v Pythonu přímočaré. Jednoduše zavoláme
-třídu, jako kdyby to byla funkce, a předáme jí argumenty, které
-vyžaduje metoda <code>__init__()</code>. Vrátí se nám nově vytvořený
-objekt. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import fibonacci2</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">fib = fibonacci2.Fib(100)</kbd>  <span class="u">①</span></a>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">fib</kbd>                        <span class="u">②</span></a>
-<samp class="pp">&lt;fibonacci2.Fib object at 0x00DB8810&gt;</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">fib.__class__</kbd>              <span class="u">③</span></a>
-<samp class="pp">&lt;class 'fibonacci2.Fib'&gt;</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">fib.__doc__</kbd>                <span class="u">④</span></a>
-<samp class="pp">'iterator that yields numbers in the Fibonacci sequence'</samp></pre>
+<p>Uvnitř metody <code>__init__()</code> odkazuje <var>self</var> na nově vytvořený objekt. U ostatních metod třídy odkazuje na instanci třídy, jejíž metoda byla zavolána. V okamžiku definice metody musíme uvést <var>self</var> explicitně. Ale v okamžiku volání metody už tento argument <em>neuvádíme</em>. Python ho přidá za nás automaticky.
+
+<p class=a>&#x2042;
+
+<h2 id=instantiating-classes>Vytváření instancí tříd</h2>
+
+<p>Vytváření instancí tříd je v Pythonu přímočaré. Jednoduše zavoláme třídu, jako kdyby to byla funkce, a předáme jí argumenty, které vyžaduje metoda <code>__init__()</code>. Vrátí se nám nově vytvořený objekt.
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>import fibonacci2</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>fib = fibonacci2.Fib(100)</kbd>  <span class=u>&#x2460;</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>fib</kbd>                        <span class=u>&#x2461;</span></a>
+<samp class=pp>&lt;fibonacci2.Fib object at 0x00DB8810></samp>
+<a><samp class=p>>>> </samp><kbd class=pp>fib.__class__</kbd>              <span class=u>&#x2462;</span></a>
+<samp class=pp>&lt;class 'fibonacci2.Fib'></samp>
+<a><samp class=p>>>> </samp><kbd class=pp>fib.__doc__</kbd>                <span class=u>&#x2463;</span></a>
+<samp class=pp>'iterator that yields numbers in the Fibonacci sequence'</samp></pre>
 <ol>
-<li>Vytváříme instanci třídy <code>Fib</code> (definované v modulu <code>fibonacci2</code>) a nově vytvořenou instanci přiřazujeme do proměnné <var>fib</var>. Předáváme jeden parametr (<code>100</code>), který se při volání metody <code>__init__()</code> třídy <code>Fib</code> stane jejím argumentem <var>max</var>. <li><var>fib</var> je nyní instancí třídy <code>Fib</code>. <li>Každá instance třídy má zabudovaný atribut <code>__class__</code>, který odkazuje na třídu objektu. Programátoři v Javě možná znají třídu <code>Class</code>. Ta poskytuje metody jako <code>getName()</code> a <code>getSuperclass()</code>, které nám zpřístupňují metainformace o objektu. V Pythonu je tento druh metadat přístupný prostřednictvím atributů, ale základní myšlenka je stejná. <li>Dokumentační řetězec instance můžeme zpřístupnit stejně jako u funkce nebo u modulu. Všechny instance třídy sdílejí stejný <code>docstring</code>.
+<li>Vytváříme instanci třídy <code>Fib</code> (definované v modulu <code>fibonacci2</code>) a nově vytvořenou instanci přiřazujeme do proměnné <var>fib</var>. Předáváme jeden parametr (<code>100</code>), který se při volání metody <code>__init__()</code> třídy <code>Fib</code> stane jejím argumentem <var>max</var>.
+<li><var>fib</var> je nyní instancí třídy <code>Fib</code>.
+<li>Každá instance třídy má zabudovaný atribut <code>__class__</code>, který odkazuje na třídu objektu. Programátoři v Javě možná znají třídu <code>Class</code>. Ta poskytuje metody jako <code>getName()</code> a <code>getSuperclass()</code>, které nám zpřístupňují metainformace o objektu. V Pythonu je tento druh metadat přístupný prostřednictvím atributů, ale základní myšlenka je stejná.
+<li>Dokumentační řetězec instance můžeme zpřístupnit stejně jako u funkce nebo u modulu. Všechny instance třídy sdílejí stejný <code>docstring</code>.
 </ol>
 
 <blockquote class='note compare java'>
-<p><span class="u">&#x261E;</span>Novou instanci třídy v Pythonu vytvoříme
-jednoduše zavoláním třídy, jako kdyby to byla funkce. Nenajdeme zde
-žádný explicitní operátor <code>new</code>, jako je tomu u jazyků
-<abbr>C++</abbr> nebo Java.
+<p><span class="u">&#x261E;</span>Novou instanci třídy v Pythonu vytvoříme jednoduše zavoláním třídy, jako kdyby to byla funkce. Nenajdeme zde žádný explicitní operátor <code>new</code>, jako je tomu u jazyků <abbr>C++</abbr> nebo Java.
 </blockquote>
 
-<p class=a>&#x2042; <h2 id=instance-variables>Členské proměnné</h2>
+<p class=a>&#x2042;
 
-<p>Pokračujeme k dalšímu řádku: <pre class=pp><code>class Fib:
+<h2 id=instance-variables>Členské proměnné</h2>
+
+<p>Pokračujeme k dalšímu řádku:
+
+<pre class=pp><code>class Fib:
     def __init__(self, max):
-<a>        self.max = max        <span class="u">①</span></a></code></pre>
+<a>        self.max = max        <span class=u>&#x2460;</span></a></code></pre>
 <ol>
 <li>Co to je <var>self.max</var>? Jde o členskou proměnnou (nebo také instanční proměnnou nebo proměnnou instance). Je to něco zcela jiného než argument <var>max</var>, který byl předán metodě <code>__init__()</code>. <var>self.max</var> je „globální“ v rámci instance. To znamená, že k této proměnné můžeme přistupovat z jiných metod.
 </ol>
 
 <pre class=pp><code>class Fib:
     def __init__(self, max):
-<a>        self.max = max        <span class="u">①</span></a>
+<a>        self.max = max        <span class=u>&#x2460;</span></a>
     .
     .
     .
     def __next__(self):
         fib = self.a
-<a>        if fib &gt; self.max:    <span class="u">②</span></a></code></pre>
+<a>        if fib > self.max:    <span class=u>&#x2461;</span></a></code></pre>
 <ol>
-<li><var>self.max</var> je definována metodou <code>__init__()</code>&hellip; <li>&hellip;a odkazujeme se na ni v metodě <code>__next__()</code>.
+<li><var>self.max</var> je definována metodou <code>__init__()</code>&hellip;
+<li>&hellip; a odkazujeme se na ni v metodě <code>__next__()</code>.
 </ol>
 
-<p>Členské proměnné jsou pro každou instanci třídy specifické. Pokud
-například vytvoříme dvě instance třídy <code>Fib</code> s různými
-hodnotami maxima, bude si každá z nich pamatovat svou vlastní hodnotu.
+<p>Členské proměnné jsou pro každou instanci třídy specifické. Pokud například vytvoříme dvě instance třídy <code>Fib</code> s různými hodnotami maxima, bude si každá z nich pamatovat svou vlastní hodnotu.
+
 <pre class='nd screen'>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import fibonacci2</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">fib1 = fibonacci2.Fib(100)</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">fib2 = fibonacci2.Fib(200)</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">fib1.max</kbd>
-<samp class="pp">100</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">fib2.max</kbd>
-<samp class="pp">200</samp></pre>
+<samp class=p>>>> </samp><kbd class=pp>import fibonacci2</kbd>
+<samp class=p>>>> </samp><kbd class=pp>fib1 = fibonacci2.Fib(100)</kbd>
+<samp class=p>>>> </samp><kbd class=pp>fib2 = fibonacci2.Fib(200)</kbd>
+<samp class=p>>>> </samp><kbd class=pp>fib1.max</kbd>
+<samp class=pp>100</samp>
+<samp class=p>>>> </samp><kbd class=pp>fib2.max</kbd>
+<samp class=pp>200</samp></pre>
 
-<p class=a>&#x2042; <h2 id=a-fibonacci-iterator>Fibonacciho iterátor</h2>
+<p class=a>&#x2042;
 
-<p><em>Až teď</em> jsme připraveni se naučit, jak se vytváří
-interátor. Iterátor je jednoduše třída, která definuje metodu
-<code>__iter__()</code>. <aside class=ots>
-Všechny tři z uvedených metod třídy, <code>__init__</code>, <code>__iter__</code> a <code>__next__</code>, začínají a končí dvojicí znaků podtržení (<code>_</code>). Proč zrovna takhle? Není v tom nic magického, ale obvykle to naznačuje, že jde o „<dfn>speciální metody</dfn>“. Jedinou „speciální“ věcí je na těchto speciálních metodách to, že se nevolají přímo. Python je volá, když použijete nějaký jiný syntaktický obrat pro třídu nebo pro instanci třídy. <a href="special-method-names.html">Více o speciálních metodách...</a>.
+<h2 id=a-fibonacci-iterator>Fibonacciho iterátor</h2>
+
+<p><em>Až teď</em> jsme připraveni se naučit, jak se vytváří interátor. Iterátor je jednoduše třída, která definuje metodu <code>__iter__()</code>.
+
+<aside class=ots>
+Všechny tři z uvedených metod třídy, <code>__init__</code>, <code>__iter__</code> a <code>__next__</code>, začínají a končí dvojicí znaků podtržení (<code>_</code>). Proč zrovna takhle? Není v tom nic magického, ale obvykle to naznačuje, že jde o „<dfn>speciální metody</dfn>“. Jedinou „speciální“ věcí je na těchto speciálních metodách to, že se nevolají přímo. Python je volá, když použijete nějaký jiný syntaktický obrat pro třídu nebo pro instanci třídy. <a href="special-method-names.html">Více o speciálních metodách&hellip;</a>.
 </aside>
 
-<p class=d>[<a href="examples/fibonacci2.py">stáhnout
-<code>fibonacci2.py</code></a>] <pre class=pp><code><a>class Fib:
-<span class="u">①</span></a>
-<a>    def __init__(self, max):                      <span class="u">②</span></a>
+<p class=d>[<a href="examples/fibonacci2.py">stáhnout <code>fibonacci2.py</code></a>]
+<pre class=pp><code><a>class Fib:                                        <span class=u>&#x2460;</span></a>
+<a>    def __init__(self, max):                      <span class=u>&#x2461;</span></a>
         self.max = max
 
-<a>    def __iter__(self):                           <span class="u">③</span></a>
+<a>    def __iter__(self):                           <span class=u>&#x2462;</span></a>
         self.a = 0
         self.b = 1
         return self
 
-<a>    def __next__(self):                           <span class="u">④</span></a>
+<a>    def __next__(self):                           <span class=u>&#x2463;</span></a>
         fib = self.a
-        if fib &gt; self.max:
-<a>            raise StopIteration                   <span class="u">⑤</span></a>
+        if fib > self.max:
+<a>            raise StopIteration                   <span class=u>&#x2464;</span></a>
         self.a, self.b = self.b, self.a + self.b
-<a>        return fib                                <span class="u">⑥</span></a></code></pre>
+<a>        return fib                                <span class=u>&#x2465;</span></a></code></pre>
 <ol>
-<li>Abychom vybudovali iterátor od základů, musíme z <code>Fib</code> udělat třídu, a ne funkci. <li>„Volání“ <code>Fib(max)</code> ve skutečnosti znamená vytvoření instance této třídy a zavolání její metody <code>__init__()</code> s argumentem <var>max</var>. Metoda <code>__init__()</code> uloží maximální hodnotu do členské proměnné, takže se na ni mohou později odkazovat ostatní metody. <li>Metoda <code>__iter__()</code> se volá, kdykoliv někdo zavolá <code>iter(fib)</code>. (Jak uvidíme za minutku, cyklus <code>for</code> ji volá automaticky. Ale vy sami ji můžete volat také, ručně.) Po provedení inicializace na začátku iterace (v tomto případě jde o nastavení počátečního stavu dvou počítadel <code>self.a</code> a <code>self.b</code>) může metoda <code>__iter__()</code> vrátit libovolný objekt, který implementuje metodu <code>__next__()</code>. V našem případě (a ve většině případů) metoda <code>__iter__()</code> vrátí jednoduše <var>self</var>, protože tato třída implementuje svou vlastní metodu <code>__next__()</code>. <li>Metoda <code>__next__()</code> se volá vždy, když někdo zavolá funkci <code>next()</code> s iterátorem instance třídy. Za minutku to bude dávat větší smysl. <li>Když metoda <code>__next__()</code> vyvolá výjimku <code>StopIteration</code>, signalizuje tím volajícímu, že iterace skončila. Na rozdíl od většiny jiných výjimek se zde nesignalizuje chyba. Jde o běžnou situaci, která prostě znamená, že iterátor už nemá žádná data, která by generoval. Pokud je volajícím cyklus <code>for</code>, bude výjimka <code>StopIteration</code> zachycena a cyklus bude bezproblémově ukončen. (Jinými slovy, cyklus výjimku spolkne.) Toto malé kouzlo je ve skutečnosti klíčem k použití iterátorů v cyklech <code>for</code>. <li>Vyprodukování další hodnoty provede iterátor tak, že metoda <code>__next__()</code> hodnotu jednoduše vrátí příkazem <code>return</code>. Nepoužívejte zde příkaz <code>yield</code>. Ten je pouze syntaktickým cukrátkem a má význam pouze v souvislosti s generátory. Zde vytváříme od základů svůj vlastní iterátor, proto budeme používat <code>return</code>.
+<li>Abychom vybudovali iterátor od základů, musíme z <code>Fib</code> udělat třídu, a ne funkci.
+<li>„Volání“ <code>Fib(max)</code> ve skutečnosti znamená vytvoření instance této třídy a zavolání její metody <code>__init__()</code> s argumentem <var>max</var>. Metoda <code>__init__()</code> uloží maximální hodnotu do členské proměnné, takže se na ni mohou později odkazovat ostatní metody.
+<li>Metoda <code>__iter__()</code> se volá, kdykoliv někdo zavolá <code>iter(fib)</code>. (Jak uvidíme za minutku, cyklus <code>for</code> ji volá automaticky. Ale vy sami ji můžete volat také, ručně.) Po provedení inicializace na začátku iterace (v tomto případě jde o nastavení počátečního stavu dvou počítadel <code>self.a</code> a <code>self.b</code>) může metoda <code>__iter__()</code> vrátit libovolný objekt, který implementuje metodu <code>__next__()</code>. V našem případě (a ve většině případů) metoda <code>__iter__()</code> vrátí jednoduše <var>self</var>, protože tato třída implementuje svou vlastní metodu <code>__next__()</code>.
+<li>Metoda <code>__next__()</code> se volá vždy, když někdo zavolá funkci <code>next()</code> s iterátorem instance třídy. Za minutku to bude dávat větší smysl.
+<li>Když metoda <code>__next__()</code> vyvolá výjimku <code>StopIteration</code>, signalizuje tím volajícímu, že iterace skončila. Na rozdíl od většiny jiných výjimek se zde nesignalizuje chyba. Jde o běžnou situaci, která prostě znamená, že iterátor už nemá žádná data, která by generoval. Pokud je volajícím cyklus <code>for</code>, bude výjimka <code>StopIteration</code> zachycena a cyklus bude bezproblémově ukončen. (Jinými slovy, cyklus výjimku spolkne.) Toto malé kouzlo je ve skutečnosti klíčem k použití iterátorů v cyklech <code>for</code>.
+<li>Vyprodukování další hodnoty provede iterátor tak, že metoda <code>__next__()</code> hodnotu jednoduše vrátí příkazem <code>return</code>. Nepoužívejte zde příkaz <code>yield</code>. Ten je pouze syntaktickým cukrátkem a má význam pouze v souvislosti s generátory. Zde vytváříme od základů svůj vlastní iterátor, proto budeme používat <code>return</code>.
 </ol>
 
-<p>Už jste úplně zmatení? Výborně. Podívejme se, jak budeme iterátor
-volat: <pre class='nd screen'>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">from fibonacci2 import Fib</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">for n in Fib(1000):</kbd>
-<samp class="p">... </samp><kbd class="pp">    print(n, end=' ')</kbd>
-<samp class="pp">0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987</samp></pre>
+<p>Už jste úplně zmatení? Výborně. Podívejme se, jak budeme iterátor volat:
 
-<p>Cože? Vždyť je to úplně stejné! V každém bajtu se to shoduje s
-voláním <a href="generators.html#a-fibonacci-generator">generátoru
-Fibonacciho posloupnosti</a> (až na rozdíl jednoho velkého písmene).
-Ale jak je to možné? <p>Cykly <code>for</code> v sobě skrývají trochu
-magie. Odehrává se v nich následující: <ul>
-<li>Cyklus <code>for</code> volá <code>Fib(1000)</code>, jak je vidět z kódu. Vrací se instance třídy <code>Fib</code>. Říkejme jí třeba <var>fib_inst</var>. <li>Cyklus <code>for</code> potají a docela chytře volá funkci <code>iter(fib_inst)</code>, která vrátí objekt iterátoru. Říkejme mu třeba <var>fib_iter</var>. V našem případě platí <var>fib_iter</var> == <var>fib_inst</var>, protože metoda <code>__iter__()</code> vrací <var>self</var>. Ale o tom cyklus <code>for</code> neví (a je mu to jedno). <li>Za účelem „průchodu hodnotami“ iterátoru volá cyklus <code>for</code> funkci <code>next(fib_iter)</code>, která zase volá metodu <code>__next__()</code> objektu <code>fib_iter</code>. Ta provede výpočet dalšího Fibonacciho čísla a vrací hodnotu. Cyklus <code>for</code> hodnotu převezme, přiřadí ji do proměnné <var>n</var> a s touto hodnotou v <var>n</var> provede tělo cyklu. <li>Jak cyklus <code>for</code> ví, kdy má skončit? To jsem rád, že jste se zeptali! Když <code>next(fib_iter)</code> vyvolá výjimku <code>StopIteration</code>, cyklus <code>for</code> ji spolkne a spořádaně se ukončí. (Jakákoliv jiná výjimka se propustí a projeví se obvyklým způsobem.) A kde jsme zahlédli výjimku <code>StopIteration</code>? No přece v metodě <code>__next__()</code>!
+<pre class='nd screen'>
+<samp class=p>>>> </samp><kbd class=pp>from fibonacci2 import Fib</kbd>
+<samp class=p>>>> </samp><kbd class=pp>for n in Fib(1000):</kbd>
+<samp class=p>... </samp><kbd class=pp>    print(n, end=' ')</kbd>
+<samp class=pp>0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987</samp></pre>
+
+<p>Cože? Vždyť je to úplně stejné! V každém bajtu se to shoduje s voláním <a href="generators.html#a-fibonacci-generator">generátoru Fibonacciho posloupnosti</a> (až na rozdíl jednoho velkého písmene). Ale jak je to možné?
+
+<p>Cykly <code>for</code> v sobě skrývají trochu magie. Odehrává se v nich následující:
+
+<ul>
+<li>Cyklus <code>for</code> volá <code>Fib(1000)</code>, jak je vidět z kódu. Vrací se instance třídy <code>Fib</code>. Říkejme jí třeba <var>fib_inst</var>.
+<li>Cyklus <code>for</code> potají a docela chytře volá funkci <code>iter(fib_inst)</code>, která vrátí objekt iterátoru. Říkejme mu třeba <var>fib_iter</var>. V našem případě platí <var>fib_iter</var> == <var>fib_inst</var>, protože metoda <code>__iter__()</code> vrací <var>self</var>. Ale o tom cyklus <code>for</code> neví (a je mu to jedno).
+<li>Za účelem „průchodu hodnotami“ iterátoru volá cyklus <code>for</code> funkci <code>next(fib_iter)</code>, která zase volá metodu <code>__next__()</code> objektu <code>fib_iter</code>. Ta provede výpočet dalšího Fibonacciho čísla a vrací hodnotu. Cyklus <code>for</code> hodnotu převezme, přiřadí ji do proměnné <var>n</var> a s touto hodnotou v <var>n</var> provede tělo cyklu.
+<li>Jak cyklus <code>for</code> ví, kdy má skončit? To jsem rád, že jste se zeptali! Když <code>next(fib_iter)</code> vyvolá výjimku <code>StopIteration</code>, cyklus <code>for</code> ji spolkne a spořádaně se ukončí. (Jakákoliv jiná výjimka se propustí a projeví se obvyklým způsobem.) A kde jsme zahlédli výjimku <code>StopIteration</code>? No přece v metodě <code>__next__()</code>!
 </ul>
 
-<p class=a>&#x2042; <h2 id=a-plural-rule-iterator>Iterátor pro pravidla
-množného čísla</h2>
+<p class=a>&#x2042;
+
+<h2 id=a-plural-rule-iterator>Iterátor pro pravidla množného čísla</h2>
 
 <aside>iter(f) volá f.__iter__<br>next(f) volá f.__next__</aside>
-<p>Přišel čas na finále. Přepišme <a href="generators.html">generátor
-pravidel pro množné číslo</a> do podoby iterátoru. <p class=d>[<a
-href="examples/plural6.py">stáhnout <code>plural6.py</code></a>] <pre
-class=pp><code>class LazyRules:
+<p>Přišel čas na finále. Přepišme <a href="generators.html">generátor pravidel pro množné číslo</a> do podoby iterátoru.
+
+<p class=d>[<a href="examples/plural6.py">stáhnout <code>plural6.py</code></a>]
+<pre class=pp><code>class LazyRules:
     rules_filename = 'plural6-rules.txt'
 
     def __init__(self):
@@ -236,7 +225,7 @@ class=pp><code>class LazyRules:
 
     def __next__(self):
         self.cache_index += 1
-        if len(self.cache) &gt;= self.cache_index:
+        if len(self.cache) >= self.cache_index:
             return self.cache[self.cache_index - 1]
 
         if self.pattern_file.closed:
@@ -255,140 +244,141 @@ class=pp><code>class LazyRules:
 
 rules = LazyRules()</code></pre>
 
-<p>Tohle je tedy třída, která implementuje metody
-<code>__iter__()</code> a <code>__next__()</code>, takže ji můžeme
-použít jako iterátor. Za koncem její definice se vytvoří instance
-třídy a přiřadí se do <var>rules</var>. To se stane jen jednou, při
-importu. <p>Proberme si zmíněnou třídu po kouscích. <pre
-class=pp><code>class LazyRules:
+<p>Tohle je tedy třída, která implementuje metody <code>__iter__()</code> a <code>__next__()</code>, takže ji můžeme použít jako iterátor. Za koncem její definice se vytvoří instance třídy a přiřadí se do <var>rules</var>. To se stane jen jednou, při importu.
+
+<p>Proberme si zmíněnou třídu po kouscích.
+
+<pre class=pp><code>class LazyRules:
     rules_filename = 'plural6-rules.txt'
 
     def __init__(self):
-<a>        self.pattern_file = open(self.rules_filename, encoding='utf-8')  <span class="u">①</span></a>
-<a>        self.cache = []                                                  <span class="u">②</span></a></code></pre>
+<a>        self.pattern_file = open(self.rules_filename, encoding='utf-8')  <span class=u>&#x2460;</span></a>
+<a>        self.cache = []                                                  <span class=u>&#x2461;</span></a></code></pre>
 <ol>
-<li>Když vytvoříme instanci třídy <code>LazyRules</code> (líná pravidla), otevře se soubor s definicemi vzorků, ale nic se z něj nečte. (K tomu dojde později.) <li>Po otevření souboru se inicializuje vyrovnávací paměť (cache). Budeme ji používat později, během čtení řádků ze souboru vzorků (v metodě <code>__next__()</code>).
+<li>Když vytvoříme instanci třídy <code>LazyRules</code> (líná pravidla), otevře se soubor s definicemi vzorků, ale nic se z něj nečte. (K tomu dojde později.)
+<li>Po otevření souboru se inicializuje vyrovnávací paměť (cache). Budeme ji používat později, během čtení řádků ze souboru vzorků (v metodě <code>__next__()</code>).
 </ol>
 
-<p>Než budeme pokračovat, podívejme se podrobněji na
-<var>rules_filename</var>. Tato proměnná není definována uvnitř metody
-<code>__init__()</code>. Ve skutečnosti není definována uvnitř
-<em>žádné</em> metody. Je definována na úrovni třídy. Jde o
-<i>proměnnou třídy</i>. Ačkoliv k ní můžeme přistupovat stejným
-způsobem jako k nějaké členské proměnné
-(<var>self.rules_filename</var>), sdílí ji všechny instance třídy
-<code>LazyRules</code>. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import plural6</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">r1 = plural6.LazyRules()</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">r2 = plural6.LazyRules()</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">r1.rules_filename</kbd>                               <span class="u">①</span></a>
-<samp class="pp">'plural6-rules.txt'</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">r2.rules_filename</kbd>
-<samp class="pp">'plural6-rules.txt'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">r2.rules_filename = 'r2-override.txt'</kbd>           <span class="u">②</span></a>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">r2.rules_filename</kbd>
-<samp class="pp">'r2-override.txt'</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">r1.rules_filename</kbd>
-<samp class="pp">'plural6-rules.txt'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">r2.__class__.rules_filename</kbd>                     <span class="u">③</span></a>
-<samp class="pp">'plural6-rules.txt'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">r2.__class__.rules_filename = 'papayawhip.txt'</kbd>  <span class="u">④</span></a>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">r1.rules_filename</kbd>
-<samp class="pp">'papayawhip.txt'</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">r2.rules_filename</kbd>                               <span class="u">⑤</span></a>
-<samp class="pp">'r2-overridetxt'</samp></pre>
+<p>Než budeme pokračovat, podívejme se podrobněji na <var>rules_filename</var>. Tato proměnná není definována uvnitř metody <code>__init__()</code>. Ve skutečnosti není definována uvnitř <em>žádné</em> metody. Je definována na úrovni třídy. Jde o <i>proměnnou třídy</i>. Ačkoliv k ní můžeme přistupovat stejným způsobem jako k nějaké členské proměnné (<var>self.rules_filename</var>), sdílí ji všechny instance třídy <code>LazyRules</code>.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>import plural6</kbd>
+<samp class=p>>>> </samp><kbd class=pp>r1 = plural6.LazyRules()</kbd>
+<samp class=p>>>> </samp><kbd class=pp>r2 = plural6.LazyRules()</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>r1.rules_filename</kbd>                               <span class=u>&#x2460;</span></a>
+<samp class=pp>'plural6-rules.txt'</samp>
+<samp class=p>>>> </samp><kbd class=pp>r2.rules_filename</kbd>
+<samp class=pp>'plural6-rules.txt'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>r2.rules_filename = 'r2-override.txt'</kbd>           <span class=u>&#x2461;</span></a>
+<samp class=p>>>> </samp><kbd class=pp>r2.rules_filename</kbd>
+<samp class=pp>'r2-override.txt'</samp>
+<samp class=p>>>> </samp><kbd class=pp>r1.rules_filename</kbd>
+<samp class=pp>'plural6-rules.txt'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>r2.__class__.rules_filename</kbd>                     <span class=u>&#x2462;</span></a>
+<samp class=pp>'plural6-rules.txt'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>r2.__class__.rules_filename = 'papayawhip.txt'</kbd>  <span class=u>&#x2463;</span></a>
+<samp class=p>>>> </samp><kbd class=pp>r1.rules_filename</kbd>
+<samp class=pp>'papayawhip.txt'</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>r2.rules_filename</kbd>                               <span class=u>&#x2464;</span></a>
+<samp class=pp>'r2-overridetxt'</samp></pre>
 <ol>
-<li>Každá instance třídy dědí atribut <var>rules_filename</var> s hodnotou definovanou na úrovni třídy. <li>Když změníme hodnotu tohoto atributu v jedné instanci, neovlivníme tím ostatní instance&hellip; <li>&hellip;a ani neovlivníme atribut třídy. K atributu třídy (v protikladu k atributu jednotlivých instancí) můžeme přistupovat prostřednictvím speciálního atributu <code>__class__</code>, který zpřístupňuje třídu jako takovou. <li>Pokud změníte hodnotu atributu třídy, pak to ovlivní všechny instance, které tuto hodnotu dosud dědí (zde <var>r1</var>). <li>Instance, které tento atribut přepsaly (zde <var>r2</var>), ovlivněny nebudou.
+<li>Každá instance třídy dědí atribut <var>rules_filename</var> s hodnotou definovanou na úrovni třídy.
+<li>Když změníme hodnotu tohoto atributu v jedné instanci, neovlivníme tím ostatní instance&hellip;
+<li>&hellip;a ani neovlivníme atribut třídy. K atributu třídy (v protikladu k atributu jednotlivých instancí) můžeme přistupovat prostřednictvím speciálního atributu <code>__class__</code>, který zpřístupňuje třídu jako takovou.
+<li>Pokud změníte hodnotu atributu třídy, pak to ovlivní všechny instance, které tuto hodnotu dosud dědí (zde <var>r1</var>).
+<li>Instance, které tento atribut přepsaly (zde <var>r2</var>), ovlivněny nebudou.
 </ol>
 
-<p>Ale zpět k naší ukázce. <pre class=pp><code><a>    def
-__iter__(self):       <span class="u">①</span></a>
+<p>Ale zpět k naší ukázce.
+
+<pre class=pp><code><a>    def __iter__(self):       <span class=u>&#x2460;</span></a>
         self.cache_index = 0
-<a>        return self           <span class="u">②</span></a>
+<a>        return self           <span class=u>&#x2461;</span></a>
 </code></pre>
 <ol>
-<li>Metoda <code>__iter__()</code> bude volána pokaždé, když někdo (dejme tomu cyklus <code>for</code>) zavolá <code>iter(rules)</code>. <li>Jednou z věcí, kterou musí každá metoda <code>__iter__()</code> udělat, je vrácení iterátoru. V tomto případě se vrací <var>self</var>, čímž dáváme najevo, že tato třída definuje nějakou metodu <code>__next__()</code>, která se postará o vracení hodnot během iterace.
+<li>Metoda <code>__iter__()</code> bude volána pokaždé, když někdo (dejme tomu cyklus <code>for</code>) zavolá <code>iter(rules)</code>.
+<li>Jednou z věcí, kterou musí každá metoda <code>__iter__()</code> udělat, je vrácení iterátoru. V tomto případě se vrací <var>self</var>, čímž dáváme najevo, že tato třída definuje nějakou metodu <code>__next__()</code>, která se postará o vracení hodnot během iterace.
 </ol>
 
-<pre class=pp><code><a>    def __next__(self):                                 <span class="u">①</span></a>
+<pre class=pp><code><a>    def __next__(self):                                 <span class=u>&#x2460;</span></a>
         .
         .
         .
         pattern, search, replace = line.split(None, 3)
-<a>        funcs = build_match_and_apply_functions(        <span class="u">②</span></a>
+<a>        funcs = build_match_and_apply_functions(        <span class=u>&#x2461;</span></a>
             pattern, search, replace)
-<a>        self.cache.append(funcs)                        <span class="u">③</span></a>
+<a>        self.cache.append(funcs)                        <span class=u>&#x2462;</span></a>
         return funcs</code></pre>
 <ol>
-<li>Metoda <code>__next__()</code> bude volána pokaždé, když někdo (dejme tomu cyklus <code>for</code>) zavolá <code>next(rules)</code>. Smysl této metody pochopíme, když začneme od jejího konce a půjdeme pozpátku. Takže pojďme na to. <li>Poslední část této funkce by vám měla být přinejmenším povědomá. Funkce <code>build_match_and_apply_functions()</code> se nezměnila. Je pořád stejná, jako vždycky byla. <li>Jediný rozdíl spočívá v tom, že před vrácením rozhodovací a aplikační funkce (jsou uloženy v dvojici <var>funcs</var>) je nejdříve uložíme do <code>self.cache</code>.
+<li>Metoda <code>__next__()</code> bude volána pokaždé, když někdo (dejme tomu cyklus <code>for</code>) zavolá <code>next(rules)</code>. Smysl této metody pochopíme, když začneme od jejího konce a půjdeme pozpátku. Takže pojďme na to.
+<li>Poslední část této funkce by vám měla být přinejmenším povědomá. Funkce <code>build_match_and_apply_functions()</code> se nezměnila. Je pořád stejná, jako vždycky byla.
+<li>Jediný rozdíl spočívá v tom, že před vrácením rozhodovací a aplikační funkce (jsou uloženy v dvojici <var>funcs</var>) je nejdříve uložíme do <code>self.cache</code>.
 </ol>
 
-<p>Posuňme se zpět&hellip; <pre class=pp><code>    def __next__(self):
+<p>Posuňme se zpět&hellip;
+
+<pre class=pp><code>    def __next__(self):
         .
         .
         .
-<a>        line = self.pattern_file.readline()  <span class="u">①</span></a>
-<a>        if not line:                         <span class="u">②</span></a>
+<a>        line = self.pattern_file.readline()  <span class=u>&#x2460;</span></a>
+<a>        if not line:                         <span class=u>&#x2461;</span></a>
             self.pattern_file.close()
-<a>            raise StopIteration              <span class="u">③</span></a>
+<a>            raise StopIteration              <span class=u>&#x2462;</span></a>
         .
         .
         .</code></pre>
 <ol>
-<li>Tady použijeme fintu se souborem pro trošku pokročilejší. Metoda <code>readline()</code> (poznámka: jednotné číslo, nikoliv množné <code>readlines()</code>) přečte z otevřeného souboru přesně jeden řádek. Přesněji řečeno, přečte další řádek. (<em>Souborové objekty jsou také iterátory! Iterátory jsou všude, až po základy...</em>) <li>Pokud mohla <code>readline()</code> přečíst řádek do proměnné <var>line</var>, bude to neprázdný řetězec. Dokonce i kdyby soubor obsahoval prázdný řádek, skončí <var>line</var> jako jednoznakový řetězec <code>'\n'</code> (znak konce řádku). Pokud se v proměnné <var>line</var> opravdu nachází prázdný řetězec, znamená to, že soubor už neobsahuje žádné další řádky ke čtení. <li>Když dosáhneme konce souboru, měli bychom soubor zavřít a vyvolat magickou výjimku <code>StopIteration</code>. Připomeňme si, že do tohoto bodu jsme se dostali, protože jsme potřebovali rozhodovací a aplikační funkci pro další pravidlo. Další pravidlo je definované dalším řádkem souboru&hellip; Ale další řádek už nemáme! Takže už nemáme co vrátit. Iterace skončila. (The iteration is over. <a href="http://www.youtube.com/watch?v=YV5ynRFzrIM"><span class="u">♫</span> The party’s over&hellip; <span class="u">♫</span></a>)
+<li>Tady použijeme fintu se souborem pro trošku pokročilejší. Metoda <code>readline()</code> (poznámka: jednotné číslo, nikoliv množné <code>readlines()</code>) přečte z otevřeného souboru přesně jeden řádek. Přesněji řečeno, přečte další řádek. (<em>Souborové objekty jsou také iterátory! Iterátory jsou všude, až po základy&hellip;</em>)
+<li>Pokud mohla <code>readline()</code> přečíst řádek do proměnné <var>line</var>, bude to neprázdný řetězec. Dokonce i kdyby soubor obsahoval prázdný řádek, skončí <var>line</var> jako jednoznakový řetězec <code>'\n'</code> (znak konce řádku). Pokud se v proměnné <var>line</var> opravdu nachází prázdný řetězec, znamená to, že soubor už neobsahuje žádné další řádky ke čtení.
+<li>Když dosáhneme konce souboru, měli bychom soubor zavřít a vyvolat magickou výjimku <code>StopIteration</code>. Připomeňme si, že do tohoto bodu jsme se dostali, protože jsme potřebovali rozhodovací a aplikační funkci pro další pravidlo. Další pravidlo je definované dalším řádkem souboru&hellip; Ale další řádek už nemáme! Takže už nemáme co vrátit. Iterace skončila. (The iteration is over. <a href="http://www.youtube.com/watch?v=YV5ynRFzrIM"><span class="u">&#x266B;</span> The party’s over&hellip; <span class="u">&#x266B;</span></a>)
 </ol>
 
-<p>A jdeme pozpátku až k začátku metody <code>__next__()</code>&hellip; <pre
-class=pp><code>    def __next__(self):
+<p>A jdeme pozpátku až k začátku metody <code>__next__()</code>&hellip;
+
+<pre class=pp><code>    def __next__(self):
         self.cache_index += 1
-        if len(self.cache) &gt;= self.cache_index:
-<a>            return self.cache[self.cache_index - 1]     <span class="u">①</span></a>
+        if len(self.cache) >= self.cache_index:
+<a>            return self.cache[self.cache_index - 1]     <span class=u>&#x2460;</span></a>
 
         if self.pattern_file.closed:
-<a>            raise StopIteration                         <span class="u">②</span></a>
+<a>            raise StopIteration                         <span class=u>&#x2461;</span></a>
         .
         .
         .</code></pre>
 <ol>
-<li><code>self.cache</code> bude mít podobu seznamu funkcí, které potřebujeme pro rozhodování a aplikaci jednotlivých pravidel. (Přinejmenším <em>tohle</em> by vám mělo být povědomé!) V <code>self.cache_index</code> se pamatuje, která další (už zapamatovaná) položka se má vrátit příště. Pokud jsme dosud nevyčerpali prostor se zapamatovanými položkami (tj. pokud je délka <code>self.cache</code> větší než <code>self.cache_index</code>), pak jsme ji našli (cache hit)! Hurá! Rozhodovací a aplikační funkci můžeme vrátit z vyrovnávací paměti a nemusíme je budovat znovu. <li>Na druhou stranu, pokud jsme na položku ve vyrovnávací paměti nenarazili <em>a zároveň</em> je souborový objekt už uzavřen (což se níže v kódu metody může stát &mdash; jak jsme viděli v předcházející ukázce), pak už nemůžeme nic víc dělat. Pokud je soubor uzavřen, znamená to, že jsme jeho obsah vyčerpali. Už jsme přečetli každý jeho řádek a vybudovali jsme funkce pro rozhodování a pro aplikaci pro každý vzorek a uložili jsme je do vyrovnávací paměti. Soubor je vyčerpaný, vyrovnávací paměť je vyčerpaná, já jsem vyčerpaný. Počkat! Co? „Выдержай пионер“ [vyděržaj pijaněr], už je to skoro hotové.
+<li><code>self.cache</code> bude mít podobu seznamu funkcí, které potřebujeme pro rozhodování a aplikaci jednotlivých pravidel. (Přinejmenším <em>tohle</em> by vám mělo být povědomé!) V <code>self.cache_index</code> se pamatuje, která další (už zapamatovaná) položka se má vrátit příště. Pokud jsme dosud nevyčerpali prostor se zapamatovanými položkami (tj. pokud je délka <code>self.cache</code> větší než <code>self.cache_index</code>), pak jsme ji našli (cache hit)! Hurá! Rozhodovací a aplikační funkci můžeme vrátit z vyrovnávací paměti a nemusíme je budovat znovu.
+<li>Na druhou stranu, pokud jsme na položku ve vyrovnávací paměti nenarazili <em>a zároveň</em> je souborový objekt už uzavřen (což se níže v kódu metody může stát &mdash; jak jsme viděli v předcházející ukázce), pak už nemůžeme nic víc dělat. Pokud je soubor uzavřen, znamená to, že jsme jeho obsah vyčerpali. Už jsme přečetli každý jeho řádek a vybudovali jsme funkce pro rozhodování a pro aplikaci pro každý vzorek a uložili jsme je do vyrovnávací paměti. Soubor je vyčerpaný, vyrovnávací paměť je vyčerpaná, já jsem vyčerpaný. Počkat! Co? „Выдержай пионер“ [vyděržaj pijaněr], už je to skoro hotové.
 </ol>
 
-<p>Když to dáme všechno dohromady, provádí se následující: <ul>
-<li>V okamžiku importu modulu se vytvoří jediná instance třídy <code>LazyRules</code>, která je nazvaná <var>rules</var> (pravidla). Tato instance otevřela soubor se vzorky, ale nečetla z něj. <li>V okamžiku, kdy se požaduje první dvojice funkcí pro rozhodování a pro aplikaci, dojde ke kontrole vyrovnávací paměti, ale zjistí se, že je prázdná. Takže se ze souboru přečte jeden řádek se vzorky, vybudují se podle něj funkce pro rozhodování a pro aplikaci a uloží se do vyrovnávací paměti. <li>Dejme tomu, že vyhovělo úplně první pravidlo. Pokud tomu tak je, žádné další funkce pro rozhodování a aplikaci se nevytvářejí a ze souboru se nečtou žádné další řádky. <li>Dále dejme tomu, že volající zavolá funkci <code>plural()</code> <em>znovu</em>, protože chce převést do množného čísla jiné slovo. Cyklus <code>for</code> ve funkci <code>plural()</code> zavolá <code>iter(rules)</code>, což vede k nastavení indexu vyrovnávací paměti na začátek, ale nedojde k resetování otevřeného souborového objektu. <li>Při prvním průchodu požádá cyklus <code>for</code> o hodnotu ze struktury <var>rules</var>, což vede k zavolání jeho metody <code>__next__()</code>. Ale v tomto okamžiku už vyrovnávací paměť obsahuje jediný pár funkcí pro rozhodování a pro aplikaci &mdash; odpovídají vzorkům z prvního řádku souboru. Protože už byly vytvořeny a uloženy do vyrovnávací paměti při zpracování minulého slova, jsou z ní vybrány. Index do vyrovnávací paměti se zvýší a otevřený soubor zůstane nedotčen. <li>Dejme tomu, že první pravidlo tentokrát <em>nevyhovělo</em>. Cyklus <code>for</code> udělá další obrátku a zeptá se na další hodnotu ze seznamu <var>rules</var>. Tím se podruhé aktivuje metoda <code>__next__()</code>. Tentokrát je ale vyrovnávací paměť vyčerpána, protože obsahovala jen jednu položku a my jsme požádali o druhou. Takže metoda <code>__next__()</code> pokračuje v činnosti. Z otevřeného souboru přečte další řádek, vybuduje podle něj rozhodovací a aplikační funkci a dvojici uloží do vyrovnávací paměti. <li>Pokud pravidla budovaná z načítaných řádků souboru pro zadané slovo nevyhovují, pokračuje proces fázemi „přečti, vybuduj, ulož“ dál. Jakmile se nalezne vhodné pravidlo před koncem souboru, jednoduše se použije a další načítání se zastaví. Soubor zůstane otevřený. Ukazatel do souboru zůstane tam, kde jsme přestali číst, a bude se čekat na další příkaz <code>readline()</code>. Ve vyrovnávací paměti se teď nachází více položek. Pokud znovu zahájíme vytváření množného čísla pro nové slovo, vyzkoušíme před případným čtením dalšího řádku souboru nejdříve všechny položky z vyrovnávací paměti.
+<p>Když to dáme všechno dohromady, provádí se následující:
+
+<ul>
+<li>V okamžiku importu modulu se vytvoří jediná instance třídy <code>LazyRules</code>, která je nazvaná <var>rules</var> (pravidla). Tato instance otevřela soubor se vzorky, ale nečetla z něj.
+<li>V okamžiku, kdy se požaduje první dvojice funkcí pro rozhodování a pro aplikaci, dojde ke kontrole vyrovnávací paměti, ale zjistí se, že je prázdná. Takže se ze souboru přečte jeden řádek se vzorky, vybudují se podle něj funkce pro rozhodování a pro aplikaci a uloží se do vyrovnávací paměti.
+<li>Dejme tomu, že vyhovělo úplně první pravidlo. Pokud tomu tak je, žádné další funkce pro rozhodování a aplikaci se nevytvářejí a ze souboru se nečtou žádné další řádky.
+<li>Dále dejme tomu, že volající zavolá funkci <code>plural()</code> <em>znovu</em>, protože chce převést do množného čísla jiné slovo. Cyklus <code>for</code> ve funkci <code>plural()</code> zavolá <code>iter(rules)</code>, což vede k nastavení indexu vyrovnávací paměti na začátek, ale nedojde k resetování otevřeného souborového objektu.
+<li>Při prvním průchodu požádá cyklus <code>for</code> o hodnotu ze struktury <var>rules</var>, což vede k zavolání jeho metody <code>__next__()</code>. Ale v tomto okamžiku už vyrovnávací paměť obsahuje jediný pár funkcí pro rozhodování a pro aplikaci &mdash; odpovídají vzorkům z prvního řádku souboru. Protože už byly vytvořeny a uloženy do vyrovnávací paměti při zpracování minulého slova, jsou z ní vybrány. Index do vyrovnávací paměti se zvýší a otevřený soubor zůstane nedotčen.
+<li>Dejme tomu, že první pravidlo tentokrát <em>nevyhovělo</em>. Cyklus <code>for</code> udělá další obrátku a zeptá se na další hodnotu ze seznamu <var>rules</var>. Tím se podruhé aktivuje metoda <code>__next__()</code>. Tentokrát je ale vyrovnávací paměť vyčerpána, protože obsahovala jen jednu položku a my jsme požádali o druhou. Takže metoda <code>__next__()</code> pokračuje v činnosti. Z otevřeného souboru přečte další řádek, vybuduje podle něj rozhodovací a aplikační funkci a dvojici uloží do vyrovnávací paměti.
+<li>Pokud pravidla budovaná z načítaných řádků souboru pro zadané slovo nevyhovují, pokračuje proces fázemi „přečti, vybuduj, ulož“ dál. Jakmile se nalezne vhodné pravidlo před koncem souboru, jednoduše se použije a další načítání se zastaví. Soubor zůstane otevřený. Ukazatel do souboru zůstane tam, kde jsme přestali číst, a bude se čekat na další příkaz <code>readline()</code>. Ve vyrovnávací paměti se teď nachází více položek. Pokud znovu zahájíme vytváření množného čísla pro nové slovo, vyzkoušíme před případným čtením dalšího řádku souboru nejdříve všechny položky z vyrovnávací paměti.
 </ul>
 
-<p>Dosáhli jsme „množnočíselné“ nirvány. <ol>
-<li><strong>Minimální startovací čas.</strong> Jediné činnosti, které se při příkazu <code>import</code> provedou, jsou vytvoření jediné instance třídy a otevření souboru (ale nečte se z něj). <li><strong>Maximální výkonnost.</strong> U předcházejícího příkladu bychom četli ze souboru a dynamicky budovali funkce pokaždé, když bychom chtěli vytvořit množné číslo zadaného slova. V této verzi dochází hned po vybudování funkcí k jejich uložení do vyrovnávací paměti a v nejhorším případě dojde k přečtení celého souboru jednou &mdash; nezávisle na tom, z kolika slov tvoříme množné číslo. <li><strong>Oddělení kódu a dat.</strong> Všechny vzorky jsou uložené v odděleném souboru. Kód je kód, data jsou data a ta dvojice se nikdy nesetká.
+<p>Dosáhli jsme „množnočíselné“ nirvány.
+
+<ol>
+<li><strong>Minimální startovací čas.</strong> Jediné činnosti, které se při příkazu <code>import</code> provedou, jsou vytvoření jediné instance třídy a otevření souboru (ale nečte se z něj).
+<li><strong>Maximální výkonnost.</strong> U předcházejícího příkladu bychom četli ze souboru a dynamicky budovali funkce pokaždé, když bychom chtěli vytvořit množné číslo zadaného slova. V této verzi dochází hned po vybudování funkcí k jejich uložení do vyrovnávací paměti a v nejhorším případě dojde k přečtení celého souboru jednou &mdash; nezávisle na tom, z kolika slov tvoříme množné číslo.
+<li><strong>Oddělení kódu a dat.</strong> Všechny vzorky jsou uložené v odděleném souboru. Kód je kód, data jsou data a ta dvojice se nikdy nesetká.
 </ol>
 
 <blockquote class=note>
-<p><span class="u">&#x261E;</span>Je to opravdu nirvána? Inu, ano i ne. U
-příkladu s <code>LazyRules</code> musíme počítat s následujícím:
-soubor se vzorky se otevře (během <code>__init__()</code>) a zůstane
-otevřen, dokud nebude dosaženo posledního pravidla. Soubor se nakonec
-uzavře při ukončení Pythonu nebo po zrušení poslední instance třídy
-<code>LazyRules</code>, ale může to trvat <em>velmi dlouho</em>. Pokud
-je tato třída součástí dlouho běžícího procesu, nemusí interpret
-Pythonu skončit nikdy a také objekt třídy <code>LazyRules</code>
-nemusí být nikdy zrušen. <p>Dá se to obejít různými způsoby. Místo
-toho, aby byl soubor otevřen během <code>__init__()</code> a ponechán
-v otevřeném stavu pro čtení po jednom řádku, můžeme soubor otevřít,
-přečíst všechny řádky a soubor hned zavřít. Nebo můžeme soubor
-otevřít, přečíst jeden řádek s pravidlem, uložit pozici v souboru
-zjištěnou <a href="files.html#read">metodou <code>tell()</code></a> a
-soubor uzavřít. Později jej znovu otevřeme, použijeme <a
-href="files.html#read">metodu <code>seek()</code></a> a pokračujeme ve
-čtení tam, kde jsme skončili. A nebo si s tím nebudeme dělat těžkou
-hlavu a prostě necháme soubor otevřený, jako to dělá tento příklad.
-Programování úzce souvisí s návrhem a návrh je založen na kompromisech
-a omezeních. Pokud bude soubor ponechán v otevřeném stavu příliš
-dlouho, může to vést k problému. Pokud místo toho vytvoříte
-komplikovanější kód, může to také vést k problému. Který z těchto
-problémů je větší, záleží na vašem vývojovém týmu, na vaší aplikaci a
-na provozním prostředí.
+<p><span class="u">&#x261E;</span>Je to opravdu nirvána? Inu, ano i ne. U příkladu s <code>LazyRules</code> musíme počítat s následujícím: soubor se vzorky se otevře (během <code>__init__()</code>) a zůstane otevřen, dokud nebude dosaženo posledního pravidla. Soubor se nakonec uzavře při ukončení Pythonu nebo po zrušení poslední instance třídy <code>LazyRules</code>, ale může to trvat <em>velmi dlouho</em>. Pokud je tato třída součástí dlouho běžícího procesu, nemusí interpret Pythonu skončit nikdy a také objekt třídy <code>LazyRules</code> nemusí být nikdy zrušen.
+<p>Dá se to obejít různými způsoby. Místo toho, aby byl soubor otevřen během <code>__init__()</code> a ponechán v otevřeném stavu pro čtení po jednom řádku, můžeme soubor otevřít, přečíst všechny řádky a soubor hned zavřít. Nebo můžeme soubor otevřít, přečíst jeden řádek s pravidlem, uložit pozici v souboru zjištěnou <a href="files.html#read">metodou <code>tell()</code></a> a soubor uzavřít. Později jej znovu otevřeme, použijeme <a href="files.html#read">metodu <code>seek()</code></a> a pokračujeme ve čtení tam, kde jsme skončili. A nebo si s tím nebudeme dělat těžkou hlavu a prostě necháme soubor otevřený, jako to dělá tento příklad. Programování úzce souvisí s návrhem a návrh je založen na kompromisech a omezeních. Pokud bude soubor ponechán v otevřeném stavu příliš dlouho, může to vést k problému. Pokud místo toho vytvoříte komplikovanější kód, může to také vést k problému. Který z těchto problémů je větší, záleží na vašem vývojovém týmu, na vaší aplikaci a na provozním prostředí.
 </blockquote>
 
-<p class=a>&#x2042; <h2 id=furtherreading>Přečtěte si</h2>
+<p class=a>&#x2042;
+
+<h2 id=furtherreading>Přečtěte si</h2>
 <ul>
 <li><a href="http://docs.python.org/3.1/library/stdtypes.html#iterator-types">Iterator types</a>
 <li><a href="http://www.python.org/dev/peps/pep-0234" />PEP 234: Iterators</a>
@@ -396,12 +386,9 @@ na provozním prostředí.
 <li><a href="http://www.dabeaz.com/generators" />Generator Tricks for Systems Programmers</a>
 </ul>
 
-<p class=v><a href="generators.html" rel="prev" title="zpět na
-„Uzávěry a generátory“"><span class="u">&#x261C;</span></a> <a
-href="advanced-iterators.html" rel="next" title="dopředu na „Iterátory
-pro pokročilé“"><span class="u">&#x261E;</span></a>
+<p class=v><a href="generators.html" rel="prev" title="zpět na „Uzávěry a generátory“"><span class="u">&#x261C;</span></a> <a href="advanced-iterators.html" rel="next" title="dopředu na „Iterátory pro pokročilé“"><span class="u">&#x261E;</span></a>
 
 <p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
-<script src=j/dip3.js></script> 
+<script src=j/dip3.js></script>
