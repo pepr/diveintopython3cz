@@ -1,4 +1,5 @@
-<!DOCTYPE html> <meta charset=utf-8>
+<!DOCTYPE html>
+<meta charset=utf-8>
 <title>Serializace pythonovských objektů &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
@@ -9,123 +10,117 @@ body{counter-reset:h1 13}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
-<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">&#8227;</span> <a
-href="table-of-contents.html#serializing">Ponořme se do Pythonu 3</a>
-<span class="u">&#8227;</span>
-<p id=level>Úroveň obtížnosti: <span class="u" title="pro
-pokročilé">&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span class="u">&#8227;</span> <a href="table-of-contents.html#serializing">Ponořme se do Pythonu 3</a> <span class="u">&#8227;</span>
+<p id=level>Úroveň obtížnosti: <span class="u" title="pro pokročilé">&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
 <h1>Serializace pythonovských objektů</h1>
 <blockquote class=q>
-<p><span class="u">&#x275D;</span> Every Saturday since we’ve lived in this
-apartment, I have awakened at 6:15, poured myself a bowl of cereal,
-added<br>a quarter-cup of 2% milk, sat on <strong>this</strong> end
-of <strong>this</strong> couch, turned on BBC America, and watched
-Doctor Who. <span class="u">&#x275E;</span><br>(Každou sobotu, od té doby
-co žiji v tomto bytě, jsem vstal v 6.15, nasypal do sebe misku
-cereálií, přidal jsem hrnek<br>2% mléka, sedl jsem si na
-<strong>tento</strong> konec <strong>této</strong> pohovky, zapnul
-jsem BBC America a díval jsem se na Doctor Who.)<br>&mdash; Sheldon, <a
-href="http://en.wikiquote.org/wiki/The_Big_Bang_Theory#The_Dumpling_Paradox_.5B1.07.5D">The
-Big Bang Theory</a>
+<p><span class="u">&#x275D;</span> Every Saturday since we’ve lived in this apartment, I have awakened at 6:15, poured myself a bowl of cereal, added<br>a quarter-cup of 2% milk, sat on <strong>this</strong> end of <strong>this</strong> couch, turned on BBC America, and watched Doctor Who. <span class="u">&#x275E;</span><br>(Každou sobotu, od té doby co žiji v tomto bytě, jsem vstal v 6.15, nasypal do sebe misku cereálií, přidal jsem hrnek<br>2% mléka, sedl jsem si na <strong>tento</strong> konec <strong>této</strong> pohovky, zapnul jsem BBC America a díval jsem se na Doctor Who.)<br>&mdash; Sheldon, <a href="http://en.wikiquote.org/wiki/The_Big_Bang_Theory#The_Dumpling_Paradox_.5B1.07.5D">The Big Bang Theory</a>
 </blockquote>
-<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
-<p class=f>Myšlenka <dfn>serializace</dfn> vypadá na první pohled
-jednoduše. Máme datovou strukturu v paměti, kterou chceme uložit,
-znovu použít nebo zaslat někomu jinému. Jak bychom to udělali? Záleží
-to na tom, jak ji chceme uložit, jak ji chceme znovu použít a komu ji
-chceme poslat. Mnoho her umožňuje, abyste si při ukončení uložili stav
-a při příštím spuštění pokračovali od tohoto místa dál. (Ve
-skutečnosti to umožňuje i mnoho aplikací, které nemají s hrami nic
-společného.) V takovém případě musí být datová struktura, která
-zachycuje „váš dosavadní pokrok“, při ukončení uložena na disk a při
-opětném spuštění z disku načtena. Data jsou určena jen pro použití se
-stejným programem, který je vytvořil. Nikdy se neposílají po síti a
-nikdy je nečte nic jiného než program, který je vytvořil. To znamená,
-že záležitost součinnosti se omezuje pouze na to, aby byla následující
-verze programu schopna načíst data zapsaná předchozími verzemi. <p>Pro
-tyto případy se ideálně hodí modul <code>pickle</code>. Je součástí
-pythonovské standardní knihovny, takže je kdykoliv k dispozici. Je
-rychlý. Jeho větší část je napsána v jazyce C, stejně jako vlastní
-interpret Pythonu. Dokáže uložit libovolně složité pythonovské datové
-struktury. <p>Co vlastně modul <code>pickle</code> dokáže uložit? <ul>
-<li>Všechny Pythonem podporované <a href="native-datatypes.html">přirozené datové typy</a>: boolean, celá i reálná čísla, komplexní čísla, řetězce, objekty typu <code>bytes</code>, pole bajtů a <code>None</code>. <li>Seznamy, n-tice, slovníky a množiny, které obsahují libovolnou kombinaci přirozených datových typů. <li>Seznamy, n-tice, slovníky a množiny, které obsahují libovolnou kombinaci seznamů, n-tic, slovníků a množin, které obsahují libovolnou kombinaci přirozených datových typů (a tak dále až do <a title="sys.getrecursionlimit()" href="http://docs.python.org/3.1/library/sys.html#sys.getrecursionlimit">maximální hloubky zanoření, kterou Python podporuje</a>). <li>Funkce, třídy a instance tříd (s upozorněním na určitá nebezpečí).
+<p id=toc>&nbsp;
+<h2 id=divingin>Ponořme se</h2>
+<p class=f>Myšlenka <dfn>serializace</dfn> vypadá na první pohled jednoduše. Máme datovou strukturu v paměti, kterou chceme uložit, znovu použít nebo zaslat někomu jinému. Jak bychom to udělali? Záleží to na tom, jak ji chceme uložit, jak ji chceme znovu použít a komu ji chceme poslat. Mnoho her umožňuje, abyste si při ukončení uložili stav a při příštím spuštění pokračovali od tohoto místa dál. (Ve skutečnosti to umožňuje i mnoho aplikací, které nemají s hrami nic společného.) V takovém případě musí být datová struktura, která zachycuje „váš dosavadní pokrok“, při ukončení uložena na disk a při opětném spuštění z disku načtena. Data jsou určena jen pro použití se stejným programem, který je vytvořil. Nikdy se neposílají po síti a nikdy je nečte nic jiného než program, který je vytvořil. To znamená, že záležitost součinnosti se omezuje pouze na to, aby byla následující verze programu schopna načíst data zapsaná předchozími verzemi.
+
+<p>Pro tyto případy se ideálně hodí modul <code>pickle</code>. Je součástí pythonovské standardní knihovny, takže je kdykoliv k dispozici. Je rychlý. Jeho větší část je napsána v jazyce C, stejně jako vlastní interpret Pythonu. Dokáže uložit libovolně složité pythonovské datové struktury.
+
+<p>Co vlastně modul <code>pickle</code> dokáže uložit?
+
+<ul>
+<li>Všechny Pythonem podporované <a href="native-datatypes.html">přirozené datové typy</a>: boolean, celá i reálná čísla, komplexní čísla, řetězce, objekty typu <code>bytes</code>, pole bajtů a <code>None</code>.
+<li>Seznamy, n-tice, slovníky a množiny, které obsahují libovolnou kombinaci přirozených datových typů.
+<li>Seznamy, n-tice, slovníky a množiny, které obsahují libovolnou kombinaci seznamů, n-tic, slovníků a množin, které obsahují libovolnou kombinaci přirozených datových typů (a tak dále až do <a title="sys.getrecursionlimit()" href="http://docs.python.org/3.1/library/sys.html#sys.getrecursionlimit">maximální hloubky zanoření, kterou Python podporuje</a>).
+<li>Funkce, třídy a instance tříd (s upozorněním na určitá nebezpečí).
 </ul>
 
-<p>A pokud se vám to zdá málo, modul <code>pickle</code> je navíc
-rozšiřitelný. Pokud vás možnost rozšiřitelnosti zajímá, podívejte se
-na odkazy v podkapitole <a href="#furtherreading">Přečtěte si</a> na
-konci kapitoly. <h3 id=administrivia>Stručná poznámka k příkladům v
-této kapitole</h3>
+<p>A pokud se vám to zdá málo, modul <code>pickle</code> je navíc rozšiřitelný. Pokud vás možnost rozšiřitelnosti zajímá, podívejte se na odkazy v podkapitole <a href="#furtherreading">Přečtěte si</a> na konci kapitoly.
 
-<p>Tato kapitola vypráví příběh s dvěma pythonovskými shelly. Všechny
-příklady v kapitole jsou částí jedné linie příběhu. Během předvádění
-modulů <code>pickle</code> a <code>json</code> budeme přecházet z
-jednoho pythonovského shellu do druhého. <p>Abychom oba od sebe
-poznali, otevřete jeden pythonovský shell a definujte následující
-proměnnou: <pre class='nd screen'>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell = 1</kbd></pre>
+<h3 id=administrivia>Stručná poznámka k příkladům v této kapitole</h3>
 
-<p>Okno nechejte otevřené. Teď otevřete druhý pythonovský shell a
-definujte proměnnou: <pre class='nd screen'>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell = 2</kbd></pre>
+<p>Tato kapitola vypráví příběh s dvěma pythonovskými shelly. Všechny příklady v kapitole jsou částí jedné linie příběhu. Během předvádění modulů <code>pickle</code> a <code>json</code> budeme přecházet z jednoho pythonovského shellu do druhého.
 
-<p>Během kapitoly budeme používat proměnnou <code>shell</code> k
-indikaci toho, který pythonovský shell se u každého příkladu používá.
-<p class=a>&#x2042; <h2 id=dump>Uložení dat do „pickle-souboru“</h2>
+<p>Abychom oba od sebe poznali, otevřete jeden pythonovský shell a definujte následující proměnnou:
 
-<p>Modul <code>pickle</code> pracuje s datovými strukturami. Jednu
-takovou si připravíme. <pre class=screen>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>                                                                                              <span class="u">①</span></a>
-<samp class="pp">1</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry = {}</kbd>                                                                                         <span class="u">②</span></a>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry['title'] = 'Dive into history, 2009 edition'</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry['article_link'] = 'http://diveintomark.org/archives/2009/03/27/dive-into-history-2009-edition'</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry['comments_link'] = None</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry['internal_id'] = b'\xDE\xD5\xB4\xF8'</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry['tags'] = ('diveintopython', 'docbook', 'html')</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry['published'] = True</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import time</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry['published_date'] = time.strptime('Fri Mar 27 22:20:42 2009')</kbd>                                <span class="u">③</span></a>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry['published_date']</kbd>
-<samp class="pp">time.struct_time(tm_year=2009, tm_mon=3, tm_mday=27, tm_hour=22, tm_min=20, tm_sec=42, tm_wday=4, tm_yday=86, tm_isdst=-1)</samp></pre>
+<pre class='nd screen'>
+<samp class=p>>>> </samp><kbd class=pp>shell = 1</kbd></pre>
+
+<p>Okno nechejte otevřené. Teď otevřete druhý pythonovský shell a definujte proměnnou:
+
+<pre class='nd screen'>
+<samp class=p>>>> </samp><kbd class=pp>shell = 2</kbd></pre>
+
+<p>Během kapitoly budeme používat proměnnou <code>shell</code> k indikaci toho, který pythonovský shell se u každého příkladu používá.
+
+<p class=a>&#x2042;
+
+<h2 id=dump>Uložení dat do „pickle-souboru“</h2>
+
+<p>Modul <code>pickle</code> pracuje s datovými strukturami. Jednu takovou si připravíme.
+
+<pre class=screen>
+<a><samp class=p>>>> </samp><kbd class=pp>shell</kbd>                                                                                              <span class=u>&#x2460;</span></a>
+<samp class=pp>1</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry = {}</kbd>                                                                                         <span class=u>&#x2461;</span></a>
+<samp class=p>>>> </samp><kbd class=pp>entry['title'] = 'Dive into history, 2009 edition'</kbd>
+<samp class=p>>>> </samp><kbd class=pp>entry['article_link'] = 'http://diveintomark.org/archives/2009/03/27/dive-into-history-2009-edition'</kbd>
+<samp class=p>>>> </samp><kbd class=pp>entry['comments_link'] = None</kbd>
+<samp class=p>>>> </samp><kbd class=pp>entry['internal_id'] = b'\xDE\xD5\xB4\xF8'</kbd>
+<samp class=p>>>> </samp><kbd class=pp>entry['tags'] = ('diveintopython', 'docbook', 'html')</kbd>
+<samp class=p>>>> </samp><kbd class=pp>entry['published'] = True</kbd>
+<samp class=p>>>> </samp><kbd class=pp>import time</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>entry['published_date'] = time.strptime('Fri Mar 27 22:20:42 2009')</kbd>                                <span class=u>&#x2462;</span></a>
+<samp class=p>>>> </samp><kbd class=pp>entry['published_date']</kbd>
+<samp class=pp>time.struct_time(tm_year=2009, tm_mon=3, tm_mday=27, tm_hour=22, tm_min=20, tm_sec=42, tm_wday=4, tm_yday=86, tm_isdst=-1)</samp></pre>
 <ol>
-<li>Budeme pracovat v pythonovském shellu č. 1. <li>Základní myšlenka spočívá ve vytvoření pythonovského slovníku, který reprezentuje něco užitečného, jako například <a href="xml.html#xml-structure">záznam v Atom feed</a>. Ale současně by měl obsahovat několik různých typů dat, abychom mohli modul <code>pickle</code> předvést. Nestudujte uvedené hodnoty zbytečně podrobně. <li>Modul <code>time</code> definuje datovou strukturu (<code>struct_time</code>), která se používá k reprezentaci času (s přesností na milisekundy), a funkce, které s touto strukturou manipulují. Funkce <code>strptime()</code> přebírá formátovaný řetězec a převádí jej do podoby <code>struct_time</code>. Tento řetězec je ve výchozím tvaru, ale můžete jej ovlivnit formátovacími značkami. Podrobnosti hledejte <a href="http://docs.python.org/3.1/library/time.html">v dokumentaci k modulu <code>time</code></a>.
+<li>Budeme pracovat v pythonovském shellu č. 1.
+<li>Základní myšlenka spočívá ve vytvoření pythonovského slovníku, který reprezentuje něco užitečného, jako například <a href="xml.html#xml-structure">záznam v Atom feed</a>. Ale současně by měl obsahovat několik různých typů dat, abychom mohli modul <code>pickle</code> předvést. Nestudujte uvedené hodnoty zbytečně podrobně.
+<li>Modul <code>time</code> definuje datovou strukturu (<code>struct_time</code>), která se používá k reprezentaci času (s přesností na milisekundy), a funkce, které s touto strukturou manipulují. Funkce <code>strptime()</code> přebírá formátovaný řetězec a převádí jej do podoby <code>struct_time</code>. Tento řetězec je ve výchozím tvaru, ale můžete jej ovlivnit formátovacími značkami. Podrobnosti hledejte <a href="http://docs.python.org/3.1/library/time.html">v dokumentaci k modulu <code>time</code></a>.
 </ol>
 
-<p>Takže tu máme krásně vypadající pythonovský slovník. Uložme jej do
-souboru. <pre class=screen>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>                                    <span class="u">①</span></a>
-<samp class="pp">1</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import pickle</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('entry.pickle', 'wb') as f:</kbd>    <span class="u">②</span></a>
-<a><samp class="p">... </samp><kbd class="pp">    pickle.dump(entry, f)</kbd>                <span class="u">③</span></a>
-<samp class="p">... </samp></pre>
+<p>Takže tu máme krásně vypadající pythonovský slovník. Uložme jej do souboru.
+
+<pre class=screen>
+<a><samp class=p>>>> </samp><kbd class=pp>shell</kbd>                                    <span class=u>&#x2460;</span></a>
+<samp class=pp>1</samp>
+<samp class=p>>>> </samp><kbd class=pp>import pickle</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>with open('entry.pickle', 'wb') as f:</kbd>    <span class=u>&#x2461;</span></a>
+<a><samp class=p>... </samp><kbd class=pp>    pickle.dump(entry, f)</kbd>                <span class=u>&#x2462;</span></a>
+<samp class=p>... </samp></pre>
 <ol>
-<li>Pořád se nacházíme v pythonovském shellu č. 1. <li>K otevření souboru použijeme funkci <code>open()</code>. Režim souboru nastavíme na <code>'wb'</code>, abychom jej otevřeli pro zápis <a href="files.html#binary">v binárním režimu</a>. Zabalíme jej do <a href="files.html#with">příkazu <code>with</code></a>, abychom zajistili, že se po dokončení prací sám zavře. <li>Funkce <code>dump()</code> z modulu <code>pickle</code> přebírá pythonovskou serializovatelnou datovou strukturu, serializuje ji do binárního podoby (je specifická pro Python a používá poslední verzi protokolu pro pickle) a uloží ji do otevřeného souboru.
+<li>Pořád se nacházíme v pythonovském shellu č. 1.
+<li>K otevření souboru použijeme funkci <code>open()</code>. Režim souboru nastavíme na <code>'wb'</code>, abychom jej otevřeli pro zápis <a href="files.html#binary">v binárním režimu</a>. Zabalíme jej do <a href="files.html#with">příkazu <code>with</code></a>, abychom zajistili, že se po dokončení prací sám zavře.
+<li>Funkce <code>dump()</code> z modulu <code>pickle</code> přebírá pythonovskou serializovatelnou datovou strukturu, serializuje ji do binárního podoby (je specifická pro Python a používá poslední verzi protokolu pro pickle) a uloží ji do otevřeného souboru.
 </ol>
 
-<p>Poslední věta je velmi důležitá. <ul>
-<li>Modul <code>pickle</code> přebírá pythonovskou datovou strukturu a uloží ji do souboru. <li>Aby to mohl udělat, <i>serializuje</i> datovou strukturu s využitím datového formátu zvaného „pickle protokol“. (Poznámka překladatele: Miluju anglicky mluvící tvůrce, kteří dávají konstrukcím a mechanismům „roztomilá“ jména. Pravděpodobně základním významem anglického pickle je „nálev“ a má také řadu dalších významů. Jenže zkuste to napasovat na český text věnovaný programovacímu jazyku. Jediné, co mi spolehlivě přichází na mysl, jsou úryvky písničky... „Kujme pikle, pikle kujme, spekulujme, intrikujme, lepšího nic není nad pořádný piklení.“ Kdo neví, gůůůglí.) <li>Pickle protokol je specifický pro Python. Žádná záruka mezijazykové kompatibility neexistuje. Pravděpodobně není možné, abyste vzali soubor <code>entry.pickle</code>, který jsme zrovna vytvořili, a udělali s ním něco rozumného v Perlu, v <abbr>PHP</abbr>, v Javě nebo v nějakém jiném jazyce. <li>Modul <code>pickle</code> nedokáže serializovat každou pythonovskou datovou strukturu. Pickle protokol se několikrát změnil s tím, jak byly do jazyka Python přidávány nové datové typy. Ale některá omezení přetrvávají. <li>Výsledkem těchto změn je i to, že neexistuje žádná záruka kompatibility dokonce ani mezi různými verzemi Pythonu. Novější verze Pythonu podporují starší serializační formáty, ale starší verze Pythonu nepodporují nové formáty (protože nepodporují novější datové typy). <li>Pokud neurčíte jinak, budou funkce z modulu <code>pickle</code> používat poslední verze pickle protokolu. Tím je zajištěna maximální pružnost z hlediska typů serializovatelných dat, ale také to znamená, že výsledný soubor nebude čitelný staršími verzemi Pythonu, které poslední verzi pickle protokolu nepodporují. <li>Poslední verze pickle protokolu používá binární formát. Ujistěte se, že soubory pro „piklení“ otvíráte <a href="files.html#binary">v binárním režimu</a>. V opačném případě dojde během zápisu k porušení dat.
+<p>Poslední věta je velmi důležitá.
+
+<ul>
+<li>Modul <code>pickle</code> přebírá pythonovskou datovou strukturu a uloží ji do souboru.
+<li>Aby to mohl udělat, <i>serializuje</i> datovou strukturu s využitím datového formátu zvaného „pickle protokol“. (Poznámka překladatele: Miluju anglicky mluvící tvůrce, kteří dávají konstrukcím a mechanismům „roztomilá“ jména. Pravděpodobně základním významem anglického pickle je „nálev“ a má také řadu dalších významů. Jenže zkuste to napasovat na český text věnovaný programovacímu jazyku. Jediné, co mi spolehlivě přichází na mysl, jsou úryvky písničky... „Kujme pikle, pikle kujme, spekulujme, intrikujme, lepšího nic není nad pořádný piklení.“ Kdo neví, gůůůglí.)
+<li>Pickle protokol je specifický pro Python. Žádná záruka mezijazykové kompatibility neexistuje. Pravděpodobně není možné, abyste vzali soubor <code>entry.pickle</code>, který jsme zrovna vytvořili, a udělali s ním něco rozumného v Perlu, v <abbr>PHP</abbr>, v Javě nebo v nějakém jiném jazyce.
+<li>Modul <code>pickle</code> nedokáže serializovat každou pythonovskou datovou strukturu. Pickle protokol se několikrát změnil s tím, jak byly do jazyka Python přidávány nové datové typy. Ale některá omezení přetrvávají.
+<li>Výsledkem těchto změn je i to, že neexistuje žádná záruka kompatibility dokonce ani mezi různými verzemi Pythonu. Novější verze Pythonu podporují starší serializační formáty, ale starší verze Pythonu nepodporují nové formáty (protože nepodporují novější datové typy).
+<li>Pokud neurčíte jinak, budou funkce z modulu <code>pickle</code> používat poslední verze pickle protokolu. Tím je zajištěna maximální pružnost z hlediska typů serializovatelných dat, ale také to znamená, že výsledný soubor nebude čitelný staršími verzemi Pythonu, které poslední verzi pickle protokolu nepodporují.
+<li>Poslední verze pickle protokolu používá binární formát. Ujistěte se, že soubory pro „piklení“ otvíráte <a href="files.html#binary">v binárním režimu</a>. V opačném případě dojde během zápisu k porušení dat.
 </ul>
 
-<p class=a>&#x2042; <h2 id=load>Načítání dat z „pickle souboru“</h2>
+<p class=a>&#x2042;
 
-<p>Teď se přepneme do druhého pythonovského shellu&nbsp;&mdash;&nbsp;tj. do
-toho, ve kterém jsme nevytvářeli slovník <code>entry</code>. <pre
-class=screen>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>                                    <span class="u">①</span></a>
-<samp class="pp">2</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry</kbd>                                    <span class="u">②</span></a>
-<samp class="traceback">Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+<h2 id=load>Načítání dat z „pickle souboru“</h2>
+
+<p>Teď se přepneme do druhého pythonovského shellu&nbsp;&mdash;&nbsp;tj. do toho, ve kterém jsme nevytvářeli slovník <code>entry</code>.
+
+<pre class=screen>
+<a><samp class=p>>>> </samp><kbd class=pp>shell</kbd>                                    <span class=u>&#x2460;</span></a>
+<samp class=pp>2</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry</kbd>                                    <span class=u>&#x2461;</span></a>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
 NameError: name 'entry' is not defined</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import pickle</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('entry.pickle', 'rb') as f:</kbd>    <span class="u">③</span></a>
-<a><samp class="p">... </samp><kbd class="pp">    entry = pickle.load(f)</kbd>               <span class="u">④</span></a>
-<samp class="p">... </samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry</kbd>                                    <span class="u">⑤</span></a>
-<samp class="pp">{'comments_link': None,
+<samp class=p>>>> </samp><kbd class=pp>import pickle</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>with open('entry.pickle', 'rb') as f:</kbd>    <span class=u>&#x2462;</span></a>
+<a><samp class=p>... </samp><kbd class=pp>    entry = pickle.load(f)</kbd>               <span class=u>&#x2463;</span></a>
+<samp class=p>... </samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry</kbd>                                    <span class=u>&#x2464;</span></a>
+<samp class=pp>{'comments_link': None,
  'internal_id': b'\xDE\xD5\xB4\xF8',
  'title': 'Dive into history, 2009 edition',
  'tags': ('diveintopython', 'docbook', 'html'),
@@ -134,71 +129,84 @@ NameError: name 'entry' is not defined</samp>
  'published_date': time.struct_time(tm_year=2009, tm_mon=3, tm_mday=27, tm_hour=22, tm_min=20, tm_sec=42, tm_wday=4, tm_yday=86, tm_isdst=-1),
  'published': True}</samp></pre>
 <ol>
-<li>Tohle je pythonovský shell č. 2. <li>Není zde definována žádná proměnná <var>entry</var>. Proměnnou <var>entry</var> jsme definovali v pythonovském shellu č. 1, ale ten se nachází v úplně jiném prostředí a udržuje svůj vlastní stav. <li>Otevřeme soubor <code>entry.pickle</code>, který jsme vytvořili v pythonovském shellu č. 1. Modul <code>pickle</code> používá binární datový formát, takže byste jej měli vždy otvírat v binárním režimu. <li>Funkce <code>pickle.load()</code> přebírá <a href="files.html#file-objects">objekt typu stream</a>, čte z něj serializovaná data, vytváří nový pythonovský objekt, rekonstruuje v něm serializovaná data a nový pythonovský objekt vrací. <li>Nyní proměnná <var>entry</var> obsahuje slovník s důvěrně známými klíči a hodnotami.
+<li>Tohle je pythonovský shell č. 2.
+<li>Není zde definována žádná proměnná <var>entry</var>. Proměnnou <var>entry</var> jsme definovali v pythonovském shellu č. 1, ale ten se nachází v úplně jiném prostředí a udržuje svůj vlastní stav.
+<li>Otevřeme soubor <code>entry.pickle</code>, který jsme vytvořili v pythonovském shellu č. 1. Modul <code>pickle</code> používá binární datový formát, takže byste jej měli vždy otvírat v binárním režimu.
+<li>Funkce <code>pickle.load()</code> přebírá <a href="files.html#file-objects">objekt typu stream</a>, čte z něj serializovaná data, vytváří nový pythonovský objekt, rekonstruuje v něm serializovaná data a nový pythonovský objekt vrací.
+<li>Nyní proměnná <var>entry</var> obsahuje slovník s důvěrně známými klíči a hodnotami.
 </ol>
 
-<p>Kroky <code>pickle.dump() / pickle.load()</code> vedou k vytvoření
-nové datové struktury, která se shoduje s původní datovou strukturou.
+<p>Kroky <code>pickle.dump() / pickle.load()</code> vedou k vytvoření nové datové struktury, která se shoduje s původní datovou strukturou.
+
 <pre class=screen>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>                                    <span class="u">①</span></a>
-<samp class="pp">1</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('entry.pickle', 'rb') as f:</kbd>    <span class="u">②</span></a>
-<a><samp class="p">... </samp><kbd class="pp">    entry2 = pickle.load(f)</kbd>              <span class="u">③</span></a>
-<samp class="p">... </samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry2 == entry</kbd>                          <span class="u">④</span></a>
-<samp class="pp">True</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry2 is entry</kbd>                          <span class="u">⑤</span></a>
-<samp class="pp">False</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry2['tags']</kbd>                           <span class="u">⑥</span></a>
-<samp class="pp">('diveintopython', 'docbook', 'html')</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry2['internal_id']</kbd>
-<samp class="pp">b'\xDE\xD5\xB4\xF8'</samp></pre>
+<a><samp class=p>>>> </samp><kbd class=pp>shell</kbd>                                    <span class=u>&#x2460;</span></a>
+<samp class=pp>1</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>with open('entry.pickle', 'rb') as f:</kbd>    <span class=u>&#x2461;</span></a>
+<a><samp class=p>... </samp><kbd class=pp>    entry2 = pickle.load(f)</kbd>              <span class=u>&#x2462;</span></a>
+<samp class=p>... </samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry2 == entry</kbd>                          <span class=u>&#x2463;</span></a>
+<samp class=pp>True</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry2 is entry</kbd>                          <span class=u>&#x2464;</span></a>
+<samp class=pp>False</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry2['tags']</kbd>                           <span class=u>&#x2465;</span></a>
+<samp class=pp>('diveintopython', 'docbook', 'html')</samp>
+<samp class=p>>>> </samp><kbd class=pp>entry2['internal_id']</kbd>
+<samp class=pp>b'\xDE\xD5\xB4\xF8'</samp></pre>
 <ol>
-<li>Přepneme se zpět do pythonovského shellu č. 1. <li>Otevřeme soubor <code>entry.pickle</code>. <li>Načteme serializovaná data do nové proměnné <var>entry2</var>. <li>Python potvrzuje, že se slovníky <var>entry</var> a <var>entry2</var> shodují. V tomto shellu jsme strukturu <var>entry</var> vybudovali od základů. Začali jsme prázdným slovníkem a ručně jsme jednotlivým klíčům přiřadili určité hodnoty. Slovník jsme serializovali a uložili do souboru <code>entry.pickle</code>. Teď jsme serializovaná data z uvedeného souboru načetli a vytvořili jsme perfektní repliku původní datové struktury. <li>Shodnost ale nezaměňujme za totožnost. Řekl jsem, že jsme vytvořili <em>perfektní repliku</em> původní datové struktury, což je pravda. Ale pořád je to jen kopie. <li>Z důvodů, které budou objasněny v této kapitole později, chci upozornit na to, že klíči <code>'tags'</code> byla přiřazena hodnota v podobě n-tice a klíči <code>'internal_id'</code> byl přiřazen objekt typu <code>bytes</code>.
+<li>Přepneme se zpět do pythonovského shellu č. 1.
+<li>Otevřeme soubor <code>entry.pickle</code>.
+<li>Načteme serializovaná data do nové proměnné <var>entry2</var>.
+<li>Python potvrzuje, že se slovníky <var>entry</var> a <var>entry2</var> shodují. V tomto shellu jsme strukturu <var>entry</var> vybudovali od základů. Začali jsme prázdným slovníkem a ručně jsme jednotlivým klíčům přiřadili určité hodnoty. Slovník jsme serializovali a uložili do souboru <code>entry.pickle</code>. Teď jsme serializovaná data z uvedeného souboru načetli a vytvořili jsme perfektní repliku původní datové struktury.
+<li>Shodnost ale nezaměňujme za totožnost. Řekl jsem, že jsme vytvořili <em>perfektní repliku</em> původní datové struktury, což je pravda. Ale pořád je to jen kopie.
+<li>Z důvodů, které budou objasněny v této kapitole později, chci upozornit na to, že klíči <code>'tags'</code> byla přiřazena hodnota v podobě n-tice a klíči <code>'internal_id'</code> byl přiřazen objekt typu <code>bytes</code>.
 </ol>
 
-<p class=a>&#x2042; <h2 id=dumps>„Piklení“ bez souboru</h2>
+<p class=a>&#x2042;
 
-<p>Serializaci pythonovských objektů přímo do souboru na disk jsme si
-ukázali na příkladech v předchozí podkapitole. Ale co když soubor
-nechceme nebo nepotřebujeme? Serializaci můžeme provést také do
-objektu typu <code>bytes</code>, který se nachází v paměti. <pre
-class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>
-<samp class="pp">1</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">b = pickle.dumps(entry)</kbd>     <span class="u">①</span></a>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">type(b)</kbd>                     <span class="u">②</span></a>
-<samp class="pp">&lt;class 'bytes'&gt;</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry3 = pickle.loads(b)</kbd>    <span class="u">③</span></a>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry3 == entry</kbd>             <span class="u">④</span></a>
-<samp class="pp">True</samp></pre>
+<h2 id=dumps>„Piklení“ bez souboru</h2>
+
+<p>Serializaci pythonovských objektů přímo do souboru na disk jsme si ukázali na příkladech v předchozí podkapitole. Ale co když soubor nechceme nebo nepotřebujeme? Serializaci můžeme provést také do objektu typu <code>bytes</code>, který se nachází v paměti.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>shell</kbd>
+<samp class=pp>1</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>b = pickle.dumps(entry)</kbd>     <span class=u>&#x2460;</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>type(b)</kbd>                     <span class=u>&#x2461;</span></a>
+<samp class=pp>&lt;class 'bytes'></samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry3 = pickle.loads(b)</kbd>    <span class=u>&#x2462;</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>entry3 == entry</kbd>             <span class=u>&#x2463;</span></a>
+<samp class=pp>True</samp></pre>
 <ol>
-<li>Funkce <code>pickle.dumps()</code> (všimněte si <code>'s'</code> na konci jména funkce) provádí stejnou serializaci jako funkce <code>pickle.dump()</code>. Ale nepřevezme objekt typu stream a serializovaná data nezapíše do souboru na disk. Místo toho serializovaná data jednoduše vrátí. <li>A protože pickle protokol používá binární datový formát, vrátí funkce <code>pickle.dumps()</code> objekt typu <code>bytes</code>. <li>Funkce <code>pickle.loads()</code> (opět si všimněte <code>'s'</code> na konci jména funkce) provádí stejnou deserializaci jako funkce <code>pickle.load()</code>. Místo čtení serializovaných dat ze souboru (přes objekt typu stream) přebírá objekt typu <code>bytes</code>, který serializovaná data obsahuje &mdash; takový, jaký vrátila funkce <code>pickle.dumps()</code>. <li>Konečný výsledek je stejný: perfektní replika původního slovníku.
+<li>Funkce <code>pickle.dumps()</code> (všimněte si <code>'s'</code> na konci jména funkce) provádí stejnou serializaci jako funkce <code>pickle.dump()</code>. Ale nepřevezme objekt typu stream a serializovaná data nezapíše do souboru na disk. Místo toho serializovaná data jednoduše vrátí.
+<li>A protože pickle protokol používá binární datový formát, vrátí funkce <code>pickle.dumps()</code> objekt typu <code>bytes</code>.
+<li>Funkce <code>pickle.loads()</code> (opět si všimněte <code>'s'</code> na konci jména funkce) provádí stejnou deserializaci jako funkce <code>pickle.load()</code>. Místo čtení serializovaných dat ze souboru (přes objekt typu stream) přebírá objekt typu <code>bytes</code>, který serializovaná data obsahuje &mdash; takový, jaký vrátila funkce <code>pickle.dumps()</code>.
+<li>Konečný výsledek je stejný: perfektní replika původního slovníku.
 </ol>
 
-<p class=a>&#x2042; <h2 id=protocol-versions>Bajty a řetězce znovu zvedají
-své ošklivé hlavy</h2>
+<p class=a>&#x2042;
 
-<p>Pickle protokol se používá už celou řadu let a vyspíval spolu s
-dospíváním Pythonu. V současnosti existují <a
-href="http://docs.python.org/3.1/library/pickle.html#data-stream-format">čtyři
-různé verze</a> pickle protokolu. <ul>
-<li>Python 1.x používal dva pickle protokoly: textový formát („verze 0“) a binární formát („verze 1“). <li>Python 2.3 zavedl nový pickle protokol („verze 2“), který se vyrovnával s novou funkčností v pythonovských objektech tříd. Jeho formát je binární. <li>Python 3.0 zavedl další pickle protokol („verze 3“) s explicitní podporou pro objekty typu <code>bytes</code> a pro pole bajtů. Jeho formát je binární.
+<h2 id=protocol-versions>Bajty a řetězce znovu zvedají své ošklivé hlavy</h2>
+
+<p>Pickle protokol se používá už celou řadu let a vyspíval spolu s dospíváním Pythonu. V současnosti existují <a href="http://docs.python.org/3.1/library/pickle.html#data-stream-format">čtyři různé verze</a> pickle protokolu.
+
+<ul>
+<li>Python 1.x používal dva pickle protokoly: textový formát („verze 0“) a binární formát („verze 1“).
+<li>Python 2.3 zavedl nový pickle protokol („verze 2“), který se vyrovnával s novou funkčností v pythonovských objektech tříd. Jeho formát je binární.
+<li>Python 3.0 zavedl další pickle protokol („verze 3“) s explicitní podporou pro objekty typu <code>bytes</code> a pro pole bajtů. Jeho formát je binární.
 </ul>
 
-<p>Pozor, <a href="strings.html#byte-arrays">rozdíl mezi bajty a
-řetězci</a> zase vystrkuje svou ošklivou hlavu. (Pokud jste dávali
-pozor, nejste překvapeni.) V praxi to znamená, že zatímco Python 3 umí
-číst data serializovaná protokolem verze 2, Python 2 neumí číst data
-„zapiklená“ protokolem verze 3. <p class=a>&#x2042; <h2 id=debugging>Ladění
-„pickle souborů“</h2>
+<p>Pozor, <a href="strings.html#byte-arrays">rozdíl mezi bajty a řetězci</a> zase vystrkuje svou ošklivou hlavu. (Pokud jste dávali pozor, nejste překvapeni.) V praxi to znamená, že zatímco Python 3 umí číst data serializovaná protokolem verze 2, Python 2 neumí číst data „zapiklená“ protokolem verze 3.
 
-<p>Jak vlastně pickle protokol vypadá? Vyskočme na chvíli z
-pythonovského shellu a podívejme se na soubor
-<code>entry.pickle</code>, který jsme vytvořili. <pre class=screen>
-<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>ls -l entry.pickle</kbd>
+<p class=a>&#x2042;
+
+<h2 id=debugging>Ladění „pickle souborů“</h2>
+
+<p>Jak vlastně pickle protokol vypadá? Vyskočme na chvíli z pythonovského shellu a podívejme se na soubor <code>entry.pickle</code>, který jsme vytvořili.
+
+<pre class=screen>
+<samp class=p>you@localhost:~/diveintopython3/examples$ </samp><kbd>ls -l entry.pickle</kbd>
 <samp>-rw-r--r-- 1 you  you  358 Aug  3 13:34 entry.pickle</samp>
-<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>cat entry.pickle</kbd>
+<samp class=p>you@localhost:~/diveintopython3/examples$ </samp><kbd>cat entry.pickle</kbd>
 <samp>comments_linkqNXtagsqXdiveintopythonqXdocbookqXhtmlq?qX publishedq?
 XlinkXJhttp://diveintomark.org/archives/2009/03/27/dive-into-history-2009-edition
 q   Xpublished_dateq
@@ -206,15 +214,14 @@ ctime
 struct_time
 ?qRqXtitleqXDive into history, 2009 editionqu.</samp></pre>
 
-<p>No, moc nám to tedy nepomohlo. Vidíme řetězce, ale ostatní datové
-typy končí jako netisknutelné (nebo přinejmenším nečitelné) znaky.
-Pole zjevně nejsou oddělena mezerami nebo tabulátory. Není to zrovna
-formát, který bychom chtěli analyzovat sami. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>
-<samp class="pp">1</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import pickletools</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('entry.pickle', 'rb') as f:</kbd>
-<samp class="p">... </samp><kbd class="pp">    pickletools.dis(f)</kbd>
+<p>No, moc nám to tedy nepomohlo. Vidíme řetězce, ale ostatní datové typy končí jako netisknutelné (nebo přinejmenším nečitelné) znaky. Pole zjevně nejsou oddělena mezerami nebo tabulátory. Není to zrovna formát, který bychom chtěli analyzovat sami.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>shell</kbd>
+<samp class=pp>1</samp>
+<samp class=p>>>> </samp><kbd class=pp>import pickletools</kbd>
+<samp class=p>>>> </samp><kbd class=pp>with open('entry.pickle', 'rb') as f:</kbd>
+<samp class=p>... </samp><kbd class=pp>    pickletools.dis(f)</kbd>
 <samp>    0: \x80 PROTO      3
     2: }    EMPTY_DICT
     3: q    BINPUT     0
@@ -273,18 +280,10 @@ formát, který bychom chtěli analyzovat sami. <pre class=screen>
   357: .    STOP
 <mark>highest protocol among opcodes = 3</mark></samp></pre>
 
-<p>Nejzajímavější informaci v tomto reverzním překladu najdeme na
-posledním řádku. Obsahuje totiž verzi pickle protokolu, kterým byl
-tento soubor vytvořen. Pickle protokol neobsahuje žádnou explicitní
-značku, která by určovala verzi. Abychom verzi protokolu určili,
-musíme prohlížet značky („operační kódy“) uvnitř serializovaných dat a
-řídit se podle toho, který operační kód byl zaveden jakou verzí pickle
-protokolu. Přesně to dělá funkce <code>pickle.dis()</code>. Výsledek
-vytiskne na posledním řádku reverzního překladu. Tady máme funkci,
-která vrátí číslo verze, aniž by něco tiskla: <p class=d>[<a
-href="examples/pickleversion.py">stáhnout
-<code>pickleversion.py</code></a>] <pre class=pp><code>import
-pickletools
+<p>Nejzajímavější informaci v tomto reverzním překladu najdeme na posledním řádku. Obsahuje totiž verzi pickle protokolu, kterým byl tento soubor vytvořen. Pickle protokol neobsahuje žádnou explicitní značku, která by určovala verzi. Abychom verzi protokolu určili, musíme prohlížet značky („operační kódy“) uvnitř serializovaných dat a řídit se podle toho, který operační kód byl zaveden jakou verzí pickle protokolu. Přesně to dělá funkce <code>pickle.dis()</code>. Výsledek vytiskne na posledním řádku reverzního překladu. Tady máme funkci, která vrátí číslo verze, aniž by něco tiskla:
+
+<p class=d>[<a href="examples/pickleversion.py">stáhnout <code>pickleversion.py</code></a>]
+<pre class=pp><code>import pickletools
 
 def protocol_version(file_object):
     maxproto = -1
@@ -295,173 +294,144 @@ def protocol_version(file_object):
 <p>A tady ji vidíme v akci:</p>
 
 <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import pickleversion</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('entry.pickle', 'rb') as f:</kbd>
-<samp class="p">... </samp><kbd class="pp">    v = pickleversion.protocol_version(f)</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">v</kbd>
-<samp class="pp">3</samp></pre>
+<samp class=p>>>> </samp><kbd class=pp>import pickleversion</kbd>
+<samp class=p>>>> </samp><kbd class=pp>with open('entry.pickle', 'rb') as f:</kbd>
+<samp class=p>... </samp><kbd class=pp>    v = pickleversion.protocol_version(f)</kbd>
+<samp class=p>>>> </samp><kbd class=pp>v</kbd>
+<samp class=pp>3</samp></pre>
 
-<p class=a>&#x2042; <h2 id=json>Serializace pythonovských objektů pro čtení z
-jiných jazyků</h2>
+<p class=a>&#x2042;
 
-<p>Datový formát používaný modulem <code>pickle</code> je specifický
-pro Python. Nijak se nepokouší o kompatibilitu s jinými programovacími
-jazyky. Pokud je vaším cílem mezijazyková kompatibilita, pak se musíte
-poohlédnout po jiných serializačních formátech. Jedním z nich je <a
-href="http://json.org" /><abbr>JSON</abbr></a>. Zkratka
-„<abbr>JSON</abbr>“ znamená „JavaScript Object Notation“, ale nenechte
-se tím jménem zmást. <abbr>JSON</abbr> je explicitně navržen pro
-použití napříč různými programovacími jazyky. <p>V Pythonu 3 je modul
-<code>json</code> součástí standardní knihovny. Modul
-<code>json</code> má (stejně jako modul <code>pickle</code>) funkce
-pro serializaci datových struktur, pro ukládání serializovaných dat na
-disk, pro načítání serializovaných dat z disku a pro deserializaci dat
-zpět do podoby nového pythonovského objektu. Ale najdeme zde také
-důležité odlišnosti. Ze všeho nejdřív uveďme, že datový formát
-<abbr>JSON</abbr> je textový a ne binární. Formát <abbr>JSON</abbr> a
-způsob kódování různých typů dat je definován v <a
-href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a>. Například
-booleovská hodnota je uložena buď jako pětiznakový řetězec
-<code>'false'</code> nebo jako čtyřznakový řetězec
-<code>'true'</code>. Všechny hodnoty používané v <abbr>JSON</abbr>
-jsou citlivé na velikost písmen. <p>Za druhé tu máme &mdash; jako u všech
-textových formátů &mdash; problém s bílými znaky (whitespace).
-<abbr>JSON</abbr> dovoluje, aby se mezi hodnotami vyskytovalo
-libovolné množství bílých znaků (mezery, tabulátory, návrat vozíku CR,
-přechod na nový řádek LF). Tyto bílé znaky jsou nevýznamné. To
-znamená, že kodéry <abbr>JSON</abbr> mohou přidat bílé znaky dle
-vlastního uvážení. Po dekodérech <abbr>JSON</abbr> se požaduje, aby
-bílé znaky mezi hodnotami ignorovaly. To umožňuje, aby byla
-<abbr>JSON</abbr> data „pěkně naformátována“ (pretty-print). Hodnoty
-mohou být pěkně vnořeny do jiných hodnot při použití různých úrovní
-odsazení, takže data budou dobře čitelná v textovém editoru nebo ve
-standardním prohlížeči. V pythonovském modulu <code>json</code>
-najdeme volbu, která při procesu kódování zajistí „pěkné formátování“.
-<p>Za třetí tu máme přetrvávající problém s kódováním znaků.
-<abbr>JSON</abbr> kóduje hodnoty do podoby prostého textu, ale my už
-víme, že <a href="strings.html">nic jako „prostý text“ neexistuje</a>.
-<abbr>JSON</abbr> musí být uložen v kódování Unicode (v UTF-32, v
-UTF-16 nebo ve výchozím <abbr>UTF-8</abbr>). <a
-href="http://www.ietf.org/rfc/rfc4627.txt">Sekce 3 dokumentu RFC
-4627</a> definuje, jak máme říct, které kódování je použito. <p
-class=a>&#x2042; <h2 id=json-dump>Uložení dat do <abbr>JSON</abbr>
-souboru</h2>
+<h2 id=json>Serializace pythonovských objektů pro čtení z jiných jazyků</h2>
 
-<p><abbr>JSON</abbr> se nápadně podobá datovým strukturám, které byste
-mohli ručně definovat v JavaScriptu. Není to žádná náhoda. Ve
-skutečnosti můžete pro „dekódování“ dat serializovaných do
-<abbr>JSON</abbr> použít javascriptovou funkci <code>eval()</code>.
-(Platí zde obvyklá <a href="advanced-iterators.html#eval">výstraha o
-nedůvěryhodných zdrojích</a>, ale věc se má tak, že <abbr>JSON</abbr>
-<em>opravdu je</em> platný JavaScript.) V tomto smyslu už se vám
-<abbr>JSON</abbr> může zdát důvěrně známý. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>
-<samp class="pp">1</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">basic_entry = {}</kbd>                                           <span class="u">①</span></a>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">basic_entry['id'] = 256</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">basic_entry['title'] = 'Dive into history, 2009 edition'</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">basic_entry['tags'] = ('diveintopython', 'docbook', 'html')</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">basic_entry['published'] = True</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">basic_entry['comments_link'] = None</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import json</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('basic.json', mode='w', encoding='utf-8') as f:</kbd>  <span class="u">②</span></a>
-<a><samp class="p">... </samp><kbd class="pp">    json.dump(basic_entry, f)</kbd>                              <span class="u">③</span></a></pre>
+<p>Datový formát používaný modulem <code>pickle</code> je specifický pro Python. Nijak se nepokouší o kompatibilitu s jinými programovacími jazyky. Pokud je vaším cílem mezijazyková kompatibilita, pak se musíte poohlédnout po jiných serializačních formátech. Jedním z nich je <a href="http://json.org" /><abbr>JSON</abbr></a>. Zkratka „<abbr>JSON</abbr>“ znamená „JavaScript Object Notation“, ale nenechte se tím jménem zmást. <abbr>JSON</abbr> je explicitně navržen pro použití napříč různými programovacími jazyky.
+
+<p>V Pythonu 3 je modul <code>json</code> součástí standardní knihovny. Modul <code>json</code> má (stejně jako modul <code>pickle</code>) funkce pro serializaci datových struktur, pro ukládání serializovaných dat na disk, pro načítání serializovaných dat z disku a pro deserializaci dat zpět do podoby nového pythonovského objektu. Ale najdeme zde také důležité odlišnosti. Ze všeho nejdřív uveďme, že datový formát <abbr>JSON</abbr> je textový a ne binární. Formát <abbr>JSON</abbr> a způsob kódování různých typů dat je definován v <a href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a>. Například booleovská hodnota je uložena buď jako pětiznakový řetězec <code>'false'</code> nebo jako čtyřznakový řetězec <code>'true'</code>. Všechny hodnoty používané v <abbr>JSON</abbr> jsou citlivé na velikost písmen.
+
+<p>Za druhé tu máme &mdash; jako u všech textových formátů &mdash; problém s bílými znaky (whitespace). <abbr>JSON</abbr> dovoluje, aby se mezi hodnotami vyskytovalo libovolné množství bílých znaků (mezery, tabulátory, návrat vozíku CR, přechod na nový řádek LF). Tyto bílé znaky jsou nevýznamné. To znamená, že kodéry <abbr>JSON</abbr> mohou přidat bílé znaky dle vlastního uvážení. Po dekodérech <abbr>JSON</abbr> se požaduje, aby bílé znaky mezi hodnotami ignorovaly. To umožňuje, aby byla <abbr>JSON</abbr> data „pěkně naformátována“ (pretty-print). Hodnoty mohou být pěkně vnořeny do jiných hodnot při použití různých úrovní odsazení, takže data budou dobře čitelná v textovém editoru nebo ve standardním prohlížeči. V pythonovském modulu <code>json</code> najdeme volbu, která při procesu kódování zajistí „pěkné formátování“.
+
+<p>Za třetí tu máme přetrvávající problém s kódováním znaků. <abbr>JSON</abbr> kóduje hodnoty do podoby prostého textu, ale my už víme, že <a href="strings.html">nic jako „prostý text“ neexistuje</a>. <abbr>JSON</abbr> musí být uložen v kódování Unicode (v UTF-32, v UTF-16 nebo ve výchozím <abbr>UTF-8</abbr>). <a href="http://www.ietf.org/rfc/rfc4627.txt">Sekce 3 dokumentu RFC 4627</a> definuje, jak máme říct, které kódování je použito.
+
+<p class=a>&#x2042;
+
+<h2 id=json-dump>Uložení dat do <abbr>JSON</abbr> souboru</h2>
+
+<p><abbr>JSON</abbr> se nápadně podobá datovým strukturám, které byste mohli ručně definovat v JavaScriptu. Není to žádná náhoda. Ve skutečnosti můžete pro „dekódování“ dat serializovaných do <abbr>JSON</abbr> použít javascriptovou funkci <code>eval()</code>. (Platí zde obvyklá <a href="advanced-iterators.html#eval">výstraha o nedůvěryhodných zdrojích</a>, ale věc se má tak, že <abbr>JSON</abbr> <em>opravdu je</em> platný JavaScript.) V tomto smyslu už se vám <abbr>JSON</abbr> může zdát důvěrně známý.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>shell</kbd>
+<samp class=pp>1</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>basic_entry = {}</kbd>                                           <span class=u>&#x2460;</span></a>
+<samp class=p>>>> </samp><kbd class=pp>basic_entry['id'] = 256</kbd>
+<samp class=p>>>> </samp><kbd class=pp>basic_entry['title'] = 'Dive into history, 2009 edition'</kbd>
+<samp class=p>>>> </samp><kbd class=pp>basic_entry['tags'] = ('diveintopython', 'docbook', 'html')</kbd>
+<samp class=p>>>> </samp><kbd class=pp>basic_entry['published'] = True</kbd>
+<samp class=p>>>> </samp><kbd class=pp>basic_entry['comments_link'] = None</kbd>
+<samp class=p>>>> </samp><kbd class=pp>import json</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>with open('basic.json', mode='w', encoding='utf-8') as f:</kbd>  <span class=u>&#x2461;</span></a>
+<a><samp class=p>... </samp><kbd class=pp>    json.dump(basic_entry, f)</kbd>                              <span class=u>&#x2462;</span></a></pre>
 <ol>
-<li>Místo znovupoužití existující datové struktury <var>entry</var> si teď vytvoříme novou datovou strukturu. Později si v této kapitole ukážeme, co se stane, když se do <abbr>JSON</abbr> pokusíme zakódovat složitější datovou strukturu. <li><abbr>JSON</abbr> je textový formát, což znamená, že soubor musíme otevřít v textovém režimu a musíme určit znakové kódování. Nikdy neuděláte chybu, když použijete <abbr>UTF-8</abbr>. <li>Modul <code>json</code> (stejně jako modul <code>pickle</code>) definuje funkci <code>dump()</code>, která přebírá pythonovskou datovou strukturu a objekt typu stream připravený pro zápis. Funkce <code>dump()</code> serializuje pythonovskou datovou strukturu a zapíše ji do objektu typu stream. Vložením volání do příkazu <code>with</code> zajistíme, že po dokončení operace bude soubor korektně uzavřen.
+<li>Místo znovupoužití existující datové struktury <var>entry</var> si teď vytvoříme novou datovou strukturu. Později si v této kapitole ukážeme, co se stane, když se do <abbr>JSON</abbr> pokusíme zakódovat složitější datovou strukturu.
+<li><abbr>JSON</abbr> je textový formát, což znamená, že soubor musíme otevřít v textovém režimu a musíme určit znakové kódování. Nikdy neuděláte chybu, když použijete <abbr>UTF-8</abbr>.
+<li>Modul <code>json</code> (stejně jako modul <code>pickle</code>) definuje funkci <code>dump()</code>, která přebírá pythonovskou datovou strukturu a objekt typu stream připravený pro zápis. Funkce <code>dump()</code> serializuje pythonovskou datovou strukturu a zapíše ji do objektu typu stream. Vložením volání do příkazu <code>with</code> zajistíme, že po dokončení operace bude soubor korektně uzavřen.
 </ol>
 
 <p>Takže jak vlastně výsledek serializace do <abbr>JSON</abbr> vypadá?
+
 <pre class=screen>
-<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>cat basic.json</kbd>
+<samp class=p>you@localhost:~/diveintopython3/examples$ </samp><kbd>cat basic.json</kbd>
 <samp>{"published": true, "tags": ["diveintopython", "docbook", "html"], "comments_link": null,
 "id": 256, "title": "Dive into history, 2009 edition"}</samp></pre>
 
-<p>Tak tohle je určitě <a href="#debugging">mnohem čitelnější než
-„zapiklený“ soubor</a>. Navíc <abbr>JSON</abbr> může mezi hodnotami
-obsahovat libovolné bílé znaky a modul <code>json</code> nabízí snadný
-způsob, jak toho využít. Díky tomu můžeme vytvořit ještě mnohem
-čitelnější <abbr>JSON</abbr> soubory. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>
-<samp class="pp">1</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('basic-pretty.json', mode='w', encoding='utf-8') as f:</kbd>
-<a><samp class="p">... </samp><kbd class="pp">    json.dump(basic_entry, f, <mark style="display:inline">indent=2</mark>)</kbd>                            <span class="u">①</span></a></pre>
+<p>Tak tohle je určitě <a href="#debugging">mnohem čitelnější než „zapiklený“ soubor</a>. Navíc <abbr>JSON</abbr> může mezi hodnotami obsahovat libovolné bílé znaky a modul <code>json</code> nabízí snadný způsob, jak toho využít. Díky tomu můžeme vytvořit ještě mnohem čitelnější <abbr>JSON</abbr> soubory.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>shell</kbd>
+<samp class=pp>1</samp>
+<samp class=p>>>> </samp><kbd class=pp>with open('basic-pretty.json', mode='w', encoding='utf-8') as f:</kbd>
+<a><samp class=p>... </samp><kbd class=pp>    json.dump(basic_entry, f, <mark style="display:inline">indent=2</mark>)</kbd>                            <span class=u>&#x2460;</span></a></pre>
 <ol>
 <li>Pokud funkci <code>json.dump()</code> předáme parametr <var>indent</var> (tj. odsazení), může být výsledný <abbr>JSON</abbr> soubor mnohem čitelnější &mdash; za cenu zvětšení velikosti souboru. Parametr <var>indent</var> je celé číslo. 0 znamená „umísti každou hodnotu na zvláštní řádek“. Číslo větší než 0 znamená „umísti každou hodnotu na zvláštní řádek a použij tento počet mezer pro odsazování zanořených datových struktur“.
 </ol>
 
-<p>A takhle vypadá výsledek: <pre class=screen>
-<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>cat basic-pretty.json</kbd>
+<p>A takhle vypadá výsledek:
+
+<pre class=screen>
+<samp class=p>you@localhost:~/diveintopython3/examples$ </samp><kbd>cat basic-pretty.json</kbd>
 <samp>{
-  "published": true, 
+  "published": true,
   "tags": [
-    "diveintopython", 
-    "docbook", 
+    "diveintopython",
+    "docbook",
     "html"
-  ], 
-  "comments_link": null, 
-  "id": 256, 
+  ],
+  "comments_link": null,
+  "id": 256,
   "title": "Dive into history, 2009 edition"
 }</samp></pre>
 
-<p class=a>&#x2042; <h2 id=json-types>Zobrazení pythonovských datových typů
-do <abbr>JSON</abbr></h2>
+<p class=a>&#x2042;
 
-<p>Protože <abbr>JSON</abbr> není určen pro Python, najdeme při
-zobrazování pythonovských datových typů určité nesrovnalosti. Některé
-z nich jsou jen rozdíly v názvech, ale dva důležité pythonovské datové
-typy v něm úplně chybí. Schválně, jestli si jich všimnete: <table>
-<tr><th>Poznámky <th>JSON <th>Python 3 <tr><th>
-<td>objekt <td><a href="native-datatypes.html#dictionaries">slovník</a>
+<h2 id=json-types>Zobrazení pythonovských datových typů do <abbr>JSON</abbr></h2>
+
+<p>Protože <abbr>JSON</abbr> není určen pro Python, najdeme při zobrazování pythonovských datových typů určité nesrovnalosti. Některé z nich jsou jen rozdíly v názvech, ale dva důležité pythonovské datové typy v něm úplně chybí. Schválně, jestli si jich všimnete:
+
+<table>
+<tr><th>Poznámky
+<th>JSON
+<th>Python 3
 <tr><th>
-<td>pole <td><a href="native-datatypes.html#lists">seznam</a>
+<td>objekt
+<td><a href="native-datatypes.html#dictionaries">slovník</a>
 <tr><th>
-<td>řetězec <td><a href="strings.html#divingin">řetězec</a>
+<td>pole
+<td><a href="native-datatypes.html#lists">seznam</a>
 <tr><th>
-<td>integer <td><a href="native-datatypes.html#numbers">integer</a>
+<td>řetězec
+<td><a href="strings.html#divingin">řetězec</a>
 <tr><th>
-<td>reálné číslo <td><a href="native-datatypes.html#numbers">float</a>
-<tr><th>* <td><code>true</code>
+<td>integer
+<td><a href="native-datatypes.html#numbers">integer</a>
+<tr><th>
+<td>reálné číslo
+<td><a href="native-datatypes.html#numbers">float</a>
+<tr><th>*
+<td><code>true</code>
 <td><a href="native-datatypes.html#booleans"><code>True</code></a>
-<tr><th>* <td><code>false</code>
+<tr><th>*
+<td><code>false</code>
 <td><a href="native-datatypes.html#booleans"><code>False</code></a>
-<tr><th>* <td><code>null</code>
+<tr><th>*
+<td><code>null</code>
 <td><code><a href="native-datatypes.html#none">None</a></code>
 <tfoot><tr><td colspan=3>* Všechny hodnoty používané v <abbr>JSON</abbr> jsou citlivé na velikost písmen.
 </table>
 
-<p>Všimli jste si, co chybí? N-tice a bajty! <abbr>JSON</abbr>
-definuje typ pole, které modul <code>json</code> zobrazuje na
-pythonovský seznam, ale nedefinuje oddělený typ pro „zmrazená pole“
-(n-tice). A ačkoliv <abbr>JSON</abbr> docela pěkně podporuje řetězce,
-nepodporuje objekty typu <code>bytes</code> nebo pole bajtů. <p
-class=a>&#x2042; <h2 id=json-unknown-types>Serializace datových typů, které
-<abbr>JSON</abbr> nepodporuje</h2>
+<p>Všimli jste si, co chybí? N-tice a bajty! <abbr>JSON</abbr> definuje typ pole, které modul <code>json</code> zobrazuje na pythonovský seznam, ale nedefinuje oddělený typ pro „zmrazená pole“ (n-tice). A ačkoliv <abbr>JSON</abbr> docela pěkně podporuje řetězce, nepodporuje objekty typu <code>bytes</code> nebo pole bajtů.
 
-<p>I když <abbr>JSON</abbr> nemá žádnou zabudovanou podporu pro bajty,
-neznamená to, že bychom objekty typu <code>bytes</code> nemohli
-serializovat. Modul <code>json</code> poskytuje rozšiřující rozhraní
-(extensibility hooks) pro kódování a dekódování neznámých datových
-typů. (Slovem „neznámý“ rozumějme „nedefinovaný v <abbr>JSON</abbr>“.
-Modul <code>json</code> zjevně pole bajtů zná, ale je svázán omezeními
-specifikace <abbr>JSON</abbr>.) Pokud chceme zakódovat bajty nebo jiné
-datové typy, které <abbr>JSON</abbr> v základu nepodporuje, musíme pro
-ně dodat uživatelské kodéry a dekodéry. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>
-<samp class="pp">1</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry</kbd>                                                 <span class="u">①</span></a>
-<samp class="pp">{'comments_link': None,
+<p class=a>&#x2042;
+
+<h2 id=json-unknown-types>Serializace datových typů, které <abbr>JSON</abbr> nepodporuje</h2>
+
+<p>I když <abbr>JSON</abbr> nemá žádnou zabudovanou podporu pro bajty, neznamená to, že bychom objekty typu <code>bytes</code> nemohli serializovat. Modul <code>json</code> poskytuje rozšiřující rozhraní (extensibility hooks) pro kódování a dekódování neznámých datových typů. (Slovem „neznámý“ rozumějme „nedefinovaný v <abbr>JSON</abbr>“. Modul <code>json</code> zjevně pole bajtů zná, ale je svázán omezeními specifikace <abbr>JSON</abbr>.) Pokud chceme zakódovat bajty nebo jiné datové typy, které <abbr>JSON</abbr> v základu nepodporuje, musíme pro ně dodat uživatelské kodéry a dekodéry.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>shell</kbd>
+<samp class=pp>1</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry</kbd>                                                 <span class=u>&#x2460;</span></a>
+<samp class=pp>{'comments_link': None,
  'internal_id': b'\xDE\xD5\xB4\xF8',
  'title': 'Dive into history, 2009 edition',
  'tags': ('diveintopython', 'docbook', 'html'),
  'article_link': 'http://diveintomark.org/archives/2009/03/27/dive-into-history-2009-edition',
  'published_date': time.struct_time(tm_year=2009, tm_mon=3, tm_mday=27, tm_hour=22, tm_min=20, tm_sec=42, tm_wday=4, tm_yday=86, tm_isdst=-1),
  'published': True}</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import json</kbd>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('entry.json', 'w', encoding='utf-8') as f:</kbd>  <span class="u">②</span></a>
-<a><samp class="p">... </samp><kbd class="pp">    json.dump(entry, f)</kbd>                               <span class="u">③</span></a>
-<samp class="p">... </samp>
-<samp class="traceback">Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 5, in &lt;module&gt;
+<samp class=p>>>> </samp><kbd class=pp>import json</kbd>
+<a><samp class=p>>>> </samp><kbd class=pp>with open('entry.json', 'w', encoding='utf-8') as f:</kbd>  <span class=u>&#x2461;</span></a>
+<a><samp class=p>... </samp><kbd class=pp>    json.dump(entry, f)</kbd>                               <span class=u>&#x2462;</span></a>
+<samp class=p>... </samp>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;stdin>", line 5, in &lt;module>
   File "C:\Python31\lib\json\__init__.py", line 178, in dump
     for chunk in iterable:
   File "C:\Python31\lib\json\encoder.py", line 408, in _iterencode
@@ -474,39 +444,38 @@ ně dodat uživatelské kodéry a dekodéry. <pre class=screen>
     raise TypeError(repr(o) + " is not JSON serializable")
 <mark>TypeError: b'\xDE\xD5\xB4\xF8' is not JSON serializable</mark></samp></pre>
 <ol>
-<li>Nastal čas k tomu, abychom se znovu podívali na datovou strukturu <var>entry</var>. Obsahuje následující: booleovskou hodnotu, hodnotu <code>None</code>, řetězec, n-tici řetězců, objekt typu <code>bytes</code> a strukturu <code>time</code>. <li>Já vím. Říkal jsem to už dříve, ale stojí to za zopakování: <abbr>JSON</abbr> je textový formát. <abbr>JSON</abbr> soubory se musí otvírat vždy v textovém režimu a se znakovým kódováním <abbr>UTF-8</abbr>. <li>Hmm, <em>tohle</em> není dobré. Co se to vlastně stalo?
+<li>Nastal čas k tomu, abychom se znovu podívali na datovou strukturu <var>entry</var>. Obsahuje následující: booleovskou hodnotu, hodnotu <code>None</code>, řetězec, n-tici řetězců, objekt typu <code>bytes</code> a strukturu <code>time</code>.
+<li>Já vím. Říkal jsem to už dříve, ale stojí to za zopakování: <abbr>JSON</abbr> je textový formát. <abbr>JSON</abbr> soubory se musí otvírat vždy v textovém režimu a se znakovým kódováním <abbr>UTF-8</abbr>.
+<li>Hmm, <em>tohle</em> není dobré. Co se to vlastně stalo?
 </ol>
 
-<p>Stalo se následující: funkce <code>json.dump()</code> se pokusila o
-serializaci objektu typu <code>bytes</code> s hodnotou
-<code>b'\xDE\xD5\xB4\xF8'</code>, ale selhala, protože v
-<abbr>JSON</abbr> podpora objektů typu <code>bytes</code> chybí. Pokud
-je ale pro nás ukládání bajtů důležité, můžeme si definovat náš
-vlastní „miniserializační formát“. <p class=d>[<a
-href="examples/customserializer.py">stáhnout
-<code>customserializer.py</code></a>] <pre class=pp><code>
-<a>def to_json(python_object):                                             <span class="u">①</span></a>
-<a>    if isinstance(python_object, bytes):                                <span class="u">②</span></a>
+<p>Stalo se následující: funkce <code>json.dump()</code> se pokusila o serializaci objektu typu <code>bytes</code> s hodnotou <code>b'\xDE\xD5\xB4\xF8'</code>, ale selhala, protože v <abbr>JSON</abbr> podpora objektů typu <code>bytes</code> chybí. Pokud je ale pro nás ukládání bajtů důležité, můžeme si definovat náš vlastní „miniserializační formát“.
+
+<p class=d>[<a href="examples/customserializer.py">stáhnout <code>customserializer.py</code></a>]
+<pre class=pp><code>
+<a>def to_json(python_object):                                             <span class=u>&#x2460;</span></a>
+<a>    if isinstance(python_object, bytes):                                <span class=u>&#x2461;</span></a>
 <a>        return {'__class__': 'bytes',
-                '__value__': list(python_object)}                       <span class="u">③</span></a>
-<a>    raise TypeError(repr(python_object) + ' is not JSON serializable')  <span class="u">④</span></a></code></pre>
+                '__value__': list(python_object)}                       <span class=u>&#x2462;</span></a>
+<a>    raise TypeError(repr(python_object) + ' is not JSON serializable')  <span class=u>&#x2463;</span></a></code></pre>
 <ol>
-<li>Abychom definovali vlastní „miniserializační formát“ pro datový typ, který <abbr>JSON</abbr> přirozeně nepodporuje, musíme definovat funkci, která přebírá pythonovský objekt jako parametr. Tímto pythonovským objektem bude skutečný objekt, který funkce <code>json.dump()</code> není schopna sama serializovat. V našem případě je to objekt typu <code>bytes</code> s hodnotou <code>b'\xDE\xD5\xB4\xF8'</code>. <li>Naše uživatelská serializační funkce by měla zkontrolovat typ pythonovského objektu, který jí předala funkce <code>json.dump()</code>. Pokud funkce serializuje jen jeden datový typ, není to nezbytně nutné. Na druhou stranu se tím vyjasňuje, čím se funkce zabývá. A pokud budeme později potřebovat přidat serializaci pro více datových typů, půjde to snadněji. <li>V tomto případě jsem se rozhodl převést objekt typu <code>bytes</code> na slovník. Klíč <code>__class__</code> bude obsahovat původní datový typ (v řetězcové podobě, <code>'bytes'</code>) a klíč <code>__value__</code> bude obsahovat aktuální hodnotu. Nemůže to, samozřejmě, být objekt typu <code>bytes</code>. Celý vtip spočívá v převodu na něco, co může být serializováno v <abbr>JSON</abbr>! Objekt typu <code>bytes</code> je posloupností celých čísel, kde každé číslo nabývá hodnot z rozsahu 0&ndash;255. Pro převod objektu typu <code>bytes</code> na seznam čísel můžeme použít funkci <code>list()</code>. Takže z <code>b'\xDE\xD5\xB4\xF8'</code> se stane <code>[222, 213, 180, 248]</code>. (Počítejte! Funguje to! Bajt zapsaný šestnáctkově <code>\xDE</code> je dekadicky 222, <code>\xD5</code> je 213 a tak dále.) <li>Tento řádek je důležitý. Datová struktura, kterou serializujete, může obsahovat typy, které nejsou ani zabudované do serializátoru <abbr>JSON</abbr> a nezvládne je ani náš uživatelský serializátor. V takovém případě musí náš uživatelský serializátor vyvolat výjimku <code>TypeError</code>, aby se funkce <code>json.dump()</code> dozvěděla, že náš uživatelský serializátor daný typ nezná.
+<li>Abychom definovali vlastní „miniserializační formát“ pro datový typ, který <abbr>JSON</abbr> přirozeně nepodporuje, musíme definovat funkci, která přebírá pythonovský objekt jako parametr. Tímto pythonovským objektem bude skutečný objekt, který funkce <code>json.dump()</code> není schopna sama serializovat. V našem případě je to objekt typu <code>bytes</code> s hodnotou <code>b'\xDE\xD5\xB4\xF8'</code>.
+<li>Naše uživatelská serializační funkce by měla zkontrolovat typ pythonovského objektu, který jí předala funkce <code>json.dump()</code>. Pokud funkce serializuje jen jeden datový typ, není to nezbytně nutné. Na druhou stranu se tím vyjasňuje, čím se funkce zabývá. A pokud budeme později potřebovat přidat serializaci pro více datových typů, půjde to snadněji.
+<li>V tomto případě jsem se rozhodl převést objekt typu <code>bytes</code> na slovník. Klíč <code>__class__</code> bude obsahovat původní datový typ (v řetězcové podobě, <code>'bytes'</code>) a klíč <code>__value__</code> bude obsahovat aktuální hodnotu. Nemůže to, samozřejmě, být objekt typu <code>bytes</code>. Celý vtip spočívá v převodu na něco, co může být serializováno v <abbr>JSON</abbr>! Objekt typu <code>bytes</code> je posloupností celých čísel, kde každé číslo nabývá hodnot z rozsahu 0&ndash;255. Pro převod objektu typu <code>bytes</code> na seznam čísel můžeme použít funkci <code>list()</code>. Takže z <code>b'\xDE\xD5\xB4\xF8'</code> se stane <code>[222, 213, 180, 248]</code>. (Počítejte! Funguje to! Bajt zapsaný šestnáctkově <code>\xDE</code> je dekadicky 222, <code>\xD5</code> je 213 a tak dále.)
+<li>Tento řádek je důležitý. Datová struktura, kterou serializujete, může obsahovat typy, které nejsou ani zabudované do serializátoru <abbr>JSON</abbr> a nezvládne je ani náš uživatelský serializátor. V takovém případě musí náš uživatelský serializátor vyvolat výjimku <code>TypeError</code>, aby se funkce <code>json.dump()</code> dozvěděla, že náš uživatelský serializátor daný typ nezná.
 </ol>
 
-<p>A to je vše. Nemusíme dělat nic jiného. Konkrétně tato uživatelská
-serializační funkce <em>vrací pythonovský slovník</em> a ne řetězec.
-Nemusíme sami realizovat celou „serializaci do <abbr>JSON</abbr>“.
-Provedeme pouze část „konverze na podporovaný datový typ“. Funkce
-<code>json.dump()</code> udělá zbytek. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>
-<samp class="pp">1</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import customserializer</kbd>                                                             <span class="u">①</span></a>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('entry.json', 'w', encoding='utf-8') as f:</kbd>                                <span class="u">②</span></a>
-<a><samp class="p">... </samp><kbd class="pp">    json.dump(entry, f, <mark style="display:inline">default=customserializer.to_json</mark>)</kbd>                           <span class="u">③</span></a>
-<samp class="p">... </samp>
-<samp class="traceback">Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 9, in &lt;module&gt;
+<p>A to je vše. Nemusíme dělat nic jiného. Konkrétně tato uživatelská serializační funkce <em>vrací pythonovský slovník</em> a ne řetězec. Nemusíme sami realizovat celou „serializaci do <abbr>JSON</abbr>“. Provedeme pouze část „konverze na podporovaný datový typ“. Funkce <code>json.dump()</code> udělá zbytek.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>shell</kbd>
+<samp class=pp>1</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>import customserializer</kbd>                                                             <span class=u>&#x2460;</span></a>
+<a><samp class=p>>>> </samp><kbd class=pp>with open('entry.json', 'w', encoding='utf-8') as f:</kbd>                                <span class=u>&#x2461;</span></a>
+<a><samp class=p>... </samp><kbd class=pp>    json.dump(entry, f, <mark style="display:inline">default=customserializer.to_json</mark>)</kbd>                           <span class=u>&#x2462;</span></a>
+<samp class=p>... </samp>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;stdin>", line 9, in &lt;module>
     json.dump(entry, f, default=customserializer.to_json)
   File "C:\Python31\lib\json\__init__.py", line 178, in dump
     for chunk in iterable:
@@ -517,69 +486,72 @@ Provedeme pouze část „konverze na podporovaný datový typ“. Funkce
   File "C:\Python31\lib\json\encoder.py", line 416, in _iterencode
     o = _default(o)
   File "/Users/pilgrim/diveintopython3/examples/customserializer.py", line 12, in to_json
-<a>    raise TypeError(repr(python_object) + ' is not JSON serializable')                     <span class="u">④</span></a>
+<a>    raise TypeError(repr(python_object) + ' is not JSON serializable')                     <span class=u>&#x2463;</span></a>
 TypeError: time.struct_time(tm_year=2009, tm_mon=3, tm_mday=27, tm_hour=22, tm_min=20, tm_sec=42, tm_wday=4, tm_yday=86, tm_isdst=-1) is not JSON serializable</samp></pre>
 <ol>
-<li>Jméno <code>customserializer</code> patří modulu, ve kterém jsme (v předchozím příkladu) definovali funkci <code>to_json()</code>. <li>Textový režim, kódování <abbr>UTF-8</abbr> atd., atd. (Jednou na to zapomenete! Já na to taky občas zapomenu! A všechno bude fungovat správně až do chvíle, kdy se to pokazí. Ale pak se to pokazí se vší parádou.) <li>Tohle je důležitá část. Abychom navěsili svou převodní funkci na funkci <code>json.dump()</code>, předáme ji při volání funkce <code>json.dump()</code> jako hodnotu parametru <var>default</var>. (Hurá! <a href="your-first-python-program.html#everythingisanobject">V Pythonu je objektem všechno</a>.) <li>No dobrá, ono to všechno nefunguje. Ale podívejte se na výjimku. Funkce <code>json.dump()</code> už si nestěžuje na to, že není schopna serializovat objekt typu <code>bytes</code>. Teď už si stěžuje na úplně jiný objekt &mdash; <code>time.struct_time</code>.
+<li>Jméno <code>customserializer</code> patří modulu, ve kterém jsme (v předchozím příkladu) definovali funkci <code>to_json()</code>.
+<li>Textový režim, kódování <abbr>UTF-8</abbr> atd., atd. (Jednou na to zapomenete! Já na to taky občas zapomenu! A všechno bude fungovat správně až do chvíle, kdy se to pokazí. Ale pak se to pokazí se vší parádou.)
+<li>Tohle je důležitá část. Abychom navěsili svou převodní funkci na funkci <code>json.dump()</code>, předáme ji při volání funkce <code>json.dump()</code> jako hodnotu parametru <var>default</var>. (Hurá! <a href="your-first-python-program.html#everythingisanobject">V Pythonu je objektem všechno</a>.)
+<li>No dobrá, ono to všechno nefunguje. Ale podívejte se na výjimku. Funkce <code>json.dump()</code> už si nestěžuje na to, že není schopna serializovat objekt typu <code>bytes</code>. Teď už si stěžuje na úplně jiný objekt &mdash; <code>time.struct_time</code>.
 </ol>
 
-<p>Mohlo by se zdát, že výskyt jiné výjimky není známkou pokroku.
-Jenže on opravdu je známkou pokroku! Bude stačit jedno malé
-pošťouchnutí a překonáme i tohle. <pre class=pp><code>
+<p>Mohlo by se zdát, že výskyt jiné výjimky není známkou pokroku. Jenže on opravdu je známkou pokroku! Bude stačit jedno malé pošťouchnutí a překonáme i tohle.
+
+<pre class=pp><code>
 import time
 
 def to_json(python_object):
-<a>    if isinstance(python_object, time.struct_time):          <span class="u">①</span></a>
+<a>    if isinstance(python_object, time.struct_time):          <span class=u>&#x2460;</span></a>
 <a>        return {'__class__': 'time.asctime',
-                '__value__': time.asctime(python_object)}    <span class="u">②</span></a>
+                '__value__': time.asctime(python_object)}    <span class=u>&#x2461;</span></a>
     if isinstance(python_object, bytes):
         return {'__class__': 'bytes',
                 '__value__': list(python_object)}
     raise TypeError(repr(python_object) + ' is not JSON serializable')</code></pre>
 <ol>
-<li>Při rozšiřování existující funkce <code>customserializer.to_json()</code> potřebujeme zkontrolovat, zda je pythonovský objekt (s kterým má funkce <code>json.dump()</code> potíže) typu <code>time.struct_time</code>. <li>Pokud tomu tak je, uděláme podobný převod jako v případě objektu typu <code>bytes</code>. Objekt typu <code>time.struct_time</code> převedeme na slovník, který bude obsahovat pouze hodnoty, které lze serializovat do <abbr>JSON</abbr>. V našem případě je nejsnadnější způsob převodu data a času na hodnotu serializovatelnou do <abbr>JSON</abbr> založen na převodu na řetězec pomocí funkce <code>time.asctime()</code>. Funkce <code>time.asctime()</code> převádí odporně vypadající <code>time.struct_time</code> na řetězec <code>'Fri Mar 27 22:20:42 2009'</code>.
+<li>Při rozšiřování existující funkce <code>customserializer.to_json()</code> potřebujeme zkontrolovat, zda je pythonovský objekt (s kterým má funkce <code>json.dump()</code> potíže) typu <code>time.struct_time</code>.
+<li>Pokud tomu tak je, uděláme podobný převod jako v případě objektu typu <code>bytes</code>. Objekt typu <code>time.struct_time</code> převedeme na slovník, který bude obsahovat pouze hodnoty, které lze serializovat do <abbr>JSON</abbr>. V našem případě je nejsnadnější způsob převodu data a času na hodnotu serializovatelnou do <abbr>JSON</abbr> založen na převodu na řetězec pomocí funkce <code>time.asctime()</code>. Funkce <code>time.asctime()</code> převádí odporně vypadající <code>time.struct_time</code> na řetězec <code>'Fri Mar 27 22:20:42 2009'</code>.
 </ol>
 
-<p>Při použití těchto dvou uživatelských konverzí proběhne serializace
-celé datové struktury <var>entry</var> do <abbr>JSON</abbr> bez
-dalších problémů. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>
-<samp class="pp">1</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('entry.json', 'w', encoding='utf-8') as f:</kbd>
-<samp class="p">... </samp><kbd class="pp">    json.dump(entry, f, default=customserializer.to_json)</kbd>
-<samp class="p">... </samp></pre>
+<p>Při použití těchto dvou uživatelských konverzí proběhne serializace celé datové struktury <var>entry</var> do <abbr>JSON</abbr> bez dalších problémů.
 
 <pre class=screen>
-<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>ls -l example.json</kbd>
+<samp class=p>>>> </samp><kbd class=pp>shell</kbd>
+<samp class=pp>1</samp>
+<samp class=p>>>> </samp><kbd class=pp>with open('entry.json', 'w', encoding='utf-8') as f:</kbd>
+<samp class=p>... </samp><kbd class=pp>    json.dump(entry, f, default=customserializer.to_json)</kbd>
+<samp class=p>... </samp></pre>
+
+<pre class=screen>
+<samp class=p>you@localhost:~/diveintopython3/examples$ </samp><kbd>ls -l example.json</kbd>
 <samp>-rw-r--r-- 1 you  you  391 Aug  3 13:34 entry.json</samp>
-<samp class="p">you@localhost:~/diveintopython3/examples$ </samp><kbd>cat example.json</kbd>
+<samp class=p>you@localhost:~/diveintopython3/examples$ </samp><kbd>cat example.json</kbd>
 <samp>{"published_date": {"__class__": "time.asctime", "__value__": "Fri Mar 27 22:20:42 2009"},
 "comments_link": null, "internal_id": {"__class__": "bytes", "__value__": [222, 213, 180, 248]},
 "tags": ["diveintopython", "docbook", "html"], "title": "Dive into history, 2009 edition",
 "article_link": "http://diveintomark.org/archives/2009/03/27/dive-into-history-2009-edition",
 "published": true}</samp></pre>
 
-<p class=a>&#x2042; <h2 id=json-load>Načítání dat z <abbr>JSON</abbr>
-souboru</h2>
+<p class=a>&#x2042;
 
-<p>Modul <code>json</code> obsahuje (stejně jako modul
-<code>pickle</code>) funkci <code>load()</code>, která přebírá objekt
-typu stream, čte z něj data v notaci <abbr>JSON</abbr> a vytváří nový
-pythonovský objekt, který odráží datovou strukturu <abbr>JSON</abbr>.
+<h2 id=json-load>Načítání dat z <abbr>JSON</abbr> souboru</h2>
+
+<p>Modul <code>json</code> obsahuje (stejně jako modul <code>pickle</code>) funkci <code>load()</code>, která přebírá objekt typu stream, čte z něj data v notaci <abbr>JSON</abbr> a vytváří nový pythonovský objekt, který odráží datovou strukturu <abbr>JSON</abbr>.
+
 <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>
-<samp class="pp">2</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">del entry</kbd>                                             <span class="u">①</span></a>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry</kbd>
-<samp class="traceback">Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+<samp class=p>>>> </samp><kbd class=pp>shell</kbd>
+<samp class=pp>2</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>del entry</kbd>                                             <span class=u>&#x2460;</span></a>
+<samp class=p>>>> </samp><kbd class=pp>entry</kbd>
+<samp class=traceback>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
 NameError: name 'entry' is not defined</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import json</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('entry.json', 'r', encoding='utf-8') as f:</kbd>
-<a><samp class="p">... </samp><kbd class="pp">    entry = json.load(f)</kbd>                              <span class="u">②</span></a>
-<samp class="p">... </samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry</kbd>                                                 <span class="u">③</span></a>
-<samp class="pp">{'comments_link': None,
+<samp class=p>>>> </samp><kbd class=pp>import json</kbd>
+<samp class=p>>>> </samp><kbd class=pp>with open('entry.json', 'r', encoding='utf-8') as f:</kbd>
+<a><samp class=p>... </samp><kbd class=pp>    entry = json.load(f)</kbd>                              <span class=u>&#x2461;</span></a>
+<samp class=p>... </samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry</kbd>                                                 <span class=u>&#x2462;</span></a>
+<samp class=pp>{'comments_link': None,
  'internal_id': {'__class__': 'bytes', '__value__': [222, 213, 180, 248]},
  'title': 'Dive into history, 2009 edition',
  'tags': ['diveintopython', 'docbook', 'html'],
@@ -587,37 +559,39 @@ NameError: name 'entry' is not defined</samp>
  'published_date': {'__class__': 'time.asctime', '__value__': 'Fri Mar 27 22:20:42 2009'},
  'published': True}</samp></pre>
 <ol>
-<li>Pro demonstrační účely se přepneme do pythonovského shellu č. 2 a zrušíme tam datovou strukturu <var>entry</var>, kterou jsme v této kapitole vytvořili dříve, použitím modulu <code>pickle</code>. <li>V nejjednodušším případě pracuje funkce <code>json.load()</code> stejně jako funkce <code>pickle.load()</code>. Předáme jí objekt typu stream a vrací nový pythonovský objekt. <li>Mám pro vás dobrou a špatnou zprávu. Nejdříve tu dobrou. Funkce <code>json.load()</code> úspěšně přečetla soubor <code>entry.json</code>, který jsme vytvořili v pythonovském shellu č. 1, a vytvořila nový pythonovský objekt, který data obsahuje. Teď ta špatná zpráva. Nevznikla tím původní datová struktura <var>entry</var>. Hodnoty <code>'internal_id'</code> a <code>'published_date'</code> byly vytvořeny jako slovníky. Jde konkrétně o slovníky obsahující hodnoty slučitelné s <abbr>JSON</abbr>, které jsme vytvořili převodní funkcí <code>to_json()</code>.
+<li>Pro demonstrační účely se přepneme do pythonovského shellu č. 2 a zrušíme tam datovou strukturu <var>entry</var>, kterou jsme v této kapitole vytvořili dříve, použitím modulu <code>pickle</code>.
+<li>V nejjednodušším případě pracuje funkce <code>json.load()</code> stejně jako funkce <code>pickle.load()</code>. Předáme jí objekt typu stream a vrací nový pythonovský objekt.
+<li>Mám pro vás dobrou a špatnou zprávu. Nejdříve tu dobrou. Funkce <code>json.load()</code> úspěšně přečetla soubor <code>entry.json</code>, který jsme vytvořili v pythonovském shellu č. 1, a vytvořila nový pythonovský objekt, který data obsahuje. Teď ta špatná zpráva. Nevznikla tím původní datová struktura <var>entry</var>. Hodnoty <code>'internal_id'</code> a <code>'published_date'</code> byly vytvořeny jako slovníky. Jde konkrétně o slovníky obsahující hodnoty slučitelné s <abbr>JSON</abbr>, které jsme vytvořili převodní funkcí <code>to_json()</code>.
 </ol>
 
-<p>Funkce <code>json.load()</code> neví nic o konverzních funkcích,
-které jste mohli předat funkci <code>json.dump()</code>. Potřebujeme
-vytvořit funkci, která je opakem k funkci <code>to_json()</code>.
-Potřebujeme funkci, která převezme uživatelsky převedený objekt
-<abbr>JSON</abbr> a konvertuje jej zpět na původní pythonovský datový
-typ. <pre class=pp><code># do customserializer.py přidejte následující
-<a>def from_json(json_object):                                   <span class="u">①</span></a>
-<a>    if '__class__' in json_object:                            <span class="u">②</span></a>
+<p>Funkce <code>json.load()</code> neví nic o konverzních funkcích, které jste mohli předat funkci <code>json.dump()</code>. Potřebujeme vytvořit funkci, která je opakem k funkci <code>to_json()</code>. Potřebujeme funkci, která převezme uživatelsky převedený objekt <abbr>JSON</abbr> a konvertuje jej zpět na původní pythonovský datový typ.
+
+<pre class=pp><code># do customserializer.py přidejte následující
+<a>def from_json(json_object):                                   <span class=u>&#x2460;</span></a>
+<a>    if '__class__' in json_object:                            <span class=u>&#x2461;</span></a>
         if json_object['__class__'] == 'time.asctime':
-<a>            return time.strptime(json_object['__value__'])    <span class="u">③</span></a>
+<a>            return time.strptime(json_object['__value__'])    <span class=u>&#x2462;</span></a>
         if json_object['__class__'] == 'bytes':
-<a>            return bytes(json_object['__value__'])            <span class="u">④</span></a>
+<a>            return bytes(json_object['__value__'])            <span class=u>&#x2463;</span></a>
     return json_object</code></pre>
 <ol>
-<li>Tato převodní funkce také přebírá jeden parametr a vrací jednu hodnotu. Ale parametrem není řetězec. Je jím pythonovský objekt, který je výsledkem deserializace řetězce v notaci <abbr>JSON</abbr> do pythonovského objektu. <li>Potřebujeme pouze zkontrolovat, zda tento objekt obsahuje klíč <code>'__class__'</code>, který vytvořila funkce <code>to_json()</code>. Pokud tomu tak je, říká hodnota klíče <code>'__class__'</code>, jak máme hodnotu dekódovat zpět na původní pythonovský datový typ. <li>K dekódování řetězce s časem, který vrátila funkce <code>time.asctime()</code>, použijeme funkci <code>time.strptime()</code>. Tato funkce přebírá naformátovaný řetězec s datem a časem (v upravitelném formátu, ale s výchozím tvarem stejným, jaký používá funkce <code>time.asctime()</code>) a vrací <code>time.struct_time</code>. <li>Pro převod seznamu celých čísel na objekt typu <code>bytes</code> můžeme použít funkci <code>bytes()</code>.
+<li>Tato převodní funkce také přebírá jeden parametr a vrací jednu hodnotu. Ale parametrem není řetězec. Je jím pythonovský objekt, který je výsledkem deserializace řetězce v notaci <abbr>JSON</abbr> do pythonovského objektu.
+<li>Potřebujeme pouze zkontrolovat, zda tento objekt obsahuje klíč <code>'__class__'</code>, který vytvořila funkce <code>to_json()</code>. Pokud tomu tak je, říká hodnota klíče <code>'__class__'</code>, jak máme hodnotu dekódovat zpět na původní pythonovský datový typ.
+<li>K dekódování řetězce s časem, který vrátila funkce <code>time.asctime()</code>, použijeme funkci <code>time.strptime()</code>. Tato funkce přebírá naformátovaný řetězec s datem a časem (v upravitelném formátu, ale s výchozím tvarem stejným, jaký používá funkce <code>time.asctime()</code>) a vrací <code>time.struct_time</code>.
+<li>Pro převod seznamu celých čísel na objekt typu <code>bytes</code> můžeme použít funkci <code>bytes()</code>.
 </ol>
 
-<p>A je to. Ve funkci <code>to_json()</code> se upravovaly jen dva
-datové typy. Stejné datové typy jsme teď zpracovali funkcí
-<code>from_json()</code>. A takhle vypadá výsledek: <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>
-<samp class="pp">2</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import customserializer</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('entry.json', 'r', encoding='utf-8') as f:</kbd>
-<a><samp class="p">... </samp><kbd class="pp">    entry = json.load(f, object_hook=customserializer.from_json)</kbd>  <span class="u">①</span></a>
-<samp class="p">... </samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry</kbd>                                                             <span class="u">②</span></a>
-<samp class="pp">{'comments_link': None,
+<p>A je to. Ve funkci <code>to_json()</code> se upravovaly jen dva datové typy. Stejné datové typy jsme teď zpracovali funkcí <code>from_json()</code>. A takhle vypadá výsledek:
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>shell</kbd>
+<samp class=pp>2</samp>
+<samp class=p>>>> </samp><kbd class=pp>import customserializer</kbd>
+<samp class=p>>>> </samp><kbd class=pp>with open('entry.json', 'r', encoding='utf-8') as f:</kbd>
+<a><samp class=p>... </samp><kbd class=pp>    entry = json.load(f, object_hook=customserializer.from_json)</kbd>  <span class=u>&#x2460;</span></a>
+<samp class=p>... </samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry</kbd>                                                             <span class=u>&#x2461;</span></a>
+<samp class=pp>{'comments_link': None,
  'internal_id': b'\xDE\xD5\xB4\xF8',
  'title': 'Dive into history, 2009 edition',
  'tags': ['diveintopython', 'docbook', 'html'],
@@ -625,62 +599,63 @@ datové typy. Stejné datové typy jsme teď zpracovali funkcí
  'published_date': time.struct_time(tm_year=2009, tm_mon=3, tm_mday=27, tm_hour=22, tm_min=20, tm_sec=42, tm_wday=4, tm_yday=86, tm_isdst=-1),
  'published': True}</samp></pre>
 <ol>
-<li>Funkci <code>from_json()</code> k deserializačnímu procesu připojíme tím, že ji předáme jako parametr <var>object_hook</var> funkci <code>json.load()</code>. Funkce, která přebírá funkci. Jak šikovné! <li>Datová struktura <var>entry</var> teď obsahuje klíč <code>'internal_id'</code>, jehož hodnotou je objekt typu <code>bytes</code>. Obsahuje také klíč <code>'published_date'</code>, jehož hodnotou je objekt typu <code>time.struct_time</code>.
+<li>Funkci <code>from_json()</code> k deserializačnímu procesu připojíme tím, že ji předáme jako parametr <var>object_hook</var> funkci <code>json.load()</code>. Funkce, která přebírá funkci. Jak šikovné!
+<li>Datová struktura <var>entry</var> teď obsahuje klíč <code>'internal_id'</code>, jehož hodnotou je objekt typu <code>bytes</code>. Obsahuje také klíč <code>'published_date'</code>, jehož hodnotou je objekt typu <code>time.struct_time</code>.
 </ol>
 
-<p>Ale má to ještě jednu mouchu. <pre class=screen>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">shell</kbd>
-<samp class="pp">1</samp>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">import customserializer</kbd>
-<samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">with open('entry.json', 'r', encoding='utf-8') as f:</kbd>
-<samp class="p">... </samp><kbd class="pp">    entry2 = json.load(f, object_hook=customserializer.from_json)</kbd>
-<samp class="p">... </samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry2 == entry</kbd>                                                    <span class="u">①</span></a>
-<samp class="pp">False</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry['tags']</kbd>                                                      <span class="u">②</span></a>
-<samp class="pp">('diveintopython', 'docbook', 'html')</samp>
-<a><samp class="p">&gt;&gt;&gt; </samp><kbd class="pp">entry2['tags']</kbd>                                                     <span class="u">③</span></a>
-<samp class="pp">['diveintopython', 'docbook', 'html']</samp></pre>
+<p>Ale má to ještě jednu mouchu.
+
+<pre class=screen>
+<samp class=p>>>> </samp><kbd class=pp>shell</kbd>
+<samp class=pp>1</samp>
+<samp class=p>>>> </samp><kbd class=pp>import customserializer</kbd>
+<samp class=p>>>> </samp><kbd class=pp>with open('entry.json', 'r', encoding='utf-8') as f:</kbd>
+<samp class=p>... </samp><kbd class=pp>    entry2 = json.load(f, object_hook=customserializer.from_json)</kbd>
+<samp class=p>... </samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry2 == entry</kbd>                                                    <span class=u>&#x2460;</span></a>
+<samp class=pp>False</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry['tags']</kbd>                                                      <span class=u>&#x2461;</span></a>
+<samp class=pp>('diveintopython', 'docbook', 'html')</samp>
+<a><samp class=p>>>> </samp><kbd class=pp>entry2['tags']</kbd>                                                     <span class=u>&#x2462;</span></a>
+<samp class=pp>['diveintopython', 'docbook', 'html']</samp></pre>
 <ol>
-<li>Dokonce ani po připojení funkce <code>to_json()</code> k serializaci a připojení funkce <code>from_json()</code> k deserializaci se nám stále nepodařilo vytvořit dokonalou repliku původní datové struktury. Proč tomu tak je? <li>V původní datové struktuře <var>entry</var> byla hodnotou klíče <code>'tags'</code> n-tice tří řetězců (tedy trojice řetězců). <li>Ale v datové struktuře <var>entry2</var>, kterou jsme dostali převodem tam a zase zpět, má klíč <code>'tags'</code> hodnotu <em>seznamu</em> těchto tří řetězců. <abbr>JSON</abbr> nedělá rozdíl mezi n-ticemi a seznamy. Zná jen jeden seznamu se podobající datový typ &mdash; typ pole. Modul <code>json</code> během serializace potichu konvertuje jak n-tice, tak seznamy na pole v <abbr>JSON</abbr>. Při většině použití můžete rozdíl mezi n-ticemi a seznamy ignorovat. Ale pokud pracujete s modulem <code>json</code>, měli byste na to myslet.
+<li>Dokonce ani po připojení funkce <code>to_json()</code> k serializaci a připojení funkce <code>from_json()</code> k deserializaci se nám stále nepodařilo vytvořit dokonalou repliku původní datové struktury. Proč tomu tak je?
+<li>V původní datové struktuře <var>entry</var> byla hodnotou klíče <code>'tags'</code> n-tice tří řetězců (tedy trojice řetězců).
+<li>Ale v datové struktuře <var>entry2</var>, kterou jsme dostali převodem tam a zase zpět, má klíč <code>'tags'</code> hodnotu <em>seznamu</em> těchto tří řetězců. <abbr>JSON</abbr> nedělá rozdíl mezi n-ticemi a seznamy. Zná jen jeden seznamu se podobající datový typ &mdash; typ pole. Modul <code>json</code> během serializace potichu konvertuje jak n-tice, tak seznamy na pole v <abbr>JSON</abbr>. Při většině použití můžete rozdíl mezi n-ticemi a seznamy ignorovat. Ale pokud pracujete s modulem <code>json</code>, měli byste na to myslet.
 </ol>
 
 <h2 id=furtherreading>Přečtěte si</h2>
 
 <blockquote class=note>
-<p><span class="u">&#x261E;</span>Řada článků o modulu <code>pickle</code> se
-odkazuje na <code>cPickle</code>. V Pythonu 2 existovaly dvě
-implementace modulu <code>pickle</code>. Jedna byla napsána v Pythonu
-a druhá v jazyce C (ale dala se volat z Pythonu). V Pythonu 3 <a
-href="porting-code-to-python-3-with-2to3.html#othermodules">byly tyto
-moduly spojeny</a>, takže pokaždé provádíme jen <code>import
-pickle</code>. Zmíněné články mohou být užitečné, ale informaci o
-<code>cPickle</code> (která je nyní zastaralá) byste měli ignorovat.
+<p><span class="u">&#x261E;</span>Řada článků o modulu <code>pickle</code> se odkazuje na <code>cPickle</code>. V Pythonu 2 existovaly dvě implementace modulu <code>pickle</code>. Jedna byla napsána v Pythonu a druhá v jazyce C (ale dala se volat z Pythonu). V Pythonu 3 <a href="porting-code-to-python-3-with-2to3.html#othermodules">byly tyto moduly spojeny</a>, takže pokaždé provádíme jen <code>import pickle</code>. Zmíněné články mohou být užitečné, ale informaci o <code>cPickle</code> (která je nyní zastaralá) byste měli ignorovat.
 </blockquote>
 
-<p>O „piklení“ s modulem <code>pickle</code>: <ul>
+<p>O „piklení“ s modulem <code>pickle</code>:
+
+<ul>
 <li><a href="http://docs.python.org/3.1/library/pickle.html"><code>pickle</code> module</a>
 <li><a href="http://www.doughellmann.com/PyMOTW/pickle" /><code>pickle</code> and <code>cPickle</code>&nbsp;&mdash;&nbsp;Python object serialization</a>
 <li><a href="http://wiki.python.org/moin/UsingPickle">Using <code>pickle</code></a>
 <li><a href="http://www.ibm.com/developerworks/library/l-pypers.html">Python persistence management</a>
 </ul>
 
-<p>O <abbr>JSON</abbr> a o modulu <code>json</code>: <ul>
+<p>O <abbr>JSON</abbr> a o modulu <code>json</code>:
+
+<ul>
 <li><a href="http://www.doughellmann.com/PyMOTW/json" /><code>json</code>&nbsp;&mdash;&nbsp;JavaScript Object Notation Serializer</a>
 <li><a href="http://blog.quaternio.net/2009/07/16/json-encoding-and-decoding-with-custom-objects-in-python" />JSON encoding and ecoding with custom objects in Python</a>
 </ul>
 
-<p>O rozšiřitelnosti modulu <code>pickle</code>: <ul>
+<p>O rozšiřitelnosti modulu <code>pickle</code>:
+
+<ul>
 <li><a href="http://docs.python.org/3.1/library/pickle.html#pickling-class-instances">Pickling class instances</a>
 <li><a href="http://docs.python.org/3.1/library/pickle.html#persistence-of-external-objects">Persistence of external objects</a>
 <li><a href="http://docs.python.org/3.1/library/pickle.html#handling-stateful-objects">Handling stateful objects</a>
 </ul>
 
-<p class=v><a rel="prev" href="xml.html" title="zpět na „XML“"><span
-class="u">&#x261C;</span></a> <a rel="next" href="http-web-services.html"
-title="dopředu na „Webové služby nad HTTP“"><span
-class="u">&#x261E;</span></a>
+<p class=v><a rel="prev" href="xml.html" title="zpět na „XML“"><span class="u">&#x261C;</span></a> <a rel="next" href="http-web-services.html" title="dopředu na „Webové služby nad HTTP“"><span class="u">&#x261E;</span></a>
 <p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
-<script src=j/dip3.js></script> 
+<script src=j/dip3.js></script>
