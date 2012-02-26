@@ -1,4 +1,5 @@
-<!DOCTYPE html> <meta charset=utf-8>
+<!DOCTYPE html>
+<meta charset=utf-8>
 <title>Balení pythonovských knihoven &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
@@ -10,45 +11,21 @@ mark{display:inline}
 <link rel=stylesheet media=print href=print.css>
 <meta name=viewport content='initial-scale=1.0'>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="root" value="Hledej"></div></form> -->
-<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">&#8227;</span> <a href="table-of-contents.html#packaging">Ponořme
-se do Pythonu 3</a> <span class="u">&#8227;</span>
-<p id=level>Úroveň obtížnosti: <span class="u" title="pro
-pokročilé">&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span class="u">&#8227;</span> <a href="table-of-contents.html#packaging">Ponořme se do Pythonu 3</a> <span class="u">&#8227;</span>
+<p id=level>Úroveň obtížnosti: <span class="u" title="pro pokročilé">&#x2666;&#x2666;&#x2666;&#x2666;&#x2662;</span>
 <h1>Balení pythonovských knihoven</h1>
 <blockquote class=q>
-<p><span class="u">&#x275D;</span> You’ll find the shame is like the pain;
-you only feel it once. <span class="u">&#x275E;</span><br>(Zjistíte, že
-stud je jako bolest; ale cítíte ho jen jednou.)<br>&mdash; Markýza de
-Merteuil, <a
-href="http://www.imdb.com/title/tt0094947/quotes"><cite>Dangerous
-Liaisons</cite></a> (<a
-href="http://cs.wikipedia.org/wiki/Nebezpe%C4%8Dn%C3%A9_zn%C3%A1mosti"><cite>Nebezpečné
-známosti</cite></a>)
+<p><span class="u">&#x275D;</span> You’ll find the shame is like the pain; you only feel it once. <span class="u">&#x275E;</span><br>(Zjistíte, že stud je jako bolest; ale cítíte ho jen jednou.)<br>&mdash; Markýza de Merteuil, <a href="http://www.imdb.com/title/tt0094947/quotes"><cite>Dangerous Liaisons</cite></a> (<a href="http://cs.wikipedia.org/wiki/Nebezpe%C4%8Dn%C3%A9_zn%C3%A1mosti"><cite>Nebezpečné známosti</cite></a>)
 </blockquote>
-<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
-<p class=f>Opravdoví umělci prodávají. Alespoň takhle to říká Steve
-Jobs. Chcete vydat pythonovský skript, knihovnu, rámec (framework)
-nebo aplikaci? Výborně. Svět potřebuje více pythonovského kódu. Python
-3 se dodává s rámcem pro vytváření balíčků zvaným Distutils. Distutils
-v sobě skrývá mnoho věcí: nástroj pro sestavení (build tool; pro vás),
-instalační nástroj (pro vaše uživatele), formát metadat balíčků (pro
-vyhledávače) a další. Tvoří celek s <a href="http://pypi.python.org"
-/>Python Package Index</a> („PyPI“), což je centrální archiv
-pythonovských open-source knihoven. <p>Všechny uvedené stránky
-nástroje Distutils jsou soustředěny kolem <i>instalačního skriptu</i>,
-který se tradičně nazývá <code>setup.py</code>. Ve skutečnosti už jste
-v této knize několik instalačních skriptů vytvořených nástrojem
-Distutils viděli. Distutils jste použili k instalaci
-<code>httplib2</code> v kapitole <a
-href="http-web-services.html#introducing-httplib2">Webové služby nad
-HTTP</a> a znovu k instalaci <code>chardet</code> v <a
-href="case-study-porting-chardet-to-python-3.html">Případové studii:
-Přepis <code>chardet</code> pro Python 3</a>. <p>V této kapitole si
-prostudujeme, jak instalační skripty pro <code>chardet</code> a pro
-<code>httplib2</code> pracují, a projdeme si procesem vydání vašeho
-vlastního pythonovského softwaru. <pre class=pp><code># chardet's
-setup.py
+<p id=toc>&nbsp;
+<h2 id=divingin>Ponořme se</h2>
+<p class=f>Opravdoví umělci prodávají. Alespoň takhle to říká Steve Jobs. Chcete vydat pythonovský skript, knihovnu, rámec (framework) nebo aplikaci? Výborně. Svět potřebuje více pythonovského kódu. Python 3 se dodává s rámcem pro vytváření balíčků zvaným Distutils. Distutils v sobě skrývá mnoho věcí: nástroj pro sestavení (build tool; pro vás), instalační nástroj (pro vaše uživatele), formát metadat balíčků (pro vyhledávače) a další. Tvoří celek s <a href="http://pypi.python.org" />Python Package Index</a> („PyPI“), což je centrální archiv pythonovských open-source knihoven.
+
+<p>Všechny uvedené stránky nástroje Distutils jsou soustředěny kolem <i>instalačního skriptu</i>, který se tradičně nazývá <code>setup.py</code>. Ve skutečnosti už jste v této knize několik instalačních skriptů vytvořených nástrojem Distutils viděli. Distutils jste použili k instalaci <code>httplib2</code> v kapitole <a href="http-web-services.html#introducing-httplib2">Webové služby nad HTTP</a> a znovu k instalaci <code>chardet</code> v <a href="case-study-porting-chardet-to-python-3.html">Případové studii: Přepis <code>chardet</code> pro Python 3</a>.
+
+<p>V této kapitole si prostudujeme, jak instalační skripty pro <code>chardet</code> a pro <code>httplib2</code> pracují, a projdeme si procesem vydání vašeho vlastního pythonovského softwaru.
+
+<pre class=pp><code># chardet's setup.py
 from distutils.core import setup
 setup(
     name = "chardet",
@@ -93,60 +70,57 @@ This version requires Python 3 or later; a Python 2 version is available separat
 )</code></pre>
 
 <blockquote class=note>
-<p><span class="u">&#x261E;</span><code>chardet</code> a
-<code>httplib2</code> jsou open source, ale neexistuje žádný požadavek
-na to, abyste své vlastní pythonovské knihovny vydávali pod nějakou
-konkrétní licencí. Proces popisovaný v této kapitole bude fungovat pro
-libovolný pythonovský software, nezávisle na licenci.
+<p><span class="u">&#x261E;</span><code>chardet</code> a <code>httplib2</code> jsou open source, ale neexistuje žádný požadavek na to, abyste své vlastní pythonovské knihovny vydávali pod nějakou konkrétní licencí. Proces popisovaný v této kapitole bude fungovat pro libovolný pythonovský software, nezávisle na licenci.
 </blockquote>
 
-<p class=a>&#x2042; <h2 id=cantdo>Věci, které za nás Distutils neudělají</h2>
+<p class=a>&#x2042;
 
-<p>Vypuštění vašeho prvního pythonovského balíčku je skličující
-proces. (Uvolnění vašeho druhého balíčku je o něco snazší.) Distutils
-se celý proces snaží zautomatizovat, jak jen to je možné. Ale některé
-věci prostě musíte udělat sami. <ul>
-<li><b>Vybrat licenci</b>. Tohle je komplikované téma, zatížené politikou a rizikem. Pokud svůj software chcete zveřejnit jako open source, skromně doporučuji pět následujících rad: <ol>
-<li>Nepište svou vlastní licenci. <li>Nepište svou vlastní licenci. <li>Nepište svou vlastní licenci. <li>Nemusí to být zrovna <abbr>GPL</abbr>, ale <a href="http://www.dwheeler.com/essays/gpl-compatible.html">měla by být s <abbr>GPL</abbr> slučitelná</a>. <li>Nepište svou vlastní licenci.
+<h2 id=cantdo>Věci, které za nás Distutils neudělají</h2>
+
+<p>Vypuštění vašeho prvního pythonovského balíčku je skličující proces. (Uvolnění vašeho druhého balíčku je o něco snazší.) Distutils se celý proces snaží zautomatizovat, jak jen to je možné. Ale některé věci prostě musíte udělat sami.
+
+<ul>
+<li><b>Vybrat licenci</b>. Tohle je komplikované téma, zatížené politikou a rizikem. Pokud svůj software chcete zveřejnit jako open source, skromně doporučuji pět následujících rad:
+
+<ol>
+<li>Nepište svou vlastní licenci.
+<li>Nepište svou vlastní licenci.
+<li>Nepište svou vlastní licenci.
+<li>Nemusí to být zrovna <abbr>GPL</abbr>, ale <a href="http://www.dwheeler.com/essays/gpl-compatible.html">měla by být s <abbr>GPL</abbr> slučitelná</a>.
+<li>Nepište svou vlastní licenci.
 </ol>
-<li><b>Zařaďte svůj software</b> pomocí klasifikačního systému PyPI. Později v této kapitole vysvětlím, co to znamená. <li><b>Napište soubor „read me“ (čti mne)</b>. Tohle neodflákněte. Vaši uživatelé by se z něj měli dozvědět přinejmenším to, co váš software dělá a jak se instaluje.
+<li><b>Zařaďte svůj software</b> pomocí klasifikačního systému PyPI. Později v této kapitole vysvětlím, co to znamená.
+<li><b>Napište soubor „read me“ (čti mne)</b>. Tohle neodflákněte. Vaši uživatelé by se z něj měli dozvědět přinejmenším to, co váš software dělá a jak se instaluje.
 </ul>
 
-<p class=a>&#x2042; <h2 id=structure>Struktura adresáře</h2>
+<p class=a>&#x2042;
 
-<p>Vytváření balíčku pro váš pythonovský software začíná tím, že si
-musíte udělat pořádek v souborech a v adresářích. Adresář
-<code>httplib2</code> vypadá takto: <pre class=screen>
-<a>httplib2/                 <span class="u">①</span></a>
+<h2 id=structure>Struktura adresáře</h2>
+
+<p>Vytváření balíčku pro váš pythonovský software začíná tím, že si musíte udělat pořádek v souborech a v adresářích. Adresář <code>httplib2</code> vypadá takto:
+
+<pre class=screen>
+<a>httplib2/                 <span class=u>&#x2460;</span></a>
 |
-<a>+--README.txt             <span class="u">②</span></a>
+<a>+--README.txt             <span class=u>&#x2461;</span></a>
 |
-<a>+--setup.py               <span class="u">③</span></a>
+<a>+--setup.py               <span class=u>&#x2462;</span></a>
 |
-<a>+--httplib2/              <span class="u">④</span></a>
+<a>+--httplib2/              <span class=u>&#x2463;</span></a>
    |
    +--__init__.py
    |
    +--iri2uri.py</pre>
 <ol>
-<li>Vytvořte kořenový adresář, ve kterém bude všechno. Dejte mu stejné jméno, jaké má váš pythonovský modul. <li>Abyste se přizpůsobili uživatelům Windows, měl by váš soubor „read me“ použít příponu <code>.txt</code> a měl by používat windowsovské konce řádků. To, že <em>vy</em> používáte nějaký fantastický editor, který se dá spouštět z příkazového řádku a má i svůj makro jazyk, neznamená, že byste měli ztěžovat život svým uživatelům. (Vaši uživatelé používají „Notepad“, česky „Poznámkový blok“. Je to smutné, ale je to tak.) Váš oblíbený editor má nepochybně volbu pro ukládání souborů s windowsovskými konci řádků &mdash; i když pracujete v Linuxu nebo s Mac OS X. <li>Váš instalační skript využívající Distutils by měl být pojmenován <code>setup.py</code> &mdash; pokud nemáte dobrý důvod pro to, aby se jmenoval jinak. A vy nemáte dobrý důvod, aby se jmenoval jinak. <li>Pokud se váš pythonovský software skládá z jediného souboru s příponou <code>.py</code>, měli byste jej umístit do kořenového adresáře spolu se svým souborem „read me“ a se svým instalačním skriptem. Ale <code>httplib2</code> se neskládá z jediného <code>.py</code> souboru. Je to <a href="case-study-porting-chardet-to-python-3.html#multifile-modules">vícesouborový modul</a>. Ale to je v pořádku! Adresář <code>httplib2</code> umístěte do kořenového adresáře, takže budete mít soubor <code>__init__.py</code> umístěn v adresáři <code>httplib2/</code> v kořenovém adresáři <code>httplib2/</code>. Nehledejte v tom problém. Ve skutečnosti to zjednoduší proces vytváření balíčku.
+<li>Vytvořte kořenový adresář, ve kterém bude všechno. Dejte mu stejné jméno, jaké má váš pythonovský modul.
+<li>Abyste se přizpůsobili uživatelům Windows, měl by váš soubor „read me“ použít příponu <code>.txt</code> a měl by používat windowsovské konce řádků. To, že <em>vy</em> používáte nějaký fantastický editor, který se dá spouštět z příkazového řádku a má i svůj makro jazyk, neznamená, že byste měli ztěžovat život svým uživatelům. (Vaši uživatelé používají „Notepad“, česky „Poznámkový blok“. Je to smutné, ale je to tak.) Váš oblíbený editor má nepochybně volbu pro ukládání souborů s windowsovskými konci řádků &mdash; i když pracujete v Linuxu nebo s Mac OS X.
+<li>Váš instalační skript využívající Distutils by měl být pojmenován <code>setup.py</code> &mdash; pokud nemáte dobrý důvod pro to, aby se jmenoval jinak. A vy nemáte dobrý důvod, aby se jmenoval jinak.
+<li>Pokud se váš pythonovský software skládá z jediného souboru s příponou <code>.py</code>, měli byste jej umístit do kořenového adresáře spolu se svým souborem „read me“ a se svým instalačním skriptem. Ale <code>httplib2</code> se neskládá z jediného <code>.py</code> souboru. Je to <a href="case-study-porting-chardet-to-python-3.html#multifile-modules">vícesouborový modul</a>. Ale to je v pořádku! Adresář <code>httplib2</code> umístěte do kořenového adresáře, takže budete mít soubor <code>__init__.py</code> umístěn v adresáři <code>httplib2/</code> v kořenovém adresáři <code>httplib2/</code>. Nehledejte v tom problém. Ve skutečnosti to zjednoduší proces vytváření balíčku.
 </ol>
 
-<p>Adresář <code>chardet</code> vypadá trochu jinak. Stejně jako u
-<code>httplib2</code> jde o <a
-href="case-study-porting-chardet-to-python-3.html#multifile-modules">vícesouborový
-modul</a>, takže tu máme adresář <code>chardet/</code> uvnitř
-kořenového adresáře <code>chardet/</code>. K souboru
-<code>README.txt</code> má <code>chardet</code> navíc
-<abbr>HTML</abbr> dokumentaci, umístěnou v adresáři
-<code>docs/</code>. Adresář <code>docs/</code> obsahuje několik
-souborů s příponami <code>.html</code> a <code>.css</code> a
-podadresář <code>images/</code>, který obsahuje několik souborů s
-příponami <code>.png</code> a <code>.gif</code>. (To bude důležité
-později.) V souladu s konvencemi pro software s licencí
-<abbr>(L)GPL</abbr> obsahuje také samostatný soubor zvaný
-<code>COPYING.txt</code>, který obsahuje kompletní text
-<abbr>LGPL</abbr>. <pre class=nd><code>
+<p>Adresář <code>chardet</code> vypadá trochu jinak. Stejně jako u <code>httplib2</code> jde o <a href="case-study-porting-chardet-to-python-3.html#multifile-modules">vícesouborový modul</a>, takže tu máme adresář <code>chardet/</code> uvnitř kořenového adresáře <code>chardet/</code>. K souboru <code>README.txt</code> má <code>chardet</code> navíc <abbr>HTML</abbr> dokumentaci, umístěnou v adresáři <code>docs/</code>. Adresář <code>docs/</code> obsahuje několik souborů s příponami <code>.html</code> a <code>.css</code> a podadresář <code>images/</code>, který obsahuje několik souborů s příponami <code>.png</code> a <code>.gif</code>. (To bude důležité později.) V souladu s konvencemi pro software s licencí <abbr>(L)GPL</abbr> obsahuje také samostatný soubor zvaný <code>COPYING.txt</code>, který obsahuje kompletní text <abbr>LGPL</abbr>.
+
+<pre class=nd><code>
 chardet/
 |
 +--COPYING.txt
@@ -172,49 +146,45 @@ chardet/
    +--...
 </code></pre>
 
-<p class=a>&#x2042; <h2 id=setuppy>Píšeme svůj instalační skript</h2>
+<p class=a>&#x2042;
 
-<p>Instalační skript pro Distutils je pythonovský skript. Teoreticky
-by mohl dělat vše, co lze dělat v pythonovských skriptech. Prakticky
-by toho měl dělat co nejméně a co nejstandardnějším způsobem.
-Instalační skript by měl být nudný. Čím exotičtější bude váš
-instalační proces, tím exotičtější budou hlášení o chybách. <p>První
-řádek každého instalačního skriptu pro Distutils je vždycky stejný:
+<h2 id=setuppy>Píšeme svůj instalační skript</h2>
+
+<p>Instalační skript pro Distutils je pythonovský skript. Teoreticky by mohl dělat vše, co lze dělat v pythonovských skriptech. Prakticky by toho měl dělat co nejméně a co nejstandardnějším způsobem. Instalační skript by měl být nudný. Čím exotičtější bude váš instalační proces, tím exotičtější budou hlášení o chybách.
+
+<p>První řádek každého instalačního skriptu pro Distutils je vždycky stejný:
+
 <pre class='nd pp'><code>from distutils.core import setup</code></pre>
 
-<p>Importujeme funkci <code>setup()</code>, která je hlavním vstupním
-bodem rámce Distutils. 95 % všech distutilsovských skriptů se skládá z
-jediného volání funkce <code>setup()</code> a z ničeho jiného. (Tuhle
-statistiku jsem si právě vymyslel, ale pokud váš distutilsovský skript
-dělá něco víc než volání funkce <code>setup()</code> z Distutils, měli
-byste pro to mít dobrý důvod. A máte pro to dobrý důvod? Myslím, že
-ne.) <p>Funkce <code>setup()</code> <a
-href="http://docs.python.org/3.1/distutils/apiref.html#distutils.core.setup">přebírá
-celou řadu parametrů</a>. V zájmu zachování duševního zdraví všech
-zúčastněných musíte pro každý parametr používat <a
-href="your-first-python-program.html#optional-arguments">pojmenované
-argumenty</a>. Není to jen nějaká konvence. Je to tvrdý požadavek.
-Pokud se pokusíte o volání funkce <code>setup()</code> s
-nepojmenovanými argumenty, váš instalační skript zhavaruje.
-<p>Následující pojmenované argumety jsou povinné: <ul>
-<li><b>name</b> &mdash; jméno balíčku. <li><b>version</b> &mdash; verze balíčku. <li><b>author</b> &mdash; vaše celé jméno. <li><b>author_email</b> &mdash; vaše e-mailová adresa. <li><b>url</b> &mdash; domácí stránka vašeho projektu. Pokud pro projekt nemáte vyhrazen zvláštní webový server, můžete zde uvést stránku svého balíčku v <a href="http://pypi.python.org/">PyPI</a>.
+<p>Importujeme funkci <code>setup()</code>, která je hlavním vstupním bodem rámce Distutils. 95&nbsp;% všech distutilsovských skriptů se skládá z jediného volání funkce <code>setup()</code> a z ničeho jiného. (Tuhle statistiku jsem si právě vymyslel, ale pokud váš distutilsovský skript dělá něco víc než volání funkce <code>setup()</code> z Distutils, měli byste pro to mít dobrý důvod. A máte pro to dobrý důvod? Myslím, že ne.)
+
+<p>Funkce <code>setup()</code> <a href="http://docs.python.org/3.1/distutils/apiref.html#distutils.core.setup">přebírá celou řadu parametrů</a>. V zájmu zachování duševního zdraví všech zúčastněných musíte pro každý parametr používat <a href="your-first-python-program.html#optional-arguments">pojmenované argumenty</a>. Není to jen nějaká konvence. Je to tvrdý požadavek. Pokud se pokusíte o volání funkce <code>setup()</code> s nepojmenovanými argumenty, váš instalační skript zhavaruje.
+
+<p>Následující pojmenované argumety jsou povinné:
+
+<ul>
+<li><b>name</b> &mdash; jméno balíčku.
+<li><b>version</b> &mdash; verze balíčku.
+<li><b>author</b> &mdash; vaše celé jméno.
+<li><b>author_email</b> &mdash; vaše e-mailová adresa.
+<li><b>url</b> &mdash; domácí stránka vašeho projektu. Pokud pro projekt nemáte vyhrazen zvláštní webový server, můžete zde uvést stránku svého balíčku v <a href="http://pypi.python.org/">PyPI</a>.
 </ul>
 
-<p>Ačkoliv to není povinné, doporučuji, abyste ve svém instalačním
-skriptu uvedli také následující: <ul>
-<li><b>description</b>, jednořádkový popis projektu. <li><b>long_description</b>, víceřádkový řetězec ve formátu <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>. <a href="http://pypi.python.org" />PyPI</a> ho převede do <abbr>HTML</abbr> a zobrazí ho na stránce pro váš balíček. <li><b>classifiers</b>, seznam zvláštním způsobem formátovaných řetězců, které si popíšeme v následující podkapitole.
+<p>Ačkoliv to není povinné, doporučuji, abyste ve svém instalačním skriptu uvedli také následující:
+
+<ul>
+<li><b>description</b>, jednořádkový popis projektu.
+<li><b>long_description</b>, víceřádkový řetězec ve formátu <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>. <a href="http://pypi.python.org" />PyPI</a> ho převede do <abbr>HTML</abbr> a zobrazí ho na stránce pro váš balíček.
+<li><b>classifiers</b>, seznam zvláštním způsobem formátovaných řetězců, které si popíšeme v následující podkapitole.
 </ul>
 
 <blockquote class=note>
-<p><span class="u">&#x261E;</span>Metadata instalačního skriptu jsou
-definována v <a href="http://www.python.org/dev/peps/pep-0314"
-/><abbr>PEP</abbr> 314</a>.
+<p><span class="u">&#x261E;</span>Metadata instalačního skriptu jsou definována v <a href="http://www.python.org/dev/peps/pep-0314" /><abbr>PEP</abbr> 314</a>.
 </blockquote>
 
-<p>Teď se podíváme na instalační skript pro <code>chardet</code>.
-Používá všechny zmíněné povinné a doporučené parametry a ještě jeden,
-o kterém jsem se zatím nezmínil: <code>packages</code>. <pre class='nd
-pp'><code>from distutils.core import setup
+<p>Teď se podíváme na instalační skript pro <code>chardet</code>. Používá všechny zmíněné povinné a doporučené parametry a ještě jeden, o kterém jsem se zatím nezmínil: <code>packages</code>.
+
+<pre class='nd pp'><code>from distutils.core import setup
 setup(
     name = 'chardet',
     <mark>packages = ['chardet']</mark>,
@@ -224,55 +194,37 @@ setup(
     ...
 )</code></pre>
 
-<p>Parametr <code>packages</code> zvýrazňuje jedno nešťastné
-překrývání významů slov během distribučního procesu. O slově
-„balíček/balík“ (package) jsme se bavili jako o něčem, co vytváříme (a
-co se potenciálně vypisuje v seznamu PyPI). Jenže to není tím, na co
-se parametr <code>packages</code> odkazuje. Vztahuje se ke
-skutečnosti, že <code>chardet</code> je <a
-href="case-study-porting-chardet-to-python-3.html#multifile-modules">vícesouborovým
-modulem</a>, kterému se také někdy říká&hellip; „package“ (balíček). Parametr
-<code>packages</code> nástroji Distutils říká, aby do procesu zahrnul
-adresář <code>chardet/</code>, jeho soubor <code>__init__.py</code> a
-všechny ostatní soubory s příponou <code>.py</code>, ze kterých se
-modul <code>chardet</code> skládá. To je docela důležité. Veškerá
-radostná rozprava o dokumentaci a metadatech je k ničemu, pokud
-zapomenete přibalit skutečný kód! <p class=a>&#x2042; <h2 id=trove>Přidáváme
-klasifikaci našeho balíčku</h2>
+<p>Parametr <code>packages</code> zvýrazňuje jedno nešťastné překrývání významů slov během distribučního procesu. O slově „balíček/balík“ (package) jsme se bavili jako o něčem, co vytváříme (a co se potenciálně vypisuje v seznamu PyPI). Jenže to není tím, na co se parametr <code>packages</code> odkazuje. Vztahuje se ke skutečnosti, že <code>chardet</code> je <a href="case-study-porting-chardet-to-python-3.html#multifile-modules">vícesouborovým modulem</a>, kterému se také někdy říká&hellip; „package“ (balíček). Parametr <code>packages</code> nástroji Distutils říká, aby do procesu zahrnul adresář <code>chardet/</code>, jeho soubor <code>__init__.py</code> a všechny ostatní soubory s příponou <code>.py</code>, ze kterých se modul <code>chardet</code> skládá. To je docela důležité. Veškerá radostná rozprava o dokumentaci a metadatech je k ničemu, pokud zapomenete přibalit skutečný kód!
 
-<p>The Python Package Index („PyPI“) obsahuje tisíce pythonovských
-knihoven. Ostatní lidé najdou váš balíček snadněji, když použijete
-správná klasifikační metadata. PyPI vám umožní <a
-href="http://pypi.python.org/pypi?:action=browse">prohlížet balíčky
-uspořádané podle klasifikátorů</a>. Pro zúžení nabídky při vyhledávání
-můžete vybrat dokonce více klasifikátorů. Klasifikátory prostě nejsou
-jen neviditelná metadata, která byste mohli ignorovat! <p>Klasifikaci
-svého softwaru provedete předáním parametru <code>classifiers</code>
-distutilovské funkci <code>setup()</code>. Parametr
-<code>classifiers</code> má podobu seznamu řetězců. Ale tyto řetězce
-<em>nemají</em> volný formát. Všechny klasifikační řetězce by měly
-pocházet z <a
-href="http://pypi.python.org/pypi?:action=list_classifiers">tohoto
-seznamu na PyPI</a>. <p>Klasifikátory jsou nepovinné. Můžete napsat
-distutilovský instalační skript bez jakýchkoliv klasifikátorů.
-<strong>Nedělejte to.</strong> Měli byste <em>vždy</em> uvést alespoň
-následující klasifikátory: <ul>
-<li><b>Programming Language</b> (programovací jazyk). Konkrétně by měl zahrnovat jak <code>"Programming Language :: Python"</code>, tak <code>"Programming Language :: Python :: 3"</code>. Pokud je neuvedete, nebude se váš balíček ukazovat <a href="http://pypi.python.org/pypi?:action=browse&amp;c=533&amp;show=all">v tomto seznamu knihoven kompatibilních s Pythonem 3</a>, na který se dostanete přes odkaz uvedený v bočním sloupku na každé stránce z <code>pypi.python.org</code>. <li><b>License</b> (licence). Pokud zkouším nějakou knihovnu třetí strany, je to <em>absolutně první věc, na kterou se dívám</em>. Nechtějte po mně, abych tuto životně důležitou informaci musel někde hledat. Pokud se váš software nedodává pod více licencemi, neuvádějte víc než jeden licenční klasifikátor. (A pokud k tomu nejste nějak nuceni, nevydávejte svůj software pod více licencemi. A nenuťte k tomu ostatní lidi. Licencování stačí k bolení hlavy už i tak. Nedělejte to ještě horší.) <li><b>Operating System</b> (operační systém). Pokud váš software běží pouze pod Windows (nebo jen pod Mac OS X nebo jen pod Linuxem), rád bych se to dozvěděl raději dřív než později. Pokud váš software běží kdekoliv, aniž by potřeboval nějaký platformově závislý kód, použijte klasifikátor <code>"Operating System :: OS Independent"</code>. Použití více klasifikátorů <code>Operating System</code> je nezbytné pouze v případě, kdy váš software vyžaduje pro každou platformu specifickou podporu. (Běžně tomu tak nebývá.)
+<p class=a>&#x2042;
+
+<h2 id=trove>Přidáváme klasifikaci našeho balíčku</h2>
+
+<p>The Python Package Index („PyPI“) obsahuje tisíce pythonovských knihoven. Ostatní lidé najdou váš balíček snadněji, když použijete správná klasifikační metadata. PyPI vám umožní <a href="http://pypi.python.org/pypi?:action=browse">prohlížet balíčky uspořádané podle klasifikátorů</a>. Pro zúžení nabídky při vyhledávání můžete vybrat dokonce více klasifikátorů. Klasifikátory prostě nejsou jen neviditelná metadata, která byste mohli ignorovat!
+
+<p>Klasifikaci svého softwaru provedete předáním parametru <code>classifiers</code> distutilovské funkci <code>setup()</code>. Parametr <code>classifiers</code> má podobu seznamu řetězců. Ale tyto řetězce <em>nemají</em> volný formát. Všechny klasifikační řetězce by měly pocházet z <a href="http://pypi.python.org/pypi?:action=list_classifiers">tohoto seznamu na PyPI</a>.
+
+<p>Klasifikátory jsou nepovinné. Můžete napsat distutilovský instalační skript bez jakýchkoliv klasifikátorů. <strong>Nedělejte to.</strong> Měli byste <em>vždy</em> uvést alespoň následující klasifikátory:
+
+<ul>
+<li><b>Programming Language</b> (programovací jazyk). Konkrétně by měl zahrnovat jak <code>"Programming Language :: Python"</code>, tak <code>"Programming Language :: Python :: 3"</code>. Pokud je neuvedete, nebude se váš balíček ukazovat <a href="http://pypi.python.org/pypi?:action=browse&amp;c=533&amp;show=all">v tomto seznamu knihoven kompatibilních s Pythonem 3</a>, na který se dostanete přes odkaz uvedený v bočním sloupku na každé stránce z <code>pypi.python.org</code>.
+<li><b>License</b> (licence). Pokud zkouším nějakou knihovnu třetí strany, je to <em>absolutně první věc, na kterou se dívám</em>. Nechtějte po mně, abych tuto životně důležitou informaci musel někde hledat. Pokud se váš software nedodává pod více licencemi, neuvádějte víc než jeden licenční klasifikátor. (A pokud k tomu nejste nějak nuceni, nevydávejte svůj software pod více licencemi. A nenuťte k tomu ostatní lidi. Licencování stačí k bolení hlavy už i tak. Nedělejte to ještě horší.)
+<li><b>Operating System</b> (operační systém). Pokud váš software běží pouze pod Windows (nebo jen pod Mac OS X nebo jen pod Linuxem), rád bych se to dozvěděl raději dřív než později. Pokud váš software běží kdekoliv, aniž by potřeboval nějaký platformově závislý kód, použijte klasifikátor <code>"Operating System :: OS Independent"</code>. Použití více klasifikátorů <code>Operating System</code> je nezbytné pouze v případě, kdy váš software vyžaduje pro každou platformu specifickou podporu. (Běžně tomu tak nebývá.)
 </ul>
 
-<p>Doporučuji, abyste uvedli i následující klasifikátory: <ul>
-<li><b>Development Status</b> (stav vývoje). Lze kvalitu vašeho softwaru ohodnotit přívlastkem beta? Alfa? Nebo se nachází ještě v ranějším stadiu (pre-alpha)? Jednu z možností uveďte. Buďte upřímní. <li><b>Intended Audience</b> (zamýšlená skupina uživatelů). Kdo by mohl chtít stahovat váš software? Nejpoužívanější volby jsou <code>Developers</code> (vývojáři), <code>End Users/Desktop</code> (koncoví uživatelé), <code>Science/Research</code> (věda a výzkum), and <code>System Administrators</code> (správci systémů). <li><b>Framework</b> (rámec). Pokud lze váš software považovat za zásuvný modul (plugin) pro větší pythonovské rámce, jako jsou například <a href="http://www.djangoproject.com/">Django</a> nebo <a href="http://www.zope.org/">Zope</a>, uveďte příslušný klasifikátor <code>Framework</code>. Pokud tomu tak není, neuvádějte jej. <li><b>Topic</b> (tematická oblast). Zde naleznete <a href="http://pypi.python.org/pypi?:action=list_classifiers">velké množství oblastí, ze kterých si můžete vybrat</a>. Uveďte všechny, které vašemu softwaru odpovídají.
+<p>Doporučuji, abyste uvedli i následující klasifikátory:
+
+<ul>
+<li><b>Development Status</b> (stav vývoje). Lze kvalitu vašeho softwaru ohodnotit přívlastkem beta? Alfa? Nebo se nachází ještě v ranějším stadiu (pre-alpha)? Jednu z možností uveďte. Buďte upřímní.
+<li><b>Intended Audience</b> (zamýšlená skupina uživatelů). Kdo by mohl chtít stahovat váš software? Nejpoužívanější volby jsou <code>Developers</code> (vývojáři), <code>End Users/Desktop</code> (koncoví uživatelé), <code>Science/Research</code> (věda a výzkum), and <code>System Administrators</code> (správci systémů).
+<li><b>Framework</b> (rámec). Pokud lze váš software považovat za zásuvný modul (plugin) pro větší pythonovské rámce, jako jsou například <a href="http://www.djangoproject.com/">Django</a> nebo <a href="http://www.zope.org/">Zope</a>, uveďte příslušný klasifikátor <code>Framework</code>. Pokud tomu tak není, neuvádějte jej.
+<li><b>Topic</b> (tematická oblast). Zde naleznete <a href="http://pypi.python.org/pypi?:action=list_classifiers">velké množství oblastí, ze kterých si můžete vybrat</a>. Uveďte všechny, které vašemu softwaru odpovídají.
 </ul>
 
 <h3 id=trove-examples>Příklady dobrých klasifikátorů balíčků</h3>
 
-<p>Jako příklad uveďme klasifikátory pro <a
-href="http://pypi.python.org/pypi/Django/">Django</a>, což je
-multiplatformní aplikační rámec (framework), který můžete spouštět na
-svém webovém serveru. Dodává se pod licencí <abbr>BSD</abbr> a je
-využitelný pro ostrý provoz (production-ready). (Django zatím není
-kompatibilní s Pythonem 3, takže není uveden klasifikátor
-<code>Programming Language :: Python :: 3</code>.)
+<p>Jako příklad uveďme klasifikátory pro <a href="http://pypi.python.org/pypi/Django/">Django</a>, což je multiplatformní aplikační rámec (framework), který můžete spouštět na svém webovém serveru. Dodává se pod licencí <abbr>BSD</abbr> a je využitelný pro ostrý provoz (production-ready). (Django zatím není kompatibilní s Pythonem 3, takže není uveden klasifikátor <code>Programming Language :: Python :: 3</code>.)
+
 <pre><code>Programming Language :: Python
 License :: OSI Approved :: BSD License
 Operating System :: OS Independent
@@ -285,16 +237,9 @@ Topic :: Internet :: WWW/HTTP :: Dynamic Content
 Topic :: Internet :: WWW/HTTP :: WSGI
 Topic :: Software Development :: Libraries :: Python Modules</code></pre>
 
-<p>Tady jsou klasifikátory pro <a
-href="http://pypi.python.org/pypi/chardet"><code>chardet</code></a>,
-což je knihovna pro detekci znakového kódování, kterou jsme se
-zabývali v <a
-href="case-study-porting-chardet-to-python-3.html">Případové studii:
-Přepis <code>chardet</code> pro Python 3</a>. <code>chardet</code> je
-ve stadiu beta, je multiplatformní, kompatibilní s Pythonem 3, pod
-licencí <abbr>LGPL</abbr> a je určena pro vývojáře, kteří ji mohou
-začlenit do svých vlastních produktů. <pre><code>Programming Language
-:: Python
+<p>Tady jsou klasifikátory pro <a href="http://pypi.python.org/pypi/chardet"><code>chardet</code></a>, což je knihovna pro detekci znakového kódování, kterou jsme se zabývali v <a href="case-study-porting-chardet-to-python-3.html">Případové studii: Přepis <code>chardet</code> pro Python 3</a>. <code>chardet</code> je ve stadiu beta, je multiplatformní, kompatibilní s Pythonem 3, pod licencí <abbr>LGPL</abbr> a je určena pro vývojáře, kteří ji mohou začlenit do svých vlastních produktů.
+
+<pre><code>Programming Language :: Python
 Programming Language :: Python :: 3
 License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)
 Operating System :: OS Independent
@@ -304,12 +249,8 @@ Intended Audience :: Developers
 Topic :: Text Processing :: Linguistic
 Topic :: Software Development :: Libraries :: Python Modules</code></pre>
 
-<p>A tady jsou klasifikátory pro <a
-href="http://pypi.python.org/pypi/httplib2"><code>httplib2</code></a>,
-což je knihovna, o které jsme se bavili v kapitole <a
-href="http-web-services.html">Webové služby nad <abbr>HTTP</abbr></a>.
-<code>httplib2</code> je ve stadiu beta, multiplatformní, pod licencí
-<abbr>MIT</abbr> a je učena pro pythonovské vývojáře.
+<p>A tady jsou klasifikátory pro <a href="http://pypi.python.org/pypi/httplib2"><code>httplib2</code></a>, což je knihovna, o které jsme se bavili v kapitole <a href="http-web-services.html">Webové služby nad <abbr>HTTP</abbr></a>. <code>httplib2</code> je ve stadiu beta, multiplatformní, pod licencí <abbr>MIT</abbr> a je učena pro pythonovské vývojáře.
+
 <pre><code>Programming Language :: Python
 Programming Language :: Python :: 3
 License :: OSI Approved :: MIT License
@@ -322,85 +263,59 @@ Topic :: Software Development :: Libraries :: Python Modules</code></pre>
 
 <h2 id=manifest>Určení dalších souborů prostřednictvím manifestu</h2>
 
-<p>Pokud neurčíme jinak, zahrnou Distutils do vašeho instalačního
-balíčku následující soubory: <ul>
+<p>Pokud neurčíme jinak, zahrnou Distutils do vašeho instalačního balíčku následující soubory:
+
+<ul>
 <li><code>README.txt</code>
 <li><code>setup.py</code>
-<li>Soubory s příponou <code>.py</code>, které se používají ve vícesouborových modulech uvedených v seznamu parametru <code>packages</code>. <li>Jednotlivé soubory s příponou <code>.py</code>, které jsou uvedeny v seznamu parametru <code>py_modules</code>.
+<li>Soubory s příponou <code>.py</code>, které se používají ve vícesouborových modulech uvedených v seznamu parametru <code>packages</code>.
+<li>Jednotlivé soubory s příponou <code>.py</code>, které jsou uvedeny v seznamu parametru <code>py_modules</code>.
 </ul>
 
-<p>Tímto způsobem lze pokrýt <a href="#structure">všechny soubory
-projektu <code>httplib2</code></a>. Ale u projektu
-<code>chardet</code> potřebujeme zařadit i licenční soubor
-<code>COPYING.txt</code> a celý adresář <code>docs/</code>, který
-obsahuje obrázky a <abbr>HTML</abbr> soubory. Pokud chceme Distutils
-říci, aby byly při tvorbě instalačního balíčku <code>chardet</code>
-zařazeny i tyto dodatečné soubory a adresáře, musíme použít <i>soubor
-s manifestem</i> (manifest file). <p>Soubor s manifestem je textový
-soubor s názvem <code>MANIFEST.in</code>. Umístíme jej do kořenového
-adresáře projektu, vedle souborů <code>README.txt</code> a
-<code>setup.py</code>. Soubory s manifestem <em>nejsou</em>
-pythonovské skripty. Jsou to textové soubory, které obsahují
-posloupnosti „příkazů“ ve formátu pro Distutils. Příkazy manifestu nám
-umožňují zahrnovat nebo vyřazovat konkrétní soubory a adresáře.
-<p>Následuje celý obsah souboru manifestu pro projekt
-<code>chardet</code>: <pre class=nd><code><a>include COPYING.txt
-<span class="u">①</span></a>
-<a>recursive-include docs *.html *.css *.png *.gif    <span class="u">②</span></a></code></pre>
+<p>Tímto způsobem lze pokrýt <a href="#structure">všechny soubory projektu <code>httplib2</code></a>. Ale u projektu <code>chardet</code> potřebujeme zařadit i licenční soubor <code>COPYING.txt</code> a celý adresář <code>docs/</code>, který obsahuje obrázky a <abbr>HTML</abbr> soubory. Pokud chceme Distutils říci, aby byly při tvorbě instalačního balíčku <code>chardet</code> zařazeny i tyto dodatečné soubory a adresáře, musíme použít <i>soubor s manifestem</i> (manifest file).
+
+<p>Soubor s manifestem je textový soubor s názvem <code>MANIFEST.in</code>. Umístíme jej do kořenového adresáře projektu, vedle souborů <code>README.txt</code> a <code>setup.py</code>. Soubory s manifestem <em>nejsou</em> pythonovské skripty. Jsou to textové soubory, které obsahují posloupnosti „příkazů“ ve formátu pro Distutils. Příkazy manifestu nám umožňují zahrnovat nebo vyřazovat konkrétní soubory a adresáře.
+
+<p>Následuje celý obsah souboru manifestu pro projekt <code>chardet</code>:
+
+<pre class=nd><code><a>include COPYING.txt                                <span class=u>&#x2460;</span></a>
+<a>recursive-include docs *.html *.css *.png *.gif    <span class=u>&#x2461;</span></a></code></pre>
 <ol>
-<li>První řádek je samovysvětlující: vložit soubor <code>COPYING.txt</code> z kořenového adresáře projektu. <li>Druhý řádek je trochu složitější. Příkaz <code>recursive-include</code> přebírá jméno adresáře a jedno nebo víc jmen souborů. Jména souborů nemusí být uvedena explicitně. Mohou být vyjádřena zástupnými znaky (wildcards). Tento řádek znamená: „Vidíš adresář <code>docs/</code> v kořenovém adresáři projektu? Najdi v něm (rekurzivně) soubory s příponami <code>.html</code>, <code>.css</code>, <code>.png</code> a <code>.gif</code>. Chci, aby byly všechny zařazeny do instalačního balíčku.“
+<li>První řádek je samovysvětlující: vložit soubor <code>COPYING.txt</code> z kořenového adresáře projektu.
+<li>Druhý řádek je trochu složitější. Příkaz <code>recursive-include</code> přebírá jméno adresáře a jedno nebo víc jmen souborů. Jména souborů nemusí být uvedena explicitně. Mohou být vyjádřena zástupnými znaky (wildcards). Tento řádek znamená: „Vidíš adresář <code>docs/</code> v kořenovém adresáři projektu? Najdi v něm (rekurzivně) soubory s příponami <code>.html</code>, <code>.css</code>, <code>.png</code> a <code>.gif</code>. Chci, aby byly všechny zařazeny do instalačního balíčku.“
 </ol>
 
-<p>Všechny příkazy manifestu zachovávají strukturu adresářů, která je
-vytvořena v kořenovém adresáři projektu. Uvedený příkaz
-<code>recursive-include</code> nenacpe všechny <code>.html</code> a
-<code>.png</code> soubory do kořenového adresáře instalačního balíčku.
-Dodrží existující strukturu adresáře <code>docs/</code>, ale zařadí do
-ní jen ty soubory, které odpovídají zadaným maskám se zástupnými
-znaky. (Dříve jsem se o tom nezmiňoval, ale dokumentace
-<code>chardet</code> je ve skutečnosti napsaná v <abbr>XML</abbr> a do
-<abbr>HTML</abbr> je převedena samostatným skriptem. Do instalačního
-balíčku nechci zařazovat zdrojové <abbr>XML</abbr> soubory, ale jen
-výsledné <abbr>HTML</abbr> soubory a obrázky.) <blockquote class=note>
-<p><span class="u">&#x261E;</span>Soubory s manifestem mají svůj specifický
-formát. Detaily hledejte v dokumentech <a
-href="http://docs.python.org/3.1/distutils/sourcedist.html#manifest">Specifying
-the files to distribute</a> a <a
-href="http://docs.python.org/3.1/distutils/commandref.html#sdist-cmd">The
-manifest template commands</a>.
+<p>Všechny příkazy manifestu zachovávají strukturu adresářů, která je vytvořena v kořenovém adresáři projektu. Uvedený příkaz <code>recursive-include</code> nenacpe všechny <code>.html</code> a <code>.png</code> soubory do kořenového adresáře instalačního balíčku. Dodrží existující strukturu adresáře <code>docs/</code>, ale zařadí do ní jen ty soubory, které odpovídají zadaným maskám se zástupnými znaky. (Dříve jsem se o tom nezmiňoval, ale dokumentace <code>chardet</code> je ve skutečnosti napsaná v <abbr>XML</abbr> a do <abbr>HTML</abbr> je převedena samostatným skriptem. Do instalačního balíčku nechci zařazovat zdrojové <abbr>XML</abbr> soubory, ale jen výsledné <abbr>HTML</abbr> soubory a obrázky.)
+
+<blockquote class=note>
+<p><span class="u">&#x261E;</span>Soubory s manifestem mají svůj specifický formát. Detaily hledejte v dokumentech <a href="http://docs.python.org/3.1/distutils/sourcedist.html#manifest">Specifying the files to distribute</a> a <a href="http://docs.python.org/3.1/distutils/commandref.html#sdist-cmd">The manifest template commands</a>.
 </blockquote>
 
-<p>Zopakujme si to: soubor s manifestem musíme vytvářet jen v případě,
-kdy chceme zahrnout i soubory, které nástroj Distutils nevkládá
-automaticky. Pokud potřebujeme použít soubor s manifestem, měl by
-obsahovat jen jména souborů, která by jinak nástroj Distutils nenašel
-sám. <h2 id=check>Kontrola chyb v našem instalačním skriptu</h2>
+<p>Zopakujme si to: soubor s manifestem musíme vytvářet jen v případě, kdy chceme zahrnout i soubory, které nástroj Distutils nevkládá automaticky. Pokud potřebujeme použít soubor s manifestem, měl by obsahovat jen jména souborů, která by jinak nástroj Distutils nenašel sám.
 
-<p>Musíme myslet na spoustu věcí. Distutils mají zabudovaný validační
-příkaz, který kontroluje, že náš instalační skript obsahuje všechna
-povinná metadata. Pokud například zapomeneme uvést parametr
-<code>version</code>, Distutils nám to připomenou. <pre class=screen>
-<samp class="p">c:\Users\pilgrim\chardet&gt; </samp><kbd>c:\python31\python.exe setup.py check</kbd>
+<h2 id=check>Kontrola chyb v našem instalačním skriptu</h2>
+
+<p>Musíme myslet na spoustu věcí. Distutils mají zabudovaný validační příkaz, který kontroluje, že náš instalační skript obsahuje všechna povinná metadata. Pokud například zapomeneme uvést parametr <code>version</code>, Distutils nám to připomenou.
+
+<pre class=screen>
+<samp class=p>c:\Users\pilgrim\chardet> </samp><kbd>c:\python31\python.exe setup.py check</kbd>
 <samp>running check
 warning: check: missing required meta-data: version</samp></pre>
 
-<p>Jakmile parametr <code>version</code> uvedeme (a všechny ostatní
-povinné části metadat), příkaz <code>check</code> dopadne takto: <pre
-class=screen>
-<samp class="p">c:\Users\pilgrim\chardet&gt; </samp><kbd>c:\python31\python.exe setup.py check</kbd>
+<p>Jakmile parametr <code>version</code> uvedeme (a všechny ostatní povinné části metadat), příkaz <code>check</code> dopadne takto:
+
+<pre class=screen>
+<samp class=p>c:\Users\pilgrim\chardet> </samp><kbd>c:\python31\python.exe setup.py check</kbd>
 <samp>running check</samp></pre>
 
-<p class=a>&#x2042; <h2 id=sdist>Vytvoření distribuce obsahující zdrojové
-texty</h2>
+<p class=a>&#x2042;
 
-<p>Distutils podporují tvorbu mnoha typů distribučních balíčků.
-Přinejmenším bychom měli vytvořit „distribuci zdrojů“ (source
-distribution), která obsahuje naše zdrojové texty s kódem, instalační
-skript pro Distutils, soubor „read me“ a jakékoliv <a
-href="#manifest">další soubory, které chceme do distribuce
-zahrnout</a>. Distribuci zdrojů vytvoříme tím, že instalačnímu skriptu
-Distutils zadáme příkaz <code>sdist</code>. <pre class=screen>
-<samp class="p">c:\Users\pilgrim\chardet&gt; </samp><kbd><mark>c:\python31\python.exe setup.py sdist</mark></kbd>
+<h2 id=sdist>Vytvoření distribuce obsahující zdrojové texty</h2>
+
+<p>Distutils podporují tvorbu mnoha typů distribučních balíčků. Přinejmenším bychom měli vytvořit „distribuci zdrojů“ (source distribution), která obsahuje naše zdrojové texty s kódem, instalační skript pro Distutils, soubor „read me“ a jakékoliv <a href="#manifest">další soubory, které chceme do distribuce zahrnout</a>. Distribuci zdrojů vytvoříme tím, že instalačnímu skriptu Distutils zadáme příkaz <code>sdist</code>.
+
+<pre class=screen>
+<samp class=p>c:\Users\pilgrim\chardet> </samp><kbd><mark>c:\python31\python.exe setup.py sdist</mark></kbd>
 <samp>running sdist
 running check
 reading manifest template 'MANIFEST.in'
@@ -410,27 +325,27 @@ creating chardet-1.0.2\chardet
 creating chardet-1.0.2\docs
 creating chardet-1.0.2\docs\images
 copying files to chardet-1.0.2...
-copying COPYING -&gt; chardet-1.0.2
-copying README.txt -&gt; chardet-1.0.2
-copying setup.py -&gt; chardet-1.0.2
-copying chardet\__init__.py -&gt; chardet-1.0.2\chardet
-copying chardet\big5freq.py -&gt; chardet-1.0.2\chardet
+copying COPYING -> chardet-1.0.2
+copying README.txt -> chardet-1.0.2
+copying setup.py -> chardet-1.0.2
+copying chardet\__init__.py -> chardet-1.0.2\chardet
+copying chardet\big5freq.py -> chardet-1.0.2\chardet
 ...
-copying chardet\universaldetector.py -&gt; chardet-1.0.2\chardet
-copying chardet\utf8prober.py -&gt; chardet-1.0.2\chardet
-copying docs\faq.html -&gt; chardet-1.0.2\docs
-copying docs\history.html -&gt; chardet-1.0.2\docs
-copying docs\how-it-works.html -&gt; chardet-1.0.2\docs
-copying docs\index.html -&gt; chardet-1.0.2\docs
-copying docs\license.html -&gt; chardet-1.0.2\docs
-copying docs\supported-encodings.html -&gt; chardet-1.0.2\docs
-copying docs\usage.html -&gt; chardet-1.0.2\docs
-copying docs\images\caution.png -&gt; chardet-1.0.2\docs\images
-copying docs\images\important.png -&gt; chardet-1.0.2\docs\images
-copying docs\images\note.png -&gt; chardet-1.0.2\docs\images
-copying docs\images\permalink.gif -&gt; chardet-1.0.2\docs\images
-copying docs\images\tip.png -&gt; chardet-1.0.2\docs\images
-copying docs\images\warning.png -&gt; chardet-1.0.2\docs\images
+copying chardet\universaldetector.py -> chardet-1.0.2\chardet
+copying chardet\utf8prober.py -> chardet-1.0.2\chardet
+copying docs\faq.html -> chardet-1.0.2\docs
+copying docs\history.html -> chardet-1.0.2\docs
+copying docs\how-it-works.html -> chardet-1.0.2\docs
+copying docs\index.html -> chardet-1.0.2\docs
+copying docs\license.html -> chardet-1.0.2\docs
+copying docs\supported-encodings.html -> chardet-1.0.2\docs
+copying docs\usage.html -> chardet-1.0.2\docs
+copying docs\images\caution.png -> chardet-1.0.2\docs\images
+copying docs\images\important.png -> chardet-1.0.2\docs\images
+copying docs\images\note.png -> chardet-1.0.2\docs\images
+copying docs\images\permalink.gif -> chardet-1.0.2\docs\images
+copying docs\images\tip.png -> chardet-1.0.2\docs\images
+copying docs\images\warning.png -> chardet-1.0.2\docs\images
 creating dist
 creating 'dist\chardet-1.0.2.zip' and adding 'chardet-1.0.2' to it
 adding 'chardet-1.0.2\COPYING'
@@ -458,59 +373,61 @@ adding 'chardet-1.0.2\docs\images\tip.png'
 adding 'chardet-1.0.2\docs\images\warning.png'
 removing 'chardet-1.0.2' (and everything under it)</samp></pre>
 
-<p>Tady bychom se měli zmínit o několika věcech: <ul>
-<li>Distutils si všimly souboru s manifestem (<code>MANIFEST.in</code>). <li>Distutils soubor s manifestem úspěšně zpracovaly a přidaly předepsané soubory&nbsp;&mdash;&nbsp;<code>COPYING.txt</code> a <abbr>HTML</abbr> soubory a soubory s obrázky v adresáři <code>docs/</code>. <li>Pokud se podíváme do adresáře projektu, uvidíme, že Distutils vytvořily adresář <code>dist/</code>. V adresáři <code>dist/</code> se nachází soubor s příponou <code>.zip</code>, který můžeme distribuovat.
+<p>Tady bychom se měli zmínit o několika věcech:
+
+<ul>
+<li>Distutils si všimly souboru s manifestem (<code>MANIFEST.in</code>).
+<li>Distutils soubor s manifestem úspěšně zpracovaly a přidaly předepsané soubory&nbsp;&mdash;&nbsp;<code>COPYING.txt</code> a <abbr>HTML</abbr> soubory a soubory s obrázky v adresáři <code>docs/</code>.
+<li>Pokud se podíváme do adresáře projektu, uvidíme, že Distutils vytvořily adresář <code>dist/</code>. V adresáři <code>dist/</code> se nachází soubor s příponou <code>.zip</code>, který můžeme distribuovat.
 </ul>
 
 <pre class=screen>
-<samp class="p">c:\Users\pilgrim\chardet&gt; </samp><kbd><mark>dir dist</mark></kbd>
+<samp class=p>c:\Users\pilgrim\chardet> </samp><kbd><mark>dir dist</mark></kbd>
 <samp> Volume in drive C has no label.
  Volume Serial Number is DED5-B4F8
 
  Directory of c:\Users\pilgrim\chardet\dist
 
-07/30/2009  06:29 PM    &lt;DIR&gt;          .
-07/30/2009  06:29 PM    &lt;DIR&gt;          ..
+07/30/2009  06:29 PM    &lt;DIR>          .
+07/30/2009  06:29 PM    &lt;DIR>          ..
 07/30/2009  06:29 PM           206,440 <mark>chardet-1.0.2.zip</mark>
                1 File(s)        206,440 bytes
                2 Dir(s)  61,424,635,904 bytes free</samp></pre>
 
-<p class=a>&#x2042; <h2 id=bdist>Vytvoření grafického instalačního
-programu</h2>
+<p class=a>&#x2042;
 
-<p>Podle mého názoru si každá pythonovská knihovna zaslouží, aby byl
-pro uživatele Windows k dispozici grafický instalační program. Dá se
-udělat snadno (i když sami Windows nepoužíváte) a uživatelé Windows to
-ocení. <p>Distutils dovedou <a
-href="http://docs.python.org/3.1/distutils/builtdist.html#creating-windows-installers">vytvořit
-grafický instalační program pro Windows za nás</a>. Stačí, když
-instalačnímu skriptu pro Distutils zadáme příkaz
-<code>bdist_wininst</code>. <pre class=screen>
-<samp class="p">c:\Users\pilgrim\chardet&gt; </samp><kbd><mark>c:\python31\python.exe setup.py bdist_wininst</mark></kbd>
+<h2 id=bdist>Vytvoření grafického instalačního programu</h2>
+
+<p>Podle mého názoru si každá pythonovská knihovna zaslouží, aby byl pro uživatele Windows k dispozici grafický instalační program. Dá se udělat snadno (i když sami Windows nepoužíváte) a uživatelé Windows to ocení.
+
+<p>Distutils dovedou <a href="http://docs.python.org/3.1/distutils/builtdist.html#creating-windows-installers">vytvořit grafický instalační program pro Windows za nás</a>. Stačí, když instalačnímu skriptu pro Distutils zadáme příkaz <code>bdist_wininst</code>.
+
+<pre class=screen>
+<samp class=p>c:\Users\pilgrim\chardet> </samp><kbd><mark>c:\python31\python.exe setup.py bdist_wininst</mark></kbd>
 <samp>running bdist_wininst
 running build
 running build_py
 creating build
 creating build\lib
 creating build\lib\chardet
-copying chardet\big5freq.py -&gt; build\lib\chardet
-copying chardet\big5prober.py -&gt; build\lib\chardet
+copying chardet\big5freq.py -> build\lib\chardet
+copying chardet\big5prober.py -> build\lib\chardet
 ...
-copying chardet\universaldetector.py -&gt; build\lib\chardet
-copying chardet\utf8prober.py -&gt; build\lib\chardet
-copying chardet\__init__.py -&gt; build\lib\chardet
+copying chardet\universaldetector.py -> build\lib\chardet
+copying chardet\utf8prober.py -> build\lib\chardet
+copying chardet\__init__.py -> build\lib\chardet
 installing to build\bdist.win32\wininst
 running install_lib
 creating build\bdist.win32
 creating build\bdist.win32\wininst
 creating build\bdist.win32\wininst\PURELIB
 creating build\bdist.win32\wininst\PURELIB\chardet
-copying build\lib\chardet\big5freq.py -&gt; build\bdist.win32\wininst\PURELIB\chardet
-copying build\lib\chardet\big5prober.py -&gt; build\bdist.win32\wininst\PURELIB\chardet
+copying build\lib\chardet\big5freq.py -> build\bdist.win32\wininst\PURELIB\chardet
+copying build\lib\chardet\big5prober.py -> build\bdist.win32\wininst\PURELIB\chardet
 ...
-copying build\lib\chardet\universaldetector.py -&gt; build\bdist.win32\wininst\PURELIB\chardet
-copying build\lib\chardet\utf8prober.py -&gt; build\bdist.win32\wininst\PURELIB\chardet
-copying build\lib\chardet\__init__.py -&gt; build\bdist.win32\wininst\PURELIB\chardet
+copying build\lib\chardet\universaldetector.py -> build\bdist.win32\wininst\PURELIB\chardet
+copying build\lib\chardet\utf8prober.py -> build\bdist.win32\wininst\PURELIB\chardet
+copying build\lib\chardet\__init__.py -> build\bdist.win32\wininst\PURELIB\chardet
 running install_egg_info
 Writing build\bdist.win32\wininst\PURELIB\chardet-1.0.2-py3.1.egg-info
 creating 'c:\users\pilgrim\appdata\local\temp\tmp2f4h7e.zip' and adding '.' to it
@@ -522,15 +439,15 @@ adding 'PURELIB\chardet\universaldetector.py'
 adding 'PURELIB\chardet\utf8prober.py'
 adding 'PURELIB\chardet\__init__.py'
 removing 'build\bdist.win32\wininst' (and everything under it)</samp>
-<samp class="p">c:\Users\pilgrim\chardet&gt; </samp><kbd><mark>dir dist</mark></kbd>
-<samp>c:\Users\pilgrim\chardet&gt;dir dist
+<samp class=p>c:\Users\pilgrim\chardet> </samp><kbd><mark>dir dist</mark></kbd>
+<samp>c:\Users\pilgrim\chardet>dir dist
  Volume in drive C has no label.
  Volume Serial Number is AADE-E29F
 
  Directory of c:\Users\pilgrim\chardet\dist
 
-07/30/2009  10:14 PM    &lt;DIR&gt;          .
-07/30/2009  10:14 PM    &lt;DIR&gt;          ..
+07/30/2009  10:14 PM    &lt;DIR>          .
+07/30/2009  10:14 PM    &lt;DIR>          ..
 07/30/2009  10:14 PM           371,236 <mark>chardet-1.0.2.win32.exe</mark>
 07/30/2009  06:29 PM           206,440 chardet-1.0.2.zip
                2 File(s)        577,676 bytes
@@ -538,100 +455,89 @@ removing 'build\bdist.win32\wininst' (and everything under it)</samp>
 
 <h3 id=linux>Tvorba instalačních balíčků pro jiné operační systémy</h3>
 
-<p>Distutils nám mohou pomoci <a
-href="http://docs.python.org/3.1/distutils/builtdist.html#creating-rpm-packages">vytvořit
-instalační balíčky pro uživatele Linuxu</a>. Ale podle mého názoru to
-nestojí za tu námahu. Pokud chcete svůj software distribuovat v
-Linuxu, měli byste svůj čas raději věnovat spolupráci se skupinou
-lidí, kteří se specializují na vytváření softwarových balíčků pro
-hlavní distribuce Linuxu. <p>Například moji knihovnu
-<code>chardet</code> najdete <a
-href="http://packages.debian.org/python-chardet">v archivech pro
-Debian GNU/Linux</a> (a tím pádem i <a
-href="http://packages.ubuntu.com/python-chardet">v archivech pro
-Ubuntu</a>). Nemusel jsem se o to vůbec starat. Balíčky se tam jednoho
-dne prostě objevily. Komunita kolem distribuce Debian má <a
-href="http://www.debian.org/doc/packaging-manuals/python-policy" />svá
-vlastní pravidla pro balení pythonovských knihoven</a> a balíček
-<code>python-chardet</code> pro Debian je navržen tak, aby tyto
-konvence splňoval. A protože jsou balíčky umístěny v archivech
-Debianu, získávají uživatelé Debianu bezpečnostní aktualizace a/nebo
-nové verze podle toho, jaká systémová nastavení si pro údržbu svých
-počítačů zvolili. <p>Linuxovské balíčky vytvářené nástrojem Distutils
-žádnou z těchto výhod nenabízejí. Bude lepší, když svůj čas strávíte
-jiným způsobem. <p class=a>&#x2042; <h2 id=pypi>Přidání našeho softwaru do
-Python Package Index</h2>
+<p>Distutils nám mohou pomoci <a href="http://docs.python.org/3.1/distutils/builtdist.html#creating-rpm-packages">vytvořit instalační balíčky pro uživatele Linuxu</a>. Ale podle mého názoru to nestojí za tu námahu. Pokud chcete svůj software distribuovat v Linuxu, měli byste svůj čas raději věnovat spolupráci se skupinou lidí, kteří se specializují na vytváření softwarových balíčků pro hlavní distribuce Linuxu.
 
-<p>Nahrání našeho softwaru do Python Package Index představuje proces
-o třech krocích. <ol>
-<li>Zaregistrujeme se. <li>Zaregistrujeme svůj software. <li>Uložíme (upload) balíčky, které jsme vytvořili příkazy <code>setup.py sdist</code> a <code>setup.py bdist_*</code>.
+<p>Například moji knihovnu <code>chardet</code> najdete <a href="http://packages.debian.org/python-chardet">v archivech pro Debian GNU/Linux</a> (a tím pádem i <a href="http://packages.ubuntu.com/python-chardet">v archivech pro Ubuntu</a>). Nemusel jsem se o to vůbec starat. Balíčky se tam jednoho dne prostě objevily. Komunita kolem distribuce Debian má <a href="http://www.debian.org/doc/packaging-manuals/python-policy" />svá vlastní pravidla pro balení pythonovských knihoven</a> a balíček <code>python-chardet</code> pro Debian je navržen tak, aby tyto konvence splňoval. A protože jsou balíčky umístěny v archivech Debianu, získávají uživatelé Debianu bezpečnostní aktualizace a/nebo nové verze podle toho, jaká systémová nastavení si pro údržbu svých počítačů zvolili.
+
+<p>Linuxovské balíčky vytvářené nástrojem Distutils žádnou z těchto výhod nenabízejí. Bude lepší, když svůj čas strávíte jiným způsobem.
+
+<p class=a>&#x2042;
+
+<h2 id=pypi>Přidání našeho softwaru do Python Package Index</h2>
+
+<p>Nahrání našeho softwaru do Python Package Index představuje proces o třech krocích.
+
+<ol>
+<li>Zaregistrujeme se.
+<li>Zaregistrujeme svůj software.
+<li>Uložíme (upload) balíčky, které jsme vytvořili příkazy <code>setup.py sdist</code> a <code>setup.py bdist_*</code>.
 </ol>
 
-<p>Registraci své osoby provedeme prostřednictvím <a
-href="http://pypi.python.org/pypi?:action=register_form">registrační
-stránky pro uživatele PyPI</a>. Vložíme své uživatelské jméno a heslo,
-poskytneme platnou e-mailovou adresu a klikneme na tlačítko
-<code>Register</code>. (Pokud máte klíč <abbr>PGP</abbr> nebo
-<abbr>GPG</abbr>, můžete jej uvést také. Pokud jej nemáte nebo nevíte,
-co to znamená, nedělejte si s tím starosti.) Zkontrolujeme svůj
-e-mail. Během několika minut bychom měli obdržet zprávu od PyPI s
-potvrzovacím odkazem. Registrační proces dokončíme tím, že na odkaz
-klikneme. <p>Teď zaregistrujeme u PyPI náš software a nahrajeme jej
-(upload). To vše můžeme provést v jediném kroku. <pre class=screen>
-<a><samp class="p">c:\Users\pilgrim\chardet&gt; </samp><kbd>c:\python31\python.exe setup.py register sdist bdist_wininst upload</kbd>  <span class="u">①</span></a>
+<p>Registraci své osoby provedeme prostřednictvím <a href="http://pypi.python.org/pypi?:action=register_form">registrační stránky pro uživatele PyPI</a>. Vložíme své uživatelské jméno a heslo, poskytneme platnou e-mailovou adresu a klikneme na tlačítko <code>Register</code>. (Pokud máte klíč <abbr>PGP</abbr> nebo <abbr>GPG</abbr>, můžete jej uvést také. Pokud jej nemáte nebo nevíte, co to znamená, nedělejte si s tím starosti.) Zkontrolujeme svůj e-mail. Během několika minut bychom měli obdržet zprávu od PyPI s potvrzovacím odkazem. Registrační proces dokončíme tím, že na odkaz klikneme.
+
+<p>Teď zaregistrujeme u PyPI náš software a nahrajeme jej (upload). To vše můžeme provést v jediném kroku.
+
+<pre class=screen>
+<a><samp class=p>c:\Users\pilgrim\chardet> </samp><kbd>c:\python31\python.exe setup.py register sdist bdist_wininst upload</kbd>  <span class=u>&#x2460;</span></a>
 <samp>running register
 We need to know who you are, so please choose either:
  1. use your existing login,
  2. register as a new user,
  3. have the server generate a new password for you (and email it to you), or
  4. quit</samp>
-<a><samp class="p">Your selection [default 1]:  </samp><kbd>1</kbd>                                                                 <span class="u">②</span></a>
-<a><samp class="p">Username: </samp><kbd>MarkPilgrim</kbd>                                                                          <span class="u">③</span></a>
-<samp class="p">Password:</samp>
-<a><samp>Registering chardet to http://pypi.python.org/pypi</samp>                                             <span class="u">④</span></a>
+<a><samp class=p>Your selection [default 1]:  </samp><kbd>1</kbd>                                                                 <span class=u>&#x2461;</span></a>
+<a><samp class=p>Username: </samp><kbd>MarkPilgrim</kbd>                                                                          <span class=u>&#x2462;</span></a>
+<samp class=p>Password:</samp>
+<a><samp>Registering chardet to http://pypi.python.org/pypi</samp>                                             <span class=u>&#x2463;</span></a>
 <samp>Server response (200): OK</samp>
-<a><samp>running sdist</samp>                                                                                  <span class="u">⑤</span></a>
-<samp>... výstup pro stručnost vypuštěn ...</samp>
-<a><samp>running bdist_wininst</samp>                                                                          <span class="u">⑥</span></a>
-<samp>... výstup pro stručnost vypuštěn ...</samp>
-<a><samp>running upload</samp>                                                                                 <span class="u">⑦</span></a>
+<a><samp>running sdist</samp>                                                                                  <span class=u>&#x2464;</span></a>
+<samp>... output trimmed for brevity ...</samp>
+<a><samp>running bdist_wininst</samp>                                                                          <span class=u>&#x2465;</span></a>
+<samp>... output trimmed for brevity ...</samp>
+<a><samp>running upload</samp>                                                                                 <span class=u>&#x2466;</span></a>
 <samp>Submitting dist\chardet-1.0.2.zip to http://pypi.python.org/pypi
 Server response (200): OK
 Submitting dist\chardet-1.0.2.win32.exe to http://pypi.python.org/pypi
 Server response (200): OK
 I can store your PyPI login so future submissions will be faster.
 (the login will be stored in c:\home\.pypirc)</samp>
-<a><samp class="p">Save your login (y/N)?</samp><kbd class="pp">n</kbd>                                                                        <span class="u">⑧</span></a></pre>
+<a><samp class=p>Save your login (y/N)?</samp><kbd class=pp>n</kbd>                                                                        <span class=u>&#x2467;</span></a></pre>
 <ol>
-<li>Když svůj projekt zveřejníme poprvé, přidají Distutils náš software do Python Package Index a přidělí mu jeho vlastní <abbr>URL</abbr>. Při dalších přístupech jednoduše aktualizují metadata projektu podle změn, které uvedeme v parametrech našeho <code>setup.py</code>. Poté se vytvoří distribuce zdrojů (source distribution; <code>sdist</code>) a instalátor pro Windows (<code>bdist_wininst</code>) a nahrají se do PyPI (<code>upload</code>). <li>Vybereme „use your existing login“ (použij svůj existující účet) napsáním <kbd>1</kbd>, nebo prostě stiskneme <kbd>ENTER</kbd>. <li>Napíšeme uživatelské jméno a heslo, která jsme si zvolili na <a href="http://pypi.python.org/pypi?:action=register_form">registrační stránce PyPI</a>. Distutils neopisují zadávané heslo. Místo zadávaných znaků nevypisují ani hvězdičky. Prostě napíšeme heslo a stiskneme <kbd>ENTER</kbd>. <li>Distutils zaregistrují náš balíček v archivu Python Package Index&hellip; <li>&hellip;vytvoří distribuci našich zdrojů (source distribution)&hellip; <li>&hellip;vytvoří instalátor pro Windows&hellip; <li>&hellip;a nahrají (upload) oba do Python Package Index. <li>Pokud chceme proces zveřejňování nových verzí zautomatizovat, musíme uložit osobní údaje pro PyPI do lokálního souboru. Je to zcela proti zásadám bezpečnosti a zcela nepovinné.
+<li>Když svůj projekt zveřejníme poprvé, přidají Distutils náš software do Python Package Index a přidělí mu jeho vlastní <abbr>URL</abbr>. Při dalších přístupech jednoduše aktualizují metadata projektu podle změn, které uvedeme v parametrech našeho <code>setup.py</code>. Poté se vytvoří distribuce zdrojů (source distribution; <code>sdist</code>) a instalátor pro Windows (<code>bdist_wininst</code>) a nahrají se do PyPI (<code>upload</code>).
+<li>Vybereme „use your existing login“ (použij svůj existující účet) napsáním <kbd>1</kbd>, nebo prostě stiskneme <kbd>ENTER</kbd>.
+<li>Napíšeme uživatelské jméno a heslo, která jsme si zvolili na <a href="http://pypi.python.org/pypi?:action=register_form">registrační stránce PyPI</a>. Distutils neopisují zadávané heslo. Místo zadávaných znaků nevypisují ani hvězdičky. Prostě napíšeme heslo a stiskneme <kbd>ENTER</kbd>.
+<li>Distutils zaregistrují náš balíček v archivu Python Package Index&hellip;
+<li>&hellip;vytvoří distribuci našich zdrojů (source distribution)&hellip;
+<li>&hellip;vytvoří instalátor pro Windows&hellip;
+<li>&hellip;a nahrají (upload) oba do Python Package Index.
+<li>Pokud chceme proces zveřejňování nových verzí zautomatizovat, musíme uložit osobní údaje pro PyPI do lokálního souboru. Je to zcela proti zásadám bezpečnosti a zcela nepovinné.
 </ol>
 
-<p>Gratuluji. Teď už máte svoji vlastní stránku na Python Package
-Index! Její adresa je
-<code>http://pypi.python.org/pypi/<i>JMENO</i></code>, kde
-<i>JMENO</i> je řetězec, který jste předali parametrem <var>name</var>
-ve svém souboru <code>setup.py</code>. <p>Pokud chceme zveřejnit novou
-verzi, upravíme ve svém souboru <code>setup.py</code> číslo verze a
-spustíme proces nahrávání (upload) znovu: <pre class='nd screen'>
-<samp class="p">c:\Users\pilgrim\chardet&gt; </samp><kbd>c:\python31\python.exe setup.py register sdist bdist_wininst upload</kbd>
+<p>Gratuluji. Teď už máte svoji vlastní stránku na Python Package Index! Její adresa je <code>http://pypi.python.org/pypi/<i>JMENO</i></code>, kde <i>JMENO</i> je řetězec, který jste předali parametrem <var>name</var> ve svém souboru <code>setup.py</code>.
+
+<p>Pokud chceme zveřejnit novou verzi, upravíme ve svém souboru <code>setup.py</code> číslo verze a spustíme proces nahrávání (upload) znovu:
+
+<pre class='nd screen'>
+<samp class=p>c:\Users\pilgrim\chardet> </samp><kbd>c:\python31\python.exe setup.py register sdist bdist_wininst upload</kbd>
 </pre>
 
-<p class=a>&#x2042; <h2 id=future>Více možných budoucností balení
-pythonovských produktů</h2>
+<p class=a>&#x2042;
 
-<p>Distutils nejsou jediným nástrojem pro vytváření pythonovských
-balíčků, ale v době psaní tohoto textu (srpen 2009) to byl jediný
-rámec pro vytváření instalačních balíčků, který fungoval v Pythonu 3.
-Pro Python 2 existuje řada dalších rámců. Některé se soustředí na
-instalaci, jiné na testování a distribuci (deployment). Některé z nich
-možná budou přepsány pro Python 3. <p>Následující rámce (frameworks)
-jsou zaměřeny na instalaci: <ul>
+<h2 id=future>Více možných budoucností balení pythonovských produktů</h2>
+
+<p>Distutils nejsou jediným nástrojem pro vytváření pythonovských balíčků, ale v době psaní tohoto textu (srpen 2009) to byl jediný rámec pro vytváření instalačních balíčků, který fungoval v Pythonu 3. Pro Python 2 existuje řada dalších rámců. Některé se soustředí na instalaci, jiné na testování a distribuci (deployment). Některé z nich možná budou přepsány pro Python 3.
+
+<p>Následující rámce (frameworks) jsou zaměřeny na instalaci:
+
+<ul>
 <li><a href="http://pypi.python.org/pypi/setuptools">Setuptools</a>
 <li><a href="http://pypi.python.org/pypi/pip">Pip</a>
 <li><a href="http://bitbucket.org/tarek/distribute" />Distribute</a>
 </ul>
 
-<p>Následující se zaměřují na testování a distribuci: <ul>
+<p>Následující se zaměřují na testování a distribuci:
+
+<ul>
 <li><a href="http://pypi.python.org/pypi/virtualenv"><code>virtualenv</code></a>
 <li><a href="http://pypi.python.org/pypi/zc.buildout"><code>zc.buildout</code></a>
 <li><a href="http://www.blueskyonmars.com/projects/paver" />Paver</a>
@@ -639,16 +545,23 @@ jsou zaměřeny na instalaci: <ul>
 <li><a href="http://www.py2exe.org" /><code>py2exe</code></a>
 </ul>
 
-<p class=a>&#x2042; <h2 id=furtherreading>Přečtěte si</h2>
+<p class=a>&#x2042;
 
-<p>O Distutils: <ul>
+<h2 id=furtherreading>Přečtěte si</h2>
+
+<p>O Distutils:
+
+<ul>
 <li><a href="http://docs.python.org/3.1/distutils" />Distributing Python Modules with Distutils</a>
-<li><a href="http://docs.python.org/3.1/distutils/apiref.html#module-distutils.core">Core Distutils functionality</a> uvádí všechny možné argumenty funkce <code>setup()</code> <li><a href="http://wiki.python.org/moin/Distutils/Cookbook">Distutils Cookbook</a>
+<li><a href="http://docs.python.org/3.1/distutils/apiref.html#module-distutils.core">Core Distutils functionality</a> uvádí všechny možné argumenty funkce <code>setup()</code>
+<li><a href="http://wiki.python.org/moin/Distutils/Cookbook">Distutils Cookbook</a>
 <li><a href="http://www.python.org/dev/peps/pep-0370" /><abbr>PEP</abbr> 370: Per user <code>site-packages</code> directory</a>
 <li><a href="http://jessenoller.com/2009/07/19/pep-370-per-user-site-packages-and-environment-stew" /><abbr>PEP</abbr> 370 and “environment stew”</a>
 </ul>
 
-<p>O ostatních rámcích pro vytváření balíčků: <ul>
+<p>O ostatních rámcích pro vytváření balíčků:
+
+<ul>
 <li><a href="http://groups.google.com/group/django-developers/msg/5407cdb400157259">The Python packaging ecosystem</a>
 <li><a href="http://www.b-list.org/weblog/2008/dec/14/packaging" />On packaging</a>
 <li><a href="http://blog.ianbicking.org/2008/12/14/a-few-corrections-to-on-packaging" />A few corrections to “On packaging”</a>
@@ -657,14 +570,8 @@ jsou zaměřeny na instalaci: <ul>
 <li><a href="http://jacobian.org/writing/nobody-expects-python-packaging" />Nobody expects Python packaging!</a>
 </ul>
 
-<p class=v><a rel="prev"
-href="case-study-porting-chardet-to-python-3.html" title="zpět na
-„Případová studie: Přepis chardet pro Python 3“"><span
-class="u">&#x261C;</span></a> <a rel="next"
-href="porting-code-to-python-3-with-2to3.html" title="dopředu na
-„Přepis kódu do Pythonu 3 s využitím 2to3“"><span
-class="u">&#x261E;</span></a>
+<p class=v><a rel="prev" href="case-study-porting-chardet-to-python-3.html" title="zpět na „Případová studie: Přepis chardet pro Python 3“"><span class="u">&#x261C;</span></a> <a rel="next" href="porting-code-to-python-3-with-2to3.html" title="dopředu na „Přepis kódu do Pythonu 3 s využitím 2to3“"><span class="u">&#x261E;</span></a>
 <p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
-<script src=j/dip3.js></script> 
+<script src=j/dip3.js></script>
