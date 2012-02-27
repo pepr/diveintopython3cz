@@ -85,7 +85,7 @@ body{counter-reset:h1 7}
 
 <p>Prvním argumentem metody třídy je vždy odkaz na aktuální instanci třídy a platí to i pro metodu <code>__init__()</code>. Podle konvence je tento argument pojmenován <var>self</var>. Plní roli vyhrazeného slova, jakým je <code>this</code> v jazycích <abbr>C++</abbr> nebo Java, ale v Pythonu není <var>self</var> vyhrazeným slovem. Je to jen konvenční pojmenování. Přesto jej, prosím vás, nenazývejte nikdy jinak než <var>self</var>. Jde o velmi silnou konvenci.
 
-<p>Uvnitř metody <code>__init__()</code> odkazuje <var>self</var> na nově vytvořený objekt. U ostatních metod třídy odkazuje na instanci třídy, jejíž metoda byla zavolána. V okamžiku definice metody musíme uvést <var>self</var> explicitně. Ale v okamžiku volání metody už tento argument <em>neuvádíme</em>. Python ho přidá za nás automaticky.
+<p>U všech metod třídy odkazuje argument <var>self</var> na instanci třídy, jejíž metoda byla zavolána. Ale konkrétně v případě metody <code>__init__()</code> je tato instance (jejíž metoda byla zavolána) nově vytvořeným objektem. V okamžiku definice metody musíme uvést <var>self</var> explicitně. Ale v okamžiku volání metody už tento argument <em>neuvádíme</em>. Python ho přidá za nás automaticky.
 
 <p class=a>&#x2042;
 
