@@ -1,4 +1,5 @@
-<!DOCTYPE html> <meta charset=utf-8>
+<!DOCTYPE html>
+<meta charset=utf-8>
 <title>Odstraňování problémů &ndash; Ponořme se do Pythonu 3</title>
 <!--[if IE]><script src=j/html5.js></script><![endif]-->
 <link rel=stylesheet href=dip3.css>
@@ -9,88 +10,67 @@
 <meta name=viewport content='initial-scale=1.0'>
 <body id=appd>
 <!-- <form action=http://www.google.com/cse><div><input type=hidden name=cx value=014021643941856155761:l5eihuescdw><input type=hidden name=ie value=UTF-8>&nbsp;<input type=search name=q size=25 placeholder="powered by Google&trade;">&nbsp;<input type="submit" name="sa" value="Hledej"></div></form> -->
-<p>Nacházíte se zde: <a href="index.html">Domů</a> <span
-class="u">&#8227;</span> <a
-href="table-of-contents.html#troubleshooting">Ponořme se do Pythonu
-3</a> <span class="u">&#8227;</span>
+<p>Nacházíte se zde: <a href="index.html">Domů</a> <span class="u">&#8227;</span> <a href="table-of-contents.html#troubleshooting">Ponořme se do Pythonu 3</a> <span class="u">&#8227;</span>
 <h1>Odstraňování problémů</h1>
 <blockquote class=q>
-<p><span class="u">&#x275D;</span> Where’s the <kbd>ANY</kbd> key? <span
-class="u">&#x275E;</span><br>(Kde je <kbd>LIBOVOLNÁ</kbd> klávesa?)<br>&mdash;
-<a href="http://www.wherestheanykey.co.uk">připisováno kdekomu</a>
+<p><span class="u">&#x275D;</span> Where’s the <kbd>ANY</kbd> key? <span class="u">&#x275E;</span><br>(Kde je <kbd>LIBOVOLNÁ</kbd> klávesa?)<br>&mdash; <a href="http://www.wherestheanykey.co.uk">připisováno kdekomu</a>
 </blockquote>
-<p id=toc>&nbsp; <h2 id=divingin>Ponořme se</h2>
-<p class=f>DOPSAT <h2 id=getting-to-the-command-line>Jak se dostat k
-příkazovému řádku</h2>
-<p>V celé knize se setkáváme s příklady spouštění Pythonu z
-příkazového řádku. Ale jak se máte k příkazovému řádku dostat? <p>V
-Linuxu se podívejte do menu <b><code>Applications</code></b> a
-hledejte program zvaný <b><code>Terminal</code></b>. (Může se nacházet
-v podmenu jako <b><code>Accessories</code></b> nebo
-<b><code>System</code></b>.) <p>V Mac OS X naleznete v adresáři
-<code>/Application/Utilities/</code> aplikaci nazvanou
-<b><code>Terminal.app</code></b>. Dostanete se tam tak, že kliknete na
-pracovní plochu, otevřete menu <b><code>Go</code></b>, vyberete
-<b><code>Go to folder...</code></b> (přejít do adresáře) a napíšete
-<kbd>/Applications/Utilities/</kbd>. Nakonec poklepete na program
-<b><code>Terminal</code></b>. <p>Ve Windows kliknete na
-<b><code>Start</code></b>, vyberete položku
-<b><code>Spustit...</code></b>, napíšete <kbd>cmd</kbd> a stisknete
-<kbd>ENTER</kbd>. <h2 id=running-python-on-the-command-line>Spuštění
-Pythonu z příkazového řádku</h2>
+<p id=toc>&nbsp;
 
-<p>Jakmile se <a href="#getting-to-the-command-line">dostanete na
-příkazový řádek</a>, měli byste být schopni spustit pythonovský
-interaktivní shell. V Linuxu nebo v Mac OS X napište na příkazový
-řádek <kbd>python3</kbd> a stiskněte <kbd>ENTER</kbd>. Ve Windows
-napište na příkazový řádek <kbd>c:\python31\python</kbd> a stiskněte
-<kbd>ENTER</kbd>. Pokud půjde vše dobře, měli byste vidět něco
-takového: <pre class='nd screen'>
-<samp class="p">you@localhost:~$ </samp><kbd>python3</kbd>
-<samp>Python 3.1 (r31:73572, Jul 28 2009, 06:52:23) 
+<h2 id=divingin>Ponořme se</h2>
+<p class=f>DOPSAT
+
+<h2 id=getting-to-the-command-line>Jak se dostat k příkazovému řádku</h2>
+<p>V celé knize se setkáváme s příklady spouštění Pythonu z příkazového řádku. Ale jak se máte k příkazovému řádku dostat?
+
+<p>V Linuxu se podívejte do menu <b><code>Applications</code></b> a hledejte program zvaný <b><code>Terminal</code></b>. (Může se nacházet v podmenu jako <b><code>Accessories</code></b> nebo <b><code>System</code></b>.)
+
+<p>V Mac OS X naleznete v adresáři <code>/Application/Utilities/</code> aplikaci nazvanou <b><code>Terminal.app</code></b>. Dostanete se tam tak, že kliknete na pracovní plochu, otevřete menu <b><code>Go</code></b>, vyberete <b><code>Go to folder...</code></b> (přejít do adresáře) a napíšete <kbd>/Applications/Utilities/</kbd>. Nakonec poklepete na program <b><code>Terminal</code></b>.
+
+<p>Ve Windows kliknete na <b><code>Start</code></b>, vyberete položku <b><code>Spustit...</code></b>, napíšete <kbd>cmd</kbd> a stisknete <kbd>ENTER</kbd>.
+
+<h2 id=running-python-on-the-command-line>Spuštění Pythonu z příkazového řádku</h2>
+
+<p>Jakmile se <a href="#getting-to-the-command-line">dostanete na příkazový řádek</a>, měli byste být schopni spustit pythonovský interaktivní shell. V Linuxu nebo v Mac OS X napište na příkazový řádek <kbd>python3</kbd> a stiskněte <kbd>ENTER</kbd>. Ve Windows napište na příkazový řádek <kbd>c:\python31\python</kbd> a stiskněte <kbd>ENTER</kbd>. Pokud půjde vše dobře, měli byste vidět něco takového:
+
+<pre class='nd screen'>
+<samp class=p>you@localhost:~$ </samp><kbd>python3</kbd>
+<samp>Python 3.1 (r31:73572, Jul 28 2009, 06:52:23)
 [GCC 4.2.4 (Ubuntu 4.2.4-1ubuntu4)] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
-&gt;&gt;&gt;</samp></pre>
+>>></samp></pre>
 
-<p>(Až budete chtít pythonovský interaktivní shell opustit a vrátit se
-na příkazový řádek, napište <kbd>exit()</kbd> a stiskněte
-<kbd>ENTER</kbd>. Tento obrat funguje na všech platformách.) <p>Pokud
-zpozorujete chybu „příkaz nenalezen“ (command not found), znamená to,
-že pravděpodobně <a href="installing-python.html">nemáte Python 3
-nainstalován</a>. <pre class='nd screen'>
-<samp class="p">you@localhost:~$ </samp><kbd>python3</kbd>
+<p>(Až budete chtít pythonovský interaktivní shell opustit a vrátit se na příkazový řádek, napište <kbd>exit()</kbd> a stiskněte <kbd>ENTER</kbd>. Tento obrat funguje na všech platformách.)
+
+<p>Pokud zpozorujete chybu „příkaz nenalezen“ (command not found), znamená to, že pravděpodobně <a href="installing-python.html">nemáte Python 3 nainstalován</a>.
+
+<pre class='nd screen'>
+<samp class=p>you@localhost:~$ </samp><kbd>python3</kbd>
 <samp>bash: python3: command not found</samp></pre>
 
-<p>Pokud se do pythonovského interaktivního shellu dostanete, ale
-číslo verze neodpovídá vašemu očekávání, máte možná nainstalovánu více
-než jednu verzi Pythonu. Stává se to spíš na systémech Linux a Mac OS
-X, kde může být starší verze Pythonu předinstalována. Poslední verzi
-můžete nainstalovat, aniž byste museli starší verzi mazat (mohou být
-bez problémů instalovány vedle sebe), ale při spouštění Pythonu z
-příkazového řádku se pak musíte vyjádřit přesněji. <p>Například na
-svém domácím linuxovém stroji mám nainstalováno několik verzí Pythonu,
-abych na nich mohl otestovat software, který vytvářím. Když chci
-spustit určitou verzi, můžu napsat <code>python3.0</code>,
-<code>python3.1</code> nebo <code>python2.6</code>. <pre class='nd
-screen'>
-<samp class="p">mark@atlantis:~$ </samp><kbd>python3.0</kbd>
+<p>Pokud se do pythonovského interaktivního shellu dostanete, ale číslo verze neodpovídá vašemu očekávání, máte možná nainstalovánu více než jednu verzi Pythonu. Stává se to spíš na systémech Linux a Mac OS X, kde může být starší verze Pythonu předinstalována. Poslední verzi můžete nainstalovat, aniž byste museli starší verzi mazat (mohou být bez problémů instalovány vedle sebe), ale při spouštění Pythonu z příkazového řádku se pak musíte vyjádřit přesněji.
+
+<p>Například na svém domácím linuxovém stroji mám nainstalováno několik verzí Pythonu, abych na nich mohl otestovat software, který vytvářím. Když chci spustit určitou verzi, můžu napsat <code>python3.0</code>, <code>python3.1</code> nebo <code>python2.6</code>.
+
+<pre class='nd screen'>
+<samp class=p>mark@atlantis:~$ </samp><kbd>python3.0</kbd>
 <samp>Python 3.0.1+ (r301:69556, Apr 15 2009, 17:25:52)
 [GCC 4.3.3] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
-&gt;&gt;&gt; </samp><kbd class="pp">exit()</kbd>
-<samp class="p">mark@atlantis:~$ </samp><kbd>python3.1</kbd>
-<samp>Python 3.1 (r31:73572, Jul 28 2009, 06:52:23) 
+>>> </samp><kbd class=pp>exit()</kbd>
+<samp class=p>mark@atlantis:~$ </samp><kbd>python3.1</kbd>
+<samp>Python 3.1 (r31:73572, Jul 28 2009, 06:52:23)
 [GCC 4.2.4 (Ubuntu 4.2.4-1ubuntu4)] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
-&gt;&gt;&gt; </samp><kbd class="pp">exit()</kbd>
-<samp class="p">mark@atlantis:~$ </samp><kbd>python2.6</kbd>
-<samp>Python 2.6.5 (r265:79063, Apr 16 2010, 13:57:41) 
+>>> </samp><kbd class=pp>exit()</kbd>
+<samp class=p>mark@atlantis:~$ </samp><kbd>python2.6</kbd>
+<samp>Python 2.6.5 (r265:79063, Apr 16 2010, 13:57:41)
 [GCC 4.4.3] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
-&gt;&gt;&gt; </samp><kbd class="pp">exit()</kbd></pre>
+>>> </samp><kbd class=pp>exit()</kbd></pre>
 
 <p class=v><a rel="prev" href="where-to-go-from-here.html" title="zpět na „Čím pokračovat“"><span class="u">&#x261C;</span></a> <a href="changelog.html" rel="next" title="dopředu na „Seznam oprav a úprav“"><span class="u">&#x261E;</span></a>
 
 <p class=c>&copy; 2001&ndash;10 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
-<script src=j/dip3.js></script> 
+<script src=j/dip3.js></script>
