@@ -687,15 +687,15 @@ class FieldStorage:
 <td>uživatelská kopie objektu do hloubky (deep copy)
 <td><code class="pp">copy.deepcopy(x)</code>
 <td><a href="http://docs.python.org/3.1/library/copy.html"><code>x.<dfn>__deepcopy__</dfn>()</code></a>
-<tr><th>
+<tr><th>*
 <td>zjištění stavu objektu před serializací
 <td><code class="pp">pickle.dump(x, <var>file</var>)</code>
 <td><a href="http://docs.python.org/3.1/library/pickle.html#pickle-state"><code>x.<dfn>__getstate__</dfn>()</code></a>
-<tr><th>
+<tr><th>*
 <td>serializace objektu
 <td><code class="pp">pickle.dump(x, <var>file</var>)</code>
 <td><a href="http://docs.python.org/3.1/library/pickle.html#pickling-class-instances"><code>x.<dfn>__reduce__</dfn>()</code></a>
-<tr><th>
+<tr><th>*
 <td>serializace objektu (nový serializační protokol)
 <td><code class="pp">pickle.dump(x, <var>file</var>, <var>protocol_version</var>)</code>
 <td><a href="http://docs.python.org/3.1/library/pickle.html#pickling-class-instances"><code>x.<dfn>__reduce_ex__</dfn>(<var>protocol_version</var>)</code></a>
