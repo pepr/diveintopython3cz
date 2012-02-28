@@ -30,11 +30,11 @@ POSSIBILITY OF SUCH DAMAGE.
 /* see http://www.princexml.com/ */
 
 @page {
-  size: A4;
+  size: US-Letter;
   margin: 30pt;
   padding: 0;
   @bottom-center {
-    font: 10pt/1.75 'Gill Sans', 'Gill Sans MT', Helvetica, Corbel, 'Nimbus Sans L', sans-serif;
+    font: 12pt/1.75 'Gill Sans', 'Gill Sans MT', Helvetica, Corbel, 'Nimbus Sans L', 'Liberation Sans', 'Deja Vu Sans', FreeSans, 'Arial Unicode', Arial, sans-serif;
     content: counter(page);
   }
 }
