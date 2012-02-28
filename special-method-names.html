@@ -286,8 +286,8 @@ class FieldStorage:
 <a>        return len(self.keys())                             <span class=u>&#x2464;</span></a></code></pre>
 <ol>
 <li>Jakmile vytvoříme instanci třídy <code>cgi.FieldStorage</code>, můžeme použít operátor „<code>in</code>“ pro ověření, zda se v řetězci s dotazem nachází určitý parametr.
-<li>Kouzlem, které to umožní, je metoda <code>__contains__()</code>.
-<li>Pokud napíšeme <code>if 'q' in fs</code>, hledá Python metodu <code>__contains__()</code> objektu <var>fs</var>, který je definován v <code>cgi.py</code>. Hodnota <code>'q'</code> je předána metodě<code>__contains__()</code> jako argument <var>key</var>.
+<li>Kouzlem, které to umožní, je metoda <code>__contains__()</code>. Pokud napíšeme <code>if 'q' in fs</code>, hledá Python metodu <code>__contains__()</code> objektu <var>fs</var>, který je definován v <code>cgi.py</code>. Hodnota <code>'q'</code> je předána metodě<code>__contains__()</code> jako argument <var>key</var>.
+<li>Funkce <code>any()</code> přebírá <a href="advanced-iterators.html#generator-expressions">generátorový výraz</a>. Pokud generátor vyplivne nějaké položky, vrací hodnotu <code>True</code>. Funkce <code>any()</code> je dost chytrá na to, aby zastavila, jakmile je nalezena první shoda.
 <li>Stejná třída <code>FieldStorage</code> podporuje také vracení své délky, takže můžeme napsat <code>len(<var>fs</var>)</code> a zavolá se metoda <code>__len__()</code> třídy <code>FieldStorage</code>, která vrátí počet rozpoznaných parametrů dotazu.
 <li>Metoda <code>self.keys()</code> kontroluje, zda <code>self.list is None</code> (zda seznam vůbec existuje), takže metoda <code>__len__</code> nemusí uvedenou kontrolu chyb dublovat.
 </ol>
