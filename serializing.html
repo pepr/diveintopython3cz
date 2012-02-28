@@ -280,7 +280,7 @@ struct_time
   357: .    STOP
 <mark>highest protocol among opcodes = 3</mark></samp></pre>
 
-<p>Nejzajímavější informaci v tomto reverzním překladu najdeme na posledním řádku. Obsahuje totiž verzi pickle protokolu, kterým byl tento soubor vytvořen. Pickle protokol neobsahuje žádnou explicitní značku, která by určovala verzi. Abychom verzi protokolu určili, musíme prohlížet značky („operační kódy“) uvnitř serializovaných dat a řídit se podle toho, který operační kód byl zaveden jakou verzí pickle protokolu. Přesně to dělá funkce <code>pickle.dis()</code>. Výsledek vytiskne na posledním řádku reverzního překladu. Tady máme funkci, která vrátí číslo verze, aniž by něco tiskla:
+<p>Nejzajímavější informaci v tomto reverzním překladu najdeme na posledním řádku. Obsahuje totiž verzi pickle protokolu, kterým byl tento soubor vytvořen. Pickle protokol neobsahuje žádnou explicitní značku, která by určovala verzi. Abychom verzi protokolu určili, musíme prohlížet značky („operační kódy“) uvnitř serializovaných dat a řídit se podle toho, který operační kód byl zaveden jakou verzí pickle protokolu. Přesně to dělá funkce <code>pickletools.dis()</code>. Výsledek vytiskne na posledním řádku reverzního překladu. Tady máme funkci, která vrátí číslo verze, aniž by něco tiskla:
 
 <p class=d>[<a href="examples/pickleversion.py">stáhnout <code>pickleversion.py</code></a>]
 <pre class=pp><code>import pickletools
