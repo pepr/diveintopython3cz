@@ -464,20 +464,20 @@ AttributeError: 'GzipFile' object has no attribute '__exit__'</samp></pre>
 
 <pre class=screen>
 <samp class=p>>>> </samp><kbd class=pp>for i in range(3):</kbd>
-<a><samp class=p>... </samp><kbd class=pp>    print('PapayaWhip')</kbd>        <span class=u>&#x2460;</span></a>
+<a><samp class=p>... </samp><kbd class=pp>    print('PapayaWhip')</kbd>                <span class=u>&#x2460;</span></a>
 <samp>PapayaWhip
 PapayaWhip
 PapayaWhip</samp>
 <samp class=p>>>> </samp><kbd class=pp>import sys</kbd>
 <samp class=p>>>> </samp><kbd class=pp>for i in range(3):</kbd>
-<a><samp class=p>... </samp><kbd class=pp>sys.stdout.write('is the')</kbd>     <span class=u>&#x2461;</span></a>
+<a><samp class=p>... </samp><kbd class=pp>    l = sys.stdout.write('is the')</kbd>     <span class=u>&#x2461;</span></a>
 <samp>is theis theis the</samp>
 <samp class=p>>>> </samp><kbd class=pp>for i in range(3):</kbd>
-<a><samp class=p>... </samp><kbd class=pp>sys.stderr.write('new black')</kbd>  <span class=u>&#x2462;</span></a>
+<a><samp class=p>... </samp><kbd class=pp>    l = sys.stderr.write('new black')</kbd>  <span class=u>&#x2462;</span></a>
 <samp>new blacknew blacknew black</samp></pre>
 <ol>
 <li>Funkce <code>print()</code> volaná v cyklu. Tady nic překvapujícího nenajdeme.
-<li><code>stdout</code> je definován v modulu <code>sys</code> a jde <a href="#file-like-objects">o objekt typu stream</a>. Když zavoláme jeho metodu <code>write()</code>, vytiskne každý řetězec, který jí předáme. Funkce <code>print</code> ve skutečnosti dělá právě tohle. Na konec každého tištěného řetězce přidá znak ukončující řádek a pak volá <code>sys.stdout.write</code>.
+<li><code>stdout</code> je definován v modulu <code>sys</code> a jde <a href="#file-like-objects">o objekt typu stream</a>. Když zavoláme jeho metodu <code>write()</code>, vytiskne každý řetězec, který jí předáme, a potom vrátí délku na výstupu. Funkce <code>print</code> ve skutečnosti dělá právě tohle. Na konec každého tištěného řetězce přidá znak ukončující řádek a pak volá <code>sys.stdout.write</code>.
 <li>V nejjednodušším případě posílají <code>sys.stdout</code> a <code>sys.stderr</code> výstup do stejného místa: do pythonovského integrovaného vývojového prostředí (<abbr>IDE</abbr>, pokud v něm pracujeme) nebo do terminálového okna (pokud Python spouštíme z příkazového řádku). Standardní chybový výstup (stejně jako standardní výstup) přechod na nový řádek nepřidávají. Pokud chceme přejít na nový řádek, musíme zapsat příslušné znaky pro přechod na nový řádek.
 </ol>
 
