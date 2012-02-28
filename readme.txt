@@ -1,4 +1,4 @@
-The diveintopython3cz repository is realated to the Czech translation
+The diveintopython3cz repository is related to the Czech translation
 of the "Dive Into Python 3" by Mark Pilgrim -- see
 https://github.com/diveintomark/diveintopython3.git
 
