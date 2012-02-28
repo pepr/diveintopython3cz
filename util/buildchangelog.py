@@ -51,7 +51,7 @@ def gitLogLines():
 
 
 # Generovaný výstupní soubor.
-with open(chlogname, 'w', encoding='utf-8') as f:
+with open(chlogname, 'w', encoding='utf-8', newline='\n') as f:
     f.write(head)
     f.write(''.join(gitLogLines()).replace('&', '&amp;'))
     f.write(foot)
