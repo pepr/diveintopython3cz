@@ -45,10 +45,10 @@ def gitLogLines():
     with subprocess.Popen(gitcmd, stdout=subprocess.PIPE) as proc:
         for line in proc.stdout:
             try:
-                yield line.decode('utf-8')
+                line = line.decode('utf-8')
             except UnicodeDecodeError:
-                yield line.decode('cp1250') # první git commit byl v cp1250
-
+                line = line.decode('cp1250') # první git commit byl v cp1250
+            yield line.replace('<', '&lt;')
 
 # Generovaný výstupní soubor.
 with open(chlogname, 'w', encoding='utf-8', newline='\n') as f:
