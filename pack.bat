@@ -1,6 +1,6 @@
-zip -r PonormeSeDoPythonu3 PonormeSeDoPythonu3 
 pushd buildPDF
-zip -r PonormeSeDoPythonu3pdf PonormeSeDoPythonu3.pdf
-move PonormeSeDoPythonu3pdf.zip ..
+copy PonormeSeDoPythonu3.pdf ..
+copy single.html PonormeSeDoPythonu3single.html
 popd
-call ziphtml.bat
+rem Přibalí i vygenerovaný changelog.html a PonormeSeDoPythonu3single.html
+zip -r PonormeSeDoPythonu3-html *.html *.css examples/* i/* j/*

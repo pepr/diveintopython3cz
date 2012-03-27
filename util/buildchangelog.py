@@ -33,7 +33,7 @@ foot = '''</pre>
 
 <p class=c>Generováno pro český překlad.
 <script src=j/jquery.js></script>
-<script src=j/dip3.js></script> 
+<script src=j/dip3.js></script>
 '''
 
 pgmPath = os.path.split(os.path.realpath(__file__))[0]
@@ -48,10 +48,13 @@ def gitLogLines():
                 line = line.decode('utf-8')
             except UnicodeDecodeError:
                 line = line.decode('cp1250') # první git commit byl v cp1250
-            yield line.replace('<', '&lt;')
+            yield line
 
 # Generovaný výstupní soubor.
 with open(chlogname, 'w', encoding='utf-8', newline='\n') as f:
     f.write(head)
-    f.write(''.join(gitLogLines()).replace('&', '&amp;'))
+    content = ''.join(gitLogLines())
+    content = content.replace('&', '&amp;')
+    content = content.replace('<', '&lt;')
+    f.write(content)
     f.write(foot)
