@@ -177,7 +177,7 @@ mark{display:inline}
 
 <h2 id=xml-structure>Struktura Atom Feed</h2>
 
-<p>Vezměme si nějaký weblog nebo v podstatě libovolný webový server s často aktualizovaným obsahem, jako je například <a href="http://www.cnn.com" />CNN.com</a>. Server má svůj nadpis („CNN.com“), podnadpis („Breaking News, U.S., World, Weather, Entertainment <i class="baa">&amp;</i> Video News“), datum poslední aktualizace („updated 12:43 p.m. EDT, Sat May 16, 2009“) a seznam článků zveřejněných v různých časech. Každý článek má také nadpis, datum prvního zveřejnění (a možná také datum poslední aktualizace, pokud zveřejnili upřesnění nebo opravili překlep) a jedinečné URL.
+<p>Vezměme si nějaký weblog nebo v podstatě libovolný webový server s často aktualizovaným obsahem, jako je například <a href="http://www.cnn.com/">CNN.com</a>. Server má svůj nadpis („CNN.com“), podnadpis („Breaking News, U.S., World, Weather, Entertainment <i class="baa">&amp;</i> Video News“), datum poslední aktualizace („updated 12:43 p.m. EDT, Sat May 16, 2009“) a seznam článků zveřejněných v různých časech. Každý článek má také nadpis, datum prvního zveřejnění (a možná také datum poslední aktualizace, pokud zveřejnili upřesnění nebo opravili překlep) a jedinečné URL.
 
 <p><a href="http://atompub.org/rfc4287.html">The Atom syndication format</a> je navržen tak, aby všechny tyto informace zachytil ve standardním tvaru. Můj weblog a CNN.com se sice velmi liší v návrhu, rozsahu a v návštěvnosti, ale oba mají stejnou základní strukturu. CNN.com má nadpis, můj blog má nadpis. CNN.com zveřejňuje články, já zveřejňuji články.
 
@@ -206,7 +206,7 @@ mark{display:inline}
 <li>Teď to začne být zajímavé. Tento element <code>link</code> nemá žádný textový obsah, ale má tři atributy: <code>rel</code>, <code>type</code> a <code>href</code>. Hodnota atributu <code>rel</code> říká, jakého druhu odkaz je. Hodnota <code>rel='alternate'</code> vyjadřuje, že jde o odkaz na alternativní reprezentaci tohoto obsahu (feed). Atribut <code>type='text/html'</code> říká, že jde o odkaz na <abbr>HTML</abbr> stránku. Cíl odkazu je uveden v atributu <code>href</code>.
 </ol>
 
-<p>Teď už víme, že jde o obsah (feed) pro místo zvané „dive into mark“, které se nachází na <a href="http://diveintomark.org" /><code>http://diveintomark.org/</code></a> a bylo naposledy aktualizováno 27. března 2009.
+<p>Teď už víme, že jde o obsah (feed) pro místo zvané „dive into mark“, které se nachází na <a href="http://diveintomark.org/"><code>http://diveintomark.org/</code></a> a bylo naposledy aktualizováno 27. března 2009.
 
 <blockquote class=note>
 <p><span class="u">&#x261E;</span>Ačkoliv v některých <abbr>XML</abbr> dokumentech může být pořadí elementů důležité, pro Atom feed to neplatí.
@@ -448,7 +448,7 @@ StopIteration</samp></pre>
 
 <h2 id=xml-lxml>Lxml jde ještě dál</h2>
 
-<p><a href="http://codespeak.net/lxml" /><code>lxml</code></a> je open source knihovna třetí strany, která je vybudována nad populárním <a href="http://www.xmlsoft.org" />parserem libxml2</a>. Poskytuje aplikační rozhraní, které je 100% slučitelné s ElementTree a rozšiřuje ho o plnou podporu XPath 1.0 a o pár dalších vylepšení. K dispozici jsou <a href="http://pypi.python.org/pypi/lxml" />instalátory pro Windows</a>. Uživatelé Linuxu by měli zkusit nainstalovat předkompilovaný binární tvar z archivů prostřednictvím nástrojů příslušné distribuce, jako je třeba <code>yum</code> nebo <code>apt-get</code>. Pokud by to nešlo, museli byste <a href="http://codespeak.net/lxml/installation.html"><code>lxml</code> nainstalovat ručně</a>.
+<p><a href="http://codespeak.net/lxml/"><code>lxml</code></a> je open source knihovna třetí strany, která je vybudována nad populárním <a href="http://www.xmlsoft.org/">parserem libxml2</a>. Poskytuje aplikační rozhraní, které je 100% slučitelné s ElementTree a rozšiřuje ho o plnou podporu XPath 1.0 a o pár dalších vylepšení. K dispozici jsou <a href="http://pypi.python.org/pypi/lxml/">instalátory pro Windows</a>. Uživatelé Linuxu by měli zkusit nainstalovat předkompilovaný binární tvar z archivů prostřednictvím nástrojů příslušné distribuce, jako je třeba <code>yum</code> nebo <code>apt-get</code>. Pokud by to nešlo, museli byste <a href="http://codespeak.net/lxml/installation.html"><code>lxml</code> nainstalovat ručně</a>.
 
 <pre class=screen>
 <a><samp class=p>>>> </samp><kbd class=pp>from lxml import etree</kbd>                   <span class=u>&#x2460;</span></a>
@@ -663,7 +663,7 @@ lxml.etree.XMLSyntaxError: Entity 'hellip' not defined, line 3, column 28</samp>
 <li><a href="http://effbot.org/zone/element.htm">Elements and Element Trees</a>
 <li><a href="http://effbot.org/zone/element-xpath.htm">XPath Support in ElementTree</a>
 <li><a href="http://effbot.org/zone/element-iterparse.htm">The ElementTree iterparse Function</a>
-<li><a href="http://codespeak.net/lxml" /><code>lxml</code></a>
+<li><a href="http://codespeak.net/lxml/"><code>lxml</code></a>
 <li><a href="http://codespeak.net/lxml/1.3/parsing.html">Parsing <abbr>XML</abbr> and <abbr>HTML</abbr> with <code>lxml</code></a>
 <li><a href="http://codespeak.net/lxml/1.3/xpathxslt.html">XPath and <abbr>XSLT</abbr> with <code>lxml</code></a>
 <li><a href="http://github.com/galvez/xmlwitch/tree/master">xmlwitch</a>
