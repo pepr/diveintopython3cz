@@ -25,9 +25,9 @@ mark{display:inline}
 
 <p>Příklady webových služeb nad <abbr>HTTP</abbr>:
 <ul>
-<li><a href="http://code.google.com/apis/gdata" />Aplikační rozhraní Google Data</a> vám umožní uživatelsky pracovat s celou řadou služeb Google, včetně <a href="http://www.blogger.com" />Blogger</a> a <a href="http://www.youtube.com" />YouTube</a>.
-<li><a href="http://www.flickr.com/services/api" />Flickr Services</a> vám umožní odesílat a stahovat fotografie z <a href="http://www.flickr.com" />Flickr</a>.
-<li><a href="http://apiwiki.twitter.com" />Twitter <abbr>API</abbr></a> vám umožní zveřejňovat krátké zprávy na <a href="http://twitter.com" />Twitter</a>.
+<li><a href="http://code.google.com/apis/gdata/">Aplikační rozhraní Google Data</a> vám umožní uživatelsky pracovat s celou řadou služeb Google, včetně <a href="http://www.blogger.com/">Blogger</a> a <a href="http://www.youtube.com/">YouTube</a>.
+<li><a href="http://www.flickr.com/services/api/">Flickr Services</a> vám umožní odesílat a stahovat fotografie z <a href="http://www.flickr.com/">Flickr</a>.
+<li><a href="http://apiwiki.twitter.com/">Twitter <abbr>API</abbr></a> vám umožní zveřejňovat krátké zprávy na <a href="http://twitter.com/">Twitter</a>.
 <li><a href="http://www.programmableweb.com/apis/directory/1?sort=mashups">&hellip;a řada dalších</a>
 </ul>
 
@@ -38,7 +38,7 @@ mark{display:inline}
 <li><a href="http://docs.python.org/3.1/library/urllib.request.html"><code>urllib.request</code></a> je knihovna na vyšší úrovni abstrakce, vybudovaná nad <code>http.client</code>. Poskytuje standardní aplikační rozhraní pro zpřístupňování jak <abbr>HTTP</abbr>, tak <abbr>FTP</abbr> serverů, automaticky následuje přesměrování <abbr>HTTP</abbr> a podporuje některé běžné formy autentizace v <abbr>HTTP</abbr>.
 </ul>
 
-<p>Takže který mám použít? Z těchto dvou žádný. Místo toho byste měli použít <a href="http://code.google.com/p/httplib2" /><code>httplib2</code></a>, což je open source knihovna třetí strany, která implementuje <abbr>HTTP</abbr> do větších detailů než <code>http.client</code>. Současně používá lepší abstrakce než <code>urllib.request</code>.
+<p>Takže který mám použít? Z těchto dvou žádný. Místo toho byste měli použít <a href="http://code.google.com/p/httplib2/"><code>httplib2</code></a>, což je open source knihovna třetí strany, která implementuje <abbr>HTTP</abbr> do větších detailů než <code>http.client</code>. Současně používá lepší abstrakce než <code>urllib.request</code>.
 
 <p>Abyste porozuměli tomu, proč je <code>httplib2</code> tou správnou volbou, musíte nejdříve porozumět <abbr>HTTP</abbr>.
 
@@ -101,7 +101,7 @@ Connection: close
 Content-Type: image/jpeg
 </code></pre>
 
-<p>Pokud požadujeme stejná data podruhé (nebo potřetí nebo počtvrté), můžeme v dotazu poslat hlavičku <code>If-Modified-Since</code> (pokud bylo změněno od) s hodnotou data a času, které jsme od serveru dostali minule. Pokud se data od té doby změnila, pak server vrátí nová data doplněná o stavový kód <code>200</code>. Ale pokud se data od té doby <em>nezměnila</em>, server pošle zpět speciální stavový kód protokolu <abbr>HTTP</abbr> &mdash; <code>304</code>. Ten říká „od doby, kdy ses naposledy ptal, se tato data nezměnila“. Z příkazového řádku si to můžeme ověřit nástrojem <a href="http://curl.haxx.se" />curl</a>:
+<p>Pokud požadujeme stejná data podruhé (nebo potřetí nebo počtvrté), můžeme v dotazu poslat hlavičku <code>If-Modified-Since</code> (pokud bylo změněno od) s hodnotou data a času, které jsme od serveru dostali minule. Pokud se data od té doby změnila, pak server vrátí nová data doplněná o stavový kód <code>200</code>. Ale pokud se data od té doby <em>nezměnila</em>, server pošle zpět speciální stavový kód protokolu <abbr>HTTP</abbr> &mdash; <code>304</code>. Ten říká „od doby, kdy ses naposledy ptal, se tato data nezměnila“. Z příkazového řádku si to můžeme ověřit nástrojem <a href="http://curl.haxx.se/">curl</a>:
 
 <pre class='nd screen'>
 <samp class=p>you@localhost:~$ </samp><kbd>curl -I <mark>-H "If-Modified-Since: Fri, 22 Aug 2008 04:28:16 GMT"</mark> http://wearehugh.com/m.jpg</kbd>
@@ -317,7 +317,7 @@ Content-Type: application/xml</samp>
 
 <h2 id=introducing-httplib2>Představujeme <code>httplib2</code></h2>
 
-<p>Než začneme knihovnu <code>httplib2</code> používat, musíme ji nainstalovat. Navštivte stránku <a href="http://code.google.com/p/httplib2" /><code>code.google.com/p/httplib2/</code></a> a stáhněte poslední verzi. <code>httplib2</code> je k dispozici pro Python 2.x a pro Python 3.x. Ujistěte se, že jde o verzi pro Python 3. Jmenuje se podobně jako <code>httplib2-python3-0.5.0.zip</code>. (V době překladu už to bylo jinak: <code>httplib2-0.6.0.zip</code>; uvnitř jsou obě verze.)
+<p>Než začneme knihovnu <code>httplib2</code> používat, musíme ji nainstalovat. Navštivte stránku <a href="http://code.google.com/p/httplib2/"><code>code.google.com/p/httplib2/</code></a> a stáhněte poslední verzi. <code>httplib2</code> je k dispozici pro Python 2.x a pro Python 3.x. Ujistěte se, že jde o verzi pro Python 3. Jmenuje se podobně jako <code>httplib2-python3-0.5.0.zip</code>. (V době překladu už to bylo jinak: <code>httplib2-0.6.0.zip</code>; uvnitř jsou obě verze.)
 
 <p>Rozbalte archiv, otevřete terminálové okno a přejděte do nově vytvořeného adresáře <code>httplib2</code>. Pod Windows otevřete menu <code>Start</code>, vyberte <code>Run...</code>, napište <kbd>cmd.exe</kbd> a stiskněte <kbd>ENTER</kbd>.
 
@@ -767,7 +767,7 @@ user-agent: Python-httplib2/$Rev: 259 $'
 
 <h2 id=beyond-get>Za hranicemi HTTP GET</h2>
 
-<p>Webové služby nad <abbr>HTTP</abbr> se neomezují jen na požadavky typu <code>GET</code>. Co kdybychom chtěli vytvořit něco nového? Kdykoliv přidáte komentář do diskusního fóra, aktualizujete weblog, upravujete svůj stav na mikroblogové službě, jakou je <a href="http://twitter.com" />Twitter</a> nebo <a href="http://identi.ca" />Identi.ca</a>, používáte pravděpodobně <abbr>HTTP</abbr> <code>POST</code>.
+<p>Webové služby nad <abbr>HTTP</abbr> se neomezují jen na požadavky typu <code>GET</code>. Co kdybychom chtěli vytvořit něco nového? Kdykoliv přidáte komentář do diskusního fóra, aktualizujete weblog, upravujete svůj stav na mikroblogové službě, jakou je <a href="http://twitter.com/">Twitter</a> nebo <a href="http://identi.ca/">Identi.ca</a>, používáte pravděpodobně <abbr>HTTP</abbr> <code>POST</code>.
 
 <p>Jak Twitter, tak Identi.ca nabízejí pro zveřejňování a aktualizaci vašeho stavu, popsaného 140 nebo méně znaky, jednoduché rozhraní založené na <abbr>HTTP</abbr>. Podívejme se na dokumentaci aplikačního rozhraní pro aktualizaci vašeho stavu <a href="http://laconi.ca/trac/wiki/TwitterCompatibleAPI">v systému Identi.ca</a>.
 
@@ -974,7 +974,7 @@ user-agent: Python-httplib2/$Rev: 259 $
 <p><code>httplib2</code>:
 
 <ul>
-<li><a href="http://code.google.com/p/httplib2" />Stránka projektu <code>httplib2</code></a> (anglicky)
+<li><a href="http://code.google.com/p/httplib2/">Stránka projektu <code>httplib2</code></a> (anglicky)
 <li><a href="http://code.google.com/p/httplib2/wiki/ExamplesPython3">Další příklady kódu využívajícího <code>httplib2</code></a> (anglicky)
 <li><a href="http://www.xml.com/pub/a/2006/02/01/doing-http-caching-right-introducing-httplib2.html">Doing <abbr>HTTP</abbr> Caching Right: Introducing <code>httplib2</code></a> (anglický článek)
 <li><a href="http://www.xml.com/pub/a/2006/03/29/httplib2-http-persistence-and-authentication.html"><code>httplib2</code>: <abbr>HTTP</abbr> Persistence and Authentication</a> (anglický článek)
@@ -983,7 +983,7 @@ user-agent: Python-httplib2/$Rev: 259 $
 <p>Práce <abbr>HTTP</abbr> s mezipamětí:
 
 <ul>
-<li><a href="http://www.mnot.net/cache_docs" /><abbr>HTTP</abbr> Tutorial</a> &mdash; napsal Mark Nottingham
+<li><a href="http://www.mnot.net/cache_docs/"><abbr>HTTP</abbr> Tutorial</a> &mdash; napsal Mark Nottingham
 <li><a href="http://code.google.com/p/doctype/wiki/ArticleHttpCaching">How to control caching with <abbr>HTTP</abbr> headers</a> (anglický článek o Google Doctype)
 </ul>
 

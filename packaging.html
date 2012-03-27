@@ -19,7 +19,7 @@ mark{display:inline}
 </blockquote>
 <p id=toc>&nbsp;
 <h2 id=divingin>Ponořme se</h2>
-<p class=f>Opravdoví umělci prodávají. Alespoň takhle to říká Steve Jobs. Chcete vydat pythonovský skript, knihovnu, rámec (framework) nebo aplikaci? Výborně. Svět potřebuje více pythonovského kódu. Python 3 se dodává s rámcem pro vytváření balíčků zvaným Distutils. Distutils v sobě skrývá mnoho věcí: nástroj pro sestavení (build tool; pro vás), instalační nástroj (pro vaše uživatele), formát metadat balíčků (pro vyhledávače) a další. Tvoří celek s <a href="http://pypi.python.org" />Python Package Index</a> („PyPI“), což je centrální archiv pythonovských open-source knihoven.
+<p class=f>Opravdoví umělci prodávají. Alespoň takhle to říká Steve Jobs. Chcete vydat pythonovský skript, knihovnu, rámec (framework) nebo aplikaci? Výborně. Svět potřebuje více pythonovského kódu. Python 3 se dodává s rámcem pro vytváření balíčků zvaným Distutils. Distutils v sobě skrývá mnoho věcí: nástroj pro sestavení (build tool; pro vás), instalační nástroj (pro vaše uživatele), formát metadat balíčků (pro vyhledávače) a další. Tvoří celek s <a href="http://pypi.python.org/">Python Package Index</a> („PyPI“), což je centrální archiv pythonovských open-source knihoven.
 
 <p>Všechny uvedené stránky nástroje Distutils jsou soustředěny kolem <i>instalačního skriptu</i>, který se tradičně nazývá <code>setup.py</code>. Ve skutečnosti už jste v této knize několik instalačních skriptů vytvořených nástrojem Distutils viděli. Distutils jste použili k instalaci <code>httplib2</code> v kapitole <a href="http-web-services.html#introducing-httplib2">Webové služby nad HTTP</a> a znovu k instalaci <code>chardet</code> v <a href="case-study-porting-chardet-to-python-3.html">Případové studii: Přepis <code>chardet</code> pro Python 3</a>.
 
@@ -174,12 +174,12 @@ chardet/
 
 <ul>
 <li><b>description</b>, jednořádkový popis projektu.
-<li><b>long_description</b>, víceřádkový řetězec ve formátu <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>. <a href="http://pypi.python.org" />PyPI</a> ho převede do <abbr>HTML</abbr> a zobrazí ho na stránce pro váš balíček.
+<li><b>long_description</b>, víceřádkový řetězec ve formátu <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>. <a href="http://pypi.python.org/">PyPI</a> ho převede do <abbr>HTML</abbr> a zobrazí ho na stránce pro váš balíček.
 <li><b>classifiers</b>, seznam zvláštním způsobem formátovaných řetězců, které si popíšeme v následující podkapitole.
 </ul>
 
 <blockquote class=note>
-<p><span class="u">&#x261E;</span>Metadata instalačního skriptu jsou definována v <a href="http://www.python.org/dev/peps/pep-0314" /><abbr>PEP</abbr> 314</a>.
+<p><span class="u">&#x261E;</span>Metadata instalačního skriptu jsou definována v <a href="http://www.python.org/dev/peps/pep-0314/"><abbr>PEP</abbr> 314</a>.
 </blockquote>
 
 <p>Teď se podíváme na instalační skript pro <code>chardet</code>. Používá všechny zmíněné povinné a doporučené parametry a ještě jeden, o kterém jsem se zatím nezmínil: <code>packages</code>.
@@ -457,7 +457,7 @@ removing 'build\bdist.win32\wininst' (and everything under it)</samp>
 
 <p>Distutils nám mohou pomoci <a href="http://docs.python.org/3.1/distutils/builtdist.html#creating-rpm-packages">vytvořit instalační balíčky pro uživatele Linuxu</a>. Ale podle mého názoru to nestojí za tu námahu. Pokud chcete svůj software distribuovat v Linuxu, měli byste svůj čas raději věnovat spolupráci se skupinou lidí, kteří se specializují na vytváření softwarových balíčků pro hlavní distribuce Linuxu.
 
-<p>Například moji knihovnu <code>chardet</code> najdete <a href="http://packages.debian.org/python-chardet">v archivech pro Debian GNU/Linux</a> (a tím pádem i <a href="http://packages.ubuntu.com/python-chardet">v archivech pro Ubuntu</a>). Nemusel jsem se o to vůbec starat. Balíčky se tam jednoho dne prostě objevily. Komunita kolem distribuce Debian má <a href="http://www.debian.org/doc/packaging-manuals/python-policy" />svá vlastní pravidla pro balení pythonovských knihoven</a> a balíček <code>python-chardet</code> pro Debian je navržen tak, aby tyto konvence splňoval. A protože jsou balíčky umístěny v archivech Debianu, získávají uživatelé Debianu bezpečnostní aktualizace a/nebo nové verze podle toho, jaká systémová nastavení si pro údržbu svých počítačů zvolili.
+<p>Například moji knihovnu <code>chardet</code> najdete <a href="http://packages.debian.org/python-chardet">v archivech pro Debian GNU/Linux</a> (a tím pádem i <a href="http://packages.ubuntu.com/python-chardet">v archivech pro Ubuntu</a>). Nemusel jsem se o to vůbec starat. Balíčky se tam jednoho dne prostě objevily. Komunita kolem distribuce Debian má <a href="http://www.debian.org/doc/packaging-manuals/python-policy/">svá vlastní pravidla pro balení pythonovských knihoven</a> a balíček <code>python-chardet</code> pro Debian je navržen tak, aby tyto konvence splňoval. A protože jsou balíčky umístěny v archivech Debianu, získávají uživatelé Debianu bezpečnostní aktualizace a/nebo nové verze podle toho, jaká systémová nastavení si pro údržbu svých počítačů zvolili.
 
 <p>Linuxovské balíčky vytvářené nástrojem Distutils žádnou z těchto výhod nenabízejí. Bude lepší, když svůj čas strávíte jiným způsobem.
 
@@ -532,7 +532,7 @@ I can store your PyPI login so future submissions will be faster.
 <ul>
 <li><a href="http://pypi.python.org/pypi/setuptools">Setuptools</a>
 <li><a href="http://pypi.python.org/pypi/pip">Pip</a>
-<li><a href="http://bitbucket.org/tarek/distribute" />Distribute</a>
+<li><a href="http://bitbucket.org/tarek/distribute/">Distribute</a>
 </ul>
 
 <p>Následující se zaměřují na testování a distribuci:
@@ -540,9 +540,9 @@ I can store your PyPI login so future submissions will be faster.
 <ul>
 <li><a href="http://pypi.python.org/pypi/virtualenv"><code>virtualenv</code></a>
 <li><a href="http://pypi.python.org/pypi/zc.buildout"><code>zc.buildout</code></a>
-<li><a href="http://www.blueskyonmars.com/projects/paver" />Paver</a>
-<li><a href="http://fabfile.org" />Fabric</a>
-<li><a href="http://www.py2exe.org" /><code>py2exe</code></a>
+<li><a href="http://www.blueskyonmars.com/projects/paver/">Paver</a>
+<li><a href="http://fabfile.org/">Fabric</a>
+<li><a href="http://www.py2exe.org/"><code>py2exe</code></a>
 </ul>
 
 <p class=a>&#x2042;
@@ -552,22 +552,22 @@ I can store your PyPI login so future submissions will be faster.
 <p>O Distutils:
 
 <ul>
-<li><a href="http://docs.python.org/3.1/distutils" />Distributing Python Modules with Distutils</a>
+<li><a href="http://docs.python.org/3.1/distutils/">Distributing Python Modules with Distutils</a>
 <li><a href="http://docs.python.org/3.1/distutils/apiref.html#module-distutils.core">Core Distutils functionality</a> uvádí všechny možné argumenty funkce <code>setup()</code>
 <li><a href="http://wiki.python.org/moin/Distutils/Cookbook">Distutils Cookbook</a>
-<li><a href="http://www.python.org/dev/peps/pep-0370" /><abbr>PEP</abbr> 370: Per user <code>site-packages</code> directory</a>
-<li><a href="http://jessenoller.com/2009/07/19/pep-370-per-user-site-packages-and-environment-stew" /><abbr>PEP</abbr> 370 and “environment stew”</a>
+<li><a href="http://www.python.org/dev/peps/pep-0370/"><abbr>PEP</abbr> 370: Per user <code>site-packages</code> directory</a>
+<li><a href="http://jessenoller.com/2009/07/19/pep-370-per-user-site-packages-and-environment-stew/"><abbr>PEP</abbr> 370 and “environment stew”</a>
 </ul>
 
 <p>O ostatních rámcích pro vytváření balíčků:
 
 <ul>
 <li><a href="http://groups.google.com/group/django-developers/msg/5407cdb400157259">The Python packaging ecosystem</a>
-<li><a href="http://www.b-list.org/weblog/2008/dec/14/packaging" />On packaging</a>
-<li><a href="http://blog.ianbicking.org/2008/12/14/a-few-corrections-to-on-packaging" />A few corrections to “On packaging”</a>
-<li><a href="http://www.b-list.org/weblog/2008/dec/15/pip" />Why I like Pip</a>
-<li><a href="http://cournape.wordpress.com/2009/04/01/python-packaging-a-few-observations-cabal-for-a-solution" />Python packaging: a few observations</a>
-<li><a href="http://jacobian.org/writing/nobody-expects-python-packaging" />Nobody expects Python packaging!</a>
+<li><a href="http://www.b-list.org/weblog/2008/dec/14/packaging/">On packaging</a>
+<li><a href="http://blog.ianbicking.org/2008/12/14/a-few-corrections-to-on-packaging/">A few corrections to “On packaging”</a>
+<li><a href="http://www.b-list.org/weblog/2008/dec/15/pip/">Why I like Pip</a>
+<li><a href="http://cournape.wordpress.com/2009/04/01/python-packaging-a-few-observations-cabal-for-a-solution/">Python packaging: a few observations</a>
+<li><a href="http://jacobian.org/writing/nobody-expects-python-packaging/">Nobody expects Python packaging!</a>
 </ul>
 
 <p class=v><a rel="prev" href="case-study-porting-chardet-to-python-3.html" title="zpět na „Případová studie: Přepis chardet pro Python 3“"><span class="u">&#x261C;</span></a> <a rel="next" href="porting-code-to-python-3-with-2to3.html" title="dopředu na „Přepis kódu do Pythonu 3 s využitím 2to3“"><span class="u">&#x261E;</span></a>

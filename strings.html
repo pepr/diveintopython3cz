@@ -189,7 +189,7 @@ def approximate_size(size, a_kilobyte_is_1024_bytes=True):
 <ul>
 <li>Modul <code>sys</code> v sobě udržuje informace o momentálně běžící pythonovské instanci. Protože jsme provedli jeho import, můžeme celý modul <code>sys</code> předat jako argument metody <code>format()</code>. Takže pole náhrad <code>{0}</code> odkazuje na modul <code>sys</code>.
 <li><code>sys.modules</code> je slovník všech modulů, které byly importovány touto instancí Pythonu. V roli klíčů vystupují jména modulů uvedená jako řetězce. Hodnotami jsou vlastní objekty modulů. Takže oblast náhrad <code>{0.modules}</code> odkazuje na slovník importovaných modulů.
-<li><code>sys.modules['humansize']</code> odkazuje na modul <code>humansize</code> module, který jsme právě importovali. Oblast náhrad <code>{0.modules[humansize]}</code> odkazuje na modul <code>humansize</code>. Povšimněte si zde malého rozdílu v syntaxi. Ve skutečném pythonovském kódu jsou klíči slovníku <code>sys.modules</code> řetězce. Abychom se jimi mohli odkázat, musíme jméno modulu uzavřít do apostrofů (jako například <code>'humansize'</code>). Jenže uvnitř oblasti náhrad apostrofy kolem slovníkového klíče vynecháváme (tj. <code>humansize</code>). Citujme <a href="http://www.python.org/dev/peps/pep-3101" />PEP 3101: Advanced String Formatting</a>, „Pravidla pro předávání klíčů položek jsou velmi jednoduchá.  Pokud klíč začíná číslicí, bude chápán jako číslo. V ostatních případech bude použit jako řetězec.“
+<li><code>sys.modules['humansize']</code> odkazuje na modul <code>humansize</code> module, který jsme právě importovali. Oblast náhrad <code>{0.modules[humansize]}</code> odkazuje na modul <code>humansize</code>. Povšimněte si zde malého rozdílu v syntaxi. Ve skutečném pythonovském kódu jsou klíči slovníku <code>sys.modules</code> řetězce. Abychom se jimi mohli odkázat, musíme jméno modulu uzavřít do apostrofů (jako například <code>'humansize'</code>). Jenže uvnitř oblasti náhrad apostrofy kolem slovníkového klíče vynecháváme (tj. <code>humansize</code>). Citujme <a href="http://www.python.org/dev/peps/pep-3101/">PEP 3101: Advanced String Formatting</a>, „Pravidla pro předávání klíčů položek jsou velmi jednoduchá.  Pokud klíč začíná číslicí, bude chápán jako číslo. V ostatních případech bude použit jako řetězec.“
 <li><code>sys.modules['humansize'].SUFFIXES</code> je slovník definovaný na začátku modulu <code>humansize</code>. Odkazuje se na něj oblast náhrad <code>{0.modules[humansize].SUFFIXES}</code>.
 <li><code>sys.modules['humansize'].SUFFIXES[1000]</code> je seznam přípon jednotek <abbr>SI</abbr>: <code>['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']</code>. Takže oblast náhrad <code>{0.modules[humansize].SUFFIXES[1000]}</code> se odkazuje na zmíněný seznam.
 <li><code>sys.modules['humansize'].SUFFIXES[1000][0]</code> je první položkou seznamu přípon jednotek <abbr>SI</abbr>: <code>'KB'</code>. Z toho plyne, že celá oblast náhrad <code>{0.modules[humansize].SUFFIXES[1000][0]}</code> je nahrazena dvojznakovým řetězcem <code>KB</code>.
@@ -405,7 +405,7 @@ TypeError: Can't convert 'bytes' object to str implicitly</samp>
 <p>Python 3 předpokládá, že váš zdrojový kód&nbsp;&mdash;&nbsp;tj. každý soubor s příponou <code>.py</code>&nbsp;&mdash;&nbsp;je uložen v kódování <abbr>UTF-8</abbr>.
 
 <blockquote class='note compare python2'>
-<p><span class="u">&#x261E;</span>V Pythonu 2 bylo u souborů s příponou <code>.py</code> <dfn>výchozím</dfn> kódováním <abbr>ASCII</abbr>. V Pythonu 3 je <a href="http://www.python.org/dev/peps/pep-3120" />výchozím kódováním <abbr>UTF-8</abbr></a>.
+<p><span class="u">&#x261E;</span>V Pythonu 2 bylo u souborů s příponou <code>.py</code> <dfn>výchozím</dfn> kódováním <abbr>ASCII</abbr>. V Pythonu 3 je <a href="http://www.python.org/dev/peps/pep-3120/">výchozím kódováním <abbr>UTF-8</abbr></a>.
 </blockquote>
 
 <p>Pokud byste ve svých zdrojových textech chtěli používat jiné kódování, můžete na první řádek souboru vložit deklaraci použitého kódování. Tato deklarace říká, že soubor <code>.py</code> používá kódování windows-1252:
@@ -417,7 +417,7 @@ TypeError: Can't convert 'bytes' object to str implicitly</samp>
 <pre class='nd pp'><code>#!/usr/bin/python3
 # -*- coding: windows-1252 -*-</code></pre>
 
-<p>Více informací naleznete v <a href="http://www.python.org/dev/peps/pep-0263" /><abbr>PEP</abbr> 263: Defining Python Source Code Encodings</a>.
+<p>Více informací naleznete v <a href="http://www.python.org/dev/peps/pep-0263/"><abbr>PEP</abbr> 263: Defining Python Source Code Encodings</a>.
 
 <p class=a>&#x2042;
 
@@ -428,7 +428,7 @@ TypeError: Can't convert 'bytes' object to str implicitly</samp>
 <ul>
 <li><a href="http://docs.python.org/3.1/howto/unicode.html">Python Unicode HOWTO</a>
 <li><a href="http://docs.python.org/3.0/whatsnew/3.0.html#text-vs-data-instead-of-unicode-vs-8-bit">What’s New In Python 3: Text vs. Data Instead Of Unicode vs. 8-bit</a>
-<li><a href="http://www.python.org/dev/peps/pep-0261" /><abbr>PEP 261</abbr></a> vysvětluje, jak Python zachází s astrálními znaky mimo Základní vícejazyčnou rovinu (Basic Multilingual Plane), tj. se znaky s ordinální hodnotou větší než 65535.
+<li><a href="http://www.python.org/dev/peps/pep-0261/"><abbr>PEP 261</abbr></a> vysvětluje, jak Python zachází s astrálními znaky mimo Základní vícejazyčnou rovinu (Basic Multilingual Plane), tj. se znaky s ordinální hodnotou větší než 65535.
 </ul>
 
 <p>O Unicode obecně:
@@ -453,7 +453,7 @@ TypeError: Can't convert 'bytes' object to str implicitly</samp>
 <li><a href="http://docs.python.org/3.1/library/string.html"><code>string</code>&nbsp;&mdash;&nbsp;Common string operations</a>
 <li><a href="http://docs.python.org/3.1/library/string.html#formatstrings">Format String Syntax</a>
 <li><a href="http://docs.python.org/3.1/library/string.html#format-specification-mini-language">Format Specification Mini-Language</a>
-<li><a href="http://www.python.org/dev/peps/pep-3101" /><abbr>PEP</abbr> 3101: Advanced String Formatting</a>
+<li><a href="http://www.python.org/dev/peps/pep-3101/"><abbr>PEP</abbr> 3101: Advanced String Formatting</a>
 </ul>
 
 <p class=v><a href="comprehensions.html" rel="prev" title="zpět na „Generátorová notace“"><span class="u">&#x261C;</span></a> <a href="regular-expressions.html" rel="next" title="dále na „Regulární výrazy“"><span class="u">&#x261E;</span></a>

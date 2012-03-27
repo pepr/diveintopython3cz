@@ -94,7 +94,7 @@
 <h2 id=long>Datový typ <code>long</code></h2>
 
 <p>Python 2 používal pro celá čísla dva datové typy: <code>int</code> a <code><dfn>long</dfn></code>. Hodnota typu <code>int</code> nemohla být větší než konstanta <a href="#renames"><code>sys.maxint</code></a>, která byla závislá na platformě. „Dlouhá“ čísla byla definována přidáním <code>L</code> na konec čísla a mohla nabývat větších hodnot než čísla typu <code>int</code>. V Pythonu 3 <a href="native-datatypes.html#numbers">je jen jeden celočíselný typ</a>, který se jmenuje <code>int</code> a většinou se chová jako typ <code>long</code> v Pythonu 2. Protože už neexistují dva typy, nemusí se používat speciální syntaxe pro jejich rozlišení.
-<p>Přečtěte si: <a href="http://www.python.org/dev/peps/pep-0237" /><abbr>PEP</abbr> 237: Unifying Long Integers and Integers</a>.
+<p>Přečtěte si: <a href="http://www.python.org/dev/peps/pep-0237/"><abbr>PEP</abbr> 237: Unifying Long Integers and Integers</a>.
 
 <table>
 <tr><th>Poznámky
@@ -283,7 +283,7 @@ from urllib.error import HTTPError</code></pre>
 <li>Starý modul <code>urllib</code> v Pythonu 2 obsahoval řadu funkcí včetně <code>urlopen()</code> pro načítání dat a <code>splittype()</code>, <code>splithost()</code> a <code>splituser()</code> pro rozklad <abbr>URL</abbr> na podstatné části. Uvnitř nového balíku <code>urllib</code> byly tyto funkce logičtěji přeorganizovány. Skript <code>2to3</code> také změní všechna volání těchto funkcí, aby zohlednil nové schéma pojmenování.
 <li>Původní modul <code>urllib2</code> z Pythonu 2 byl v Pythonu 3 vložen do balíčku <code>urllib</code>. Všechny oblíbené věci z <code>urllib2</code>&nbsp;&mdash;&nbsp;metoda <code>build_opener()</code>, třídy <code>Request</code> a <code>HTTPBasicAuthHandler</code> a související věci&nbsp;&mdash;&nbsp;jsou stále k dispozici.
 <li>Modul <code>urllib.parse</code> z Pythonu 3 obsahuje všechny funkce z původního modulu <code>urlparse</code> z Pythonu 2.
-<li>Modul <code>urllib.robotparser</code> zpracovává <a href="http://www.robotstxt.org" />soubory <code>robots.txt</code></a>.
+<li>Modul <code>urllib.robotparser</code> zpracovává <a href="http://www.robotstxt.org/">soubory <code>robots.txt</code></a>.
 <li>Třída <code>FancyURLopener</code>, která obsluhuje <abbr>HTTP</abbr> přesměrování a další stavové kódy, je v novém modulu <code>urllib.request</code> stále k dispozici. Funkce <code>urlencode()</code> se přesunula do <code>urllib.parse</code>.
 <li>Třída <code>Request</code> je v <code>urllib.request</code> stále k dispozici, ale konstanty jako <code>HTTPError</code> byly přesunuty do <code>urllib.error</code>.
 </ol>
@@ -1244,7 +1244,7 @@ except:
 
 <h2 id=nitpick>Věci týkající se stylu</h2>
 
-<p>Zbytek zde popsaných „oprav“ ve skutečnosti nejsou opravy jako takové. Tyto úpravy nemění podstatu, ale styl. Jde o věci, které fungují jak v Pythonu 2, tak v Pythonu 3. Vývojáři Pythonu ale mají zájem na tom, aby byl pythonovský kód tak jednotný, jak je to jen možné. Z tohoto pohledu existuje oficiální <a href="http://www.python.org/dev/peps/pep-0008" />Python style guide</a> (Průvodce stylem jazyka Python), který popisuje&nbsp;&mdash;&nbsp;až do nesnesitelnosti&nbsp;&mdash;&nbsp;všechny možné detaily, které vás téměř určitě nezajímají. A když už <code>2to3</code> vytváří tak mohutnou infrastrukturu pro konverzi pythonovského kódu z jedné podoby do druhé, vzali si autoři za své přidat pár nepovinných rysů, které by zlepšily čitelnost vašich pythonovských programů.
+<p>Zbytek zde popsaných „oprav“ ve skutečnosti nejsou opravy jako takové. Tyto úpravy nemění podstatu, ale styl. Jde o věci, které fungují jak v Pythonu 2, tak v Pythonu 3. Vývojáři Pythonu ale mají zájem na tom, aby byl pythonovský kód tak jednotný, jak je to jen možné. Z tohoto pohledu existuje oficiální <a href="http://www.python.org/dev/peps/pep-0008/">Python style guide</a> (Průvodce stylem jazyka Python), který popisuje&nbsp;&mdash;&nbsp;až do nesnesitelnosti&nbsp;&mdash;&nbsp;všechny možné detaily, které vás téměř určitě nezajímají. A když už <code>2to3</code> vytváří tak mohutnou infrastrukturu pro konverzi pythonovského kódu z jedné podoby do druhé, vzali si autoři za své přidat pár nepovinných rysů, které by zlepšily čitelnost vašich pythonovských programů.
 
 <h3 id=set_literal>Množinové literály (<code>set()</code>; explicitně)</h3>
 

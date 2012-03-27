@@ -304,7 +304,7 @@ def protocol_version(file_object):
 
 <h2 id=json>Serializace pythonovských objektů pro čtení z jiných jazyků</h2>
 
-<p>Datový formát používaný modulem <code>pickle</code> je specifický pro Python. Nijak se nepokouší o kompatibilitu s jinými programovacími jazyky. Pokud je vaším cílem mezijazyková kompatibilita, pak se musíte poohlédnout po jiných serializačních formátech. Jedním z nich je <a href="http://json.org" /><abbr>JSON</abbr></a>. Zkratka „<abbr>JSON</abbr>“ znamená „JavaScript Object Notation“, ale nenechte se tím jménem zmást. <abbr>JSON</abbr> je explicitně navržen pro použití napříč různými programovacími jazyky.
+<p>Datový formát používaný modulem <code>pickle</code> je specifický pro Python. Nijak se nepokouší o kompatibilitu s jinými programovacími jazyky. Pokud je vaším cílem mezijazyková kompatibilita, pak se musíte poohlédnout po jiných serializačních formátech. Jedním z nich je <a href="http://json.org/"><abbr>JSON</abbr></a>. Zkratka „<abbr>JSON</abbr>“ znamená „JavaScript Object Notation“, ale nenechte se tím jménem zmást. <abbr>JSON</abbr> je explicitně navržen pro použití napříč různými programovacími jazyky.
 
 <p>V Pythonu 3 je modul <code>json</code> součástí standardní knihovny. Modul <code>json</code> má (stejně jako modul <code>pickle</code>) funkce pro serializaci datových struktur, pro ukládání serializovaných dat na disk, pro načítání serializovaných dat z disku a pro deserializaci dat zpět do podoby nového pythonovského objektu. Ale najdeme zde také důležité odlišnosti. Ze všeho nejdřív uveďme, že datový formát <abbr>JSON</abbr> je textový a ne binární. Formát <abbr>JSON</abbr> a způsob kódování různých typů dat je definován v <a href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a>. Například booleovská hodnota je uložena buď jako pětiznakový řetězec <code>'false'</code> nebo jako čtyřznakový řetězec <code>'true'</code>. Všechny hodnoty používané v <abbr>JSON</abbr> jsou citlivé na velikost písmen.
 
@@ -634,7 +634,7 @@ NameError: name 'entry' is not defined</samp>
 
 <ul>
 <li><a href="http://docs.python.org/3.1/library/pickle.html"><code>pickle</code> module</a>
-<li><a href="http://www.doughellmann.com/PyMOTW/pickle" /><code>pickle</code> and <code>cPickle</code>&nbsp;&mdash;&nbsp;Python object serialization</a>
+<li><a href="http://www.doughellmann.com/PyMOTW/pickle/"><code>pickle</code> and <code>cPickle</code>&nbsp;&mdash;&nbsp;Python object serialization</a>
 <li><a href="http://wiki.python.org/moin/UsingPickle">Using <code>pickle</code></a>
 <li><a href="http://www.ibm.com/developerworks/library/l-pypers.html">Python persistence management</a>
 </ul>
@@ -642,8 +642,8 @@ NameError: name 'entry' is not defined</samp>
 <p>O <abbr>JSON</abbr> a o modulu <code>json</code>:
 
 <ul>
-<li><a href="http://www.doughellmann.com/PyMOTW/json" /><code>json</code>&nbsp;&mdash;&nbsp;JavaScript Object Notation Serializer</a>
-<li><a href="http://blog.quaternio.net/2009/07/16/json-encoding-and-decoding-with-custom-objects-in-python" />JSON encoding and ecoding with custom objects in Python</a>
+<li><a href="http://www.doughellmann.com/PyMOTW/json/"><code>json</code>&nbsp;&mdash;&nbsp;JavaScript Object Notation Serializer</a>
+<li><a href="http://blog.quaternio.net/2009/07/16/json-encoding-and-decoding-with-custom-objects-in-python/">JSON encoding and ecoding with custom objects in Python</a>
 </ul>
 
 <p>O rozšiřitelnosti modulu <code>pickle</code>:

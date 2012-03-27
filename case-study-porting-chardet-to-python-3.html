@@ -37,12 +37,12 @@ del{background:#f87}
 <p>Jinými slovy, detekce kódování je ve skutečnosti detekcí jazyka, která se kombinuje se znalostí tendence jazyka používat určité znakové kódování.
 
 <h3 id=faq.who>Existuje vůbec takový algoritmus?</h3>
-<p>Jak se ukazuje, tak ano. Všechny nejpoužívanější prohlížeče mají autodetekci kódování zabudovanou, protože web je plný stránek, které neobsahují vůbec žádnou informaci o kódování. <a href="http://lxr.mozilla.org/seamonkey/source/extensions/universalchardet/src/base" />Mozilla Firefox obsahuje knihovnu pro autodetekci kódování</a>, která je open source. <a href="http://pypi.python.org/pypi/chardet" title="Původní odkaz http://chardet.feedparser.org/ je nefunkční. Opraveno 23. 3. 2012." >Knihovnu jsem přenesl do Pythonu 2</a> a modul jsem nazval <code>chardet</code>. V této kapitole vás krok za krokem provedu procesem přepisování modulu <code>chardet</code> z Pythonu 2 pro Python 3.
+<p>Jak se ukazuje, tak ano. Všechny nejpoužívanější prohlížeče mají autodetekci kódování zabudovanou, protože web je plný stránek, které neobsahují vůbec žádnou informaci o kódování. <a href="http://lxr.mozilla.org/seamonkey/source/extensions/universalchardet/src/base/">Mozilla Firefox obsahuje knihovnu pro autodetekci kódování</a>, která je open source. <a href="http://pypi.python.org/pypi/chardet/" title="Původní odkaz http://chardet.feedparser.org/ je nefunkční. Opraveno 23. 3. 2012." >Knihovnu jsem přenesl do Pythonu 2</a> a modul jsem nazval <code>chardet</code>. V této kapitole vás krok za krokem provedu procesem přepisování modulu <code>chardet</code> z Pythonu 2 pro Python 3.
 
 <p class=a>&#x2042;
 
 <h2 id=divingin2>Úvod do modulu <code>chardet</code></h2>
-<p>Než se do přepisu kódu pustíme, bylo by dobré, kdybyste rozuměli, jak funguje! Toto je stručná příručka pro usnadnění orientace ve vlastním kódu. Knihovna <code>chardet</code> je příliš velká na to, abych její kód vložil do textu této knihy. Ale můžete si ji <a href="http://chardet.feedparser.org/download" />stáhnout z <code>chardet.feedparser.org</code></a>.
+<p>Než se do přepisu kódu pustíme, bylo by dobré, kdybyste rozuměli, jak funguje! Toto je stručná příručka pro usnadnění orientace ve vlastním kódu. Knihovna <code>chardet</code> je příliš velká na to, abych její kód vložil do textu této knihy. Ale můžete si ji <a href="http://chardet.feedparser.org/download/">stáhnout z <code>chardet.feedparser.org</code></a>.
 <aside>Detekce kódování je ve skutečnosti v závěsu za detekcí jazyka.</aside>
 <p>Hlavním vstupním bodem detekčního algoritmu je <code>universaldetector.py</code>. Obsahuje jednu třídu, <code>UniversalDetector</code>. (Možná jste mysleli, že hlavním vstupním bodem je funkce <code>detect</code> z <code>chardet/__init__.py</code>. To je ale jen funkce pro zvýšení pohodlí, která vytvoří objekt třídy <code>UniversalDetector</code>, zavolá jej a vrátí jeho výsledek.)
 <p><code>UniversalDetector</code> zvládá pět kategorií kódování:
@@ -290,7 +290,7 @@ else:
 ImportError: No module named constants</samp></pre>
 <p>Co to říká? Jaképak „No module named <code>constants</code>“ (doslova „žádný modul jménem <code>constants</code>“)? Modul <code>constants</code> tam samozřejmě je! Je přímo tady v <code>chardet/constants.py</code>.
 
-<p>Vzpomínáte si, jak skript <code>2to3</code> opravil všechny ty příkazy import? Tato knihovna používá množství relativních importů&nbsp;&mdash;&nbsp;<a href="#multifile-modules">moduly, které importují jiné moduly nacházející se uvnitř stejné knihovny</a>&nbsp;&mdash;, ale <em>v Pythonu 3 se změnila logika relativních importů</em>. V Pythonu 2 jsme mohli jednoduše provést <code>import constants</code> a Python by nejdříve prohledával adresář <code>chardet/</code>. V Pythonu 3 jsou <a href="http://www.python.org/dev/peps/pep-0328" />všechny příkazy import absolutní</a>. Pokud chceme v Pythonu 3 provést relativní import, musíme to říct explicitně:
+<p>Vzpomínáte si, jak skript <code>2to3</code> opravil všechny ty příkazy import? Tato knihovna používá množství relativních importů&nbsp;&mdash;&nbsp;<a href="#multifile-modules">moduly, které importují jiné moduly nacházející se uvnitř stejné knihovny</a>&nbsp;&mdash;, ale <em>v Pythonu 3 se změnila logika relativních importů</em>. V Pythonu 2 jsme mohli jednoduše provést <code>import constants</code> a Python by nejdříve prohledával adresář <code>chardet/</code>. V Pythonu 3 jsou <a href="http://www.python.org/dev/peps/pep-0328/">všechny příkazy import absolutní</a>. Pokud chceme v Pythonu 3 provést relativní import, musíme to říct explicitně:
 <pre class='nd pp'><code>from . import constants</code></pre>
 <p>No moment. Neměl se o tohle postarat skript <code>2to3</code> za nás? No, on to udělal. Ale tento konkrétní příkaz import kombinoval dva typy importu na jednom řádku: relativní import modulu <code>constants</code>, který se nachází uvnitř knihovny, a absolutní import modulu <code>sys</code>, který je předinstalován jako součást pythonovské standardní knihovny. V Pythonu 2 jsme je mohli zkombinovat do jednoho řádku příkazu import. V Pythonu 3 to nejde a skript <code>2to3</code> není dost chytrý na to, aby příkaz import rozdělil na dva.
 <p>Řešení spočívá v ručním rozdělení příkazu import. Takže tento import „dva v jednom“&hellip;
@@ -735,7 +735,7 @@ tests\EUC-JP\arclamp.jp.xml                                  EUC-JP with confide
 .
 .
 316 tests</samp></pre>
-<p>No to mě podrž, ono to funguje! <em><a href="http://www.hampsterdance.com" />/me si trošku zatancuju</a></em> 
+<p>No to mě podrž, ono to funguje! <em><a href="http://www.hampsterdance.com/">/me si trošku zatancuju</a></em> 
 <p class=a>&#x2042; 
 
 <h2 id=summary>Shrnutí</h2>
