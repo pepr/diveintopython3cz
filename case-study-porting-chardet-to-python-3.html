@@ -606,9 +606,9 @@ TypeError: unorderable types: int() >= str()</samp></pre>
     i = self._mNeedToSkipCharNum
     while i &lt; aLen:
 <mark>        order, charLen = self.get_order(aBuf[i:i+2])</mark></code></pre>
-<p>Hele, podívejme. To je náš starý přítel <var>aBuf</var>. Jak už jste mohli odhadnout ze všech předchozích problémů, se kterými jsme se v této kapitole setkali, <var>aBuf</var> je pole bajtů. V tomto místě je metoda <code>feed()</code> nepředává jako celek. Vytváří z něj výřez. Ale jak jsme viděli <a href="#unsupportedoperandtypeforplus">v této kapitole o něco dříve</a>, výřezem z pole bajtů vznikne pole bajtů. Takže parametr <var>aStr</var>, který přebírá metoda <code>get_order()</code>, je pořád pole bajtů. 
-<p>A co se tento kód s <var>aStr</var> pokouší dělat? Získává první prvek z pole bajtů a srovnává jej s jednoznakovým řetězcem. V Pythonu 2 to fungovalo, protože <var>aStr</var> a <var>aBuf</var> byly řetězce a <var>aStr[0]</var> by byl taky řetězec. U řetězců můžeme zjišťovat, zda jsou různé. Ale v Pythonu 3 jsou proměnné <var>aStr</var> a <var>aBuf</var> poli bajtů a <var>aStr[0]</var> je celé číslo. Číslo a řetězec nemůžeme porovnávat na neshodu, aniž jednu z hodnot explicitně nepřevedeme na stejný typ. 
-<p>V tomto případě nemusíme kód komplikovat přidáváním explicitního převodu typu. <var>aStr[0]</var> je celé číslo. Vše, s čím ho srovnáváme, jsou konstanty. Můžeme je změnit z jednoznakových řetězců na čísla. A když už to děláme, změňme také identifikátor <var>aStr</var> na <var>aBuf</var>, protože to ve skutečnosti není řetězec (string). 
+<p>Hele, podívejme. To je náš starý přítel <var>aBuf</var>. Jak už jste mohli odhadnout ze všech předchozích problémů, se kterými jsme se v této kapitole setkali, <var>aBuf</var> je pole bajtů. V tomto místě je metoda <code>feed()</code> nepředává jako celek. Vytváří z něj výřez. Ale jak jsme viděli <a href="#unsupportedoperandtypeforplus">v této kapitole o něco dříve</a>, výřezem z pole bajtů vznikne pole bajtů. Takže parametr <var>aStr</var>, který přebírá metoda <code>get_order()</code>, je pořád pole bajtů.
+<p>A co se tento kód s <var>aStr</var> pokouší dělat? Získává první prvek z pole bajtů a srovnává jej s jednoznakovým řetězcem. V Pythonu 2 to fungovalo, protože <var>aStr</var> a <var>aBuf</var> byly řetězce a <var>aStr[0]</var> by byl taky řetězec. U řetězců můžeme zjišťovat, zda jsou různé. Ale v Pythonu 3 jsou proměnné <var>aStr</var> a <var>aBuf</var> poli bajtů a <var>aStr[0]</var> je celé číslo. Číslo a řetězec nemůžeme porovnávat na neshodu, aniž jednu z hodnot explicitně nepřevedeme na stejný typ.
+<p>V tomto případě nemusíme kód komplikovat přidáváním explicitního převodu typu. <var>aStr[0]</var> je celé číslo. Vše, s čím ho srovnáváme, jsou konstanty. Můžeme je změnit z jednoznakových řetězců na čísla. A když už to děláme, změňme také identifikátor <var>aStr</var> na <var>aBuf</var>, protože to ve skutečnosti není řetězec (string).
 <pre class='nd pp'><code>  class SJISContextAnalysis(JapaneseContextAnalysis):
 <del>-     def get_order(self, aStr):</del>
 <del>-      if not aStr: return -1, 1</del>
@@ -667,10 +667,10 @@ TypeError: unorderable types: int() >= str()</samp></pre>
 <ins>+               return aBuf[1] - 0xA1, charLen</ins>
 
         return -1, charLen</code></pre>
-<p>Hledáním výskytu funkce <code>ord()</code> ve zdrojových textech odkryjeme stejný problém v <code>chardistribution.py</code> (konkrétně ve třídách <code>EUCTWDistributionAnalysis</code>, <code>EUCKRDistributionAnalysis</code>, <code>GB2312DistributionAnalysis</code>, <code>Big5DistributionAnalysis</code>, <code>SJISDistributionAnalysis</code> a <code>EUCJPDistributionAnalysis</code>). Ve všech případech se oprava podobá změnám, které jsme provedli v třídách <code>EUCJPContextAnalysis</code> a <code>SJISContextAnalysis</code> v souboru <code>jpcntx.py</code>. 
+<p>Hledáním výskytu funkce <code>ord()</code> ve zdrojových textech odkryjeme stejný problém v <code>chardistribution.py</code> (konkrétně ve třídách <code>EUCTWDistributionAnalysis</code>, <code>EUCKRDistributionAnalysis</code>, <code>GB2312DistributionAnalysis</code>, <code>Big5DistributionAnalysis</code>, <code>SJISDistributionAnalysis</code> a <code>EUCJPDistributionAnalysis</code>). Ve všech případech se oprava podobá změnám, které jsme provedli v třídách <code>EUCJPContextAnalysis</code> a <code>SJISContextAnalysis</code> v souboru <code>jpcntx.py</code>.
 
-<h3 id=reduceisnotdefined>Globální jméno <code>'reduce'</code> není definováno</h3> 
-<p>Ještě jedna trhlina&hellip; 
+<h3 id=reduceisnotdefined>Globální jméno <code>'reduce'</code> není definováno</h3>
+<p>Ještě jedna trhlina&hellip;
 <pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml                       ascii with confidence 1.0
 tests\Big5\0804.blogspot.com.xml</samp>
@@ -686,21 +686,21 @@ NameError: global name 'reduce' is not defined</samp></pre>
 <pre class='nd pp'><code>def get_confidence(self):
     if self.get_state() == constants.eNotMe:
         return 0.01
-  
+
 <mark>    total = reduce(operator.add, self._mFreqCounter)</mark></code></pre>
-<p>Funkce <code>reduce()</code> přebírá dva argumenty&nbsp;&mdash;&nbsp;funkci a seznam (přesněji řečeno, může to být libovolný iterovatelný objekt)&nbsp;&mdash;&nbsp;a kumulativně aplikuje zadanou funkci na každý z prvků seznamu. Jinými slovy, jde o efektní a nepřímý způsob realizace součtu všech prvků seznamu. 
-<p>Tato obludnost byla tak běžná, že byla do Pythonu přidána globální funkce <code>sum()</code>. 
+<p>Funkce <code>reduce()</code> přebírá dva argumenty&nbsp;&mdash;&nbsp;funkci a seznam (přesněji řečeno, může to být libovolný iterovatelný objekt)&nbsp;&mdash;&nbsp;a kumulativně aplikuje zadanou funkci na každý z prvků seznamu. Jinými slovy, jde o efektní a nepřímý způsob realizace součtu všech prvků seznamu.
+<p>Tato obludnost byla tak běžná, že byla do Pythonu přidána globální funkce <code>sum()</code>.
 <pre class='nd pp'><code>  def get_confidence(self):
       if self.get_state() == constants.eNotMe:
           return 0.01
-  
+
 <del>-     total = reduce(operator.add, self._mFreqCounter)</del>
 <ins>+     total = sum(self._mFreqCounter)</ins></code></pre>
-<p>Protože jsme přestali používat modul <code>operator</code>, můžeme také ze začátku souboru odstranit příslušný příkaz <code>import</code>. 
+<p>Protože jsme přestali používat modul <code>operator</code>, můžeme také ze začátku souboru odstranit příslušný příkaz <code>import</code>.
 <pre class='nd pp'><code>  from .charsetprober import CharSetProber
   from . import constants
 <del>- import operator</del></code></pre>
-<p>A tož, možeme to otestovať? 
+<p>A tož, možeme to otestovať?
 <pre class='nd screen'><samp class=p>C:\home\chardet> </samp><kbd>python test.py tests\*\*</kbd>
 <samp>tests\ascii\howto.diveintomark.org.xml                       ascii with confidence 1.0
 tests\Big5\0804.blogspot.com.xml                             Big5 with confidence 0.99
@@ -735,20 +735,20 @@ tests\EUC-JP\arclamp.jp.xml                                  EUC-JP with confide
 .
 .
 316 tests</samp></pre>
-<p>No to mě podrž, ono to funguje! <em><a href="http://www.hampsterdance.com/">/me si trošku zatancuju</a></em> 
-<p class=a>&#x2042; 
+<p>No to mě podrž, ono to funguje! <em><a href="http://www.hampsterdance.com/">/me si trošku zatancuje</a></em>
+<p class=a>&#x2042;
 
 <h2 id=summary>Shrnutí</h2>
-<p>Co jsme se naučili? 
+<p>Co jsme se naučili?
 <ol>
-<li>Přepisování jakéhokoliv netriviálního kódu z Pythonu 2 do Pythonu 3 bude bolestivé. Nedá se to obejít. Je to obtížné. 
-<li><a href="porting-code-to-python-3-with-2to3.html">Automatický nástroj <code>2to3</code></a> nám částečně pomůže, ale postará se jen o snadnější části&nbsp;&mdash;&nbsp;přejmenování funkcí, přejmenování modulů, úpravy syntaxe. Jde o impozantní kus inženýrské práce, ale koneckonců jde jen o inteligentního robota provádějícího vyhledávání a náhrady. 
-<li>Problémem č. 1 při přepisování této knihovny byl rozdíl mezi řetězci a bajty. V tomto případě se to zdá být zřejmé, protože hlavním účelem knihovny <code>chardet</code> je převod proudu bajtů na řetězec. Ale „s proudem bajtů“ se setkáváme častěji, než byste si mysleli. Čtete soubor v „binárním“ režimu? Dostáváte proud bajtů. Získáváte obsah webovské stránky? Voláte webové aplikační rozhraní? Také se vrací proud bajtů. 
-<li>Programu musíte rozumět <em>vy</em>. Skrz naskrz. Především protože jste ho napsali, ale musíte se vyrovnat se všemi jeho triky a zatuchlými kouty. Chyby jsou všude. 
+<li>Přepisování jakéhokoliv netriviálního kódu z Pythonu 2 do Pythonu 3 bude bolestivé. Nedá se to obejít. Je to obtížné.
+<li><a href="porting-code-to-python-3-with-2to3.html">Automatický nástroj <code>2to3</code></a> nám částečně pomůže, ale postará se jen o snadnější části&nbsp;&mdash;&nbsp;přejmenování funkcí, přejmenování modulů, úpravy syntaxe. Jde o impozantní kus inženýrské práce, ale koneckonců jde jen o inteligentního robota provádějícího vyhledávání a náhrady.
+<li>Problémem č. 1 při přepisování této knihovny byl rozdíl mezi řetězci a bajty. V tomto případě se to zdá být zřejmé, protože hlavním účelem knihovny <code>chardet</code> je převod proudu bajtů na řetězec. Ale „s proudem bajtů“ se setkáváme častěji, než byste si mysleli. Čtete soubor v „binárním“ režimu? Dostáváte proud bajtů. Získáváte obsah webovské stránky? Voláte webové aplikační rozhraní? Také se vrací proud bajtů.
+<li>Programu musíte rozumět <em>vy</em>. Skrz naskrz. Především protože jste ho napsali, ale musíte se vyrovnat se všemi jeho triky a zatuchlými kouty. Chyby jsou všude.
 <li>Testovací případy jsou nepostradatelné. Pokud je nemáte, nic nepřepisujte. <em>Jediný</em> důvod, proč věřím tomu, že <code>chardet</code> funguje v Pythonu 3, spočívá v tom, že jsem začal s testovací sadou, která prověřovala všechny hlavní cesty, kudy se kód ubírá. Pokud žádné testy nemáte, napište je dříve, než začnete přenos do Pythonu 3 realizovat. Pokud máte jen pár testů, napište jich víc. Pokud máte hodně testů, pak teprve může začít opravdová legrace.
 </ol>
 
-<p class=v><a rel="prev" href="http-web-services.html" title="zpět na „Webové služby nad HTTP“"><span class="u">&#x261C;</span></a> <a rel="next" href="packaging.html" title="dopředu na „Balení pythonovských knihoven“"><span class="u">&#x261E;</span></a> 
+<p class=v><a rel="prev" href="http-web-services.html" title="zpět na „Webové služby nad HTTP“"><span class="u">&#x261C;</span></a> <a rel="next" href="packaging.html" title="dopředu na „Balení pythonovských knihoven“"><span class="u">&#x261E;</span></a>
 <p class=c>&copy; 2001&ndash;11 <a href="about.html">Mark Pilgrim</a>
 <script src=j/jquery.js></script>
 <script src=j/prettify.js></script>
