@@ -4,8 +4,8 @@ https://github.com/diveintomark/diveintopython3.git
 
 Majority of the texts here are therefore written in Czech.
 
-Český překlad je k dispozici v podobě Git úložiště 
-https://pepr@github.com/pepr/diveintopython3cz.git
+Český překlad je k dispozici v podobě Git úložiště
+https://github.com/pepr/diveintopython3cz.git
 
 Podadresář examples obsahuje příklady, které jsou součástí výsledných HTML.
 V HTML souborech jsou na příslušných místech umístěny odkazy pro stažení
